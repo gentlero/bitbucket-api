@@ -10,12 +10,11 @@ Simple Bitbucket API wrapper for PHP >= 5.3.2. This library is not finished and 
 
 ## Getting started
 
-1. Install dependencies with composer:
-```bash
-$ php composer.phar install
-```
-
-2. See `examples/` directory.
+  1. Install dependencies with composer:  
+  ```bash
+  $ php composer.phar install
+  ```
+  2. See `examples/` directory.
 
 ## Documentation
 
