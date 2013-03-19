@@ -1,4 +1,5 @@
 # PHP Bitbucket API
+[![Build Status](https://drone.io/bitbucket.org/gentlero/bitbucket-api/status.png)](https://drone.io/bitbucket.org/gentlero/bitbucket-api/latest)
 
 Simple Bitbucket API wrapper for PHP >= 5.3.2. This library is not finished and therefor does not implement entire Bitbucket API for the moment.
 
@@ -10,7 +11,7 @@ Simple Bitbucket API wrapper for PHP >= 5.3.2. This library is not finished and 
 
 ## Getting started
 
-  1. Install dependencies with composer:  
+  1. Install dependencies with composer:
   ```bash
   $ php composer.phar install
   ```
