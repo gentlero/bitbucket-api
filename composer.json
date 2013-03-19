@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Bitbucket API wrapper",
     "version": "3.3",
-    "homepage": "https://bitbucket.org/vimishor/bitbucket-api",
+    "homepage": "https://bitbucket.org/gentlero/bitbucket-api",
     "keywords": ["bitbucket", "api"],
     "license": "MIT",
     "authors": [
