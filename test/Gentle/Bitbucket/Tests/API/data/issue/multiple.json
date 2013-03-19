@@ -1,0 +1,161 @@
+{
+    "count": 5441,
+    "filter": {},
+    "search": null,
+    "issues": [
+        {
+            "status": "new",
+            "priority": "major",
+            "title": "Need Report for Who has What Permissions to all Repos in an Account",
+            "reported_by": {
+                "username": "mikeschinkel",
+                "first_name": "Mike",
+                "last_name": "Schinkel",
+                "display_name": "Mike Schinkel",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/81df87e0d3e269d6fa6a17c6914fd656?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/mikeschinkel"
+            },
+            "utc_last_updated": "2013-01-29 23:42:39+00:00",
+            "comment_count": 0,
+            "metadata": {
+                "kind": "enhancement",
+                "version": null,
+                "component": "repository",
+                "milestone": null
+            },
+            "content": "This feature request comes from [BBS-1966](https://support.atlassian.com/browse/BBS-1966) where I asked:\r\n\r\n> How can I remove someone from ALL repos across 3 orgs? We just let someone go and we have many repos but didn't use group access rights initially. It will take hours to go through all of them and make sure they no longer have access. Is there a way to remove a user in bulk?\r\n\r\nTo which was replied:\r\n\r\n> Sorry to say this isn't possible. This was the intention of creating group access rights. Going forward, if you have someone in a group, this shouldn't be an issue. Sadly I don't even have a way to do this efficiently.\r\n\r\nTo which I replied: \r\n\r\n> Can I suggest it would be very helpful to add tools that allow us to query repos and see who is on what repo and to bulk move a user from individual repos and add them to a group? If you did that it would make transitioning to groups much easier so more organizations would be able to use them more quickly.\r\n\r\nTo which I was told to add a ticket here. Which I did. :)",
+            "created_on": "2013-01-30 00:42:39",
+            "local_id": 6152,
+            "follower_count": 1,
+            "utc_created_on": "2013-01-29 23:42:39+00:00",
+            "resource_uri": "/1.0/repositories/site/master/issues/6152",
+            "is_spam": false
+        },
+        {
+            "status": "resolved",
+            "priority": "major",
+            "title": "Subrepository changeset links are broken (BB-4882)",
+            "reported_by": {
+                "username": "mg",
+                "first_name": "Martin",
+                "last_name": "Geisler",
+                "display_name": "Martin Geisler",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/6bf0300fc4a5c9012fd254d3da2a6e69?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/mg"
+            },
+            "utc_last_updated": "2013-01-29 22:45:02+00:00",
+            "comment_count": 1,
+            "metadata": {
+                "kind": "bug",
+                "version": null,
+                "component": null,
+                "milestone": null
+            },
+            "content": "If you go to a repository that contain subrepositories, such as\r\n\r\n* https://bitbucket.org/tortoisehg/thg-build/src\r\n\r\nthen you see nice links to the subrepos. The links to the subrepos themselves are fine, but the links to the changesets (the link in square brackets) has a doubled slashes:\r\n\r\n* https://bitbucket.org/abderrahim/dulwich//changeset/71b73697d24b\r\n\r\nClicking the link gives a 404 error.\r\n\r\nThe spacing between subrepo name and the square brackets is also inconsistent: if the subrepo revision is not a link, the leading space is missing.",
+            "created_on": "2012-07-20 21:46:35",
+            "local_id": 4358,
+            "follower_count": 1,
+            "utc_created_on": "2012-07-20 19:46:35+00:00",
+            "resource_uri": "/1.0/repositories/site/master/issues/4358",
+            "is_spam": false
+        },
+        {
+            "status": "resolved",
+            "priority": "trivial",
+            "title": "Certificate not trusted on Chrome",
+            "reported_by": {
+                "username": "ricardocamposSEA",
+                "first_name": "Ricardo",
+                "last_name": "Campos",
+                "display_name": "Ricardo Campos",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/1306d164de52ea102d18d5cd69ee0199?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/ricardocamposSEA"
+            },
+            "utc_last_updated": "2013-01-29 19:28:09+00:00",
+            "responsible": {
+                "username": "cmclaughlin",
+                "first_name": "Charles",
+                "last_name": "McLaughlin",
+                "display_name": "Charles McLaughlin",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/934eea5cb6108cd7dc4ea5c3fc82a685?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/cmclaughlin"
+            },
+            "comment_count": 9,
+            "metadata": {
+                "kind": "bug",
+                "version": null,
+                "component": "usability",
+                "milestone": null
+            },
+            "content": "Does anyony knows why this happens? I have to open bitbucket.org on Firefox or Safari then go back do Chrome to make it work.\r\n\r\nSomething in my network?\r\n\r\n\"The site's security certificate is not trusted!\r\nYou attempted to reach bitbucket.org, but the server presented a certificate issued by an entity that is not trusted by your computer's operating system. This may mean that the server has generated its own security credentials, which Google Chrome cannot rely on for identity information, or an attacker may be trying to intercept your communications.\r\nYou cannot proceed because the website operator has requested heightened security for this domain.\"\r\n\r\nOpening in Firefox or Safari also makes a security dialog appears, but it lets me accept the exception and go forward.\r\n\r\nThanks!",
+            "created_on": "2013-01-28 14:47:25",
+            "local_id": 6139,
+            "follower_count": 1,
+            "utc_created_on": "2013-01-28 13:47:25+00:00",
+            "resource_uri": "/1.0/repositories/site/master/issues/6139",
+            "is_spam": false
+        },
+        {
+            "status": "new",
+            "priority": "major",
+            "title": "Customizable default priority for issue reporting",
+            "reported_by": {
+                "username": "tony007",
+                "first_name": "Antonio",
+                "last_name": "Dragone",
+                "display_name": "Antonio Dragone",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/cb73375358fe708220fcc3a1cca5dd22?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/tony007"
+            },
+            "utc_last_updated": "2013-01-29 18:56:32+00:00",
+            "comment_count": 0,
+            "metadata": {
+                "kind": "enhancement",
+                "version": null,
+                "component": "issuetracker",
+                "milestone": null
+            },
+            "content": "It would be very useful to have an option to set the default value for priority the same way you set default values for components, milestones and versions.",
+            "created_on": "2013-01-29 19:56:32",
+            "local_id": 6150,
+            "follower_count": 1,
+            "utc_created_on": "2013-01-29 18:56:32+00:00",
+            "resource_uri": "/1.0/repositories/site/master/issues/6150",
+            "is_spam": false
+        },
+        {
+            "status": "new",
+            "priority": "minor",
+            "title": "@String in comments",
+            "reported_by": {
+                "username": "Freezzz",
+                "first_name": "Ivan",
+                "last_name": "Litsvinenka",
+                "display_name": "Ivan Litsvinenka",
+                "is_team": false,
+                "avatar": "https://secure.gravatar.com/avatar/3ecb95a8f9ff390d03fdc6273a8f63dd?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+                "resource_uri": "/1.0/users/Freezzz"
+            },
+            "utc_last_updated": "2013-01-28 21:22:10+00:00",
+            "comment_count": 2,
+            "metadata": {
+                "kind": "bug",
+                "version": null,
+                "component": null,
+                "milestone": null
+            },
+            "content": "If in comments i refer code containing \"@String\" that is something common for Android dev, it autolinks to user profile Joe Martinez profile, is there any way to avoid it? \r\n\r\nSting in discussion is \r\n\r\n```\r\n#!java\r\n\r\n@String\r\n```",
+            "created_on": "2013-01-28 22:21:24",
+            "local_id": 6145,
+            "follower_count": 1,
+            "utc_created_on": "2013-01-28 21:21:24+00:00",
+            "resource_uri": "/1.0/repositories/site/master/issues/6145",
+            "is_spam": false
+        }
+    ]
+}

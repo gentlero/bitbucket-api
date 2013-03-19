@@ -1,0 +1,23 @@
+{
+    "count": 4,
+    "followers": [
+        {
+            "username": "ches",
+            "first_name": "Ches",
+            "last_name": "Martin",
+            "display_name": "Ches Martin",
+            "is_team": false,
+            "avatar": "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2008/Sep/05/mr_pensive_avatar.jpg",
+            "resource_uri": "/1.0/users/ches"
+        },
+        {
+            "username": "techtonik",
+            "first_name": "anatoly",
+            "last_name": "techtonik",
+            "display_name": "anatoly techtonik",
+            "is_team": false,
+            "avatar": "https://secure.gravatar.com/avatar/9d7e611f31c52f4d62bbe279d4f334de?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+            "resource_uri": "/1.0/users/techtonik"
+        }
+    ]
+}

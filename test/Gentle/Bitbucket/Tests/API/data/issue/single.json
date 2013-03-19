@@ -1,0 +1,38 @@
+{
+    "status": "on hold",
+    "priority": "major",
+    "title": "Make patch queues qclone compatible",
+    "reported_by": {
+        "username": "parren",
+        "first_name": "Peter",
+        "last_name": "Arrenbrecht",
+        "display_name": "Peter Arrenbrecht",
+        "is_team": false,
+        "avatar": "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2008/Aug/08/me-mini-square_avatar.jpg",
+        "resource_uri": "/1.0/users/parren"
+    },
+    "utc_last_updated": "2009-01-03 09:27:44+00:00",
+    "responsible": {
+        "username": "jespern",
+        "first_name": "Jesper",
+        "last_name": "Noehr",
+        "display_name": "Jesper Noehr",
+        "is_team": false,
+        "avatar": "https://secure.gravatar.com/avatar/191bc8371e6b2ad27f36f55fb6e26bcb?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F05ffba65bb11%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+        "resource_uri": "/1.0/users/jespern"
+    },
+    "comment_count": 7,
+    "metadata": {
+        "kind": "bug",
+        "version": null,
+        "component": null,
+        "milestone": null
+    },
+    "content": "A while ago I taught qclone about cloning remote repos+queues. This works if the remote side is structured as\r\n\r\n  /path/to/repo  # base repo\r\n  /path/to/repo/.hg/patches  # queue repo\r\n\r\nSo it would be interesting if Bitbucket could support two things:\r\n\r\na) When creating a patch queue, it would be handy if one could create it into an existing or newly created fork of the base repo. This would allow for qclone, and it would also clearly document the revision the queue is based on.\r\n\r\nb) As an option, it might be interesting if Bitbucket would support some form of pushing and popping patches on the queue's base repo. This would be handy to review the actual effect of the patches online. I guess this option would have to be reserved to the queue owner(s).\r\n\r\n(I am working on an hg extension, rclone, that supports a similiar idea: http://freehg.org/u/parren/rexec/.)",
+    "created_on": "2008-06-25 07:58:16",
+    "local_id": 3,
+    "follower_count": 4,
+    "utc_created_on": "2008-06-25 05:58:16+00:00",
+    "resource_uri": "/1.0/repositories/site/master/issues/3",
+    "is_spam": false
+}
