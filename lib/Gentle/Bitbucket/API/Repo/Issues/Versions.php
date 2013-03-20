@@ -69,4 +69,22 @@ class Versions extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Update an existing version
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $versionID The version identifier.
+     * @param  string $name      The version name to update.
+     * @return mixed
+     */
+    public function update($account, $repo, $versionID, $name)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/issues/versions/%d', $account, $repo, $versionID),
+            array('name' => $name)
+        );
+    }
 }
