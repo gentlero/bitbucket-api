@@ -1,6 +1,6 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repo;
+namespace Gentle\Bitbucket\Tests\API\Repo\Issues;
 
 use Gentle\Bitbucket\Tests\API as Tests;
 use Gentle\Bitbucket\API;
@@ -12,7 +12,7 @@ class CommentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3/comments/2967835';
         $expectedResult = json_encode('dummy');
 
-        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Comments');
+        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Comments');
         $comments->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
@@ -29,7 +29,7 @@ class CommentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3/comments';
         $expectedResult = json_encode('dummy');
 
-        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Comments');
+        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Comments');
         $comments->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
@@ -46,7 +46,7 @@ class CommentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/2/comments';
         $params         = array('content' => 'dummy');
 
-        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Comments');
+        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Comments');
         $comments->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
@@ -60,7 +60,7 @@ class CommentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/2/comments/3';
         $params         = array('content' => 'dummy');
 
-        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Comments');
+        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Comments');
         $comments->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
