@@ -40,4 +40,18 @@ class VersionsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateVersionSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/versions';
+        $params         = array('name' => 'dummy');
+
+        $version = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Versions');
+        $version->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $version \Gentle\Bitbucket\API\Repo\Issues\Versions */
+        $version->create('gentle', 'eof', 'dummy');
+    }
 }
