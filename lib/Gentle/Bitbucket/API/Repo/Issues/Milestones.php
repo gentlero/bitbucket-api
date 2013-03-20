@@ -36,4 +36,20 @@ class Milestones extends API\Api
             sprintf('repositories/%s/%s/issues/milestones', $account, $repo)
         );
     }
+
+    /**
+     * Get an individual milestone
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $milestoneID The component identifier.
+     * @return mixed
+     */
+    public function get($account, $repo, $milestoneID)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/issues/milestones/%d', $account, $repo, $milestoneID)
+        );
+    }
 }

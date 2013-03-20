@@ -23,4 +23,21 @@ class MilestonesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleMilestoneSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/milestones/2';
+        $expectedResult = json_encode('dummy');
+
+        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Milestones');
+        $milestone->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $milestone \Gentle\Bitbucket\API\Repo\Issues\Milestones */
+        $actual = $milestone->get('gentle', 'eof', 2);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
