@@ -69,4 +69,22 @@ class Milestones extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Update an existing milestone
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $milestoneID The milestone identifier.
+     * @param  string $name        The milestone name to update.
+     * @return mixed
+     */
+    public function update($account, $repo, $milestoneID, $name)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/issues/milestones/%d', $account, $repo, $milestoneID),
+            array('name' => $name)
+        );
+    }
 }
