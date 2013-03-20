@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Gentle\Bitbucket\API\Repo;
+namespace Gentle\Bitbucket\API\Repo\Issues;
 
 use Gentle\Bitbucket\API;
 

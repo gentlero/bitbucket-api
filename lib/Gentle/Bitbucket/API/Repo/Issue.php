@@ -12,7 +12,7 @@
 namespace Gentle\Bitbucket\API\Repo;
 
 use Gentle\Bitbucket\API;
-use Gentle\Bitbucket\API\Repo;
+use Gentle\Bitbucket\API\Repo\Issues;
 
 /**
  * Issue class
@@ -146,7 +146,7 @@ class Issue extends API\Api
      */
     public function comments()
     {
-        $comments = new Repo\Comments( $this->client );
+        $comments = new Issues\Comments( $this->client );
 
         if ( !is_null($this->auth)) {
             $comments->setCredentials( $this->auth );
