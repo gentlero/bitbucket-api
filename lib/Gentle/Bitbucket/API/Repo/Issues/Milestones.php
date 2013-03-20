@@ -87,4 +87,20 @@ class Milestones extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Delete an existing milestone
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $milestoneID The milestone identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $milestoneID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/issues/milestones/%d', $account, $repo, $milestoneID)
+        );
+    }
 }

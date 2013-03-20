@@ -68,4 +68,17 @@ class MilestonesTest extends Tests\TestCase
         /** @var $milestone \Gentle\Bitbucket\API\Repo\Issues\Milestones */
         $milestone->update('gentle', 'eof', 3, 'dummy');
     }
+
+    public function testDeleteMilestoneSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/milestones/3';
+
+        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Milestones');
+        $milestone->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $milestone \Gentle\Bitbucket\API\Repo\Issues\Milestones */
+        $milestone->delete('gentle', 'eof', 3);
+    }
 }
