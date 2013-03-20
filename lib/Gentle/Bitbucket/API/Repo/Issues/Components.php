@@ -67,4 +67,22 @@ class Components extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Update an existing component
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $componentID The component identifier.
+     * @param  string $name        The component name to update.
+     * @return mixed
+     */
+    public function update($account, $repo, $componentID, $name)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/issues/components/%d', $account, $repo, $componentID),
+            array('name' => $name)
+        );
+    }
 }
