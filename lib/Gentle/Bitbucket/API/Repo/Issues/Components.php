@@ -14,7 +14,7 @@ namespace Gentle\Bitbucket\API\Repo\Issues;
 use Gentle\Bitbucket\API;
 
 /**
- * Comments class
+ * Components class
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */

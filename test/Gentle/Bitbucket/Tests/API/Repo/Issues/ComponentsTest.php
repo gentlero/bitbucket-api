@@ -18,7 +18,7 @@ class ComponentsTest extends Tests\TestCase
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $components\Gentle\Bitbucket\API\Repo\Issues\Components */
+        /** @var $components \Gentle\Bitbucket\API\Repo\Issues\Components */
         $actual = $components->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);

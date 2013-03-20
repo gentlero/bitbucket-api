@@ -172,4 +172,22 @@ class Issue extends API\Api
 
         return $components;
     }
+
+    /**
+     * Get versions
+     *
+     * @access public
+     * @return Issues\Versions
+     * @codeCoverageIgnore
+     */
+    public function versions()
+    {
+        $versions = new Issues\Versions( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $versions->setCredentials( $this->auth );
+        }
+
+        return $versions;
+    }
 }
