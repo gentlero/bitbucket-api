@@ -87,4 +87,20 @@ class Versions extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Delete an existing version
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $versionID The version identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $versionID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/issues/versions/%d', $account, $repo, $versionID)
+        );
+    }
 }

@@ -68,4 +68,17 @@ class VersionsTest extends Tests\TestCase
         /** @var $version \Gentle\Bitbucket\API\Repo\Issues\Versions */
         $version->update('gentle', 'eof', 3, 'dummy');
     }
+
+    public function testDeleteVersionSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/versions/3';
+
+        $version = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Versions');
+        $version->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $version \Gentle\Bitbucket\API\Repo\Issues\Versions */
+        $version->delete('gentle', 'eof', 3);
+    }
 }
