@@ -23,4 +23,21 @@ class VersionsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleVersionSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/versions/2';
+        $expectedResult = json_encode('dummy');
+
+        $version = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Versions');
+        $version->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $version \Gentle\Bitbucket\API\Repo\Issues\Versions */
+        $actual = $version->get('gentle', 'eof', 2);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
