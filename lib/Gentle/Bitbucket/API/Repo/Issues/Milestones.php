@@ -43,13 +43,30 @@ class Milestones extends API\Api
      * @access public
      * @param  string $account     The team or individual account owning the repository.
      * @param  string $repo        The repository identifier.
-     * @param  int    $milestoneID The component identifier.
+     * @param  int    $milestoneID The milestone identifier.
      * @return mixed
      */
     public function get($account, $repo, $milestoneID)
     {
         return $this->requestGet(
             sprintf('repositories/%s/%s/issues/milestones/%d', $account, $repo, $milestoneID)
+        );
+    }
+
+    /**
+     * Add a new milestone
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $name    The milestone name to create.
+     * @return mixed
+     */
+    public function create($account, $repo, $name)
+    {
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/issues/milestones', $account, $repo),
+            array('name' => $name)
         );
     }
 }

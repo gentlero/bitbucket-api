@@ -40,4 +40,18 @@ class MilestonesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateMilestoneSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/milestones';
+        $params         = array('name' => 'dummy');
+
+        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Milestones');
+        $milestone->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $milestone \Gentle\Bitbucket\API\Repo\Issues\Milestones */
+        $milestone->create('gentle', 'eof', 'dummy');
+    }
 }
