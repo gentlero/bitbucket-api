@@ -18,7 +18,7 @@ class CommentsTest extends Tests\TestCase
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $comments \Gentle\Bitbucket\API\Repo\Issue */
+        /** @var $comments \Gentle\Bitbucket\API\Repo\Issues\Comments */
         $actual = $comments->get('gentle', 'eof', 3, 2967835);
 
         $this->assertEquals($expectedResult, $actual);
@@ -35,7 +35,7 @@ class CommentsTest extends Tests\TestCase
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $comments \Gentle\Bitbucket\API\Repo\Issue */
+        /** @var $comments \Gentle\Bitbucket\API\Repo\Issues\Comments */
         $actual = $comments->all('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -51,7 +51,7 @@ class CommentsTest extends Tests\TestCase
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $comments \Gentle\Bitbucket\API\Repo\Issue */
+        /** @var $comments \Gentle\Bitbucket\API\Repo\Issues\Comments */
         $comments->create('gentle', 'eof', '2', 'dummy');
     }
 
@@ -65,7 +65,7 @@ class CommentsTest extends Tests\TestCase
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $comments \Gentle\Bitbucket\API\Repo\Issue */
+        /** @var $comments \Gentle\Bitbucket\API\Repo\Issues\Comments */
         $comments->update('gentle', 'eof', 2, 3, 'dummy');
     }
 }
