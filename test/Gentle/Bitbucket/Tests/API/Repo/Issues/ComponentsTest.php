@@ -35,9 +35,23 @@ class ComponentsTest extends Tests\TestCase
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $components\Gentle\Bitbucket\API\Repo\Issues\Components */
+        /** @var $components \Gentle\Bitbucket\API\Repo\Issues\Components */
         $actual = $components->get('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
+    }
+
+    public function testCreateComponentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/components';
+        $params         = array('name' => 'dummy');
+
+        $component = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Components');
+        $component->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $component \Gentle\Bitbucket\API\Repo\Issues\Components */
+        $component->create('gentle', 'eof', 'dummy');
     }
 }

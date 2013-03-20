@@ -50,4 +50,21 @@ class Components extends API\Api
             sprintf('repositories/%s/%s/issues/components/%d', $account, $repo, $componentID)
         );
     }
+
+    /**
+     * Add a new component
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $name    The component name to create.
+     * @return mixed
+     */
+    public function create($account, $repo, $name)
+    {
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/issues/components', $account, $repo),
+            array('name' => $name)
+        );
+    }
 }
