@@ -34,4 +34,20 @@ class Components extends API\Api
             sprintf('repositories/%s/%s/issues/components', $account, $repo)
         );
     }
+
+    /**
+     * Get an individual component
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $componentID The component identifier.
+     * @return mixed
+     */
+    public function get($account, $repo, $componentID)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/issues/components/%d', $account, $repo, $componentID)
+        );
+    }
 }
