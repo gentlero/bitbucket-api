@@ -68,4 +68,17 @@ class ComponentsTest extends Tests\TestCase
         /** @var $component \Gentle\Bitbucket\API\Repo\Issues\Components */
         $component->update('gentle', 'eof', 3, 'dummy');
     }
+
+    public function testDeleteComponentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/issues/components/3';
+
+        $component = $this->getApiMock('Gentle\Bitbucket\API\Repo\Issues\Components');
+        $component->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $component \Gentle\Bitbucket\API\Repo\Issues\Components */
+        $component->delete('gentle', 'eof', 3);
+    }
 }

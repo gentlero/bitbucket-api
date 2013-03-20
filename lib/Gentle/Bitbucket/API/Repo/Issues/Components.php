@@ -85,4 +85,20 @@ class Components extends API\Api
             array('name' => $name)
         );
     }
+
+    /**
+     * Delete an existing component
+     *
+     * @access public
+     * @param  string $account     The team or individual account owning the repository.
+     * @param  string $repo        The repository identifier.
+     * @param  int    $componentID The component identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $componentID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/issues/components/%d', $account, $repo, $componentID)
+        );
+    }
 }
