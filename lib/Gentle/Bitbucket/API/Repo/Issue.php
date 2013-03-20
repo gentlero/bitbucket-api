@@ -141,7 +141,7 @@ class Issue extends API\Api
      * Get comments
      *
      * @access public
-     * @return Repo\Comments
+     * @return Issues\Comments
      * @codeCoverageIgnore
      */
     public function comments()
@@ -155,4 +155,21 @@ class Issue extends API\Api
         return $comments;
     }
 
+    /**
+     * Get components
+     *
+     * @access public
+     * @return Issues\Components
+     * @codeCoverageIgnore
+     */
+    public function components()
+    {
+        $components = new Issues\Components( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $components->setCredentials( $this->auth );
+        }
+
+        return $components;
+    }
 }
