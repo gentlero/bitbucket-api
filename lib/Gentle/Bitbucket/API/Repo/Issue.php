@@ -190,4 +190,22 @@ class Issue extends API\Api
 
         return $versions;
     }
+
+    /**
+     * Get milestones
+     *
+     * @access public
+     * @return Issues\Milestones
+     * @codeCoverageIgnore
+     */
+    public function milestones()
+    {
+        $milestones = new Issues\Milestones( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $milestones->setCredentials( $this->auth );
+        }
+
+        return $milestones;
+    }
 }
