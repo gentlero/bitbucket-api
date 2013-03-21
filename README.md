@@ -1,5 +1,5 @@
 # PHP Bitbucket API
-[![Build Status](https://drone.io/bitbucket.org/gentlero/bitbucket-api/status.png)](https://drone.io/bitbucket.org/gentlero/bitbucket-api/latest)
+[![Build Status](https://travis-ci.org/gentlero/bitbucket-api.png?branch=develop)](https://travis-ci.org/gentlero/bitbucket-api])
 
 Simple Bitbucket API wrapper for PHP >= 5.3.2. This library is not finished and therefor does not implement entire Bitbucket API for the moment.
 
