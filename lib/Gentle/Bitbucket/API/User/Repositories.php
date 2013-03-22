@@ -32,4 +32,15 @@ class Repositories extends API\Api
     {
         return $this->requestGet('user/repositories');
     }
+
+    /**
+     * Get a list of repositories the account is following
+     *
+     * @access public
+     * @return mixed
+     */
+    public function overview()
+    {
+        return $this->requestGet('user/repositories/overview');
+    }
 }
