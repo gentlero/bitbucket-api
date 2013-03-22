@@ -55,4 +55,15 @@ class User extends Api
     {
         return $this->requestGet('user/privileges');
     }
+
+    /**
+     * Get a list of repositories an account follows
+     *
+     * @access public
+     * @return mixed
+     */
+    public function follows()
+    {
+        return $this->requestGet('user/follows');
+    }
 }

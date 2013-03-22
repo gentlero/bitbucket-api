@@ -62,4 +62,21 @@ class UserTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetUserRepositoriesFollowSuccess()
+    {
+        $endpoint       = 'user/follows';
+        $expectedResult = json_encode('dummy');
+
+        $user = $this->getApiMock('\Gentle\Bitbucket\API\User');
+        $user->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult));
+
+        /** @var $user \Gentle\Bitbucket\API\User */
+        $actual = $user->follows();
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
