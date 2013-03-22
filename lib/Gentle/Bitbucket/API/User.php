@@ -45,6 +45,12 @@ class User extends Api
         return $this->requestPut('user/', $options);
     }
 
+    /**
+     * Get a list of user privileges
+     *
+     * @access public
+     * @return mixed
+     */
     public function privileges()
     {
         return $this->requestGet('user/privileges');
