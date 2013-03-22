@@ -66,4 +66,22 @@ class User extends Api
     {
         return $this->requestGet('user/follows');
     }
+
+    /**
+     * Get repositories
+     *
+     * @access public
+     * @return User\Repositories
+     * @codeCoverageIgnore
+     */
+    public function repositories()
+    {
+        $repositories = new User\Repositories( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $repositories->setCredentials( $this->auth );
+        }
+
+        return $repositories;
+    }
 }
