@@ -23,4 +23,21 @@ class UserTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testUpdateUserSuccess()
+    {
+        $endpoint   = 'user/';
+        $params     = array(
+            'first_name'    => 'John',
+            'last_name'     => 'Doe'
+        );
+
+        $user = $this->getApiMock('\Gentle\Bitbucket\API\User');
+        $user->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $user \Gentle\Bitbucket\API\User */
+        $user->update($params);
+    }
 }

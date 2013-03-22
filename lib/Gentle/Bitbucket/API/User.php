@@ -30,4 +30,18 @@ class User extends Api
     {
         return $this->requestGet('user/');
     }
+
+    /**
+     * Update user
+     *
+     * @access public
+     * @param  array $options Filed->value pair of account settings
+     * @return mixed
+     *
+     * @see https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint#userEndpoint-Updateauser
+     */
+    public function update(array $options)
+    {
+        return $this->requestPut('user/', $options);
+    }
 }
