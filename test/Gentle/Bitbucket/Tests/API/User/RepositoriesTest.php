@@ -56,4 +56,21 @@ class RepositoriesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetUserRepositoriesDashboardSuccess()
+    {
+        $endpoint       = 'user/repositories/dashboard';
+        $expectedResult = json_encode('dummy');
+
+        $repositories = $this->getApiMock('\Gentle\Bitbucket\API\User\Repositories');
+        $repositories->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult));
+
+        /** @var $repositories \Gentle\Bitbucket\API\User\Repositories */
+        $actual = $repositories->dashboard();
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

@@ -43,4 +43,15 @@ class Repositories extends API\Api
     {
         return $this->requestGet('user/repositories/overview');
     }
+
+    /**
+     * Get the list of repositories on the dashboard
+     *
+     * @access public
+     * @return mixed
+     */
+    public function dashboard()
+    {
+        return $this->requestGet('user/repositories/dashboard');
+    }
 }
