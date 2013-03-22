@@ -44,4 +44,9 @@ class User extends Api
     {
         return $this->requestPut('user/', $options);
     }
+
+    public function privileges()
+    {
+        return $this->requestGet('user/privileges');
+    }
 }

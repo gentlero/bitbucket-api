@@ -40,4 +40,26 @@ class UserTest extends Tests\TestCase
         /** @var $user \Gentle\Bitbucket\API\User */
         $user->update($params);
     }
+
+    public function testGetUserPrivilegesSuccess()
+    {
+        $endpoint       = 'user/privileges';
+        $expectedResult = json_encode(array(
+                'teams' => array(
+                    'team1' => 'admin',
+                    'team2' => 'admin'
+                )
+            ));
+
+        $user = $this->getApiMock('\Gentle\Bitbucket\API\User');
+        $user->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult));
+
+        /** @var $user \Gentle\Bitbucket\API\User */
+        $actual = $user->privileges();
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
