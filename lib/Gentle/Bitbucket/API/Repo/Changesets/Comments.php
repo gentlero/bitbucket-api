@@ -61,10 +61,10 @@ class Comments extends API\Api
      * Available `$options`:
      *
      * <example>
-     * 'line_from'  (int)       = An integer representing the starting line of the comment.
-     * 'line_to'    (int)       = An integer representing the ending line of the comment.
-     * 'parent_id'  (int)       = An integer representing the unique ID of comment to which this is a reply.
-     * 'filename'   (string)    = A String representing a filename in the changeset to which this comment applies.
+     * 'line_from'  (int) = An integer representing the starting line of the comment.
+     * 'line_to'    (int) = An integer representing the ending line of the comment.
+     * 'parent_id'  (int) = An integer representing the unique ID of comment to which this is a reply.
+     * 'filename'   (string) = A String representing a filename in the changeset to which this comment applies.
      * </example>
      *
      * @access public
@@ -81,6 +81,36 @@ class Comments extends API\Api
     {
         return $this->requestPost(
             sprintf('repositories/%s/%s/changesets/%s/comments', $account, $repo, $node),
+            array_merge(array('content' => $content), $options)
+        );
+    }
+
+    /**
+     * Update an existing changeset comment
+     *
+     * Available `$options`:
+     *
+     * <example>
+     * 'line_from'  (int) = An integer representing the starting line of the comment.
+     * 'line_to'    (int) = An integer representing the ending line of the comment.
+     * 'parent_id'  (int) = An integer representing the unique ID of comment to which this is a reply.
+     * 'filename'   (string) = A String representing a filename in the changeset to which this comment applies.
+     * </example>
+     *
+     * @param string $account   The team or individual account owning the repo.
+     * @param string $repo      The repo identifier.
+     * @param string $node      The raw_node changeset identifier.
+     * @param int    $commentID The comment identifier.
+     * @param string $content   Comment content.
+     * @param array  $options   The rest of available options
+     * @return mixed
+     *
+     * @see https://confluence.atlassian.com/display/BITBUCKET/changesets+Resource#changesetsResource-PUTanupdatetoanexistingchangesetcomment
+     */
+    public function update($account, $repo, $node, $commentID, $content, $options = array())
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/changesets/%s/comments/%d', $account, $repo, $node, $commentID),
             array_merge(array('content' => $content), $options)
         );
     }
