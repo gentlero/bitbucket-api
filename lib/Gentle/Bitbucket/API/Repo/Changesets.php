@@ -105,4 +105,22 @@ class Changesets extends API\Api
      */
     public function likes($account, $repo, $node)
     {}
+
+    /**
+     * Get comments
+     *
+     * @access public
+     * @return Changesets\Comments
+     * @codeCoverageIgnore
+     */
+    public function comments()
+    {
+        $comments = new Changesets\Comments( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $comments->setCredentials( $this->auth );
+        }
+
+        return $comments;
+    }
 }
