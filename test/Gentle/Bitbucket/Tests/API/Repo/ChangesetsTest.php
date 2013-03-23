@@ -27,4 +27,21 @@ class ChangesetsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSpecificChangesetSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/changesets/aea95f1';
+        $expectedResult = json_encode('dummy');
+
+        $changesets = $this->getApiMock('Gentle\Bitbucket\API\Repo\Changesets');
+        $changesets->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $changesets \Gentle\Bitbucket\API\Repo\Changesets */
+        $actual = $changesets->get('gentle', 'eof', 'aea95f1', 15);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
