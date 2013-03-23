@@ -37,4 +37,21 @@ class Comments extends API\Api
             sprintf('repositories/%s/%s/changesets/%s/comments', $account, $repo, $node)
         );
     }
+
+    /**
+     * Get a list of comments on a changeset
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repo.
+     * @param  string $repo      The repository identifier.
+     * @param  string $node      The raw_node changeset identifier.
+     * @param  int    $commentID The comment identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $node, $commentID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/changesets/%s/comments/%d', $account, $repo, $node, $commentID)
+        );
+    }
 }
