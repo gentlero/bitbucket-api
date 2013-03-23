@@ -32,7 +32,7 @@ class Changesets extends API\Api
      * @param  int    $limit   How many changesets to return
      * @return mixed
      */
-    public function get($account, $repo, $start = null, $limit = 15)
+    public function all($account, $repo, $start = null, $limit = 15)
     {
         return $this->requestGet(
             sprintf('repositories/%s/%s/changesets', $account, $repo, $start, $limit),

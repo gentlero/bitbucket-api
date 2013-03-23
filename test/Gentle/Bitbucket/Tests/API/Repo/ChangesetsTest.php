@@ -7,7 +7,7 @@ use Gentle\Bitbucket\API;
 
 class ChangesetsTest extends Tests\TestCase
 {
-    public function testGetChangesetsSuccess()
+    public function testGetAllChangesetsSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/changesets';
         $expectedResult = json_encode('dummy');
@@ -23,7 +23,7 @@ class ChangesetsTest extends Tests\TestCase
             ->will( $this->returnValue($expectedResult) );
 
         /** @var $changesets \Gentle\Bitbucket\API\Repo\Changesets */
-        $actual = $changesets->get('gentle', 'eof', 'aea95f1', 15);
+        $actual = $changesets->all('gentle', 'eof', 'aea95f1', 15);
 
         $this->assertEquals($expectedResult, $actual);
     }
