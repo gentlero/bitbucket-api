@@ -58,4 +58,20 @@ class Changesets extends API\Api
             sprintf('repositories/%s/%s/changesets/%s', $account, $repo, $node)
         );
     }
+
+    /**
+     * Get statistics associated with an individual changeset
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repo.
+     * @param  string $repo    The repository identifier.
+     * @param  string $node    The raw_node changeset identifier.
+     * @return mixed
+     */
+    public function diffstat($account, $repo, $node)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/changesets/%s/diffstat', $account, $repo, $node)
+        );
+    }
 }
