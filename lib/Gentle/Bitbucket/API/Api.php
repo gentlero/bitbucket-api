@@ -173,7 +173,9 @@ class Api
         $request    = new Message\Request;
         $response   = new Message\Response;
 
-        $params['format'] = $this->format;
+        if (strtoupper($method) != 'POST') {
+            $params['format'] = $this->format;
+        }
 
         $request->setMethod($method);
         $request->setProtocolVersion(1.1);

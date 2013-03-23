@@ -36,4 +36,18 @@ class CommentsTest extends Tests\TestCase
         /** @var $comments \Gentle\Bitbucket\API\Repo\Changesets\Comments */
         $comments->delete('gentle', 'eof', 'aea95f1', 3);
     }
+
+    public function testCreateCommentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/changesets/aea95f1/comments';
+        $params         = array('content' => 'dummy comment');
+
+        $comments = $this->getApiMock('Gentle\Bitbucket\API\Repo\Changesets\Comments');
+        $comments->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $comments \Gentle\Bitbucket\API\Repo\Changesets\Comments */
+        $comments->create('gentle', 'eof', 'aea95f1', 'dummy comment');
+    }
 }
