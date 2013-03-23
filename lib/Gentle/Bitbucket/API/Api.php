@@ -202,8 +202,6 @@ class Api
      *
      * @throws Authentication\Exception
      * @throws ForbiddenAccessException
-     *
-     * codeCoverageIgnore
      */
     protected function processResponse(Message\MessageInterface $response)
     {
