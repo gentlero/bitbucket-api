@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the bitbucket_api package.
+ * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
  *
