@@ -37,4 +37,20 @@ class Links extends API\Api
             sprintf('repositories/%s/%s/links', $account, $repo)
         );
     }
+
+    /**
+     * Get a link
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  int    $linkID  The link id.
+     * @return mixed
+     */
+    public function get($account, $repo, $linkID)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/links/%d', $account, $repo, $linkID)
+        );
+    }
 }

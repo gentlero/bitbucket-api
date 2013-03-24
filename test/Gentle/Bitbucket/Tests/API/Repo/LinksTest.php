@@ -23,4 +23,21 @@ class LinksTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleLink()
+    {
+        $endpoint       = 'repositories/gentle/eof/links/3';
+        $expectedResult = json_encode('dummy');
+
+        $links = $this->getApiMock('Gentle\Bitbucket\API\Repo\Links');
+        $links->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $links \Gentle\Bitbucket\API\Repo\Links */
+        $actual = $links->get('gentle', 'eof', 3);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
