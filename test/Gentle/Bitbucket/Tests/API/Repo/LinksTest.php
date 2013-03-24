@@ -71,4 +71,21 @@ class LinksTest extends Tests\TestCase
         /** @var $link \Gentle\Bitbucket\API\Repo\Links */
         $link->create('gentle', 'eof', 'invalid', 'https://example.com', 'my-project-key');
     }
+
+    public function testUpdateLinkSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/links/3';
+        $params         = array(
+            'link_url'  => 'https://example.com',
+            'link_key'  => 'my-project-key'
+        );
+
+        $link = $this->getApiMock('Gentle\Bitbucket\API\Repo\Links');
+        $link->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $link \Gentle\Bitbucket\API\Repo\Links */
+        $link->update('gentle', 'eof', 3, 'https://example.com', 'my-project-key');
+    }
 }
