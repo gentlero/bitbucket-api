@@ -23,4 +23,21 @@ class DeploykeysTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleKey()
+    {
+        $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
+        $expectedResult = json_encode('dummy');
+
+        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repo\Deploykeys');
+        $dkey->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $dkey \Gentle\Bitbucket\API\Repo\Deploykeys */
+        $actual = $dkey->get('gentle', 'eof', 3);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
