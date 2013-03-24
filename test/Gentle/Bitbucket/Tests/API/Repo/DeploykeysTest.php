@@ -71,4 +71,17 @@ class DeploykeysTest extends Tests\TestCase
         /** @var $dkey \Gentle\Bitbucket\API\Repo\Deploykeys */
         $dkey->update('gentle', 'eof', 3, $params);
     }
+
+    public function testDeleteKeySuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
+
+        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repo\Deploykeys');
+        $dkey->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $dkey \Gentle\Bitbucket\API\Repo\Deploykeys */
+        $dkey->delete('gentle', 'eof', '3');
+    }
 }

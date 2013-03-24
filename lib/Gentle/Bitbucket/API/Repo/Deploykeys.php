@@ -103,4 +103,22 @@ class Deploykeys extends API\Api
             $options
         );
     }
+
+    /**
+     * Delete a key
+     *
+     * TIP: You can use `$this->all()` to obtain assigned `$pk`.
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $pk      The key identifier assigned by Bitbucket.
+     * @return mixed
+     */
+    public function delete($account, $repo, $pk)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $pk)
+        );
+    }
 }
