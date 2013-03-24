@@ -110,4 +110,20 @@ class Links extends API\Api
             )
         );
     }
+
+    /**
+     * Delete a link
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  int    $linkID  Link identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $linkID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/links/%d', $account, $repo, $linkID)
+        );
+    }
 }

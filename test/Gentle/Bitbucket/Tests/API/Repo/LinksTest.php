@@ -88,4 +88,17 @@ class LinksTest extends Tests\TestCase
         /** @var $link \Gentle\Bitbucket\API\Repo\Links */
         $link->update('gentle', 'eof', 3, 'https://example.com', 'my-project-key');
     }
+
+    public function testDeleteLinkSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/links/3';
+
+        $link = $this->getApiMock('Gentle\Bitbucket\API\Repo\Links');
+        $link->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $link \Gentle\Bitbucket\API\Repo\Issues\Links */
+        $link->delete('gentle', 'eof', 3);
+    }
 }
