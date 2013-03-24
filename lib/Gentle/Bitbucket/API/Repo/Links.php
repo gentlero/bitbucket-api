@@ -53,4 +53,37 @@ class Links extends API\Api
             sprintf('repositories/%s/%s/links/%d', $account, $repo, $linkID)
         );
     }
+
+    /**
+     * Create a new link
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $handler ex: jira, bamboo, crucible, jenkins, custom
+     * @param  string $url     A valid URL that starts with either http or https.
+     * @param  string $key     This parameter is the project key that you are trying to link to.
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @see https://confluence.atlassian.com/display/BITBUCKET/links+Resources#linksResources-POSTanewlink
+     */
+    public function create($account, $repo, $handler, $url, $key)
+    {
+        if (!in_array(strtolower($handler), array('jira', 'bamboo', 'crucible', 'jenkins', 'custom'))) {
+            throw new \InvalidArgumentException(
+                'Invalid handler provided.'
+            );
+        }
+
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/links', $account, $repo),
+            array(
+                'handler'   => $handler,
+                'link_url'  => $url,
+                'link_key'  => $key
+            )
+        );
+    }
 }
