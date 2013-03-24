@@ -40,4 +40,21 @@ class DeploykeysTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testAddNewKeySuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/deploy-keys';
+        $params         = array(
+            'key'   => 'ssh-rsa [...]',
+            'label' => 'dummy key'
+        );
+
+        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repo\Deploykeys');
+        $dkey->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $dkey \Gentle\Bitbucket\API\Repo\Deploykeys */
+        $dkey->create('gentle', 'eof', 'ssh-rsa [...]', 'dummy key');
+    }
 }

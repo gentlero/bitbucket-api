@@ -54,4 +54,28 @@ class Deploykeys extends API\Api
             sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $pk)
         );
     }
+
+    /**
+     * Add a new key
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $key     The content of the key.
+     * @param  string $label   A display name for the key. (optional)
+     * @return mixed
+     */
+    public function create($account, $repo, $key, $label = null)
+    {
+        $options['key'] = $key;
+
+        if (!is_null($label)) {
+            $options['label'] = $label;
+        }
+
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/deploy-keys', $account, $repo),
+            $options
+        );
+    }
 }
