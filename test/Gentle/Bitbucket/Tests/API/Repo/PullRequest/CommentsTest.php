@@ -23,4 +23,21 @@ class CommentsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleComment()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/3/comments/1';
+        $expectedResult = json_encode('dummy');
+
+        $comment = $this->getApiMock('Gentle\Bitbucket\API\Repo\PullRequest\Comments');
+        $comment->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $comment \Gentle\Bitbucket\API\Repo\PullRequest\Comments */
+        $actual = $comment->get('gentle', 'eof', 3, 1);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

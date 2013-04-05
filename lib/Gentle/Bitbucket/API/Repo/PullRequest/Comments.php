@@ -37,4 +37,21 @@ class Comments extends API\Api
             sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $requestID)
         );
     }
+
+    /**
+     * Get an individual pull request comment
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $requestID An integer representing an id for the request.
+     * @param  int    $commentID The comment identifier.
+     * @return mixed
+     */
+    public function get($account, $repo, $requestID, $commentID)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID)
+        );
+    }
 }
