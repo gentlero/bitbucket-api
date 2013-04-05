@@ -1,6 +1,6 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repo;
+namespace Gentle\Bitbucket\Tests\API\Repositories;
 
 use Gentle\Bitbucket\Tests\API as Tests;
 use Gentle\Bitbucket\API;
