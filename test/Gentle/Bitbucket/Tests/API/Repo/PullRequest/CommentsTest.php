@@ -40,4 +40,20 @@ class CommentsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateCommentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments';
+        $params         = array(
+            'content'   => 'dummy comment'
+        );
+
+        $comment = $this->getApiMock('Gentle\Bitbucket\API\Repo\PullRequest\Comments');
+        $comment->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $comment \Gentle\Bitbucket\API\Repo\PullRequest\Comments */
+        $comment->create('gentle', 'eof', 1, 'dummy comment');
+    }
 }

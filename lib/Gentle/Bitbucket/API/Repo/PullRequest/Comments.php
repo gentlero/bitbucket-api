@@ -54,4 +54,22 @@ class Comments extends API\Api
             sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID)
         );
     }
+
+    /**
+     * Add a new comment
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $requestID An integer representing an id for the request.
+     * @param  string $content   The comment.
+     * @return mixed
+     */
+    public function create($account, $repo, $requestID, $content)
+    {
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $requestID),
+            array('content' => $content)
+        );
+    }
 }
