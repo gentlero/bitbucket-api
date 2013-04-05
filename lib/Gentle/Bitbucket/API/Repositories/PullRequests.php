@@ -14,24 +14,24 @@ namespace Gentle\Bitbucket\API\Repositories;
 use Gentle\Bitbucket\API;
 
 /**
- * PullRequest class
+ * PullRequests class
  *
  * Manage the comments on pull requests.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class PullRequest extends API\Api
+class PullRequests extends API\Api
 {
     /**
      * Get comments
      *
      * @access public
-     * @return PullRequest\Comments
+     * @return PullRequests\Comments
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        $comments = new PullRequest\Comments( $this->client );
+        $comments = new PullRequests\Comments( $this->client );
 
         if ( !is_null($this->auth)) {
             $comments->setCredentials( $this->auth );

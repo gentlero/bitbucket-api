@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Gentle\Bitbucket\API\Repositories\PullRequest;
+namespace Gentle\Bitbucket\API\Repositories\PullRequests;
 
 use Gentle\Bitbucket\API;
 

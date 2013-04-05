@@ -6,9 +6,9 @@ use Gentle\Bitbucket\Tests\API as Tests;
 use Gentle\Bitbucket\API;
 
 /**
- * Class PullRequestTest
+ * Class PullRequestsTest
  */
-class PullRequestTest extends Tests\TestCase
+class PullRequestsTest extends Tests\TestCase
 {
     public function testDummy()
     {}
