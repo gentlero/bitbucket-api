@@ -56,7 +56,7 @@ class Api
     protected $client;
 
     /**
-     * Authentification object
+     * Authentication object
      * @var Authentication\AuthenticationInterface
      */
     protected $auth;
