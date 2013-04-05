@@ -72,4 +72,40 @@ class Comments extends API\Api
             array('content' => $content)
         );
     }
+
+    /**
+     * Update an existing comment
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $requestID An integer representing an id for the request.
+     * @param  string $content   The comment.
+     * @param  int    $commentID The comment identifier.
+     * @return mixed
+     */
+    public function update($account, $repo, $requestID, $commentID, $content)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID),
+            array('content' => $content)
+        );
+    }
+
+    /**
+     * Delete a pull request comment
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $requestID An integer representing an id for the request.
+     * @param  int    $commentID The comment identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo, $requestID, $commentID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID)
+        );
+    }
 }

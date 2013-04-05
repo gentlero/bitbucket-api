@@ -56,4 +56,31 @@ class CommentsTest extends Tests\TestCase
         /** @var $comment \Gentle\Bitbucket\API\Repo\PullRequest\Comments */
         $comment->create('gentle', 'eof', 1, 'dummy comment');
     }
+
+    public function testUpdateCommentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments/3';
+        $params         = array('content' => 'dummy');
+
+        $comment = $this->getApiMock('Gentle\Bitbucket\API\Repo\PullRequest\Comments');
+        $comment->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $comment \Gentle\Bitbucket\API\Repo\PullRequest\Comments */
+        $comment->update('gentle', 'eof', 1, 3, 'dummy');
+    }
+
+    public function testDeleteCommentSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments/2';
+
+        $comment = $this->getApiMock('Gentle\Bitbucket\API\Repo\PullRequest\Comments');
+        $comment->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $comment \Gentle\Bitbucket\API\Repo\PullRequest\Comments */
+        $comment->delete('gentle', 'eof', 1, 2);
+    }
 }
