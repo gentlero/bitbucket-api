@@ -17,13 +17,13 @@ class IssueTest extends Tests\TestCase
             'start'     => 0
         );
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $actual = $issue->all('gentle', 'eof', $params);
 
         $this->assertEquals($expectedResult, $actual);
@@ -35,13 +35,13 @@ class IssueTest extends Tests\TestCase
         $expectedResult = file_get_contents(__DIR__.'/../data/issue/single.json');
         $params         = array();
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $actual = $issue->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -53,13 +53,13 @@ class IssueTest extends Tests\TestCase
         $expectedResult = file_get_contents(__DIR__.'/../data/issue/followers.json');
         $params         = array();
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $actual = $issue->followers('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -74,12 +74,12 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $issue->create('gentle', 'eof', $params);
     }
 
@@ -93,11 +93,11 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->never())
             ->method('requestPost');
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $issue->create('gentle', 'eof', $params);
     }
 
@@ -111,11 +111,11 @@ class IssueTest extends Tests\TestCase
             'title'     => 'dummy title'
         );
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->never())
             ->method('requestPost');
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $issue->create('gentle', 'eof', $params);
     }
 
@@ -128,12 +128,12 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $issue->update('gentle', 'eof', 3, $params);
     }
 
@@ -143,13 +143,13 @@ class IssueTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/2';
         $expectedResult = array('dummyOutput');
 
-        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issue');
+        $issue = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues');
         $issue->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
-        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issue */
+        /** @var $issue \Gentle\Bitbucket\API\Repositories\Issues */
         $actual = $issue->delete('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);

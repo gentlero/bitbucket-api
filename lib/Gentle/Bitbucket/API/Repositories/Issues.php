@@ -12,7 +12,7 @@
 namespace Gentle\Bitbucket\API\Repositories;
 
 use Gentle\Bitbucket\API;
-use Gentle\Bitbucket\API\Repositories\Issues;
+use Gentle\Bitbucket\API\Repositories;
 
 /**
  * Issue class
@@ -21,7 +21,7 @@ use Gentle\Bitbucket\API\Repositories\Issues;
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class Issue extends API\Api
+class Issues extends API\Api
 {
     /**
      * GET a list of issues in a repository's tracker
@@ -141,12 +141,12 @@ class Issue extends API\Api
      * Get comments
      *
      * @access public
-     * @return Issues\Comments
+     * @return Repositories\Issues\Comments
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        $comments = new Issues\Comments( $this->client );
+        $comments = new Repositories\Issues\Comments( $this->client );
 
         if ( !is_null($this->auth)) {
             $comments->setCredentials( $this->auth );
@@ -159,12 +159,12 @@ class Issue extends API\Api
      * Get components
      *
      * @access public
-     * @return Issues\Components
+     * @return Repositories\Issues\Components
      * @codeCoverageIgnore
      */
     public function components()
     {
-        $components = new Issues\Components( $this->client );
+        $components = new Repositories\Issues\Components( $this->client );
 
         if ( !is_null($this->auth) ) {
             $components->setCredentials( $this->auth );
@@ -177,12 +177,12 @@ class Issue extends API\Api
      * Get versions
      *
      * @access public
-     * @return Issues\Versions
+     * @return Repositories\Issues\Versions
      * @codeCoverageIgnore
      */
     public function versions()
     {
-        $versions = new Issues\Versions( $this->client );
+        $versions = new Repositories\Issues\Versions( $this->client );
 
         if ( !is_null($this->auth) ) {
             $versions->setCredentials( $this->auth );
@@ -195,12 +195,12 @@ class Issue extends API\Api
      * Get milestones
      *
      * @access public
-     * @return Issues\Milestones
+     * @return Repositories\Issues\Milestones
      * @codeCoverageIgnore
      */
     public function milestones()
     {
-        $milestones = new Issues\Milestones( $this->client );
+        $milestones = new Repositories\Issues\Milestones( $this->client );
 
         if ( !is_null($this->auth) ) {
             $milestones->setCredentials( $this->auth );
