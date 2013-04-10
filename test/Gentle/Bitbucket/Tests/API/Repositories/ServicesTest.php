@@ -40,4 +40,21 @@ class ServicesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateServiceSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/services';
+        $params         = array(
+            'type'  => 'POST',
+            'URL'   => 'https://example.com/post'
+        );
+
+        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint, $params);
+
+        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        $service->create('gentle', 'eof', 'POST', array('URL' => 'https://example.com/post') );
+    }
 }

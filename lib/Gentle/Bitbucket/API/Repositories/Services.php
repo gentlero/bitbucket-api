@@ -52,4 +52,22 @@ class Services extends API\Api
             sprintf('repositories/%s/%s/services/%d', $account, $repo, $serviceID)
         );
     }
+
+    /**
+     * Create a new service
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $type    Service type
+     * @param  array  $params  Additional service parameters
+     * @return mixed
+     */
+    public function create($account, $repo, $type, array $params = array())
+    {
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/services', $account, $repo),
+            array_merge(array('type' => $type), $params)
+        );
+    }
 }
