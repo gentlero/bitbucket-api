@@ -70,4 +70,22 @@ class Services extends API\Api
             array_merge(array('type' => $type), $params)
         );
     }
+
+    /**
+     * Update a service
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  string $serviceID The service id.
+     * @param  array  $params    Service parameters
+     * @return mixed
+     */
+    public function update($account, $repo, $serviceID, array $params)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/services/%d', $account, $repo, $serviceID),
+            $params
+        );
+    }
 }

@@ -57,4 +57,20 @@ class ServicesTest extends Tests\TestCase
         /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
         $service->create('gentle', 'eof', 'POST', array('URL' => 'https://example.com/post') );
     }
+
+    public function testUpdateServiceSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/services/3';
+        $params         = array(
+            'URL' => 'https://example.com'
+        );
+
+        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        $service->update('gentle', 'eof', 3, array('URL' => 'https://example.com'));
+    }
 }
