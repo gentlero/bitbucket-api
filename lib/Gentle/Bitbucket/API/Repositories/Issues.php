@@ -17,7 +17,7 @@ use Gentle\Bitbucket\API\Repositories;
 /**
  * Issue class
  *
- * [Class description]
+ * Provides functionality for interacting with an issue tracker.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */

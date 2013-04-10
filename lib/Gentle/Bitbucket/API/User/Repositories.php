@@ -16,7 +16,8 @@ use Gentle\Bitbucket\API;
 /**
  * Repositories class
  *
- * [Class description]
+ * Get the details of the repositories associated with
+ * an individual or team account.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
