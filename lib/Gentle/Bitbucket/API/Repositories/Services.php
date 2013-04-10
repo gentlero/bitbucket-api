@@ -88,4 +88,20 @@ class Services extends API\Api
             $params
         );
     }
+
+    /**
+     * Delete a service
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $serviceID The service id.
+     * @return mixed
+     */
+    public function delete($account, $repo, $serviceID)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s/services/%d', $account, $repo, $serviceID)
+        );
+    }
 }

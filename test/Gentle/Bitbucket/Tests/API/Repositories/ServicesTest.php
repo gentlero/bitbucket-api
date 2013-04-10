@@ -73,4 +73,17 @@ class ServicesTest extends Tests\TestCase
         /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
         $service->update('gentle', 'eof', 3, array('URL' => 'https://example.com'));
     }
+
+    public function testDeleteServiceSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/services/3';
+
+        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $service \Gentle\Bitbucket\API\Repositories\Issues\Services */
+        $service->delete('gentle', 'eof', 3);
+    }
 }
