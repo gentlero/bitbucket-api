@@ -66,4 +66,36 @@ class Wiki extends API\Api
             array('data' => $content, 'path' => $path)
         );
     }
+
+    /**
+     * Update a page
+     *
+     * If no $path is specified, then the page title will be used to generate one.
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $title   Page title.
+     * @param  string $content Page content.
+     * @param  string $path    Path to the page. (optional)
+     * @param  string $rev     The current revision of the file before it was modified. (optional)
+     * @return mixed
+     */
+    public function update($account, $repo, $title, $content, $path = null, $rev = null)
+    {
+        if (is_null($path)) {
+            $path = sprintf('/%s', $title);
+        }
+
+        $params = array('data' => $content, 'path' => $path);
+
+        if (!is_null($rev)) {
+            $params['rev'] = $rev;
+        }
+
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/wiki/%s', $account, $repo, $title),
+            $params
+        );
+    }
 }
