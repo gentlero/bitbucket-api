@@ -23,4 +23,21 @@ class WikiTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateWikiPageSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/wiki/Dummy';
+        $params         = array(
+            'path' => '/Dummy',
+            'data' => 'Dummy page content'
+        );
+
+        $wiki = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Wiki');
+        $wiki->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $wiki \Gentle\Bitbucket\API\Repositories\Wiki */
+        $wiki->create('gentle', 'eof', 'Dummy', 'Dummy page content');
+    }
 }
