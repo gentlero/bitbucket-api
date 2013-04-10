@@ -40,4 +40,21 @@ class Src extends API\Api
             sprintf('repositories/%s/%s/src/%s/%s', $account, $repo, $revision, $path)
         );
     }
+
+    /**
+     * Get raw content of an individual file
+     *
+     * @access public
+     * @param  string $account  The team or individual account owning the repository.
+     * @param  string $repo     The repository identifier.
+     * @param  string $revision A value representing the revision or branch to list.
+     * @param  string $path     The path can be a filename or a directory path.
+     * @return mixed
+     */
+    public function raw($account, $repo, $revision, $path)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/raw/%s/%s', $account, $repo, $revision, $path)
+        );
+    }
 }
