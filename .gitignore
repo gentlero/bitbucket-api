@@ -1,6 +1,5 @@
 composer.lock
 vendor/
-example/
 report/
 .idea/
 .dev/
