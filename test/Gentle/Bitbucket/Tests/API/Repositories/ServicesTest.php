@@ -23,4 +23,21 @@ class ServicesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleservice()
+    {
+        $endpoint       = 'repositories/gentle/eof/services/3';
+        $expectedResult = json_encode('dummy');
+
+        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        $actual = $service->get('gentle', 'eof', 3);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

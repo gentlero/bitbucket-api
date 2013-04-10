@@ -36,4 +36,20 @@ class Services extends API\Api
             sprintf('repositories/%s/%s/services', $account, $repo)
         );
     }
+
+    /**
+     * Get a single service attached to your repository
+     *
+     * @access public
+     * @param  string $account   The team or individual account owning the repository.
+     * @param  string $repo      The repository identifier.
+     * @param  int    $serviceID The service id.
+     * @return mixed
+     */
+    public function get($account, $repo, $serviceID)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/services/%d', $account, $repo, $serviceID)
+        );
+    }
 }
