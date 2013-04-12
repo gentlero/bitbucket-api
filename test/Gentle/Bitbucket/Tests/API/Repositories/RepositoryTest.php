@@ -96,7 +96,7 @@ class RepositoryTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
-    public function testGetMainBranches()
+    public function testGetMainBranch()
     {
         $endpoint       = 'repositories/gentle/eof/main-branch';
         $expectedResult = json_encode('dummy');
@@ -109,6 +109,23 @@ class RepositoryTest extends Tests\TestCase
 
         /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
         $actual = $repository->branch('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
+    public function testGetManifest()
+    {
+        $endpoint       = 'repositories/gentle/eof/manifest/develop';
+        $expectedResult = json_encode('dummy');
+
+        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        $actual = $repository->manifest('gentle', 'eof', 'develop');
 
         $this->assertEquals($expectedResult, $actual);
     }
