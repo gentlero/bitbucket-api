@@ -13,7 +13,7 @@ class RepositoryTest extends Tests\TestCase
         $params         = array(
             'name'          => 'secret',
             'description'   => 'My super secret project',
-            'language'      => 'PHP',
+            'language'      => 'php',
             'is_private'    => true
         );
 
@@ -24,5 +24,24 @@ class RepositoryTest extends Tests\TestCase
 
         /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
         $repository->create('secret', $params);
+    }
+
+    public function testUpdateRepositorySuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof';
+        $params         = array(
+            'description'   => 'My super secret project',
+            'language'      => 'php',
+            'is_private'    => false,
+            'main_branch'   => 'master'
+        );
+
+        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        $repository->update('gentle', 'eof', $params);
     }
 }

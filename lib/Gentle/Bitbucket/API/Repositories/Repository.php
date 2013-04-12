@@ -48,4 +48,23 @@ class Repository extends API\Api
             $params
         );
     }
+
+    /**
+     * Update a repository
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  array  $params  Additional parameters
+     * @return mixed
+     *
+     * @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-PUTarepositoryupdate
+     */
+    public function update($account, $repo, array $params = array())
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s', $account, $repo),
+            $params
+        );
+    }
 }
