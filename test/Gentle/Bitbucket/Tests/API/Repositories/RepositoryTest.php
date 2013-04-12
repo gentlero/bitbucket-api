@@ -78,4 +78,21 @@ class RepositoryTest extends Tests\TestCase
         /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
         $repository->fork('gentle', 'eof', 'my-eof', array('is_private' => true));
     }
+
+    public function testGetBranches()
+    {
+        $endpoint       = 'repositories/gentle/eof/branches';
+        $expectedResult = json_encode('dummy');
+
+        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        $actual = $repository->branches('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

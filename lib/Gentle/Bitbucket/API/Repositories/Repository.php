@@ -104,4 +104,19 @@ class Repository extends API\Api
             $params
         );
     }
+
+    /**
+     * Get a list of branches associated with a repository.
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @return mixed
+     */
+    public function branches($account, $repo)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/branches', $account, $repo)
+        );
+    }
 }
