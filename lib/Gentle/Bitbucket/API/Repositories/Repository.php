@@ -119,4 +119,19 @@ class Repository extends API\Api
             sprintf('repositories/%s/%s/branches', $account, $repo)
         );
     }
+
+    /**
+     * Get the repository's main branch
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @return mixed
+     */
+    public function branch($account, $repo)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/main-branch', $account, $repo)
+        );
+    }
 }
