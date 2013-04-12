@@ -150,4 +150,19 @@ class Repository extends API\Api
             sprintf('repositories/%s/%s/manifest/%s', $account, $repo, $revision)
         );
     }
+
+    /**
+     * Get a list of tags
+     *
+     * @access public
+     * @param  string $account  The team or individual account owning the repository.
+     * @param  string $repo     The repository identifier.
+     * @return mixed
+     */
+    public function tags($account, $repo)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/tags', $account, $repo)
+        );
+    }
 }
