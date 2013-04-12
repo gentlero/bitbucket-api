@@ -67,4 +67,19 @@ class Repository extends API\Api
             $params
         );
     }
+
+    /**
+     * Delete a repository
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @return mixed
+     */
+    public function delete($account, $repo)
+    {
+        return $this->requestDelete(
+            sprintf('repositories/%s/%s', $account, $repo)
+        );
+    }
 }
