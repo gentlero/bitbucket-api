@@ -163,4 +163,21 @@ class RepositoryTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetFileHistory()
+    {
+        $endpoint       = 'repositories/gentle/eof/filehistory/1bc8345/lib/file.php';
+        $expectedResult = json_encode('dummy');
+
+        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        $actual = $repository->filehistory('gentle', 'eof', '1bc8345', 'lib/file.php');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

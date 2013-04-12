@@ -184,4 +184,23 @@ class Repository extends API\Api
             sprintf('repositories/%s/%s/raw/%s/%s', $account, $repo, $rev, $path)
         );
     }
+
+    /**
+     * Get the history of a file in a changeset
+     *
+     * Returns the history of a file starting from the provided changeset.
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $node    The simple changeset node id.
+     * @param  string $path    Filename.
+     * @return mixed
+     */
+    public function filehistory($account, $repo, $node, $path)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/filehistory/%s/%s', $account, $repo, $node, $path)
+        );
+    }
 }
