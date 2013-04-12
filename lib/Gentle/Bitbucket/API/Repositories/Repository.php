@@ -82,4 +82,26 @@ class Repository extends API\Api
             sprintf('repositories/%s/%s', $account, $repo)
         );
     }
+
+    /**
+     * Fork a repository
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $name    Fork name
+     * @param  array  $params  Additional parameters
+     * @return mixed
+     *
+     * @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewfork
+     */
+    public function fork($account, $repo, $name, array $params = array())
+    {
+        $params['name'] = $name;
+
+        return $this->requestPost(
+            sprintf('repositories/%s/%s/fork', $account, $repo),
+            $params
+        );
+    }
 }
