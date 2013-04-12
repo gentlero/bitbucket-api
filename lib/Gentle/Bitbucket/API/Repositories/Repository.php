@@ -155,14 +155,33 @@ class Repository extends API\Api
      * Get a list of tags
      *
      * @access public
-     * @param  string $account  The team or individual account owning the repository.
-     * @param  string $repo     The repository identifier.
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
      * @return mixed
      */
     public function tags($account, $repo)
     {
         return $this->requestGet(
             sprintf('repositories/%s/%s/tags', $account, $repo)
+        );
+    }
+
+    /**
+     * Get the raw source
+     *
+     * Get the raw content of a file or directory.
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @param  string $rev     A value representing the revision or branch to list.
+     * @param  string $path    The path can be a filename or a directory path.
+     * @return mixed
+     */
+    public function raw($account, $repo, $rev, $path)
+    {
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/raw/%s/%s', $account, $repo, $rev, $path)
         );
     }
 }
