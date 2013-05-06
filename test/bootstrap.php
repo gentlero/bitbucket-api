@@ -14,4 +14,4 @@ EOM;
     exit(1);
 }
 
-$loader->add('Gentle\Bitbucket\Tests\API', __DIR__);
+$loader->add('Bitbucket\Tests\API', __DIR__);
