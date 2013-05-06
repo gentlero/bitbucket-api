@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$issue = new Gentle\Bitbucket\API\Repositories\Issues;
+$issue = new Bitbucket\API\Repositories\Issues;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$issue->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$issue->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # Fetch a list of issues
 print_r($issue->all($accountname, $repo_slug));

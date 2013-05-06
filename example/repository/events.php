@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$events = new Gentle\Bitbucket\API\Repositories\Events;
+$events = new Bitbucket\API\Repositories\Events;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$events->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$events->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # get all events with `report_issue` type
 print_r($events->all($accountname, $repo_slug, array(

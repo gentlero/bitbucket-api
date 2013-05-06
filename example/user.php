@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$user = new Gentle\Bitbucket\API\User;
+$user = new Bitbucket\API\User;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$user->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$user->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # get user profile
 # print_r($user->get());

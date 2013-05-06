@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$invitation = new Gentle\Bitbucket\API\Invitations;
+$invitation = new Bitbucket\API\Invitations;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$invitation->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$invitation->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 // send invitation
 print_r($invitation->send('account', 'repository', 'user@example.com', 'read'));

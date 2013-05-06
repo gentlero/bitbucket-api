@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$followers = new Gentle\Bitbucket\API\Repositories\Followers;
+$followers = new Bitbucket\API\Repositories\Followers;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login (optional)
-$followers->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$followers->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # get all events with `report_issue` type
 print_r($followers->all($accountname, $repo_slug));

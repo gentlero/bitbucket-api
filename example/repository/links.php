@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$links = new Gentle\Bitbucket\API\Repositories\Links;
+$links = new Bitbucket\API\Repositories\Links;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$links->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$links->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # get list of links
 print_r($links->all($accountname, $repo_slug));

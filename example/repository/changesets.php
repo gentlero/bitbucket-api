@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$changesets = new Gentle\Bitbucket\API\Repositories\Changesets;
+$changesets = new Bitbucket\API\Repositories\Changesets;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$changesets->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$changesets->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 // gets a list of change sets associated with a repository.
 #print_r($changesets->all($accountname, $repo_slug, 'aea95f1', 20));

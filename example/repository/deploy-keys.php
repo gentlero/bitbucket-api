@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$dk = new Gentle\Bitbucket\API\Repositories\Deploykeys;
+$dk = new Bitbucket\API\Repositories\Deploykeys;
 
 // Your Bitbucket credentials
 $bb_user = 'username';
@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$dk->setCredentials( new Gentle\Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$dk->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 
 # get a list of keys
 print_r($dk->all($accountname, $repo_slug));
