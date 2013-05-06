@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories\Issues;
+namespace Bitbucket\Tests\API\Repositories\Issues;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class MilestonesTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class MilestonesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/milestones';
         $expectedResult = json_encode('dummy');
 
-        $milestones = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Milestones');
+        $milestones = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
         $milestones->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $milestones \Gentle\Bitbucket\API\Repositories\Issues\Milestones */
+        /** @var $milestones \Bitbucket\API\Repositories\Issues\Milestones */
         $actual = $milestones->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class MilestonesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/milestones/2';
         $expectedResult = json_encode('dummy');
 
-        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Milestones');
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
         $milestone->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $milestone \Gentle\Bitbucket\API\Repositories\Issues\Milestones */
+        /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
         $actual = $milestone->get('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
@@ -46,12 +46,12 @@ class MilestonesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/milestones';
         $params         = array('name' => 'dummy');
 
-        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Milestones');
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
         $milestone->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $milestone \Gentle\Bitbucket\API\Repositories\Issues\Milestones */
+        /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
         $milestone->create('gentle', 'eof', 'dummy');
     }
 
@@ -60,12 +60,12 @@ class MilestonesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/milestones/3';
         $params         = array('name' => 'dummy');
 
-        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Milestones');
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
         $milestone->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $milestone \Gentle\Bitbucket\API\Repositories\Issues\Milestones */
+        /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
         $milestone->update('gentle', 'eof', 3, 'dummy');
     }
 
@@ -73,12 +73,12 @@ class MilestonesTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones/3';
 
-        $milestone = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Milestones');
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
         $milestone->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $milestone \Gentle\Bitbucket\API\Repositories\Issues\Milestones */
+        /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
         $milestone->delete('gentle', 'eof', 3);
     }
 }

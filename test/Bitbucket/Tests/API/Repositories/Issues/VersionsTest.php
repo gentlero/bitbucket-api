@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories\Issues;
+namespace Bitbucket\Tests\API\Repositories\Issues;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class VersionsTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class VersionsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/versions';
         $expectedResult = json_encode('dummy');
 
-        $versions = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Versions');
+        $versions = $this->getApiMock('Bitbucket\API\Repositories\Issues\Versions');
         $versions->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $versions \Gentle\Bitbucket\API\Repositories\Issues\Versions */
+        /** @var $versions \Bitbucket\API\Repositories\Issues\Versions */
         $actual = $versions->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class VersionsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/versions/2';
         $expectedResult = json_encode('dummy');
 
-        $version = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Versions');
+        $version = $this->getApiMock('Bitbucket\API\Repositories\Issues\Versions');
         $version->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $version \Gentle\Bitbucket\API\Repositories\Issues\Versions */
+        /** @var $version \Bitbucket\API\Repositories\Issues\Versions */
         $actual = $version->get('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
@@ -46,12 +46,12 @@ class VersionsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/versions';
         $params         = array('name' => 'dummy');
 
-        $version = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Versions');
+        $version = $this->getApiMock('Bitbucket\API\Repositories\Issues\Versions');
         $version->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $version \Gentle\Bitbucket\API\Repositories\Issues\Versions */
+        /** @var $version \Bitbucket\API\Repositories\Issues\Versions */
         $version->create('gentle', 'eof', 'dummy');
     }
 
@@ -60,12 +60,12 @@ class VersionsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/versions/3';
         $params         = array('name' => 'dummy');
 
-        $version = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Versions');
+        $version = $this->getApiMock('Bitbucket\API\Repositories\Issues\Versions');
         $version->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $version \Gentle\Bitbucket\API\Repositories\Issues\Versions */
+        /** @var $version \Bitbucket\API\Repositories\Issues\Versions */
         $version->update('gentle', 'eof', 3, 'dummy');
     }
 
@@ -73,12 +73,12 @@ class VersionsTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/issues/versions/3';
 
-        $version = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Versions');
+        $version = $this->getApiMock('Bitbucket\API\Repositories\Issues\Versions');
         $version->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $version \Gentle\Bitbucket\API\Repositories\Issues\Versions */
+        /** @var $version \Bitbucket\API\Repositories\Issues\Versions */
         $version->delete('gentle', 'eof', 3);
     }
 }

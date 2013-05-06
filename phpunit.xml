@@ -13,13 +13,13 @@
 >
     <testsuites>
         <testsuite name="bitbucket-api Test Suite">
-            <directory>./test/Gentle/Bitbucket/Tests/API/</directory>
+            <directory>./test/Bitbucket/Tests/API/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./lib/Gentle/Bitbucket/API/</directory>
+            <directory>./lib/Bitbucket/API/</directory>
         </whitelist>
     </filter>
 </phpunit>

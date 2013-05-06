@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class InvitationsTest extends Tests\TestCase
 {
@@ -12,12 +12,12 @@ class InvitationsTest extends Tests\TestCase
         $endpoint       = 'invitations/gentle/eof/john_doe@example.com';
         $params         = array('permission' => 'read');
 
-        $invitation = $this->getApiMock('Gentle\Bitbucket\API\Invitations');
+        $invitation = $this->getApiMock('Bitbucket\API\Invitations');
         $invitation->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $invitation \Gentle\Bitbucket\API\Invitations */
+        /** @var $invitation \Bitbucket\API\Invitations */
         $invitation->send('gentle', 'eof', 'john_doe@example.com', 'read');
     }
 }

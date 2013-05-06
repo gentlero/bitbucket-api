@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class LinksTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class LinksTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/links';
         $expectedResult = json_encode('dummy');
 
-        $links = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $links->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $links \Gentle\Bitbucket\API\Repositories\Links */
+        /** @var $links \Bitbucket\API\Repositories\Links */
         $actual = $links->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class LinksTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/links/3';
         $expectedResult = json_encode('dummy');
 
-        $links = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $links->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $links \Gentle\Bitbucket\API\Repositories\Links */
+        /** @var $links \Bitbucket\API\Repositories\Links */
         $actual = $links->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -50,12 +50,12 @@ class LinksTest extends Tests\TestCase
             'link_key'  => 'my-project-key'
         );
 
-        $link = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $link->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $link \Gentle\Bitbucket\API\Repositories\Links */
+        /** @var $link \Bitbucket\API\Repositories\Links */
         $link->create('gentle', 'eof', 'custom', 'https://example.com', 'my-project-key');
     }
 
@@ -64,11 +64,11 @@ class LinksTest extends Tests\TestCase
      */
     public function testCreateLinkInvalidArguments()
     {
-        $link = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $link->expects($this->never())
             ->method('requestPost');
 
-        /** @var $link \Gentle\Bitbucket\API\Repositories\Links */
+        /** @var $link \Bitbucket\API\Repositories\Links */
         $link->create('gentle', 'eof', 'invalid', 'https://example.com', 'my-project-key');
     }
 
@@ -80,12 +80,12 @@ class LinksTest extends Tests\TestCase
             'link_key'  => 'my-project-key'
         );
 
-        $link = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $link->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $link \Gentle\Bitbucket\API\Repositories\Links */
+        /** @var $link \Bitbucket\API\Repositories\Links */
         $link->update('gentle', 'eof', 3, 'https://example.com', 'my-project-key');
     }
 
@@ -93,12 +93,12 @@ class LinksTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/links/3';
 
-        $link = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Links');
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
         $link->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $link \Gentle\Bitbucket\API\Repositories\Issues\Links */
+        /** @var $link \Bitbucket\API\Repositories\Issues\Links */
         $link->delete('gentle', 'eof', 3);
     }
 }

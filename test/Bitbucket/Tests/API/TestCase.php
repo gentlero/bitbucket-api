@@ -1,12 +1,12 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API;
+namespace Bitbucket\Tests\API;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function getApiMock($class = null, $methods = array())
     {
-        $class      = is_null($class) ? '\Gentle\Bitbucket\API\Api' : $class;
+        $class      = is_null($class) ? '\Bitbucket\API\Api' : $class;
         $methods    = array_merge(
             array('requestGet', 'requestPost', 'requestPut', 'requestDelete'), $methods
         );

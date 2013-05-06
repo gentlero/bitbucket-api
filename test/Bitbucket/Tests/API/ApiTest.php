@@ -1,15 +1,15 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API;
+namespace Bitbucket\Tests\API;
 
-use Gentle\Bitbucket\API;
+use Bitbucket\API;
 
 class ApiTest extends TestCase
 {
     public function testCredentials()
     {
         $auth = new API\Authentication\Basic('api_username', 'api_password');
-        $this->assertInstanceOf('Gentle\Bitbucket\API\Authentication\Basic', $auth);
+        $this->assertInstanceOf('Bitbucket\API\Authentication\Basic', $auth);
 
         $api = new API\Api;
         $api->setCredentials($auth);
@@ -103,7 +103,7 @@ class ApiTest extends TestCase
         $response->addHeader('HTTP/1.1 400 Bad Request');
         $expectedResult = $response;
         
-        $method = $this->getMethod('Gentle\Bitbucket\API\Api', 'processResponse');
+        $method = $this->getMethod('Bitbucket\API\Api', 'processResponse');
         $obj    = new API\Api;
         $actual = $method->invokeArgs($obj, array($response));
 
@@ -111,7 +111,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * @expectedException Gentle\Bitbucket\API\Authentication\Exception
+     * @expectedException Bitbucket\API\Authentication\Exception
      */
     public function testProcessResponseUnauthorized()
     {
@@ -119,7 +119,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * @expectedException Gentle\Bitbucket\API\ForbiddenAccessException
+     * @expectedException Bitbucket\API\ForbiddenAccessException
      */
     public function testProcessResponseForbidden()
     {
@@ -159,7 +159,7 @@ class ApiTest extends TestCase
         $response->setContent($expectedResult);
         $response->addHeader($header);        
 
-        $method = $this->getMethod('Gentle\Bitbucket\API\Api', 'processResponse');
+        $method = $this->getMethod('Bitbucket\API\Api', 'processResponse');
         $obj = new API\Api;
         
         return $method->invokeArgs($obj, array($response));

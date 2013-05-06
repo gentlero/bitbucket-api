@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class ServicesTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class ServicesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/services';
         $expectedResult = json_encode('dummy');
 
-        $services = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $services = $this->getApiMock('Bitbucket\API\Repositories\Services');
         $services->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $services \Gentle\Bitbucket\API\Repositories\Services */
+        /** @var $services \Bitbucket\API\Repositories\Services */
         $actual = $services->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class ServicesTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/services/3';
         $expectedResult = json_encode('dummy');
 
-        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service = $this->getApiMock('Bitbucket\API\Repositories\Services');
         $service->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        /** @var $service \Bitbucket\API\Repositories\Services */
         $actual = $service->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -49,12 +49,12 @@ class ServicesTest extends Tests\TestCase
             'URL'   => 'https://example.com/post'
         );
 
-        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service = $this->getApiMock('Bitbucket\API\Repositories\Services');
         $service->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        /** @var $service \Bitbucket\API\Repositories\Services */
         $service->create('gentle', 'eof', 'POST', array('URL' => 'https://example.com/post') );
     }
 
@@ -65,12 +65,12 @@ class ServicesTest extends Tests\TestCase
             'URL' => 'https://example.com'
         );
 
-        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service = $this->getApiMock('Bitbucket\API\Repositories\Services');
         $service->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $service \Gentle\Bitbucket\API\Repositories\Services */
+        /** @var $service \Bitbucket\API\Repositories\Services */
         $service->update('gentle', 'eof', 3, array('URL' => 'https://example.com'));
     }
 
@@ -78,12 +78,12 @@ class ServicesTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/services/3';
 
-        $service = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Services');
+        $service = $this->getApiMock('Bitbucket\API\Repositories\Services');
         $service->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $service \Gentle\Bitbucket\API\Repositories\Issues\Services */
+        /** @var $service \Bitbucket\API\Repositories\Issues\Services */
         $service->delete('gentle', 'eof', 3);
     }
 }

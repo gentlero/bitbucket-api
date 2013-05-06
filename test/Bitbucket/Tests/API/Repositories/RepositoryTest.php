@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class RepositoryTest extends Tests\TestCase
 {
@@ -17,12 +17,12 @@ class RepositoryTest extends Tests\TestCase
             'is_private'    => true
         );
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $repository->create('secret', $params);
     }
 
@@ -36,12 +36,12 @@ class RepositoryTest extends Tests\TestCase
             'main_branch'   => 'master'
         );
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $repository->update('gentle', 'eof', $params);
     }
 
@@ -50,13 +50,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof';
         $expectedResult = true;
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->delete('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -70,12 +70,12 @@ class RepositoryTest extends Tests\TestCase
             'is_private'    => true
         );
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $repository->fork('gentle', 'eof', 'my-eof', array('is_private' => true));
     }
 
@@ -84,13 +84,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/branches';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->branches('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -101,13 +101,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/main-branch';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->branch('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -118,13 +118,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/manifest/develop';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->manifest('gentle', 'eof', 'develop');
 
         $this->assertEquals($expectedResult, $actual);
@@ -135,13 +135,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/tags';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->tags('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -152,13 +152,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/raw/1bc8345/lib/file.php';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->raw('gentle', 'eof', '1bc8345', 'lib/file.php');
 
         $this->assertEquals($expectedResult, $actual);
@@ -169,13 +169,13 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/filehistory/1bc8345/lib/file.php';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Repository');
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $repository \Gentle\Bitbucket\API\Repositories\Repository */
+        /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->filehistory('gentle', 'eof', '1bc8345', 'lib/file.php');
 
         $this->assertEquals($expectedResult, $actual);

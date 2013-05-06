@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class ChangesetsTest extends Tests\TestCase
 {
@@ -16,13 +16,13 @@ class ChangesetsTest extends Tests\TestCase
             'limit' => 15
         );
 
-        $changesets = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Changesets');
+        $changesets = $this->getApiMock('Bitbucket\API\Repositories\Changesets');
         $changesets->expects($this->once())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $changesets \Gentle\Bitbucket\API\Repositories\Changesets */
+        /** @var $changesets \Bitbucket\API\Repositories\Changesets */
         $actual = $changesets->all('gentle', 'eof', 'aea95f1', 15);
 
         $this->assertEquals($expectedResult, $actual);
@@ -33,13 +33,13 @@ class ChangesetsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/changesets/aea95f1';
         $expectedResult = json_encode('dummy');
 
-        $changesets = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Changesets');
+        $changesets = $this->getApiMock('Bitbucket\API\Repositories\Changesets');
         $changesets->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $changesets \Gentle\Bitbucket\API\Repositories\Changesets */
+        /** @var $changesets \Bitbucket\API\Repositories\Changesets */
         $actual = $changesets->get('gentle', 'eof', 'aea95f1', 15);
 
         $this->assertEquals($expectedResult, $actual);
@@ -50,13 +50,13 @@ class ChangesetsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/changesets/aea95f1/diffstat';
         $expectedResult = json_encode('dummy');
 
-        $changesets = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Changesets');
+        $changesets = $this->getApiMock('Bitbucket\API\Repositories\Changesets');
         $changesets->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $changesets \Gentle\Bitbucket\API\Repositories\Changesets */
+        /** @var $changesets \Bitbucket\API\Repositories\Changesets */
         $actual = $changesets->diffstat('gentle', 'eof', 'aea95f1');
 
         $this->assertEquals($expectedResult, $actual);
@@ -67,13 +67,13 @@ class ChangesetsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/changesets/aea95f1/diff';
         $expectedResult = json_encode('dummy');
 
-        $changesets = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Changesets');
+        $changesets = $this->getApiMock('Bitbucket\API\Repositories\Changesets');
         $changesets->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $changesets \Gentle\Bitbucket\API\Repositories\Changesets */
+        /** @var $changesets \Bitbucket\API\Repositories\Changesets */
         $actual = $changesets->diff('gentle', 'eof', 'aea95f1');
 
         $this->assertEquals($expectedResult, $actual);

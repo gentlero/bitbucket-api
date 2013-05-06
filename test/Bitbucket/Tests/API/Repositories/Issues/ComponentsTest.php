@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories\Issues;
+namespace Bitbucket\Tests\API\Repositories\Issues;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class ComponentsTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class ComponentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/components';
         $expectedResult = json_encode('dummy');
 
-        $components = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Components');
+        $components = $this->getApiMock('Bitbucket\API\Repositories\Issues\Components');
         $components->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $components \Gentle\Bitbucket\API\Repositories\Issues\Components */
+        /** @var $components \Bitbucket\API\Repositories\Issues\Components */
         $actual = $components->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class ComponentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/components/2';
         $expectedResult = json_encode('dummy');
 
-        $components = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Components');
+        $components = $this->getApiMock('Bitbucket\API\Repositories\Issues\Components');
         $components->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $components \Gentle\Bitbucket\API\Repositories\Issues\Components */
+        /** @var $components \Bitbucket\API\Repositories\Issues\Components */
         $actual = $components->get('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
@@ -46,12 +46,12 @@ class ComponentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/components';
         $params         = array('name' => 'dummy');
 
-        $component = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Components');
+        $component = $this->getApiMock('Bitbucket\API\Repositories\Issues\Components');
         $component->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $component \Gentle\Bitbucket\API\Repositories\Issues\Components */
+        /** @var $component \Bitbucket\API\Repositories\Issues\Components */
         $component->create('gentle', 'eof', 'dummy');
     }
 
@@ -60,12 +60,12 @@ class ComponentsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/issues/components/3';
         $params         = array('name' => 'dummy');
 
-        $component = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Components');
+        $component = $this->getApiMock('Bitbucket\API\Repositories\Issues\Components');
         $component->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $component \Gentle\Bitbucket\API\Repositories\Issues\Components */
+        /** @var $component \Bitbucket\API\Repositories\Issues\Components */
         $component->update('gentle', 'eof', 3, 'dummy');
     }
 
@@ -73,12 +73,12 @@ class ComponentsTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/issues/components/3';
 
-        $component = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Issues\Components');
+        $component = $this->getApiMock('Bitbucket\API\Repositories\Issues\Components');
         $component->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $component \Gentle\Bitbucket\API\Repositories\Issues\Components */
+        /** @var $component \Bitbucket\API\Repositories\Issues\Components */
         $component->delete('gentle', 'eof', 3);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class EventsTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class EventsTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/events';
         $expectedResult = json_encode('dummy');
 
-        $events = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Events');
+        $events = $this->getApiMock('Bitbucket\API\Repositories\Events');
         $events->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $events \Gentle\Bitbucket\API\Repositories\Events */
+        /** @var $events \Bitbucket\API\Repositories\Events */
         $actual = $events->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -30,13 +30,13 @@ class EventsTest extends Tests\TestCase
         $params         = array('limit' => 10);
         $expectedResult = json_encode('dummy');
 
-        $events = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Events');
+        $events = $this->getApiMock('Bitbucket\API\Repositories\Events');
         $events->expects($this->once())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $events \Gentle\Bitbucket\API\Repositories\Events */
+        /** @var $events \Bitbucket\API\Repositories\Events */
         $actual = $events->all('gentle', 'eof', $params);
 
         $this->assertEquals($expectedResult, $actual);

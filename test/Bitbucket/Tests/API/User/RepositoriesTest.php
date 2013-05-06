@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Gentle\Bitbucket\Tests\API\User;
+namespace Bitbucket\Tests\API\User;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 /**
  * RepositoriesTest class
@@ -28,13 +28,13 @@ class RepositoriesTest extends Tests\TestCase
         $endpoint       = 'user/repositories';
         $expectedResult = json_encode('dummy');
 
-        $repositories = $this->getApiMock('\Gentle\Bitbucket\API\User\Repositories');
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
         $repositories->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult));
 
-        /** @var $repositories \Gentle\Bitbucket\API\User\Repositories */
+        /** @var $repositories \Bitbucket\API\User\Repositories */
         $actual = $repositories->get();
 
         $this->assertEquals($expectedResult, $actual);
@@ -45,13 +45,13 @@ class RepositoriesTest extends Tests\TestCase
         $endpoint       = 'user/repositories/overview';
         $expectedResult = json_encode('dummy');
 
-        $repositories = $this->getApiMock('\Gentle\Bitbucket\API\User\Repositories');
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
         $repositories->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult));
 
-        /** @var $repositories \Gentle\Bitbucket\API\User\Repositories */
+        /** @var $repositories \Bitbucket\API\User\Repositories */
         $actual = $repositories->overview();
 
         $this->assertEquals($expectedResult, $actual);
@@ -62,13 +62,13 @@ class RepositoriesTest extends Tests\TestCase
         $endpoint       = 'user/repositories/dashboard';
         $expectedResult = json_encode('dummy');
 
-        $repositories = $this->getApiMock('\Gentle\Bitbucket\API\User\Repositories');
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
         $repositories->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult));
 
-        /** @var $repositories \Gentle\Bitbucket\API\User\Repositories */
+        /** @var $repositories \Bitbucket\API\User\Repositories */
         $actual = $repositories->dashboard();
 
         $this->assertEquals($expectedResult, $actual);

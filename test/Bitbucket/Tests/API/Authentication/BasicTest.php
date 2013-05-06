@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Authentication;
+namespace Bitbucket\Tests\API\Authentication;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API\Authentication;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API\Authentication;
 
 class BasicTest extends Tests\TestCase
 {

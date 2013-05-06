@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class DeploykeysTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class DeploykeysTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/deploy-keys';
         $expectedResult = json_encode('dummy');
 
-        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Deploykeys');
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
         $dkey->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $dkey \Gentle\Bitbucket\API\Repositories\Deploykeys */
+        /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
         $actual = $dkey->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
@@ -29,13 +29,13 @@ class DeploykeysTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
         $expectedResult = json_encode('dummy');
 
-        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Deploykeys');
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
         $dkey->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $dkey \Gentle\Bitbucket\API\Repositories\Deploykeys */
+        /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
         $actual = $dkey->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
@@ -49,12 +49,12 @@ class DeploykeysTest extends Tests\TestCase
             'label' => 'dummy key'
         );
 
-        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Deploykeys');
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
         $dkey->expects($this->once())
             ->method('requestPost')
             ->with($endpoint, $params);
 
-        /** @var $dkey \Gentle\Bitbucket\API\Repositories\Deploykeys */
+        /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
         $dkey->create('gentle', 'eof', 'ssh-rsa [...]', 'dummy key');
     }
 
@@ -63,12 +63,12 @@ class DeploykeysTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
         $params         = array('label' => 'test key');
 
-        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Deploykeys');
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
         $dkey->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $dkey \Gentle\Bitbucket\API\Repositories\Deploykeys */
+        /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
         $dkey->update('gentle', 'eof', 3, $params);
     }
 
@@ -76,12 +76,12 @@ class DeploykeysTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
 
-        $dkey = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Deploykeys');
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
         $dkey->expects($this->once())
             ->method('requestDelete')
             ->with($endpoint);
 
-        /** @var $dkey \Gentle\Bitbucket\API\Repositories\Deploykeys */
+        /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
         $dkey->delete('gentle', 'eof', '3');
     }
 }

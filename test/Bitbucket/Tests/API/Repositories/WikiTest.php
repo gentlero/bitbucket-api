@@ -1,9 +1,9 @@
 <?php
 
-namespace Gentle\Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API\Repositories;
 
-use Gentle\Bitbucket\Tests\API as Tests;
-use Gentle\Bitbucket\API;
+use Bitbucket\Tests\API as Tests;
+use Bitbucket\API;
 
 class WikiTest extends Tests\TestCase
 {
@@ -12,13 +12,13 @@ class WikiTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/wiki/Home';
         $expectedResult = json_encode('dummy');
 
-        $wiki = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Wiki');
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
         $wiki->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
             ->will( $this->returnValue($expectedResult) );
 
-        /** @var $wiki \Gentle\Bitbucket\API\Repositories\Wiki */
+        /** @var $wiki \Bitbucket\API\Repositories\Wiki */
         $actual = $wiki->get('gentle', 'eof', 'Home');
 
         $this->assertEquals($expectedResult, $actual);
@@ -32,12 +32,12 @@ class WikiTest extends Tests\TestCase
             'data' => 'Dummy page content'
         );
 
-        $wiki = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Wiki');
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
         $wiki->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $wiki \Gentle\Bitbucket\API\Repositories\Wiki */
+        /** @var $wiki \Bitbucket\API\Repositories\Wiki */
         $wiki->create('gentle', 'eof', 'Dummy', 'Dummy page content');
     }
 
@@ -50,12 +50,12 @@ class WikiTest extends Tests\TestCase
             'rev'   => '6b81a60'
         );
 
-        $wiki = $this->getApiMock('Gentle\Bitbucket\API\Repositories\Wiki');
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
         $wiki->expects($this->once())
             ->method('requestPut')
             ->with($endpoint, $params);
 
-        /** @var $wiki \Gentle\Bitbucket\API\Repositories\Wiki */
+        /** @var $wiki \Bitbucket\API\Repositories\Wiki */
         $wiki->update('gentle', 'eof', 'Dummy', 'Dummy page content', null, '6b81a60');
     }
 }
