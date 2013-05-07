@@ -37,3 +37,4 @@ $user->follows();
 #### Related:
   * [Authentication](authentication.md)
   * [User repositories](user/repositories.md)
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint#userEndpoint-Overview)

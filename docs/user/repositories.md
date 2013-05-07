@@ -23,3 +23,4 @@ $user->repositories()->dashboard();
 #### Related:
   * [Authentication](../authentication.md)
   * [User](../user.md)  
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint#userEndpoint-GETalistofrepositoriesanaccountfollows)
