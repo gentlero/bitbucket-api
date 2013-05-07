@@ -12,7 +12,7 @@ A simple PHP wrapper for Bitbucket API.
 * [Newuser](newuser.md)                             [-]
 * [Privileges](privileges.md)                       [-]
 * [Repositories](repositories.md)
-    * [Changesets](repositories/changesets.md)      [-]
+    * [Changesets](repositories/changesets.md)
     * [Deploykeys](repositories/deploykeys.md)      [-]
     * [Events](repositories/events.md)              [-]
     * [Followers](repositories/followers.md)        [-]
