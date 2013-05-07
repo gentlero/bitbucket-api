@@ -11,7 +11,7 @@ A simple PHP wrapper for Bitbucket API.
 * [Invitations](invitations.md)
 * [Newuser](newuser.md)                             [-]
 * [Privileges](privileges.md)                       [-]
-* [Repositories](repositories.md)                   [-]
+* [Repositories](repositories.md)
     * [Changesets](repositories/changesets.md)      [-]
     * [Deploykeys](repositories/deploykeys.md)      [-]
     * [Events](repositories/events.md)              [-]
