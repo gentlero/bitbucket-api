@@ -4,8 +4,8 @@ A simple PHP wrapper for Bitbucket API.
 
 ### Navigation
 
-* [Authentication](authentication.md)               [-]
-    * [Basic](authentication.md)                    [-]
+* [Authentication](authentication.md)
+    * [Basic](authentication.md)
 * [Groups](groups.md)                               [-]
 * [Group privileges](group-privileges.md)           [-]
 * [Invitations](invitations.md)                     [-]
