@@ -8,7 +8,7 @@ A simple PHP wrapper for Bitbucket API.
     * [Basic](authentication.md)
 * [Groups](groups.md)                               [-]
 * [Group privileges](group-privileges.md)           [-]
-* [Invitations](invitations.md)                     [-]
+* [Invitations](invitations.md)
 * [Newuser](newuser.md)                             [-]
 * [Privileges](privileges.md)                       [-]
 * [Repositories](repositories.md)                   [-]

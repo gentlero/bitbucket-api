@@ -1,0 +1,20 @@
+## Invitations
+
+----
+Allows repository administrators to send email invitations to grant read, write, or admin privileges to a repository.
+
+### Prepare:
+```php
+$invitation = new Bitbucket\API\Invitations();
+$invitation->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+```
+
+### Send invitation:
+```php
+$invitation->send('account', 'repository', 'user@example.com', 'read');
+```
+
+----
+
+#### Related:
+  * [Authentication](authentication.md)
