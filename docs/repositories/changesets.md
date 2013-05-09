@@ -11,22 +11,22 @@ $changesets->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $b
 
 ### Get a list of changesets associated with a repository:
 ```php
-$changesets->all($accountname, $repo_slug, 'aea95f1', 20);
+$changesets->all($account_name, $repo_slug, 'aea95f1', 20);
 ```
 
 ### Get an individual changeset:
 ```php
-$changesets->get($accountname, $repo_slug, 'aea95f1');
+$changesets->get($account_name, $repo_slug, 'aea95f1');
 ```
 
 ### Get statistics associated with an individual changeset:
 ```php
-$changesets->diffstat($accountname, $repo_slug, '4ba1a4a');
+$changesets->diffstat($account_name, $repo_slug, '4ba1a4a');
 ```
 
 ### Get the diff associated with a changeset:
 ```php
-$changesets->diffstat($accountname, $repo_slug, '4ba1a4a');
+$changesets->diffstat($account_name, $repo_slug, '4ba1a4a');
 ```
 
 ----

@@ -10,7 +10,7 @@ $followers = new Bitbucket\API\Repositories\Followers();
 
 ### Get the repository followers:
 ```php
-$followers->all($accountname, $repo_slug);
+$followers->all($account_name, $repo_slug);
 ```
 
 ----

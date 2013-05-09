@@ -11,17 +11,17 @@ $wiki->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass
 
 ### Get the raw content of a Wiki page:
 ```php
-$wiki->get($accountname, $repo_slug, 'Home');
+$wiki->get($account_name, $repo_slug, 'Home');
 ```
 
 ### Create a new page:
 ```php
-$wiki->create($accountname, $repo_slug, 'Glossary', 'Page content !', '/Glossary');
+$wiki->create($account_name, $repo_slug, 'Glossary', 'Page content !', '/Glossary');
 ```
 
 ### Update a page:
 ```php
-$wiki->update($accountname, $repo_slug, 'Glossary', 'Dummy page content !');
+$wiki->update($account_name, $repo_slug, 'Glossary', 'Dummy page content !');
 ```
 
 ----

@@ -11,27 +11,27 @@ $dk->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) 
 
 ### Get a list of keys:
 ```php
-$dk->all($accountname, $repo_slug);
+$dk->all($account_name, $repo_slug);
 ```
 
 ### Get a key content:
 ```php
-$dk->get($accountname, $repo_slug, 508372);
+$dk->get($account_name, $repo_slug, 508372);
 ```
 
 ### Add a new key:
 ```php
-$dk->create($accountname, $repo_slug, 'ssh-rsa [...]', 'test key');
+$dk->create($account_name, $repo_slug, 'ssh-rsa [...]', 'test key');
 ```
 
 ### Update an existing key:
 ```php
-$dk->update($accountname, $repo_slug, '508380', array('label' => 'test [edited]'));
+$dk->update($account_name, $repo_slug, '508380', array('label' => 'test [edited]'));
 ```
 
 ### Delete an existing key:
 ```php
-$dk->delete($accountname, $repo_slug, '508380');
+$dk->delete($account_name, $repo_slug, '508380');
 ```
 
 ----

@@ -11,7 +11,7 @@ $invitation->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $b
 
 ### Send invitation:
 ```php
-$invitation->send('account', 'repository', 'user@example.com', 'read');
+$invitation->send($account_name, $repo_slug, 'user@example.com', 'read');
 ```
 
 ----

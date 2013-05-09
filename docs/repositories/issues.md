@@ -11,17 +11,17 @@ $issue->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 
 ### Fetch a list of issues:
 ```php
-$issue->all($accountname, $repo_slug);
+$issue->all($account_name, $repo_slug);
 ```
 
 ### Fetch a single issue:
 ```php
-$issue->get($accountname, $repo_slug, 3);
+$issue->get($account_name, $repo_slug, 3);
 ```
 
 ### Fetch 5 issues that contains word `bug` in title:
 ```php
-$issue->all($accountname, $repo_slug, array(
+$issue->all($account_name, $repo_slug, array(
     'limit' => 5,
     'start' => 0,
     'search' => 'bug'
@@ -30,7 +30,7 @@ $issue->all($accountname, $repo_slug, array(
 
 ### Add a new issue:
 ```php
-$issue->create($accountname, $repo_slug, array(
+$issue->create($account_name, $repo_slug, array(
     'title'     => 'dummy title',
     'content'   => 'dummy content',
     'kind'      => 'proposal',
@@ -40,14 +40,14 @@ $issue->create($accountname, $repo_slug, array(
 
 ### Update an existing issue:
 ```php
-$issue->update($accountname, $repo_slug, 5, array(
+$issue->update($account_name, $repo_slug, 5, array(
     'title' => 'dummy title (edited)'
 ));
 ```
 
 ### Delete issue:
 ```php
-$issue->delete($accountname, $repo_slug, 5);
+$issue->delete($account_name, $repo_slug, 5);
 ```
 
 ----

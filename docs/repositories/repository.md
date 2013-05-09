@@ -20,7 +20,7 @@ $repo->create($repo_slug, array(
 
 ### Update an existing repository:
 ```php
-$repo->update($accountname, $repo_slug, array(
+$repo->update($account_name, $repo_slug, array(
     'description'   => 'My super secret project !!!',
     'language'      => 'php',
     'is_private'    => true
@@ -29,44 +29,44 @@ $repo->update($accountname, $repo_slug, array(
 
 ### Delete a repository:
 ```php
-$repo->delete($accountname, $repo_slug);
+$repo->delete($account_name, $repo_slug);
 ```
 
 ### Fork a repository:
 ```php
-$repo->fork($accountname, $repo_slug, $fork_slug, array(
+$repo->fork($account_name, $repo_slug, $fork_slug, array(
     'is_private' => true
 ));
 ```
 
 ### Get a list of branches associated with a repository:
 ```php
-$repo->branches($accountname, $repo_slug);
+$repo->branches($account_name, $repo_slug);
 ```
 
 ### Get the repository's main branch:
 ```php
-$repo->branch($accountname, $repo_slug);
+$repo->branch($account_name, $repo_slug);
 ```
 
 ### Get the repository manifest:
 ```php
-$repo->manifest($accountname, $repo_slug, 'develop');
+$repo->manifest($account_name, $repo_slug, 'develop');
 ```
 
 ### Get a list of tags:
 ```php
-$repo->tags($accountname, $repo_slug);
+$repo->tags($account_name, $repo_slug);
 ```
 
 ### Get the raw content of a file or directory:
 ```php
-$repo->raw($accountname, $repo_slug, '1bc8345', 'app/models/core.php')
+$repo->raw($account_name, $repo_slug, '1bc8345', 'app/models/core.php')
 ```
 
 ### Get the history of a file in a changeset
 ```php
-$repo->filehistory($accountname, $repo_slug, '1bc8345', 'app/models/core.php')
+$repo->filehistory($account_name, $repo_slug, '1bc8345', 'app/models/core.php')
 ```
 
 ----
