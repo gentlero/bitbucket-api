@@ -1,6 +1,6 @@
 <?php
 
-namespace Bitbucket\Tests\API\Repositories;
+namespace Bitbucket\Tests\API;
 
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API;
