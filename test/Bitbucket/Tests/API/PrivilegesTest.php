@@ -23,7 +23,7 @@ class PrivilegesTest extends Tests\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGetPrivilegesInvalidPrivilege()
+    public function testGetRepositoryPrivilegesInvalidPrivilege()
     {
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
 
@@ -42,5 +42,29 @@ class PrivilegesTest extends Tests\TestCase
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->account('gentle', 'test3', 'vimishor');
+    }
+
+    public function testGetRepositoriesPrivilegesWithoutFilterSuccess()
+    {
+        $endpoint       = 'privileges/gentle';
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->repositories('gentle');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetRepositoriesPrivilegesInvalidPrivilege()
+    {
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->repositories('gentle', 'invalid');
     }
 }

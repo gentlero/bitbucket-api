@@ -54,9 +54,9 @@ class Privileges extends Api
      * Get privileges for an individual.
      *
      * @access public
-     * @param string $owner Owner of the repository.
-     * @param string $repo Repository identifier.
-     * @param string $account The account to list privileges for.
+     * @param  string $owner   Owner of the repository.
+     * @param  string $repo    Repository identifier.
+     * @param  string $account The account to list privileges for.
      * @return mixed
      */
     public function account($owner, $repo, $account)
@@ -68,7 +68,31 @@ class Privileges extends Api
 
     /**
      * Get a list of all privileges across all an account's repositories.
+     *
+     * If a repository has no individual users with privileges, it does not appear in this list.
+     *
+     * @access public
+     * @param  string                    $account   Owner of the repository.
+     * @param  string                    $privilege Filters for a particular privilege.
+     * @return mixed
+     * @throws \InvalidArgumentException
      */
-    public function repositories()
-    {}
+    public function repositories($account, $privilege = null)
+    {
+        $params = array();
+
+        if (!is_null($privilege)) {
+
+            if (!in_array($privilege, array('read', 'write', 'admin'))) {
+                throw new \InvalidArgumentException("Invalid privilege provided.");
+            }
+
+            $params['filter'] = $privilege;
+        }
+
+        return $this->requestGet(
+            sprintf('privileges/%s', $account),
+            $params
+        );
+    }
 }
