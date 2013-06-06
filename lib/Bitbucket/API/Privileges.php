@@ -52,9 +52,19 @@ class Privileges extends Api
 
     /**
      * Get privileges for an individual.
+     *
+     * @access public
+     * @param string $owner Owner of the repository.
+     * @param string $repo Repository identifier.
+     * @param string $account The account to list privileges for.
+     * @return mixed
      */
-    public function account()
-    {}
+    public function account($owner, $repo, $account)
+    {
+        return $this->requestGet(
+            sprintf('privileges/%s/%s/%s', $owner, $repo, $account)
+        );
+    }
 
     /**
      * Get a list of all privileges across all an account's repositories.

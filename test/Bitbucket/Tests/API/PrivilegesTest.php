@@ -7,7 +7,7 @@ use Bitbucket\API;
 
 class PrivilegesTest extends Tests\TestCase
 {
-    public function testGetPrivilegesWithoutFilterSuccess()
+    public function testGetRepositoryPrivilegesWithoutFilterSuccess()
     {
         $endpoint       = 'privileges/gentle/test3';
 
@@ -29,5 +29,18 @@ class PrivilegesTest extends Tests\TestCase
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repository('gentle', 'repo', 'invalid');
+    }
+
+    public function testGetAccountPrivilegesSuccess()
+    {
+        $endpoint       = 'privileges/gentle/test3/vimishor';
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->account('gentle', 'test3', 'vimishor');
     }
 }
