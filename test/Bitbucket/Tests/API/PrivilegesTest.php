@@ -67,4 +67,31 @@ class PrivilegesTest extends Tests\TestCase
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repositories('gentle', 'invalid');
     }
+
+    public function testGrantPrivilegesSuccess()
+    {
+        $endpoint       = 'privileges/gentle/repo/vimishor';
+        $params         = array(
+            'filter' => 'read'
+        );
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->grant('gentle', 'repo', 'vimishor', 'read');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGrantPrivilegesInvalidPrivilege()
+    {
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->grant('gentle', 'repo', 'vimishor', 'invalid');
+    }
 }

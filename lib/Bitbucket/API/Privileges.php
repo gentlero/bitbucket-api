@@ -95,4 +95,29 @@ class Privileges extends Api
             $params
         );
     }
+
+    /**
+     * Grants an account a privilege on a repository.
+     *
+     * @access public
+     * @param string $owner Owner of the repository.
+     * @param string $repo Repository identifier.
+     * @param string $account The account to list privileges for.
+     * @param string $privilege The privilege to assign.
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    public function grant($owner, $repo, $account, $privilege)
+    {
+        if (!in_array($privilege, array('read', 'write', 'admin'))) {
+            throw new \InvalidArgumentException("Invalid privilege provided.");
+        }
+
+        $params['filter'] = $privilege;
+
+        return $this->requestPut(
+            sprintf('privileges/%s/%s/%s', $owner, $repo, $account),
+            $params
+        );
+    }
 }
