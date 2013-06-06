@@ -94,4 +94,43 @@ class PrivilegesTest extends Tests\TestCase
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->grant('gentle', 'repo', 'vimishor', 'invalid');
     }
+
+    public function testDeleteAccountPrivilegesFromRepositorySuccess()
+    {
+        $endpoint       = 'privileges/gentle/repo/vimishor';
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->delete('gentle', 'repo', 'vimishor');
+    }
+
+    public function testDeleteAllPrivilegesFromRepositorySuccess()
+    {
+        $endpoint       = 'privileges/gentle/repo';
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->delete('gentle', 'repo');
+    }
+
+    public function testDeleteAllPrivilegesFromAllRepositoriesSuccess()
+    {
+        $endpoint       = 'privileges/gentle';
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->delete('gentle');
+    }
 }

@@ -100,10 +100,10 @@ class Privileges extends Api
      * Grants an account a privilege on a repository.
      *
      * @access public
-     * @param string $owner Owner of the repository.
-     * @param string $repo Repository identifier.
-     * @param string $account The account to list privileges for.
-     * @param string $privilege The privilege to assign.
+     * @param  string                    $owner     Owner of the repository.
+     * @param  string                    $repo      Repository identifier.
+     * @param  string                    $account   The account to list privileges for.
+     * @param  string                    $privilege The privilege to assign.
      * @return mixed
      * @throws \InvalidArgumentException
      */
@@ -119,5 +119,38 @@ class Privileges extends Api
             sprintf('privileges/%s/%s/%s', $owner, $repo, $account),
             $params
         );
+    }
+
+    /**
+     * Delete account privileges from a repository
+     *
+     * if `$account` is specified, then all account privileges will be deleted from repository.
+     * If `$account` is not specified, then all privileges from repository will be deleted.
+     * If `repo` is not specified, then all privileges from all repositories will be deleted.
+     *
+     * @access public
+     * @param  string                    $owner   Owner of the repository.
+     * @param  string                    $repo    Repository identifier.
+     * @param  string                    $account The account to list privileges for.
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    public function delete($owner, $repo = null, $account = null)
+    {
+        if (!is_null($account) AND is_null($repo)) {
+            throw new \InvalidArgumentException("To delete an account privileges, you need to specify a repository.");
+        }
+
+        $endpoint = sprintf('privileges/%s', $owner);
+
+        if (!is_null($repo)) {
+            $endpoint .= '/'.$repo;
+        }
+
+        if (!is_null($account)) {
+            $endpoint .= '/'.$account;
+        }
+
+        return $this->requestDelete($endpoint);
     }
 }
