@@ -68,4 +68,20 @@ class Account extends Api
             sprintf('users/%s/followers', $account)
         );
     }
+
+    /**
+     * Get the events
+     *
+     * Gets a count and the list of events associated with an account.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account, or validated email address.
+     * @return mixed
+     */
+    public function events($account)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/events', $account)
+        );
+    }
 }

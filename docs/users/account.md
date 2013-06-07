@@ -24,6 +24,11 @@ $users->account()->plan($account_name);
 $users->account()->followers($account_name);
 ```
 
+### Gets a count and the list of events associated with an account:
+```php
+$users->account()->events($account_name);
+```
+
 ----
 
 #### Related:
