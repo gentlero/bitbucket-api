@@ -6,8 +6,8 @@ Any user with admin access to the account can invite someone to a group.
 
 ### Prepare:
 ```php
-$invitations = new Bitbucket\API\Users();
-$invitations->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$users = new Bitbucket\API\Users();
+$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
 ### Get a list of pending invitations:

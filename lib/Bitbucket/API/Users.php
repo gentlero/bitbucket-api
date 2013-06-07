@@ -74,4 +74,22 @@ class Users extends Api
 
         return $invitations;
     }
+
+    /**
+     * Get oauth
+     *
+     * @access public
+     * @return Users\OAuth
+     * @codeCoverageIgnore
+     */
+    public function oauth()
+    {
+        $oauth = new Users\OAuth( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $oauth->setCredentials( $this->auth );
+        }
+
+        return $oauth;
+    }
 }
