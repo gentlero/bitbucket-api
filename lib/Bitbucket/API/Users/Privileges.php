@@ -74,4 +74,27 @@ class Privileges extends Api
             array('privileges' => $privilege)
         );
     }
+
+    /**
+     * Add a privilege to a group
+     *
+     * @access public
+     * @param  string                    $account     The team or individual account name.
+     * @param  string                    $group_owner The account that owns the group.
+     * @param  string                    $group_slug  The group identifier.
+     * @param  string                    $privilege   Either admin or collaborator.
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    public function create($account, $group_owner, $group_slug, $privilege)
+    {
+        if (!in_array($privilege, array('admin', 'collaborator'))) {
+            throw new \InvalidArgumentException("Invalid privilege provided.");
+        }
+
+        return $this->requestPost(
+            sprintf('users/%s/privileges/%s/%s', $account, $group_owner, $group_slug),
+            array('privileges' => $privilege)
+        );
+    }
 }

@@ -20,9 +20,14 @@ $users->privileges()->team($account_name);
 $users->privileges()->group($account_name, 'john', 'testers');
 ```
 
-### Updates an existing group's privileges for a team account.
+### Updates an existing group's privileges for a team account:
 ```php
 $users->privileges()->update($account_name, 'john', 'testers', 'collaborator');
+```
+
+### Add a privilege to a group:
+```php
+$users->privileges()->create($account_name, 'john', 'testers', 'admin');
 ```
 
 ----
