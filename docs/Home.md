@@ -30,7 +30,7 @@ A simple PHP wrapper for Bitbucket API.
     * [Emails](users/emails.md)
     * [Invitations](users/invitations.md)
     * [OAuth](users/oauth.md)
-    * [Privileges](users/privileges.md)             [-]
+    * [Privileges](users/privileges.md)
     * [SSH Keys](users/ssh-keys.md)                 [-]
 
 ### LEGEND:

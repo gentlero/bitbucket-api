@@ -92,4 +92,22 @@ class Users extends Api
 
         return $oauth;
     }
+
+    /**
+     * Get privileges
+     *
+     * @access public
+     * @return Users\Privileges
+     * @codeCoverageIgnore
+     */
+    public function privileges()
+    {
+        $privileges = new Users\Privileges( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $privileges->setCredentials( $this->auth );
+        }
+
+        return $privileges;
+    }
 }
