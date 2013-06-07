@@ -20,6 +20,20 @@ class PrivilegesTest extends Tests\TestCase
         $privileges->repository('gentle', 'test3');
     }
 
+    public function testGetRepositoryPrivilegesWithFilterSuccess()
+    {
+        $endpoint       = 'privileges/gentle/test3';
+        $params         = array('filter' => 'read');
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint, $params);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->repository('gentle', 'test3', 'read');
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -55,6 +69,20 @@ class PrivilegesTest extends Tests\TestCase
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repositories('gentle');
+    }
+
+    public function testGetRepositoriesPrivilegesWithFilterSuccess()
+    {
+        $endpoint       = 'privileges/gentle';
+        $params         = array('filter' => 'write');
+
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint, $params);
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->repositories('gentle', 'write');
     }
 
     /**
@@ -132,5 +160,16 @@ class PrivilegesTest extends Tests\TestCase
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->delete('gentle');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeleteAccountPrivilegesInvalidParams()
+    {
+        $privileges = $this->getApiMock('Bitbucket\API\Privileges');
+
+        /** @var $privileges \Bitbucket\API\Privileges */
+        $privileges->delete('gentle', null, 'vimishor');
     }
 }
