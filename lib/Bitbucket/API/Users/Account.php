@@ -36,4 +36,20 @@ class Account extends Api
             sprintf('users/%s', $account)
         );
     }
+
+    /**
+     * Get the account plan
+     *
+     * Gets the number of users counted against an account's plan.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account, or validated email address.
+     * @return mixed
+     */
+    public function plan($account)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/plan', $account)
+        );
+    }
 }

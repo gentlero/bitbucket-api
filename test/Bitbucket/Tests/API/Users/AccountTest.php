@@ -23,4 +23,21 @@ class AccountTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetAccountPlan()
+    {
+        $endpoint       = 'users/gentle/plan';
+        $expectedResult = json_encode('dummy');
+
+        $account = $this->getApiMock('Bitbucket\API\Users\Account');
+        $account->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $account \Bitbucket\API\Users\Account */
+        $actual = $account->plan('gentle');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

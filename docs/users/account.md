@@ -14,6 +14,11 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 $users->account()->profile($account_name);
 ```
 
+### Get the account plan:
+```php
+$users->account()->plan($account_name);
+```
+
 ----
 
 #### Related:
