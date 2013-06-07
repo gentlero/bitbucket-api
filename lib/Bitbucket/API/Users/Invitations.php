@@ -100,10 +100,29 @@ class Invitations extends Api
      * @param  string $email   Name of the email address to delete.
      * @return mixed
      */
-    public function delete($account, $email)
+    public function deleteByEmail($account, $email)
     {
         return $this->requestDelete(
             sprintf('users/%s/invitations/%s', $account, $email)
+        );
+    }
+
+    /**
+     * Delete pending invitations by group
+     *
+     * Deletes a pending invitation for a particular email on account's group.
+     *
+     * @access public
+     * @param  string $account     The name of an individual or team account.
+     * @param  string $group_owner The name of an individual or team account that owns the group.
+     * @param  string $group_slug  An identifier for the group.
+     * @param  string $email       Name of the email address to delete.
+     * @return mixed
+     */
+    public function deleteByGroup($account, $group_owner, $group_slug, $email)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/invitations/%s/%s/%s', $account, $email, $group_owner, $group_slug)
         );
     }
 }

@@ -33,7 +33,12 @@ $users->invitations()->create($account_name, 'john', 'testers', 'dummy@example.c
 
 ### Deletes any pending invitations on a team or individual account for a particular email address.
 ```php
-$users->invitations()->delete($account_name, 'dummy@example.com');
+$users->invitations()->deleteByEmail($account_name, 'dummy@example.com');
+```
+
+### Deletes a pending invitation for a particular email on account's group.
+```php
+$users->invitations()->deleteByGroup($account_name, 'john', 'testers', 'dummy@example.com');
 ```
 
 ----
