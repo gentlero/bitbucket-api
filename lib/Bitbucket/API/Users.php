@@ -38,4 +38,22 @@ class Users extends Api
 
         return $account;
     }
+
+    /**
+     * Get emails
+     *
+     * @access public
+     * @return Users\Emails
+     * @codeCoverageIgnore
+     */
+    public function emails()
+    {
+        $emails = new Users\Emails( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $emails->setCredentials( $this->auth );
+        }
+
+        return $emails;
+    }
 }
