@@ -29,7 +29,7 @@ class SshKeys extends Api
      * @param  string $account The name of an individual or team account.
      * @return mixed
      */
-    public function get($account)
+    public function all($account)
     {
         return $this->requestGet(
             sprintf('users/%s/ssh-keys', $account)

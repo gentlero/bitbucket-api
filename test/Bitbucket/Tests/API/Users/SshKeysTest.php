@@ -7,7 +7,7 @@ use Bitbucket\API;
 
 class SshKeysTest extends Tests\TestCase
 {
-    public function testGetSshKeys()
+    public function testGetAllSshKeys()
     {
         $endpoint       = 'users/gentle/ssh-keys';
         $expectedResult = json_encode('dummy');
@@ -19,7 +19,7 @@ class SshKeysTest extends Tests\TestCase
             ->will( $this->returnValue($expectedResult) );
 
         /** @var $keys \Bitbucket\API\Users\SshKeys */
-        $actual = $keys->get('gentle');
+        $actual = $keys->all('gentle');
 
         $this->assertEquals($expectedResult, $actual);
     }
