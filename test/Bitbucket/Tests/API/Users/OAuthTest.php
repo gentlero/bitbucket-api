@@ -67,4 +67,21 @@ class OAuthTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testDeleteConsumerSuccess()
+    {
+        $endpoint       = 'users/gentle/consumers/22';
+        $expectedResult = json_encode('dummy');
+
+        $oauth = $this->getApiMock('Bitbucket\API\Users\OAuth');
+        $oauth->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $oauth \Bitbucket\API\Users\OAuth */
+        $actual = $oauth->delete('gentle', 22);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

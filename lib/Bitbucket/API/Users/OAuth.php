@@ -92,4 +92,19 @@ class OAuth extends Api
             $params
         );
     }
+
+    /**
+     * Delete OAuth consumer
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  int    $key_id  The id of the key to delete.
+     * @return mixed
+     */
+    public function delete($account, $key_id)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/consumers/%d', $account, $key_id)
+        );
+    }
 }

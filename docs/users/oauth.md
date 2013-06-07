@@ -24,6 +24,11 @@ $users->oauth()->create($account_name, 'test', 'just for testing', 'http://test.
 $users->oauth()->create($account_name, 'test', 22, 'just for testing', 'http://test.example.com/oauth/bitbucket');
 ```
 
+### Delete existing consumer
+```php
+$users->oauth()->delete($account_name, 22);
+```
+
 ----
 
 #### Related:
