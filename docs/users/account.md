@@ -19,6 +19,11 @@ $users->account()->profile($account_name);
 $users->account()->plan($account_name);
 ```
 
+### Get the followers of an account:
+```php
+$users->account()->followers($account_name);
+```
+
 ----
 
 #### Related:

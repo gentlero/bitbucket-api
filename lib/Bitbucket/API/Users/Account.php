@@ -52,4 +52,20 @@ class Account extends Api
             sprintf('users/%s/plan', $account)
         );
     }
+
+    /**
+     * Get the followers
+     *
+     * Gets a count and the list of accounts following an account.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account, or validated email address.
+     * @return mixed
+     */
+    public function followers($account)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/followers', $account)
+        );
+    }
 }
