@@ -97,4 +97,20 @@ class Privileges extends Api
             array('privileges' => $privilege)
         );
     }
+
+    /**
+     * Delete a privilege group
+     *
+     * @access public
+     * @param  string $account     The team or individual account name.
+     * @param  string $group_owner The account that owns the group.
+     * @param  string $group_slug  The group identifier.
+     * @return mixed
+     */
+    public function delete($account, $group_owner, $group_slug)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/privileges/%s/%s', $account, $group_owner, $group_slug)
+        );
+    }
 }

@@ -30,6 +30,11 @@ $users->privileges()->update($account_name, 'john', 'testers', 'collaborator');
 $users->privileges()->create($account_name, 'john', 'testers', 'admin');
 ```
 
+### Deletes a privilege.
+```php
+$users->privileges()->delete($account_name, 'john', 'testers');
+```
+
 ----
 
 #### Related:

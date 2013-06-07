@@ -98,4 +98,21 @@ class PrivilegesTest extends Tests\TestCase
         /** @var $privileges \Bitbucket\API\Users\Privileges */
         $privileges->create('gentle', 'john', 'testers', 'invalid');
     }
+
+    public function testDeleteGroupPrivilege()
+    {
+        $endpoint       = 'users/gentle/privileges/john/testers';
+        $expectedResult = json_encode('dummy');
+
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $actual = $privileges->delete('gentle', 'john', 'testers');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
