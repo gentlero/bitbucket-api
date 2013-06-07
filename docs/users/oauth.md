@@ -34,4 +34,4 @@ $users->oauth()->delete($account_name, 22);
 #### Related:
   * [Authentication](authentication.md)
   * [Users](../users.md)
-  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/invitations+Resource#invitationsResource-Overview)
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/oauth+Resource#oauthResource-Overview)
