@@ -81,4 +81,21 @@ class SshKeysTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testDeleteSshKey()
+    {
+        $endpoint       = 'users/gentle/ssh-keys/2';
+        $expectedResult = json_encode('dummy');
+
+        $keys = $this->getApiMock('Bitbucket\API\Users\SshKeys');
+        $keys->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $keys \Bitbucket\API\Users\SshKeys */
+        $actual = $keys->delete('gentle', 2);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

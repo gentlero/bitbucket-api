@@ -90,4 +90,19 @@ class SshKeys extends Api
             sprintf('users/%s/ssh-keys/%d', $account, $key_id)
         );
     }
+
+    /**
+     * Deletes the key specified by the key_id value
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  int    $key_id  Key identifier.
+     * @return mixed
+     */
+    public function delete($account, $key_id)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/ssh-keys/%d', $account, $key_id)
+        );
+    }
 }

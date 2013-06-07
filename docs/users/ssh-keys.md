@@ -27,6 +27,12 @@ $users->sshKeys()->update($account_name, 12, 'key content');
 ### Get the content of the specified `key_id`:
 ```php
 $users->sshKeys()->get($account_name, 12);
+```
+
+### Delete a ssh key:
+```php
+$users->sshKeys()->delete($account_name, 12);
+```
 
 ----
 
