@@ -1,8 +1,6 @@
 # PHP Bitbucket API [![Build Status](https://travis-ci.org/gentlero/bitbucket-api.png?branch=develop)](https://travis-ci.org/gentlero/bitbucket-api) [![Coverage Status](https://coveralls.io/repos/gentlero/bitbucket-api/badge.png?branch=develop)](https://coveralls.io/r/gentlero/bitbucket-api?branch=develop)
 
-Simple Bitbucket API wrapper for PHP >= 5.3.2. 
-
-**NOTE:** This library is not finished and therefor does not implement entire Bitbucket API for the moment.
+Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
 ## Requirements
 
