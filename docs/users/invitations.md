@@ -20,6 +20,11 @@ $users->invitations()->all($account_name);
 $users->invitations()->email($account_name, 'dummy@example.com');
 ```
 
+### Tests whether there is a pending invitation for a particular email on account's group:
+```php
+$users->invitations()->group($account_name, 'john', 'testers', 'dummy@example.com');
+```
+
 ----
 
 #### Related:
