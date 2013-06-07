@@ -23,4 +23,21 @@ class InvitationsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetInvitationsForEmailAddress()
+    {
+        $endpoint       = 'users/gentle/invitations/dummy@example.com';
+        $expectedResult = json_encode('dummy');
+
+        $invitations = $this->getApiMock('Bitbucket\API\Users\Invitations');
+        $invitations->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $invitations \Bitbucket\API\Users\Invitations */
+        $actual = $invitations->email('gentle', 'dummy@example.com');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

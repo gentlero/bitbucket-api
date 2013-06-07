@@ -15,6 +15,11 @@ $invitations->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $
 $users->invitations()->all($account_name);
 ```
 
+### Gets any pending invitations on a team or individual account for a particular email address:
+```php
+$users->invitations()->email($account_name, 'dummy@example.com');
+```
+
 ----
 
 #### Related:

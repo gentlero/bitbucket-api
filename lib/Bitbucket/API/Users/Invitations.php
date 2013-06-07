@@ -36,4 +36,21 @@ class Invitations extends Api
             sprintf('users/%s/invitations', $account)
         );
     }
+
+    /**
+     * Get pending invitations for a particular email address
+     *
+     * Gets any pending invitations on a team or individual account for a particular email address.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   The email address to get.
+     * @return mixed
+     */
+    public function email($account, $email)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/invitations/%s', $account, $email)
+        );
+    }
 }
