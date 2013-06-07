@@ -45,4 +45,26 @@ class OAuthTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testUpdateConsumerSuccess()
+    {
+        $endpoint       = 'users/gentle/consumers/22';
+        $expectedResult = json_encode('dummy');
+        $params         = array(
+            'name'          => 'staging',
+            'description'   => 'consumer used in staging env',
+            'url'           => 'http://stage.example.com/oauth/bitbucket'
+        );
+
+        $oauth = $this->getApiMock('Bitbucket\API\Users\OAuth');
+        $oauth->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $oauth \Bitbucket\API\Users\OAuth */
+        $actual = $oauth->update('gentle', $params['name'], 22, $params['description'], $params['url']);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

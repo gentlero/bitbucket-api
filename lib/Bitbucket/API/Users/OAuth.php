@@ -63,4 +63,33 @@ class OAuth extends Api
             $params
         );
     }
+
+    /**
+     * Update an OAuth consumer
+     *
+     * @access public
+     * @param  string $account     The name of an individual or team account.
+     * @param  string $name        A display name for the key.
+     * @param  int    $key_id      The id of the key to update.
+     * @param  string $description A description of the key. (optional)
+     * @param  string $url         The location of the service that will use the key. (optional)
+     * @return mixed
+     */
+    public function update($account, $name, $key_id, $description = null, $url = null)
+    {
+        $params['name'] = $name;
+
+        if (!is_null($description)) {
+            $params['description'] = $description;
+        }
+
+        if (!is_null($url)) {
+            $params['url'] = $url;
+        }
+
+        return $this->requestPut(
+            sprintf('users/%s/consumers/%d', $account, $key_id),
+            $params
+        );
+    }
 }

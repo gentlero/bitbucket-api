@@ -19,6 +19,11 @@ $users->oauth()->all($account_name);
 $users->oauth()->create($account_name, 'test', 'just for testing', 'http://test.example.com/oauth/bitbucket');
 ```
 
+### Update existing consumer
+```php
+$users->oauth()->create($account_name, 'test', 22, 'just for testing', 'http://test.example.com/oauth/bitbucket');
+```
+
 ----
 
 #### Related:
