@@ -89,4 +89,21 @@ class Invitations extends Api
             sprintf('users/%s/invitations/%s/%s/%s', $account, $email, $group_owner, $group_slug)
         );
     }
+
+    /**
+     * Delete pending invitations by email address
+     *
+     * Deletes any pending invitations on a team or individual account for a particular email address.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   Name of the email address to delete.
+     * @return mixed
+     */
+    public function delete($account, $email)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/invitations/%s', $account, $email)
+        );
+    }
 }

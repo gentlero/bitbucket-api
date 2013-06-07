@@ -26,9 +26,14 @@ $users->invitations()->group($account_name, 'john', 'testers', 'dummy@example.co
 ```
 
 ### Issues an invitation to the specified account group.
-An invitation is a request sent to an external email address to participate one or more of an account's groups. 
+An invitation is a request sent to an external email address to participate one or more of an account's groups.
 ```php
 $users->invitations()->create($account_name, 'john', 'testers', 'dummy@example.com');
+```
+
+### Deletes any pending invitations on a team or individual account for a particular email address.
+```php
+$users->invitations()->delete($account_name, 'dummy@example.com');
 ```
 
 ----
