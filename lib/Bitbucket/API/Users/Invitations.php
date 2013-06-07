@@ -58,15 +58,34 @@ class Invitations extends Api
      * Get a pending invitation for group membership
      *
      * @access public
-     * @param string $account The name of an individual or team account.
-     * @param string $group_owner The name of an individual or team account that owns the group.
-     * @param string $group_slug An identifier for the group.
-     * @param string $email Name of the email address
+     * @param  string $account     The name of an individual or team account.
+     * @param  string $group_owner The name of an individual or team account that owns the group.
+     * @param  string $group_slug  An identifier for the group.
+     * @param  string $email       Name of the email address
      * @return mixed
      */
     public function group($account, $group_owner, $group_slug, $email)
     {
         return $this->requestGet(
+            sprintf('users/%s/invitations/%s/%s/%s', $account, $email, $group_owner, $group_slug)
+        );
+    }
+
+    /**
+     * Issues an invitation to the specified account group.
+     *
+     * An invitation is a request sent to an external email address to participate one or more of an account's groups.
+     *
+     * @access public
+     * @param  string $account     The name of an individual or team account.
+     * @param  string $group_owner The name of an individual or team account that owns the group.
+     * @param  string $group_slug  An identifier for the group.
+     * @param  string $email       Name of the email address
+     * @return mixed
+     */
+    public function create($account, $group_owner, $group_slug, $email)
+    {
+        return $this->requestPut(
             sprintf('users/%s/invitations/%s/%s/%s', $account, $email, $group_owner, $group_slug)
         );
     }

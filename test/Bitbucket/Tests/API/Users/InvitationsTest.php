@@ -57,4 +57,21 @@ class InvitationsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testIssuesNewInvitationSuccess()
+    {
+        $endpoint       = 'users/gentle/invitations/dummy@example.com/john/testers';
+        $expectedResult = json_encode('dummy');
+
+        $invitations = $this->getApiMock('Bitbucket\API\Users\Invitations');
+        $invitations->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $invitations \Bitbucket\API\Users\Invitations */
+        $actual = $invitations->create('gentle', 'john', 'testers', 'dummy@example.com');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
