@@ -35,4 +35,27 @@ class SshKeys extends Api
             sprintf('users/%s/ssh-keys', $account)
         );
     }
+
+    /**
+     * Create a key on the specified account.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $key     The key value.
+     * @param  string $label   A label for the key. (optional)
+     * @return mixed
+     */
+    public function create($account, $key, $label = null)
+    {
+        $params['key'] = $key;
+
+        if (!is_null($label)) {
+            $params['label'] = $label;
+        }
+
+        return $this->requestPost(
+            sprintf('users/%s/ssh-keys', $account),
+            $params
+        );
+    }
 }

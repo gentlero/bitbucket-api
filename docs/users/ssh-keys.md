@@ -14,9 +14,14 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 $users->sshKeys()->get($account_name);
 ```
 
+### Creates a key on the specified account:
+```php
+$users->sshKeys()->create($account_name, 'key content', 'dummy key');
+```
+
 ----
 
 #### Related:
   * [Authentication](authentication.md)
   * [Users](../users.md)
-  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/oauth+Resource#oauthResource-Overview)
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/ssh-keys+Resource#ssh-keysResource-Overview)
