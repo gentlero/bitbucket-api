@@ -25,13 +25,13 @@ A simple PHP wrapper for Bitbucket API.
     * [Wiki](repositories/wiki.md)
 * [User](user.md)
     * [Repositories](user/repositories.md)
-* [Users](users.md)                                 [-]
+* [Users](users.md)
     * [Account](users/account.md)
     * [Emails](users/emails.md)
     * [Invitations](users/invitations.md)
     * [OAuth](users/oauth.md)
     * [Privileges](users/privileges.md)
-    * [SSH Keys](users/ssh-keys.md)                 [-]
+    * [SSH Keys](users/ssh-keys.md)
 
 ### LEGEND:
 

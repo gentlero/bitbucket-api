@@ -110,4 +110,22 @@ class Users extends Api
 
         return $privileges;
     }
+
+    /**
+     * Get sshKeys
+     *
+     * @access public
+     * @return Users\SshKeys
+     * @codeCoverageIgnore
+     */
+    public function sshKeys()
+    {
+        $keys = new Users\SshKeys( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $keys->setCredentials( $this->auth );
+        }
+
+        return $keys;
+    }
 }

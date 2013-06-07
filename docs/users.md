@@ -17,4 +17,6 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
   * [Users emails](users/emails.md)
   * [Users invitations](users/invitations.md)
   * [Users oauth](users/oauth.md)
+  * [Users privileges](users/privileges.md)
+  * [Users ssh keys](users/ssh-keys.md)
   * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/users+Endpoint)
