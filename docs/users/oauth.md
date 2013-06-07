@@ -14,6 +14,11 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 $users->oauth()->all($account_name);
 ```
 
+### Create new consumer
+```php
+$users->oauth()->create($account_name, 'test', 'just for testing', 'http://test.example.com/oauth/bitbucket');
+```
+
 ----
 
 #### Related:

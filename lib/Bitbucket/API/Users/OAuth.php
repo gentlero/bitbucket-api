@@ -35,4 +35,32 @@ class OAuth extends Api
             sprintf('users/%s/consumers', $account)
         );
     }
+
+    /**
+     * Create new OAuth consumer
+     *
+     * @access public
+     * @param  string $account     The name of an individual or team account.
+     * @param  string $name        A display name for the key.
+     * @param  string $description A description of the key. (optional)
+     * @param  string $url         The location of the service that will use the key. (optional)
+     * @return mixed
+     */
+    public function create($account, $name, $description = null, $url = null)
+    {
+        $params['name'] = $name;
+
+        if (!is_null($description)) {
+            $params['description'] = $description;
+        }
+
+        if (!is_null($url)) {
+            $params['url'] = $url;
+        }
+
+        return $this->requestPost(
+            sprintf('users/%s/consumers', $account),
+            $params
+        );
+    }
 }
