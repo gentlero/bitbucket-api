@@ -16,6 +16,7 @@
     "require": {
         "php": ">=5.3",
         "ext-curl": "*",
+        "ext-spl": "*",
         "kriswallsmith/buzz": "0.7"
     },
     "require-dev": {
