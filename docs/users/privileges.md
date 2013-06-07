@@ -20,6 +20,11 @@ $users->privileges()->team($account_name);
 $users->privileges()->group($account_name, 'john', 'testers');
 ```
 
+### Updates an existing group's privileges for a team account.
+```php
+$users->privileges()->update($account_name, 'john', 'testers', 'collaborator');
+```
+
 ----
 
 #### Related:

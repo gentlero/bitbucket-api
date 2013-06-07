@@ -40,4 +40,33 @@ class PrivilegesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testUpdateGroupPrivilege()
+    {
+        $endpoint       = 'users/gentle/privileges/john/testers';
+        $expectedResult = json_encode('dummy');
+        $params         = array('privileges' => 'admin');
+
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
+        $privileges->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $actual = $privileges->update('gentle', 'john', 'testers', 'admin');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUpdateGroupPrivilegeInvalidPrivilege()
+    {
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
+
+        /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges->update('gentle', 'john', 'testers', 'invalid');
+    }
 }
