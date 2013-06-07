@@ -87,4 +87,19 @@ class Emails extends Api
             array('primary' => (bool) $primary)
         );
     }
+
+    /**
+     * Delete an email address
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   The email address to get.
+     * @return mixed
+     */
+    public function delete($account, $email)
+    {
+        return $this->requestDelete(
+            sprintf('users/%s/emails/%s', $account, $email)
+        );
+    }
 }

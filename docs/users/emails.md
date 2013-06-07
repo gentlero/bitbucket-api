@@ -33,6 +33,11 @@ $users->emails()->create($account_name, 'dummy@example.com');
 $users->emails()->update($account_name, 'dummy@example.com', true);
 ```
 
+### Delete an email address:
+```php
+$users->emails()->delete($account_name, 'dummy@example.com');
+```
+
 ----
 
 #### Related:

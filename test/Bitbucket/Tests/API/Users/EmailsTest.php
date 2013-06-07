@@ -67,4 +67,17 @@ class EmailsTest extends Tests\TestCase
         /** @var $email \Bitbucket\API\Users\Emails */
         $email->update('gentle', 'dummy@example.com', true);
     }
+
+    public function testDeleteEmailSuccess()
+    {
+        $endpoint   = 'users/gentle/emails/dummy@example.com';
+
+        $email = $this->getApiMock('\Bitbucket\API\Users\Emails');
+        $email->expects($this->once())
+            ->method('requestDelete')
+            ->with($endpoint);
+
+        /** @var $email \Bitbucket\API\Users\Emails */
+        $email->delete('gentle', 'dummy@example.com');
+    }
 }
