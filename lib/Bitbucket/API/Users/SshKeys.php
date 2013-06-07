@@ -58,4 +58,21 @@ class SshKeys extends Api
             $params
         );
     }
+
+    /**
+     * Updates a key on the specified account.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  int    $key_id  Key identifier.
+     * @param  string $key     The key value.
+     * @return mixed
+     */
+    public function update($account, $key_id, $key)
+    {
+        return $this->requestPut(
+            sprintf('users/%s/ssh-keys/%d', $account, $key_id),
+            array('key' => $key)
+        );
+    }
 }

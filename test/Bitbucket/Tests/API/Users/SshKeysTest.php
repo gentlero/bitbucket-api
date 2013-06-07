@@ -36,11 +36,31 @@ class SshKeysTest extends Tests\TestCase
         $keys = $this->getApiMock('Bitbucket\API\Users\SshKeys');
         $keys->expects($this->once())
             ->method('requestPost')
-            ->with($endpoint)
+            ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
         /** @var $keys \Bitbucket\API\Users\SshKeys */
         $actual = $keys->create('gentle', $params['key'], $params['label']);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
+    public function testUpdateSshKey()
+    {
+        $endpoint       = 'users/gentle/ssh-keys/12';
+        $expectedResult = json_encode('dummy');
+        $params         = array(
+            'key'   => 'key content'
+        );
+
+        $keys = $this->getApiMock('Bitbucket\API\Users\SshKeys');
+        $keys->expects($this->once())
+            ->method('requestPut')
+            ->with($endpoint, $params)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $keys \Bitbucket\API\Users\SshKeys */
+        $actual = $keys->update('gentle', 12, $params['key']);
 
         $this->assertEquals($expectedResult, $actual);
     }

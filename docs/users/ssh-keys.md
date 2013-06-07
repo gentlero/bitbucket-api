@@ -19,6 +19,11 @@ $users->sshKeys()->get($account_name);
 $users->sshKeys()->create($account_name, 'key content', 'dummy key');
 ```
 
+### Updates a key on the specified account:
+```php
+$users->sshKeys()->update($account_name, 12, 'key content');
+```
+
 ----
 
 #### Related:
