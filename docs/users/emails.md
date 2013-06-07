@@ -28,6 +28,11 @@ will send a new confirmation email.
 $users->emails()->create($account_name, 'dummy@example.com');
 ```
 
+### Set an email address as primary:
+```php
+$users->emails()->update($account_name, 'dummy@example.com', true);
+```
+
 ----
 
 #### Related:

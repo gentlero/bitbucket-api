@@ -68,4 +68,23 @@ class Emails extends Api
             sprintf('users/%s/emails/%s', $account, $email)
         );
     }
+
+    /**
+     * Update an email address
+     *
+     * Sets an individual email address associated with an account to primary.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   The email address to get.
+     * @param  bool   $primary Set this address as primary for this account ?
+     * @return mixed
+     */
+    public function update($account, $email, $primary = false)
+    {
+        return $this->requestPut(
+            sprintf('users/%s/emails/%s', $account, $email),
+            array('primary' => (bool) $primary)
+        );
+    }
 }
