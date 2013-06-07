@@ -26,7 +26,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\Account
-     * @codeCoverageIgnore
      */
     public function account()
     {
@@ -44,7 +43,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\Emails
-     * @codeCoverageIgnore
      */
     public function emails()
     {
@@ -62,7 +60,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\Invitations
-     * @codeCoverageIgnore
      */
     public function invitations()
     {
@@ -80,7 +77,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\OAuth
-     * @codeCoverageIgnore
      */
     public function oauth()
     {
@@ -98,7 +94,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\Privileges
-     * @codeCoverageIgnore
      */
     public function privileges()
     {
@@ -116,7 +111,6 @@ class Users extends Api
      *
      * @access public
      * @return Users\SshKeys
-     * @codeCoverageIgnore
      */
     public function sshKeys()
     {
