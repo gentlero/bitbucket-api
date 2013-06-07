@@ -75,4 +75,19 @@ class SshKeys extends Api
             array('key' => $key)
         );
     }
+
+    /**
+     * Gets the content of the specified key_id.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  int    $key_id  Key identifier.
+     * @return mixed
+     */
+    public function get($account, $key_id)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/ssh-keys/%d', $account, $key_id)
+        );
+    }
 }

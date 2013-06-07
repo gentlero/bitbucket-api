@@ -11,7 +11,7 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 
 ### Get a list of the keys associated with an account:
 ```php
-$users->sshKeys()->get($account_name);
+$users->sshKeys()->all($account_name);
 ```
 
 ### Creates a key on the specified account:
@@ -23,6 +23,10 @@ $users->sshKeys()->create($account_name, 'key content', 'dummy key');
 ```php
 $users->sshKeys()->update($account_name, 12, 'key content');
 ```
+
+### Get the content of the specified `key_id`:
+```php
+$users->sshKeys()->get($account_name, 12);
 
 ----
 
