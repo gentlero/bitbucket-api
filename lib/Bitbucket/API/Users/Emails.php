@@ -53,4 +53,19 @@ class Emails extends Api
             sprintf('users/%s/emails/%s', $account, $email)
         );
     }
+
+    /**
+     * Add a new email address to an account
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   The email address to get.
+     * @return mixed
+     */
+    public function create($account, $email)
+    {
+        return $this->requestPost(
+            sprintf('users/%s/emails/%s', $account, $email)
+        );
+    }
 }

@@ -40,4 +40,17 @@ class EmailsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testUpdateUserSuccess()
+    {
+        $endpoint   = 'users/gentle/emails/dummy@example.com';
+
+        $email = $this->getApiMock('\Bitbucket\API\Users\Emails');
+        $email->expects($this->once())
+            ->method('requestPost')
+            ->with($endpoint);
+
+        /** @var $email \Bitbucket\API\Users\Emails */
+        $email->create('gentle', 'dummy@example.com');
+    }
 }
