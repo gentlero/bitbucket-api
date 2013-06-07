@@ -56,4 +56,22 @@ class Users extends Api
 
         return $emails;
     }
+
+    /**
+     * Get invitations
+     *
+     * @access public
+     * @return Users\Invitations
+     * @codeCoverageIgnore
+     */
+    public function invitations()
+    {
+        $invitations = new Users\Invitations( $this->client );
+
+        if ( !is_null($this->auth) ) {
+            $invitations->setCredentials( $this->auth );
+        }
+
+        return $invitations;
+    }
 }
