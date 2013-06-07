@@ -14,6 +14,11 @@ $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pas
 $users->emails()->all($account_name);
 ```
 
+### Gets an individual email address associated with an account.:
+```php
+$users->emails()->get($account_name, 'dummy@example.com');
+```
+
 ----
 
 #### Related:

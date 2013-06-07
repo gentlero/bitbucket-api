@@ -23,4 +23,21 @@ class EmailsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetSingleEmail()
+    {
+        $endpoint       = 'users/gentle/emails/dummy@example.com';
+        $expectedResult = json_encode('dummy');
+
+        $emails = $this->getApiMock('Bitbucket\API\Users\Emails');
+        $emails->expects($this->once())
+            ->method('requestGet')
+            ->with($endpoint)
+            ->will( $this->returnValue($expectedResult) );
+
+        /** @var $emails \Bitbucket\API\Users\Emails */
+        $actual = $emails->get('gentle', 'dummy@example.com');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

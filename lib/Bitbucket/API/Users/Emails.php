@@ -35,4 +35,22 @@ class Emails extends Api
             sprintf('users/%s/emails', $account)
         );
     }
+
+    /**
+     * Gets an individual email address associated with an account.
+     *
+     * This can be used to check if specified email address is primary,
+     * or if is active.
+     *
+     * @access public
+     * @param  string $account The name of an individual or team account.
+     * @param  string $email   The email address to get.
+     * @return mixed
+     */
+    public function get($account, $email)
+    {
+        return $this->requestGet(
+            sprintf('users/%s/emails/%s', $account, $email)
+        );
+    }
 }
