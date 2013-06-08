@@ -40,4 +40,4 @@ $users->privileges()->delete($account_name, 'john', 'testers');
 #### Related:
   * [Authentication](authentication.md)
   * [Users](../users.md)
-  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/oauth+Resource#oauthResource-Overview)
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/privileges+Resource)

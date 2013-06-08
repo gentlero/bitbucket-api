@@ -43,4 +43,4 @@ $users->emails()->delete($account_name, 'dummy@example.com');
 #### Related:
   * [Authentication](authentication.md)
   * [Users](../users.md)
-  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/account+Resource)
+  * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/emails+Resource)
