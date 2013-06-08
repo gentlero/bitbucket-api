@@ -203,7 +203,7 @@ class Api
      * @return mixed
      *
      * @throws Authentication\Exception
-     * @throws ForbiddenAccessException
+     * @throws Exceptions\ForbiddenAccessException
      */
     protected function processResponse(Message\MessageInterface $response)
     {
@@ -225,7 +225,7 @@ class Api
                 break;
 
             case self::HTTP_RESPONSE_FORBIDDEN:
-                throw new ForbiddenAccessException("Not enough permissions.");
+                throw new Exceptions\ForbiddenAccessException("Not enough permissions.");
                 break;
 
             case self::HTTP_RESPONSE_NOT_FOUND:
@@ -271,4 +271,4 @@ class Api
 }
 
 // @todo: poate sa mut exceptia asta in User namespace ?
-class ForbiddenAccessException extends \Exception { }
+//class ForbiddenAccessException extends \Exception { }
