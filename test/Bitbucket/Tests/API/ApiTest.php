@@ -111,7 +111,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * @expectedException Bitbucket\API\Authentication\Exception
+     * @expectedException \Bitbucket\API\Authentication\Exception
      */
     public function testProcessResponseUnauthorized()
     {
@@ -119,7 +119,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * @expectedException Bitbucket\API\ForbiddenAccessException
+     * @expectedException \Bitbucket\API\Exceptions\ForbiddenAccessException
      */
     public function testProcessResponseForbidden()
     {
