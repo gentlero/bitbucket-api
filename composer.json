@@ -1,0 +1,29 @@
+{
+    "name": "gentle/bitbucket-api",
+    "type": "library",
+    "description": "Bitbucket API wrapper for PHP >= 5.3",
+    "homepage": "https://bitbucket.org/gentlero/bitbucket-api",
+    "keywords": ["bitbucket", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandru G.",
+            "email": "alex@gentle.ro",
+            "homepage": "http://vim.gentle.ro",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-curl": "*",
+        "ext-spl": "*",
+        "kriswallsmith/buzz": "0.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Bitbucket\\": "lib/" }
+    }
+}

@@ -1,0 +1,5 @@
+vendor/
+report/
+.idea/
+.dev/
+build
