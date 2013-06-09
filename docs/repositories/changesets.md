@@ -26,8 +26,12 @@ $changesets->diffstat($account_name, $repo_slug, '4ba1a4a');
 
 ### Get the diff associated with a changeset:
 ```php
-$changesets->diffstat($account_name, $repo_slug, '4ba1a4a');
+$changesets->diff($account_name, $repo_slug, '4ba1a4a');
 ```
+
+### Get the likes on an individual changeset
+NOTE: Because of a ( [bug](https://bitbucket.org/gentlero/bitbucket-api/issue/1/changesets-likes-endpoint-returns-404) ) in the API, implementation for this method is missing for the moment.
+
 
 ----
 
