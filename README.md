@@ -1,4 +1,4 @@
-# PHP Bitbucket API [![Build Status](https://travis-ci.org/gentlero/bitbucket-api.png?branch=develop)](https://travis-ci.org/gentlero/bitbucket-api) [![Coverage Status](https://coveralls.io/repos/gentlero/bitbucket-api/badge.png?branch=develop)](https://coveralls.io/r/gentlero/bitbucket-api?branch=develop)
+# PHP Bitbucket API [![Build Status](https://travis-ci.org/gentlero/bitbucket-api.png?branch=develop)](https://travis-ci.org/gentlero/bitbucket-api) [![Coverage Status](https://coveralls.io/repos/gentlero/bitbucket-api/badge.png?branch=develop)](https://coveralls.io/r/gentlero/bitbucket-api?branch=develop) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gentlero/bitbucket-api/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
@@ -33,7 +33,3 @@ Send pull requests on [Bitbucket](https://bitbucket.org/gentlero/bitbucket-api).
 ## Credits
 
 - [Alexandru G.](https://bitbucket.org/vimishor)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gentlero/bitbucket-api/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
