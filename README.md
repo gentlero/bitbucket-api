@@ -33,3 +33,7 @@ Send pull requests on [Bitbucket](https://bitbucket.org/gentlero/bitbucket-api).
 ## Credits
 
 - [Alexandru G.](https://bitbucket.org/vimishor)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gentlero/bitbucket-api/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
