@@ -15,13 +15,14 @@
     ],
     "require": {
         "php": ">=5.3",
-        "ext-curl": "*",
-        "ext-spl": "*",
         "kriswallsmith/buzz": "0.10"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7",
         "satooshi/php-coveralls": "~0.6"
+    },
+    "suggest": {
+        "ext-curl": "*"
     },
     "autoload": {
         "psr-0": { "Bitbucket\\": "lib/" }
