@@ -11,9 +11,12 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message;
-use Buzz\Client;
-use Bitbucket;
+use Buzz\Message\RequestInterface;
+use Buzz\Message\Response;
+use Buzz\Message\Request;
+use Buzz\Message\MessageInterface;
+use Buzz\Client\ClientInterface;
+use Buzz\Client\Curl;
 
 /**
  * Api
@@ -51,7 +54,7 @@ class Api
 
     /**
      * Transport object
-     * @var Client\ClientInterface
+     * @var ClientInterface
      */
     protected $client;
 
@@ -62,12 +65,12 @@ class Api
     protected $auth;
 
     /**
-     * @param  Client\ClientInterface $client
+     * @param  ClientInterface $client
      * @return self
      */
-    public function __construct(Client\ClientInterface $client = null)
+    public function __construct(ClientInterface $client = null)
     {
-        $this->client = (is_null($client)) ? new Client\Curl : $client;
+        $this->client = (is_null($client)) ? new Curl : $client;
 
         return $this;
     }
@@ -88,10 +91,10 @@ class Api
      * Add authorization header
      *
      * @access public
-     * @param  Message\RequestInterface $request
-     * @return Message\RequestInterface
+     * @param  RequestInterface $request
+     * @return RequestInterface
      */
-    public function authorize(Message\RequestInterface $request)
+    public function authorize(RequestInterface $request)
     {
         if (!is_null($this->auth)) {
             $request = $this->auth->authenticate($request);
@@ -170,8 +173,8 @@ class Api
      */
     protected function doRequest($method, $endpoint, array $params, array $headers)
     {
-        $request    = new Message\Request;
-        $response   = new Message\Response;
+        $request    = new Request;
+        $response   = new Response;
 
         if (strtoupper($method) != 'POST') {
             $params['format'] = $this->format;
@@ -199,13 +202,13 @@ class Api
      * Process response received from API
      *
      * @access protected
-     * @param  Message\MessageInterface $response
+     * @param  MessageInterface $response
      * @return mixed
      *
      * @throws Authentication\Exception
      * @throws Exceptions\ForbiddenAccessException
      */
-    protected function processResponse(Message\MessageInterface $response)
+    protected function processResponse(MessageInterface $response)
     {
         switch ($response->getStatusCode()) {
             case self::HTTP_RESPONSE_OK:
@@ -269,6 +272,3 @@ class Api
         return $this->format;
     }
 }
-
-// @todo: poate sa mut exceptia asta in User namespace ?
-//class ForbiddenAccessException extends \Exception { }
