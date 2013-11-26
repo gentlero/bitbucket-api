@@ -31,7 +31,3 @@ A simple PHP wrapper for Bitbucket API.
     * [OAuth](users/oauth.md)
     * [Privileges](users/privileges.md)
     * [SSH Keys](users/ssh-keys.md)
-
-### LEGEND:
-
-* [-] Missing documentation.
