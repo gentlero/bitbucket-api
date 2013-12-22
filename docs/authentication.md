@@ -1,7 +1,7 @@
 ## Authentication
 
 ----
-Although you can access any public data without authentication, you need to authenticate before you can access certain features like (_but not limited to_) accesing data from a private repository, or give access to a repository.
+Although you can access any public data without authentication, you need to authenticate before you can access certain features like (_but not limited to_) accessing data from a private repository, or give access to a repository.
 Bitbucket provides Basic and OAuth authentication.
 
 ### Basic authentication

@@ -9,7 +9,6 @@ A simple PHP wrapper for Bitbucket API.
 * [Groups](groups.md)
 * [Group privileges](group-privileges.md)
 * [Invitations](invitations.md)
-* [Newuser](newuser.md)
 * [Privileges](privileges.md)
 * [Repositories](repositories.md)
     * [Changesets](repositories/changesets.md)
@@ -32,7 +31,3 @@ A simple PHP wrapper for Bitbucket API.
     * [OAuth](users/oauth.md)
     * [Privileges](users/privileges.md)
     * [SSH Keys](users/ssh-keys.md)
-
-### LEGEND:
-
-* [-] Missing documentation.

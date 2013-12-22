@@ -92,21 +92,6 @@ class Changesets extends API\Api
     }
 
     /**
-     * Get the likes on an individual changeset
-     *
-     * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @return void
-     *
-     * @see https://bitbucket.org/gentlero/bitbucket-api/issue/1/changesets-likes-endpoint-returns-404
-     * @codeCoverageIgnore
-     */
-    public function likes($account, $repo, $node)
-    {}
-
-    /**
      * Get comments
      *
      * @access public
