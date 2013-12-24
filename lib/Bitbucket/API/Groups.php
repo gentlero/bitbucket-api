@@ -29,8 +29,7 @@ class Groups extends Api
      *
      * <example>
      * $filters = array(
-     *     'group' => 'account_name/group_slug',
-     *     'group' => 'other_account/group_slug'
+     *     'group' => array('account_name/group_slug', 'other_account/group_slug')
      * );
      * </example>
      *
@@ -46,6 +45,10 @@ class Groups extends Api
 
         if (!empty($filters)) {
             $endpoint = 'groups';
+
+            if (isset($filters['group']) && is_array($filters['group'])) {
+                $filters['group'] = implode('&group=', $filters['group']);
+            }
         }
 
         return $this->requestGet($endpoint, $filters);
