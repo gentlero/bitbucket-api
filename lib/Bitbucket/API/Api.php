@@ -187,7 +187,7 @@ class Api
         $this->authorize($request);
 
         if (strtoupper($method) == 'GET') {
-            $request->fromUrl(self::API_URL.'/'.urlencode($endpoint).'?'. http_build_query($params));
+            $request->fromUrl(self::API_URL.'/'.urlencode($endpoint).'?'. urldecode(http_build_query($params)));
         } else {
             $request->fromUrl(self::API_URL.'/'.urlencode($endpoint));
             $request->setContent(http_build_query($params));
