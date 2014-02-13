@@ -73,9 +73,7 @@ class GroupPrivilegesTest extends Tests\TestCase
     public function testGrantGroupPrivilegesSuccess()
     {
         $endpoint       = 'group-privileges/gentle/repo/owner/sys-admins';
-        $params         = array(
-            'privilege' => 'read'
-        );
+        $params         = 'read';
 
         $privileges = $this->getApiMock('Bitbucket\API\GroupPrivileges');
         $privileges->expects($this->once())
