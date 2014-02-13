@@ -111,7 +111,7 @@ class GroupPrivileges extends Api
 
         return $this->requestPut(
             sprintf('group-privileges/%s/%s/%s/%s', $account, $repo, $group_owner, $group_slug),
-            array('privilege' => $privilege)
+            $privilege
         );
     }
 
