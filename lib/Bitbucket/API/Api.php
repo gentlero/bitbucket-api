@@ -171,13 +171,15 @@ class Api
      *
      * @throws \RuntimeException
      */
-    protected function doRequest($method, $endpoint, array $params, array $headers)
+    protected function doRequest($method, $endpoint, $params, array $headers)
     {
         $request    = new Request;
         $response   = new Response;
 
-        if (strtoupper($method) != 'POST') {
-            $params['format'] = $this->format;
+	$query = array("format" => $this->format);
+
+        if (strtoupper($method) != 'POST' && is_array($params)) {
+            $query = array_merge($query, $params);
         }
 
         $request->setMethod($method);
@@ -186,11 +188,9 @@ class Api
 
         $this->authorize($request);
 
-        if (strtoupper($method) == 'GET') {
-            $request->fromUrl(self::API_URL.'/'.urlencode($endpoint).'?'. urldecode(http_build_query($params)));
-        } else {
-            $request->fromUrl(self::API_URL.'/'.urlencode($endpoint));
-            $request->setContent(http_build_query($params));
+        $request->fromUrl(self::API_URL.'/'.urlencode($endpoint).'?'. urldecode(http_build_query($query)));
+        if (strtoupper($method) !== 'GET') {
+            $request->setContent(is_array($params) ? http_build_query($params) : $params);
         }
 
         $this->client->send($request, $response);
