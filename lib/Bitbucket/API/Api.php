@@ -114,7 +114,11 @@ class Api
      */
     public function requestGet($endpoint, $params = array(), $headers = array())
     {
-        return $this->doRequest('GET', $endpoint, $params, $headers);
+        if (count($params) > 0) {
+            $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').http_build_query($params, '', '&');
+        }
+
+        return $this->doRequest('GET', $endpoint, array(), $headers);
     }
 
     /**
@@ -163,36 +167,37 @@ class Api
      * Create HTTP request
      *
      * @access protected
-     * @param  string $method   HTTP method
-     * @param  string $endpoint Api endpoint
-     * @param  array  $params   Request parameters
-     * @param  array  $headers  HTTP headers
+     * @param  string       $method   HTTP method
+     * @param  string       $endpoint Api endpoint
+     * @param  string|array $params   Request parameter(s)
+     * @param  array        $headers  HTTP headers
      * @return mixed
      *
      * @throws \RuntimeException
      */
     protected function doRequest($method, $endpoint, $params, array $headers)
     {
-        $request    = new Request;
-        $response   = new Response;
-
-	$query = array("format" => $this->format);
-
-        if (strtoupper($method) != 'POST' && is_array($params)) {
-            $query = array_merge($query, $params);
+        // do not set base URL if a full one was provided
+        if (false === strpos($endpoint, self::API_URL)) {
+            $endpoint = self::API_URL.'/'.$endpoint;
         }
 
-        $request->setMethod($method);
-        $request->setProtocolVersion(1.1);
-        $request->addHeaders($headers);
+        // change the response format
+        $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getFormat();
 
-        $this->authorize($request);
+        $request = $this->createRequest($method, $endpoint);
 
-        $request->fromUrl(self::API_URL.'/'.urlencode($endpoint).'?'. urldecode(http_build_query($query)));
-        if (strtoupper($method) !== 'GET') {
+        if (!empty($headers)) {
+            $request->addHeaders($headers);
+        }
+
+        if (!empty($params)) {
             $request->setContent(is_array($params) ? http_build_query($params) : $params);
         }
 
+        $response   = new Response;
+
+        $this->authorize($request);
         $this->client->send($request, $response);
 
         return $this->processResponse($response);
@@ -270,5 +275,24 @@ class Api
     public function getFormat()
     {
         return $this->format;
+    }
+
+    /**
+     *
+     * @access protected
+     * @param  string  $method
+     * @param  string  $url
+     * @return Request
+     */
+    protected function createRequest($method, $url)
+    {
+        $request = new Request($method);
+        $request->addHeaders(array(
+                'User-Agent' => 'bitbucket-api-php/1.0.0 (https://bitbucket.org/gentlero/bitbucket-api)'
+            ));
+        $request->setProtocolVersion(1.1);
+        $request->fromUrl($url);
+
+        return $request;
     }
 }
