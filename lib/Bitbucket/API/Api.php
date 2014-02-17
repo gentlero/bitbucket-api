@@ -15,6 +15,7 @@ use Buzz\Message\RequestInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
+use Buzz\Client\Curl;
 
 /**
  * Api
@@ -36,9 +37,14 @@ class Api
 
     /**
      * Transport object
-     * @var ClientInterface
+     * @var BuzzClientInterface
      */
     protected $client;
+
+    /**
+     * @var ClientInterface
+     */
+    protected $httpClient;
 
     /**
      * Authentication object
@@ -52,7 +58,9 @@ class Api
      */
     public function __construct(BuzzClientInterface $client = null)
     {
-        $this->client = new Client(array(), $client);
+        // @todo[1]: This exists for keeping BC. To be removed!
+        $this->client       = (is_null($client)) ? new Curl : $client;
+        $this->httpClient   = new Client(array(), $client);
 
         return $this;
     }
@@ -62,7 +70,7 @@ class Api
      */
     public function getClient()
     {
-        return $this->client;
+        return $this->httpClient;
     }
 
     /**
@@ -191,5 +199,48 @@ class Api
     public function getFormat()
     {
         return $this->getClient()->getResponseFormat();
+    }
+
+    /**
+     * Process response received from API
+     *
+     * @access protected
+     * @param  \Buzz\Message\MessageInterface $response
+     * @return mixed
+     *
+     * @throws Authentication\Exception
+     * @throws Exceptions\ForbiddenAccessException
+     */
+    protected function processResponse(\Buzz\Message\MessageInterface $response)
+    {
+        switch ($response->getStatusCode()) {
+            case self::HTTP_RESPONSE_OK:
+            case self::HTTP_RESPONSE_CREATED:
+                return $response->getContent();
+                break;
+
+            case self::HTTP_RESPONSE_NO_CONTENT:
+                return true;
+                break;
+
+            case self::HTTP_RESPONSE_BAD_REQUEST:
+                return $response;
+
+            case self::HTTP_RESPONSE_UNAUTHORIZED:
+                throw new Authentication\Exception("Unauthorized: Authentication required");
+                break;
+
+            case self::HTTP_RESPONSE_FORBIDDEN:
+                throw new Exceptions\ForbiddenAccessException("Not enough permissions.");
+                break;
+
+            case self::HTTP_RESPONSE_NOT_FOUND:
+                return false;
+                break;
+
+            default:
+                return $response;
+                break;
+        }
     }
 }
