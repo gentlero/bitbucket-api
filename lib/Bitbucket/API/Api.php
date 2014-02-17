@@ -16,7 +16,6 @@ use Buzz\Message\Response;
 use Buzz\Message\Request;
 use Buzz\Message\MessageInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
-use Buzz\Client\Curl;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
 
@@ -117,60 +116,56 @@ class Api
      * Make an HTTP GET request to API
      *
      * @access public
-     * @param  string $endpoint API endpoint
-     * @param  array  $params   GET parameters
-     * @param  array  $headers  HTTP headers
+     * @param  string       $endpoint API endpoint
+     * @param  string|array $params   GET parameters
+     * @param  array        $headers  HTTP headers
      * @return mixed
      */
     public function requestGet($endpoint, $params = array(), $headers = array())
     {
-        if (count($params) > 0) {
-            $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').http_build_query($params, '', '&');
-        }
-
-        return $this->doRequest('GET', $endpoint, array(), $headers);
+        return $this->getClient()->get($endpoint, $params, $headers);
     }
 
     /**
      * Make an HTTP POST request to API
      *
      * @access public
-     * @param  string $endpoint API endpoint
-     * @param  array  $params   POST parameters
-     * @param  array  $headers  HTTP headers
+     * @param  string       $endpoint API endpoint
+     * @param  string|array $params   POST parameters
+     * @param  array        $headers  HTTP headers
      * @return mixed
      */
     public function requestPost($endpoint, $params = array(), $headers = array())
     {
-        return $this->doRequest('POST', $endpoint, $params, $headers);
+        return $this->getClient()->post($endpoint, $params, $headers);
     }
 
     /**
      * Make an HTTP PUT request to API
      *
      * @access public
-     * @param  string $endpoint API endpoint
-     * @param  array  $params   POST parameters
-     * @param  array  $headers  HTTP headers
+     * @param  string       $endpoint API endpoint
+     * @param  string|array $params   POST parameters
+     * @param  array        $headers  HTTP headers
      * @return mixed
      */
     public function requestPut($endpoint, $params = array(), $headers = array())
     {
-        return $this->doRequest('PUT', $endpoint, $params, $headers);
+        return $this->getClient()->put($endpoint, $params, $headers);
     }
 
     /**
      * Make a HTTP DELETE request to API
      *
      * @access public
-     * @param  string $endpoint API endpoint
-     * @param  array  $params   DELETE parameters
-     * @param  array  $headers  HTTP headers
+     * @param  string       $endpoint API endpoint
+     * @param  string|array $params   DELETE parameters
+     * @param  array        $headers  HTTP headers
      * @return mixed
      */
     public function requestDelete($endpoint, $params = array(), $headers = array())
     {
-        return $this->doRequest('DELETE', $endpoint, $params, $headers);
+        return $this->getClient()->delete($endpoint, $params, $headers);
     }
 
     /**
@@ -187,30 +182,7 @@ class Api
      */
     protected function doRequest($method, $endpoint, $params, array $headers)
     {
-        // do not set base URL if a full one was provided
-        if (false === strpos($endpoint, self::API_URL)) {
-            $endpoint = self::API_URL.'/'.$endpoint;
-        }
-
-        // change the response format
-        $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getFormat();
-
-        $request = $this->createRequest($method, $endpoint);
-
-        if (!empty($headers)) {
-            $request->addHeaders($headers);
-        }
-
-        if (!empty($params)) {
-            $request->setContent(is_array($params) ? http_build_query($params) : $params);
-        }
-
-        $response   = new Response;
-
-        $this->authorize($request);
-        $this->client->send($request, $response);
-
-        return $this->processResponse($response);
+        return $this->getClient()->request($endpoint, $params, $method, $headers);
     }
 
     /**
