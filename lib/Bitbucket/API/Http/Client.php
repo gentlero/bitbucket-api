@@ -93,14 +93,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Make a HTTP request
-     *
-     * @access public
-     * @param  string           $endpoint
-     * @param  string|array     $params
-     * @param  string           $method
-     * @param  array            $headers
-     * @return MessageInterface
+     * {@inheritDoc}
      */
     public function request($endpoint, array $params = array(), $method, array $headers = array())
     {
@@ -142,8 +135,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @access public
-     * @return string
+     * {@inheritDoc}
      */
     public function getResponseFormat()
     {
@@ -151,11 +143,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @access public
-     * @param  string $format
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
+     * {@inheritDoc}
      */
     public function setResponseFormat($format)
     {
@@ -169,10 +157,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Get API version currently used
-     *
-     * @access public
-     * @return mixed
+     * {@inheritDoc}
      */
     public function getApiVersion()
     {
@@ -180,13 +165,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Change used API version for next request
-     *
-     * @access public
-     * @param  float $version
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
+     * {@inheritDoc}
      */
     public function setApiVersion($version)
     {
@@ -200,8 +179,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @access public
-     * @return string
+     * {@inheritDoc}
      */
     public function getApiBaseUrl()
     {
