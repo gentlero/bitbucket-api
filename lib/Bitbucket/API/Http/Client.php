@@ -13,11 +13,15 @@ namespace Bitbucket\API\Http;
 
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Buzz\Client\Curl;
+use Buzz\Message\MessageInterface;
+use Buzz\Message\RequestInterface;
+use Buzz\Message\Request;
+use Buzz\Message\Response;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class Client
+class Client implements ClientInterface
 {
     /**
      * @var array
@@ -39,6 +43,80 @@ class Client
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
         $this->client = (is_null($client)) ? new Curl : $client;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get($endpoint, $params = array(), $headers = array())
+    {
+        if (is_array($params) AND count($params) > 0) {
+            $endpoint   .= (strpos($endpoint, '?') === false ? '?' : '&').http_build_query($params, '', '&');
+            $params     = array();
+        }
+
+        return $this->request($endpoint, $params, 'GET', $headers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function post($endpoint, $params = array(), $headers = array())
+    {
+        return $this->request($endpoint, $params, 'POST', $headers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function put($endpoint, $params = array(), $headers = array())
+    {
+        return $this->request($endpoint, $params, 'PUT', $headers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete($endpoint, $params = array(), $headers = array())
+    {
+        return $this->request($endpoint, $params, 'DELETE', $headers);
+    }
+
+    /**
+     * Make a HTTP request
+     *
+     * @access public
+     * @param  string           $endpoint
+     * @param  string|array     $params
+     * @param  string           $method
+     * @param  array            $headers
+     * @return MessageInterface
+     */
+    public function request($endpoint, array $params = array(), $method, array $headers = array())
+    {
+        // do not set base URL if a full one was provided
+        if (false === strpos($endpoint, $this->getApiBaseUrl())) {
+            $endpoint = $this->getApiBaseUrl().'/'.$endpoint;
+        }
+
+        // change the response format
+        $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
+
+        $request = $this->createRequest($method, $endpoint);
+
+        if (!empty($headers)) {
+            $request->addHeaders($headers);
+        }
+
+        if (!empty($params)) {
+            $request->setContent(is_array($params) ? http_build_query($params) : $params);
+        }
+
+        $response       = new Response;
+
+        $this->client->send($request, $response);
+
+        return $response;
     }
 
     /**
@@ -114,5 +192,23 @@ class Client
     public function getApiBaseUrl()
     {
         return $this->options['base_url'].'/'.$this->getApiVersion();
+    }
+
+    /**
+     * @access protected
+     * @param  string           $method
+     * @param  string           $url
+     * @return RequestInterface
+     */
+    protected function createRequest($method, $url)
+    {
+        $request = new Request($method);
+        $request->addHeaders(array(
+                'User-Agent' => $this->options['user_agent']
+            ));
+        $request->setProtocolVersion(1.1);
+        $request->fromUrl($url);
+
+        return $request;
     }
 }
