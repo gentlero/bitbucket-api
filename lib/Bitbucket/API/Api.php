@@ -15,8 +15,10 @@ use Buzz\Message\RequestInterface;
 use Buzz\Message\Response;
 use Buzz\Message\Request;
 use Buzz\Message\MessageInterface;
-use Buzz\Client\ClientInterface;
+use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Buzz\Client\Curl;
+use Bitbucket\API\Http\ClientInterface;
+use Bitbucket\API\Http\Client;
 
 /**
  * Api
@@ -65,14 +67,22 @@ class Api
     protected $auth;
 
     /**
-     * @param  ClientInterface $client
+     * @param  BuzzClientInterface $client
      * @return self
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(BuzzClientInterface $client = null)
     {
-        $this->client = (is_null($client)) ? new Curl : $client;
+        $this->client = new Client(array(), $client);
 
         return $this;
+    }
+
+    /**
+     * @return ClientInterface
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
     /**
