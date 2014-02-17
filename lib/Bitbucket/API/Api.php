@@ -12,9 +12,6 @@
 namespace Bitbucket\API;
 
 use Buzz\Message\RequestInterface;
-use Buzz\Message\Response;
-use Buzz\Message\Request;
-use Buzz\Message\MessageInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
@@ -26,8 +23,6 @@ use Bitbucket\API\Http\Client;
  */
 class Api
 {
-    const API_URL = 'https://api.bitbucket.org/1.0';
-
     /**
      * Api response codes.
      */
@@ -38,20 +33,6 @@ class Api
     const HTTP_RESPONSE_UNAUTHORIZED    = 401;
     const HTTP_RESPONSE_FORBIDDEN       = 403;
     const HTTP_RESPONSE_NOT_FOUND       = 404;
-
-    /**
-     * Available API response formats.
-     * @var array
-     */
-    private $formats = array(
-        'json', 'yaml', 'xml'
-    );
-
-    /**
-     * Default format for responses
-     * @var string
-     */
-    private $format = 'json';
 
     /**
      * Transport object
@@ -186,50 +167,7 @@ class Api
     }
 
     /**
-     * Process response received from API
-     *
-     * @access protected
-     * @param  MessageInterface $response
-     * @return mixed
-     *
-     * @throws Authentication\Exception
-     * @throws Exceptions\ForbiddenAccessException
-     */
-    protected function processResponse(MessageInterface $response)
-    {
-        switch ($response->getStatusCode()) {
-            case self::HTTP_RESPONSE_OK:
-            case self::HTTP_RESPONSE_CREATED:
-                return $response->getContent();
-                break;
-
-            case self::HTTP_RESPONSE_NO_CONTENT:
-                return true;
-                break;
-
-            case self::HTTP_RESPONSE_BAD_REQUEST:
-                return $response;
-
-            case self::HTTP_RESPONSE_UNAUTHORIZED:
-                throw new Authentication\Exception("Unauthorized: Authentication required");
-                break;
-
-            case self::HTTP_RESPONSE_FORBIDDEN:
-                throw new Exceptions\ForbiddenAccessException("Not enough permissions.");
-                break;
-
-            case self::HTTP_RESPONSE_NOT_FOUND:
-                return false;
-                break;
-
-            default:
-                return $response;
-                break;
-        }
-    }
-
-    /**
-     * Set the prefered format for response
+     * Set the preferred format for response
      *
      * @access public
      * @param  string $name Format name
@@ -239,11 +177,7 @@ class Api
      */
     public function setFormat($name)
     {
-        if (!in_array($name, $this->formats)) {
-            throw new \InvalidArgumentException(sprintf('%s is not a valid format.', $name));
-        }
-
-        $this->format = $name;
+        $this->getClient()->setResponseFormat($name);
 
         return $this;
     }
@@ -256,25 +190,6 @@ class Api
      */
     public function getFormat()
     {
-        return $this->format;
-    }
-
-    /**
-     *
-     * @access protected
-     * @param  string  $method
-     * @param  string  $url
-     * @return Request
-     */
-    protected function createRequest($method, $url)
-    {
-        $request = new Request($method);
-        $request->addHeaders(array(
-                'User-Agent' => 'bitbucket-api-php/1.0.0 (https://bitbucket.org/gentlero/bitbucket-api)'
-            ));
-        $request->setProtocolVersion(1.1);
-        $request->fromUrl($url);
-
-        return $request;
+        return $this->getClient()->getResponseFormat();
     }
 }
