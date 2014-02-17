@@ -107,4 +107,12 @@ class Client
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getApiBaseUrl()
+    {
+        return $this->options['base_url'].'/'.$this->getApiVersion();
+    }
 }
