@@ -20,11 +20,23 @@ use Buzz\Client\Curl;
 class Client
 {
     /**
+     * @var array
+     */
+    protected $options = array(
+        'base_url'      => 'https://api.bitbucket.org',
+        'api_version'   => '1.0',
+        'api_versions'  => array('1.0', '2.0'),     // supported versions
+        'format'        => 'json',
+        'formats'       => array('json', 'xml'),    // supported response formats
+        'user_agent'    => 'bitbucket-api-php/0.1.2 (https://bitbucket.org/gentlero/bitbucket-api)',
+    );
+
+    /**
      * @var BuzzClientInterface
      */
     protected $client;
 
-    public function __construct(BuzzClientInterface $client = null)
+    public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
         $this->client = (is_null($client)) ? new Curl : $client;
     }
@@ -36,5 +48,32 @@ class Client
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * @access public
+     * @return string
+     */
+    public function getResponseFormat()
+    {
+        return $this->options['format'];
+    }
+
+    /**
+     * @access public
+     * @param  string $format
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setResponseFormat($format)
+    {
+        if (!in_array($format, $this->options['formats'])) {
+            throw new \InvalidArgumentException(sprintf('Unsupported response format %s', $format));
+        }
+
+        $this->options['format'] = $format;
+
+        return $this;
     }
 }
