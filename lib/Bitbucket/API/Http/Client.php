@@ -40,6 +40,16 @@ class Client implements ClientInterface
      */
     protected $client;
 
+    /**
+     * @var MessageInterface
+     */
+    private $lastRequest;
+
+    /**
+     * @var RequestInterface
+     */
+    private $lastResponse;
+
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
         $this->client = (is_null($client)) ? new Curl : $client;
@@ -116,6 +126,9 @@ class Client implements ClientInterface
 
         $this->client->send($request, $response);
 
+        $this->lastRequest  = $request;
+        $this->lastResponse = $response;
+
         return $response;
     }
 
@@ -187,11 +200,30 @@ class Client implements ClientInterface
     }
 
     /**
+     * @access public
      * @return string
      */
     public function getApiBaseUrl()
     {
         return $this->options['base_url'].'/'.$this->getApiVersion();
+    }
+
+    /**
+     * @access public
+     * @return MessageInterface
+     */
+    public function getLastRequest()
+    {
+        return $this->lastRequest;
+    }
+
+    /**
+     * @access public
+     * @return RequestInterface
+     */
+    public function getLastResponse()
+    {
+        return $this->lastResponse;
     }
 
     /**
