@@ -76,4 +76,35 @@ class Client
 
         return $this;
     }
+
+    /**
+     * Get API version currently used
+     *
+     * @access public
+     * @return mixed
+     */
+    public function getApiVersion()
+    {
+        return $this->options['api_version'];
+    }
+
+    /**
+     * Change used API version for next request
+     *
+     * @access public
+     * @param  float $version
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setApiVersion($version)
+    {
+        if (!in_array($version, $this->options['api_versions'])) {
+            throw new \InvalidArgumentException(sprintf('Unsupported API version %s', $version));
+        }
+
+        $this->options['api_version'] = $version;
+
+        return $this;
+    }
 }
