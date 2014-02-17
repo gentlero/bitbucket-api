@@ -11,9 +11,30 @@
 
 namespace Bitbucket\API\Http;
 
+use Buzz\Client\ClientInterface as BuzzClientInterface;
+use Buzz\Client\Curl;
+
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
 class Client
 {
-} 
+    /**
+     * @var BuzzClientInterface
+     */
+    protected $client;
+
+    public function __construct(BuzzClientInterface $client = null)
+    {
+        $this->client = (is_null($client)) ? new Curl : $client;
+    }
+
+    /**
+     * @access public
+     * @return BuzzClientInterface
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+}
