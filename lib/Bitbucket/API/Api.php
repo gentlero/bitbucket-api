@@ -66,11 +66,24 @@ class Api
     }
 
     /**
+     * @access public
      * @return ClientInterface
      */
     public function getClient()
     {
         return $this->httpClient;
+    }
+
+    /**
+     * @access public
+     * @param  ClientInterface $client
+     * @return $this
+     */
+    public function setClient(ClientInterface $client)
+    {
+        $this->httpClient = $client;
+
+        return $this;
     }
 
     /**
