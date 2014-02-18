@@ -33,6 +33,8 @@ class Client implements ClientInterface
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
         'user_agent'    => 'bitbucket-api-php/0.1.2 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'timeout'       => 10,
+        'verify_peer'   => false
     );
 
     /**
@@ -52,7 +54,11 @@ class Client implements ClientInterface
 
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
-        $this->client = (is_null($client)) ? new Curl : $client;
+        $this->client   = (is_null($client)) ? new Curl : $client;
+        $this->options  = array_merge($this->options, $options);
+
+        $this->client->setTimeout($this->options['timeout']);
+        $this->client->setVerifyPeer($this->options['verify_peer']);
     }
 
     /**
@@ -103,7 +109,9 @@ class Client implements ClientInterface
         }
 
         // change the response format
-        $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
+        if (strpos($endpoint, 'format=') === false) {
+            $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
+        }
 
         $request = $this->createRequest($method, $endpoint);
 
