@@ -68,9 +68,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @access public
-     * @param  ListenerInterface $listener
-     * @return $this
+     * {@inheritDoc}
      */
     public function addListener(ListenerInterface $listener)
     {
