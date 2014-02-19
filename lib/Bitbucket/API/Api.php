@@ -95,6 +95,13 @@ class Api
      */
     public function setCredentials(Authentication\AuthenticationInterface $auth)
     {
+        // keep BC
+        if ($auth instanceof Authentication\Basic) {
+            $this->getClient()->addListener(
+                new Http\Listener\BasicAuthListener($auth->getUsername(), $auth->getPassword())
+            );
+        }
+
         $this->auth = $auth;
     }
 
