@@ -17,6 +17,7 @@ use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
+use Bitbucket\API\Http\Listener\ListenerInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -52,6 +53,11 @@ class Client implements ClientInterface
      */
     private $lastResponse;
 
+    /**
+     * @var ListenerInterface[]
+     */
+    protected $listeners = array();
+
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
         $this->client   = (is_null($client)) ? new Curl : $client;
@@ -59,6 +65,16 @@ class Client implements ClientInterface
 
         $this->client->setTimeout($this->options['timeout']);
         $this->client->setVerifyPeer($this->options['verify_peer']);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addListener(ListenerInterface $listener)
+    {
+        $this->listeners[$listener->getName()] = $listener;
+
+        return $this;
     }
 
     /**
@@ -125,7 +141,11 @@ class Client implements ClientInterface
 
         $response       = new Response;
 
+        $this->executeListeners($request, 'preSend');
+
         $this->client->send($request, $response);
+
+        $this->executeListeners($request, 'postSend', $response);
 
         $this->lastRequest  = $request;
         $this->lastResponse = $response;
@@ -228,5 +248,34 @@ class Client implements ClientInterface
         $request->fromUrl($url);
 
         return $request;
+    }
+
+    /**
+     * Execute all available listeners
+     *
+     * $when can be: preSend or postSend
+     *
+     * @access protected
+     * @param RequestInterface $request
+     * @param string           $when     When to execute the listener
+     * @param MessageInterface $response
+     */
+    protected function executeListeners(RequestInterface $request, $when = 'preSend', MessageInterface $response = null)
+    {
+        $haveListeners  = count($this->listeners) > 0;
+
+        if (!$haveListeners) {
+            return;
+        }
+
+        $params = array($request);
+
+        if (!is_null($response)) {
+            $params[] = $response;
+        }
+
+        foreach ($this->listeners as $listener) {
+            call_user_func_array(array($listener, $when), $params);
+        }
     }
 }
