@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Http;
 
 use Buzz\Message\MessageInterface;
+use Bitbucket\API\Http\Listener\ListenerInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -123,4 +124,11 @@ interface ClientInterface
      * @return string
      */
     public function getApiBaseUrl();
+
+    /**
+     * @access public
+     * @param  ListenerInterface $listener
+     * @return $this
+     */
+    public function addListener(ListenerInterface $listener);
 }
