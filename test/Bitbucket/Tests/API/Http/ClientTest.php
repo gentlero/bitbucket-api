@@ -77,6 +77,7 @@ class ClientTest extends Tests\TestCase
         $response   = $client->get($endpoint, $params, $headers);
 
         $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
+        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $client->getLastResponse());
     }
 
     public function testShouldDoPostRequestWithContentAndReturnResponseInstance()
