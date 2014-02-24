@@ -228,6 +228,8 @@ class Api
      *
      * @throws Authentication\Exception
      * @throws Exceptions\ForbiddenAccessException
+     *
+     * @deprecated Method deprecated in 0.2.0
      */
     protected function processResponse(\Buzz\Message\MessageInterface $response)
     {
