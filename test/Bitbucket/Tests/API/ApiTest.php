@@ -15,22 +15,6 @@ class ApiTest extends TestCase
         $api->setCredentials($auth);
     }
 
-    public function testAuthorize()
-    {
-        $request    = new \Buzz\Message\Request;
-        $auth       = new API\Authentication\Basic('api_username', 'api_password');
-        $api        = new API\Api;
-
-        $api->setCredentials($auth);
-
-        // add authorization header
-        $api->authorize($request);
-
-        // check if authorization header is set
-        $header = $request->getHeader('Authorization');
-        $this->assertNotNull($header);
-    }
-
     public function testShouldDoGetRequest()
     {
         $endpoint       = 'repositories/gentle/eof/issues/3';
