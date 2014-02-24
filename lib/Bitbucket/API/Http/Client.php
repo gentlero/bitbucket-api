@@ -207,6 +207,18 @@ class Client implements ClientInterface
     }
 
     /**
+     * Check if specified API version is the one currently in use
+     *
+     * @access public
+     * @param  float $version
+     * @return bool
+     */
+    public function isApiVersion($version)
+    {
+        return (abs($this->options['api_version'] - $version) < 0.00001);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getApiBaseUrl()
