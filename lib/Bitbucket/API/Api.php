@@ -111,13 +111,11 @@ class Api
      * @access public
      * @param  RequestInterface $request
      * @return RequestInterface
+     *
+     * @deprecated Method deprecated in 0.2.0
      */
     public function authorize(RequestInterface $request)
     {
-        if (!is_null($this->auth)) {
-            $request = $this->auth->authenticate($request);
-        }
-
         return $request;
     }
 
