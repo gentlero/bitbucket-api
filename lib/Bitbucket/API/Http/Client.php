@@ -80,6 +80,26 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
+    public function getListener($name)
+    {
+        if (!$this->isListener($name)) {
+            throw new \InvalidArgumentException(sprintf('Unknown listener %s', $name));
+        }
+
+        return $this->listeners[$name];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isListener($name)
+    {
+        return isset($this->listeners[$name]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function get($endpoint, $params = array(), $headers = array())
     {
         if (is_array($params) AND count($params) > 0) {

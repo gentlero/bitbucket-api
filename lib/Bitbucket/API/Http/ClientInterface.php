@@ -131,4 +131,23 @@ interface ClientInterface
      * @return $this
      */
     public function addListener(ListenerInterface $listener);
+
+    /**
+     * Get listener interface
+     *
+     * @param  string            $name
+     * @return ListenerInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function getListener($name);
+
+    /**
+     * Check if a listener exists
+     *
+     * @access public
+     * @param  string $name
+     * @return bool
+     */
+    public function isListener($name);
 }
