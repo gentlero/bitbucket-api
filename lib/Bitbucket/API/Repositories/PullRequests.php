@@ -31,12 +31,6 @@ class PullRequests extends API\Api
      */
     public function comments()
     {
-        $comments = new PullRequests\Comments( $this->client );
-
-        if ( !is_null($this->auth)) {
-            $comments->setCredentials( $this->auth );
-        }
-
-        return $comments;
+        return $this->childFactory('Repositories\\PullRequests\\Comments');
     }
 }

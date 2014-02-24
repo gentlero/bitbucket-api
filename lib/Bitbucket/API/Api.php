@@ -263,4 +263,37 @@ class Api
                 break;
         }
     }
+
+    /**
+     * Factory for child classes
+     *
+     * NOTE: This exists only to keep BC. Do not rely on this factory because
+     * it will be removed in a future version!
+     *
+     * @access protected
+     * @param  string $name
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function childFactory($name)
+    {
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Not child specified.');
+        }
+
+        /** @var Api $child */
+        $class = '\\Bitbucket\\API\\'.$name;
+        $child = new $class($this->client);
+
+        if ($this->getClient()->isListener('basicauth')) {
+            $child->getClient()->addListener($this->getClient()->getListener('basicauth'));
+        }
+
+        if ($this->getClient()->isListener('oauth')) {
+            $child->getClient()->addListener($this->getClient()->getListener('oauth'));
+        }
+
+        return $child;
+    }
 }

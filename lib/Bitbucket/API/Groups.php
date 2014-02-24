@@ -111,12 +111,6 @@ class Groups extends Api
      */
     public function members()
     {
-        $members = new Groups\Members( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $members->setCredentials( $this->auth );
-        }
-
-        return $members;
+        return $this->childFactory('Groups\\Members');
     }
 }
