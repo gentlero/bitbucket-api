@@ -23,6 +23,10 @@ use JacobKiers\OAuth as OAuth1;
  */
 class OAuthListener implements ListenerInterface
 {
+    const ENDPOINT_REQUEST_TOKEN    = 'oauth/request_token';
+    const ENDPOINT_ACCESS_TOKEN     = 'oauth/access_token';
+    const ENDPOINT_AUTHORIZE        = 'oauth/authenticate';
+
     /**
      * @var array
      */
@@ -34,7 +38,7 @@ class OAuthListener implements ListenerInterface
         'oauth_signature_method'    => 'HMAC-SHA1',
         'oauth_callback'            => '',
         'oauth_verifier'            => '',
-        'oauth_version'             => ''
+        'oauth_version'             => '1.0'
     );
 
     /**
@@ -64,7 +68,7 @@ class OAuthListener implements ListenerInterface
 
         $this->token = (!is_null($token)) ?
             $token :
-            !isset($this->config['oauth_token']) ?
+            empty($this->config['oauth_token']) ?
                 new OAuth1\Token\NullToken :
                 new OAuth1\Token\Token($this->config['oauth_token'], $this->config['oauth_token_secret'])
         ;
@@ -89,13 +93,103 @@ class OAuthListener implements ListenerInterface
      * {@inheritDoc}
      */
     public function preSend(RequestInterface $request)
-    {}
+    {
+        $params = $this->getParametersToSign($request);
+        $req    = OAuth1\Request\Request::fromConsumerAndToken(
+            $this->consumer, $this->token, $request->getMethod(), $request->getUrl(), $params
+        );
+
+        $req->signRequest($this->signature, $this->consumer, $this->token);
+
+        $request->addHeader($req->toHeader());
+    }
 
     /**
      * {@inheritDoc}
      */
     public function postSend(RequestInterface $request, MessageInterface $response)
     {}
+
+    /**
+     * Include OAuth and request body parameters
+     *
+     * @access protected
+     * @param  RequestInterface $request
+     * @return array
+     *
+     * @see http://oauth.net/core/1.0/#sig_norm_param
+     */
+    protected function getParametersToSign(RequestInterface $request)
+    {
+        return array_merge($this->getOAuthParameters($request), $this->getContentAsParameters($request));
+    }
+
+    /**
+     * Include/exclude optional parameters
+     *
+     * The exclusion/inclusion is based on current request resource
+     *
+     * @access protected
+     * @param  RequestInterface $request
+     * @return array
+     */
+    protected function getOAuthParameters(RequestInterface $request)
+    {
+        $params = $this->filterOAuthParameters(array('oauth_token', 'oauth_version'));
+
+        if ($this->isEndpointRequested(self::ENDPOINT_REQUEST_TOKEN, $request)) {
+            $params = $this->filterOAuthParameters(array('oauth_callback'));
+        } elseif ($this->isEndpointRequested(self::ENDPOINT_ACCESS_TOKEN, $request)) {
+            $params = $this->filterOAuthParameters(array('oauth_token', 'oauth_verifier'));
+        }
+
+        return $params;
+    }
+
+    /**
+     * White list based filter
+     *
+     * @param  array $include
+     * @return array
+     */
+    protected function filterOAuthParameters(array $include)
+    {
+        $final = array();
+
+        foreach ($include as $key => $value) {
+            if (!empty($this->config[$value])) {
+                $final[$value] = $this->config[$value];
+            }
+        }
+
+        return $final;
+    }
+
+    /**
+     * Transform request content to associative array
+     *
+     * @access protected
+     * @param  RequestInterface $request
+     * @return array
+     */
+    protected function getContentAsParameters(RequestInterface $request)
+    {
+        parse_str($request->getContent(), $parts);
+
+        return $parts;
+    }
+
+    /**
+     * Check if specified endpoint is in current request
+     *
+     * @param  string           $endpoint
+     * @param  RequestInterface $request
+     * @return bool
+     */
+    protected function isEndpointRequested($endpoint, RequestInterface $request)
+    {
+        return strpos($request->getResource(), $endpoint) !== false;
+    }
 
     /**
      * Bitbucket supports only HMAC-SHA1 and PlainText signatures.
