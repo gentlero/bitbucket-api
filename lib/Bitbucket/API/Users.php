@@ -29,13 +29,7 @@ class Users extends Api
      */
     public function account()
     {
-        $account = new Users\Account( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $account->setCredentials( $this->auth );
-        }
-
-        return $account;
+        return $this->childFactory('Users\\Account');
     }
 
     /**
@@ -46,13 +40,7 @@ class Users extends Api
      */
     public function emails()
     {
-        $emails = new Users\Emails( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $emails->setCredentials( $this->auth );
-        }
-
-        return $emails;
+        return $this->childFactory('Users\\Emails');
     }
 
     /**
@@ -63,13 +51,7 @@ class Users extends Api
      */
     public function invitations()
     {
-        $invitations = new Users\Invitations( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $invitations->setCredentials( $this->auth );
-        }
-
-        return $invitations;
+        return $this->childFactory('Users\\Invitations');
     }
 
     /**
@@ -80,13 +62,7 @@ class Users extends Api
      */
     public function oauth()
     {
-        $oauth = new Users\OAuth( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $oauth->setCredentials( $this->auth );
-        }
-
-        return $oauth;
+        return $this->childFactory('Users\\OAuth');
     }
 
     /**
@@ -97,13 +73,7 @@ class Users extends Api
      */
     public function privileges()
     {
-        $privileges = new Users\Privileges( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $privileges->setCredentials( $this->auth );
-        }
-
-        return $privileges;
+        return $this->childFactory('Users\\Privileges');
     }
 
     /**
@@ -114,12 +84,6 @@ class Users extends Api
      */
     public function sshKeys()
     {
-        $keys = new Users\SshKeys( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $keys->setCredentials( $this->auth );
-        }
-
-        return $keys;
+        return $this->childFactory('Users\\SshKeys');
     }
 }

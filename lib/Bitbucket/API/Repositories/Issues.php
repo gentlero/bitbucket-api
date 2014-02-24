@@ -146,13 +146,7 @@ class Issues extends API\Api
      */
     public function comments()
     {
-        $comments = new Repositories\Issues\Comments( $this->client );
-
-        if ( !is_null($this->auth)) {
-            $comments->setCredentials( $this->auth );
-        }
-
-        return $comments;
+        return $this->childFactory('Repositories\\Issues\\Comments');
     }
 
     /**
@@ -164,13 +158,7 @@ class Issues extends API\Api
      */
     public function components()
     {
-        $components = new Repositories\Issues\Components( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $components->setCredentials( $this->auth );
-        }
-
-        return $components;
+        return $this->childFactory('Repositories\\Issues\\Components');
     }
 
     /**
@@ -182,13 +170,7 @@ class Issues extends API\Api
      */
     public function versions()
     {
-        $versions = new Repositories\Issues\Versions( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $versions->setCredentials( $this->auth );
-        }
-
-        return $versions;
+        return $this->childFactory('Repositories\\Issues\\Versions');
     }
 
     /**
@@ -200,12 +182,6 @@ class Issues extends API\Api
      */
     public function milestones()
     {
-        $milestones = new Repositories\Issues\Milestones( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $milestones->setCredentials( $this->auth );
-        }
-
-        return $milestones;
+        return $this->childFactory('Repositories\\Issues\\Milestones');
     }
 }

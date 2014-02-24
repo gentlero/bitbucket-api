@@ -76,12 +76,6 @@ class User extends Api
      */
     public function repositories()
     {
-        $repositories = new User\Repositories( $this->client );
-
-        if ( !is_null($this->auth) ) {
-            $repositories->setCredentials( $this->auth );
-        }
-
-        return $repositories;
+        return $this->childFactory('User\\Repositories');
     }
 }
