@@ -5,63 +5,39 @@ Although you can access any public data without authentication, you need to auth
 Bitbucket provides Basic and OAuth authentication.
 
 ### Basic authentication
-To use basic authentication, you need to instantiate `Basic` class from `Bitbucket\API\Authentication` namespace and pass it to `setCredentials()` method, before making first request.
- 
-```php
-$auth = new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass);
+To use basic authentication, you need to attach `BasicAuthListener` to http client with your username and password.
 
+```php
 $user = new Bitbucket\API\User();
-$user->setCredentials($auth);
+$user->getClient()->addListener(
+    new Bitbucket\API\Http\Listener\BasicAuthListener($bb_user, $bb_pass)
+);
 
-// some code
-
-$invitation = new Bitbucket\API\Invitations();
-$invitation->setCredentials($auth);
-```
-
-If you need to change credentials, two methods are available for this:
-```php
-$auth->setUsername('username');
-$auth->setPassword('password');
+// now you can access protected endpoints as $bb_user
+$response = $user->get();
 ```
 
 ----
 
 ### OAuth authorization
-To use OAuth, you will need to instantiate `OAuth` class from `Bitbucket\API\Authentication` namespace and pass it to `setCredentials()` method, before making first request.
-`OAuth` accepts a string or array as constructor. Those parameters are actually OAuth parameters, that have been previously signed.
-
-**NOTE:** `OAuth` class will _NOT_ sign the request. It will just build the authorization header from previously signed OAuth parameters.
+This library comes with a `OAuthListener` which will sign all requests for you. All you need to do is to attach the listener to http client with oauth credentials before making a request.
 
 ```php
-// use 3rd party OAuth library to sign the request and pass already signed parameters to `OAuth` class.
+// OAuth 1-legged example
+// You can create a new consumer at: https://bitbucket.org/account/user/<username or team>/api
+$oauth_params = array(
+    'oauth_consumer_key'      => 'aaa',
+    'oauth_consumer_secret'   => 'bbb'
+);
 
-$auth = new Bitbucket\API\Authentication\OAuth(array(
-    'oauth_version'             => '1.0',
-    'oauth_nonce'               => 'aaaaaaaaaaaaaaa',
-    'oauth_timestamp'           => '1370771799',
-    'oauth_consumer_key'        => 'xxxxxxxxxxxxxxx',
-    'oauth_signature_method'    => 'HMAC-SHA1',
-    'oauth_signature'           => 'yyyyyyyyyyyyyyy'
-));
+$user = new Bitbucket\API\User;
+$user->getClient()->addListener(
+    new Bitbucket\API\Http\Listener\OAuthListener($oauth_params)
+);
 
-$user = new Bitbucket\API\User();
-$user->setCredentials($auth);
+// now you can access protected endpoints as consumer owner
+$response = $user->get();
 ```
-
-You can also send the parameters as string, instead of array:
-```php
-// use 3rd party OAuth library to sign the request and pass already signed parameters to `OAuth` class.
-
-$auth = new Bitbucket\API\Authentication\OAuth('oauth_version="1.0",oauth_nonce="aaaaaaaaaaaaaaa",oauth_timestamp="1370771799",oauth_consumer_key="xxxxxxxxxxxxxxx",oauth_signature_method="HMAC-SHA1",oauth_signature="yyyyyyyyyyyyyyy"');
-
-// rest of the code
-```
-
-**NOTES:**
-
-* `OAuth` class will prepend `Authorization: OAuth` to those parameters and will add the result to current request header.
-* When choosing an OAuth library, take into consideration the fact that [Bitbucket](https://bitbucket.org) uses OAuth 1.0a ( _3-Legged and 2-Legged_ )
 
 ----
 
