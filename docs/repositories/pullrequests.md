@@ -34,6 +34,11 @@ $pull->comments()->update($account_name, $repo_slug, 41, 4, "dummy content [edit
 $pull->comments()->delete($account_name, $repo_slug, 41, 4);
 ```
 
+### Get all pull requests
+```php
+$pull->all($account_name, $repo_slug);
+```
+
 ----
 
 #### Related:
