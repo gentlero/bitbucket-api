@@ -33,4 +33,21 @@ class PullRequests extends API\Api
     {
         return $this->childFactory('Repositories\\PullRequests\\Comments');
     }
+
+    /**
+     * Get a list of pull requests
+     *
+     * @access public
+     * @param  string $account The team or individual account owning the repository.
+     * @param  string $repo    The repository identifier.
+     * @return mixed
+     */
+    public function all($account, $repo)
+    {
+        $this->httpClient->setApiVersion('2.0');
+
+        return $this->requestGet(
+            sprintf('repositories/%s/%s/pullrequests', $account, $repo)
+        );
+    }
 }
