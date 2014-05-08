@@ -211,4 +211,20 @@ class PullRequests extends API\Api
             sprintf('repositories/%s/%s/pullrequests/%d/diff', $account, $repo, $id)
         );
     }
+
+    /**
+     * Get the log of all of a repository's pull request activity
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      ID of the pull request
+     * @return MessageInterface
+     */
+    public function activity($account, $repo, $id)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/pullrequests/%d/activity', $account, $repo, $id)
+        );
+    }
 }

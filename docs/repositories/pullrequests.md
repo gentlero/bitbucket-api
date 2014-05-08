@@ -77,6 +77,11 @@ $pull->delete($account_name, $repo_slug, 1);
 $pull->diff($account_name, $repo_slug, 1);
 ```
 
+### Get the log of all of a repository's pull request activity
+```php
+$pull->activity($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:
