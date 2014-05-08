@@ -10,16 +10,17 @@ class CommentsTest extends Tests\TestCase
     public function testGetAllComments()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/3/comments';
-        $expectedResult = json_encode('dummy');
+        $expectedResult = $this->fakeResponse(array('dummy'));
 
-        $comments = $this->getApiMock('Bitbucket\API\Repositories\PullRequests\Comments');
-        $comments->expects($this->once())
-            ->method('requestGet')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
-        /** @var $comments \Bitbucket\API\Repositories\PullRequests\Comments */
-        $actual = $comments->all('gentle', 'eof', 3);
+        /** @var \Bitbucket\API\Repositories\PullRequests\Comments $comments */
+        $comments   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests\Comments', $client);
+        $actual     = $comments->all('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
     }

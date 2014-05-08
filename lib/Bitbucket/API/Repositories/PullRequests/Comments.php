@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\PullRequests;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Comments class
@@ -28,13 +29,13 @@ class Comments extends API\Api
      * @access public
      * @param  string $account   The team or individual account owning the repository.
      * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @return mixed
+     * @param  int    $id ID of the pull request
+     * @return MessageInterface
      */
-    public function all($account, $repo, $requestID)
+    public function all($account, $repo, $id)
     {
-        return $this->requestGet(
-            sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $requestID)
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $id)
         );
     }
 
