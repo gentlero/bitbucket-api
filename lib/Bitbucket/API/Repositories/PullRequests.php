@@ -53,9 +53,7 @@ class PullRequests extends API\Api
             $params
         );
 
-        $this->httpClient->setApiVersion('2.0');
-
-        return $this->requestGet(
+        return $this->getClient()->setApiVersion('2.0')->get(
             sprintf('repositories/%s/%s/pullrequests', $account, $repo),
             $params
         );

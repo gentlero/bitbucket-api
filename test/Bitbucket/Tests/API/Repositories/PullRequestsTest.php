@@ -13,16 +13,17 @@ class PullRequestsTest extends Tests\TestCase
     public function testGetAllPullRequests()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests';
-        $expectedResult = json_encode('dummy');
+        $expectedResult = $this->fakeResponse(array('dummy'));
 
-        $pullRequests = $this->getApiMock('Bitbucket\API\Repositories\PullRequests');
-        $pullRequests->expects($this->once())
-            ->method('requestGet')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
-        /** @var $pullRequests \Bitbucket\API\Repositories\PullRequests */
-        $actual = $pullRequests->all('gentle', 'eof');
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+        $actual = $pull->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
     }
