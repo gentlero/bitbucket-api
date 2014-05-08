@@ -52,6 +52,11 @@ $pull->update('gentle', 'secret-repo', 1, array(
 ));
 ```
 
+### Get a specific pull request:
+```php
+$pull->get($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:

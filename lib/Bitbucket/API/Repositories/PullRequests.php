@@ -129,4 +129,20 @@ class PullRequests extends API\Api
             array('Content-Type' => 'application/json')
         );
     }
+
+    /**
+     * Get a specific pull request
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      ID of the pull request
+     * @return MessageInterface
+     */
+    public function get($account, $repo, $id)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/pullrequests/%d', $account, $repo, $id)
+        );
+    }
 }
