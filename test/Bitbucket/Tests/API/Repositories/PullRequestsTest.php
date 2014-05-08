@@ -273,4 +273,22 @@ class PullRequestsTest extends Tests\TestCase
 
         $pull->accept('gentle', 'eof', 1, $params);
     }
+
+    public function testDeclineAPullRequest()
+    {
+        $endpoint   = 'repositories/gentle/eof/pullrequests/1/decline';
+        $params     = array(
+            'message' => 'Please update the test suite.',
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+
+        $pull->decline('gentle', 'eof', 1, $params);
+    }
 }

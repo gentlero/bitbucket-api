@@ -91,6 +91,13 @@ $pull->accept($account_name, $repo_slug, 1, array(
 ));
 ```
 
+### Decline a pull request:
+```php
+$pull->accept($account_name, $repo_slug, 1, array(
+    'message' => 'Please update the docs to reflect new changes.'
+));
+```
+
 ----
 
 #### Related:
