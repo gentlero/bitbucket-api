@@ -62,6 +62,11 @@ $pull->get($account_name, $repo_slug, 1);
 $pull->commits($account_name, $repo_slug, 1);
 ```
 
+### Approve a pull request:
+```php
+$pull->approve($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:

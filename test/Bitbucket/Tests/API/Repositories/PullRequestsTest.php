@@ -170,4 +170,19 @@ class PullRequestsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testApproveRequest()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/approve';
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+
+        $pull->approve('gentle', 'eof', 1);
+    }
 }
