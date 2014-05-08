@@ -55,7 +55,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $transportClient = $this->getTransportClientMock();
 
         return $this->getMockBuilder('Bitbucket\API\HTTP\Client')
-            ->setMethods(array('get'))
+            ->setMethods(array('get', 'post', 'put', 'delete'))
             ->setConstructorArgs(array(array(), $transportClient))
             ->getMock();
     }
