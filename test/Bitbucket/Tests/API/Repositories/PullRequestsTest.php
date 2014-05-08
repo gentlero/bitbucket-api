@@ -254,4 +254,23 @@ class PullRequestsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testAcceptAndMergeAPullRequest()
+    {
+        $endpoint   = 'repositories/gentle/eof/pullrequests/1/merge';
+        $params     = array(
+            'message'               => 'Lacks documentation.',
+            'close_source_branch'   => false
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+
+        $pull->accept('gentle', 'eof', 1, $params);
+    }
 }

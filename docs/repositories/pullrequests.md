@@ -84,6 +84,13 @@ If pull request ID is omitted, the entire repository's pull request activity is 
 $pull->activity($account_name, $repo_slug, 1);
 ```
 
+### Accept and merge a pull request:
+```php
+$pull->accept($account_name, $repo_slug, 1, array(
+    'message' => 'This message will be used for merge commit.'
+));
+```
+
 ----
 
 #### Related:
