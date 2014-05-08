@@ -69,6 +69,14 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $response;
     }
 
+    protected function getClassMock($class, $httpClient)
+    {
+        $obj = new $class($this->getTransportClientMock());
+        $obj->setClient($httpClient);
+
+        return $obj;
+    }
+
     protected function getMethod($class, $name)
     {
         $class = new \ReflectionClass($class);
