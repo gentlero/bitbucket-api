@@ -57,6 +57,11 @@ $pull->update('gentle', 'secret-repo', 1, array(
 $pull->get($account_name, $repo_slug, 1);
 ```
 
+### Get the commits for a pull request:
+```php
+$pull->commits($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:

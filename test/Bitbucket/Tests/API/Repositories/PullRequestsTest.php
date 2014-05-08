@@ -152,4 +152,22 @@ class PullRequestsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetCommitsForSpecificPullRequest()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/commits';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+        $actual = $pull->commits('gentle', 'eof', 1);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
