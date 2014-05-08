@@ -215,16 +215,25 @@ class PullRequests extends API\Api
     /**
      * Get the log of all of a repository's pull request activity
      *
+     * If `$id` is omitted the repository's pull request activity is returned.
+     * If `$id` is not omitted the pull request activity is returned.
+     *
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  int              $id      ID of the pull request
+     * @param  int              $id      (Optional) ID of the pull request
      * @return MessageInterface
      */
-    public function activity($account, $repo, $id)
+    public function activity($account, $repo, $id = 0)
     {
-        return $this->getClient()->setApiVersion('2.0')->get(
-            sprintf('repositories/%s/%s/pullrequests/%d/activity', $account, $repo, $id)
-        );
+        $endpoint = sprintf('repositories/%s/%s/pullrequests/', $account, $repo);
+
+        if ($id === 0) {
+            $endpoint .= 'activity';
+        } else {
+            $endpoint .= $id.'/activity';
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->get($endpoint);
     }
 }
