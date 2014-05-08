@@ -28,16 +28,17 @@ class CommentsTest extends Tests\TestCase
     public function testGetSingleComment()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/3/comments/1';
-        $expectedResult = json_encode('dummy');
+        $expectedResult = $this->fakeResponse(array('dummy'));
 
-        $comment = $this->getApiMock('Bitbucket\API\Repositories\PullRequests\Comments');
-        $comment->expects($this->once())
-            ->method('requestGet')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
-        /** @var $comment \Bitbucket\API\Repositories\PullRequests\Comments */
-        $actual = $comment->get('gentle', 'eof', 3, 1);
+        /** @var \Bitbucket\API\Repositories\PullRequests\Comments $comments */
+        $comments   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests\Comments', $client);
+        $actual     = $comments->get('gentle', 'eof', 3, 1);
 
         $this->assertEquals($expectedResult, $actual);
     }
