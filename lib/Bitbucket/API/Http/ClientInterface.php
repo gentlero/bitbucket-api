@@ -28,7 +28,7 @@ interface ClientInterface
      * @param  array            $headers  HTTP headers
      * @return MessageInterface
      */
-    public function get($endpoint, $params, $headers = array());
+    public function get($endpoint, $params = array(), $headers = array());
 
     /**
      * Make an HTTP POST request to API
@@ -39,7 +39,7 @@ interface ClientInterface
      * @param  array            $headers  HTTP headers
      * @return MessageInterface
      */
-    public function post($endpoint, $params, $headers = array());
+    public function post($endpoint, $params = array(), $headers = array());
 
     /**
      * Make an HTTP PUT request to API
@@ -50,7 +50,7 @@ interface ClientInterface
      * @param  array            $headers  HTTP headers
      * @return MessageInterface
      */
-    public function put($endpoint, $params, $headers = array());
+    public function put($endpoint, $params = array(), $headers = array());
 
     /**
      * Make a HTTP DELETE request to API
@@ -61,7 +61,7 @@ interface ClientInterface
      * @param  array            $headers  HTTP headers
      * @return MessageInterface
      */
-    public function delete($endpoint, $params, $headers = array());
+    public function delete($endpoint, $params = array(), $headers = array());
 
     /**
      * Make a HTTP request
@@ -73,7 +73,7 @@ interface ClientInterface
      * @param  array            $headers
      * @return MessageInterface
      */
-    public function request($endpoint, array $params = array(), $method, array $headers = array());
+    public function request($endpoint, $params = array(), $method = 'GET', array $headers = array());
 
     /**
      * Get response format for next request

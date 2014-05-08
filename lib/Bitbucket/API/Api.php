@@ -11,6 +11,7 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
@@ -123,10 +124,10 @@ class Api
      * Make an HTTP GET request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   GET parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   GET parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestGet($endpoint, $params = array(), $headers = array())
     {
@@ -137,10 +138,10 @@ class Api
      * Make an HTTP POST request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   POST parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   POST parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestPost($endpoint, $params = array(), $headers = array())
     {
@@ -151,10 +152,10 @@ class Api
      * Make an HTTP PUT request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   POST parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   POST parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestPut($endpoint, $params = array(), $headers = array())
     {
@@ -165,10 +166,10 @@ class Api
      * Make a HTTP DELETE request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   DELETE parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   DELETE parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestDelete($endpoint, $params = array(), $headers = array())
     {
@@ -179,11 +180,11 @@ class Api
      * Create HTTP request
      *
      * @access protected
-     * @param  string       $method   HTTP method
-     * @param  string       $endpoint Api endpoint
-     * @param  string|array $params   Request parameter(s)
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $method   HTTP method
+     * @param  string           $endpoint Api endpoint
+     * @param  string|array     $params   Request parameter(s)
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      *
      * @throws \RuntimeException
      */

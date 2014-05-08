@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\PullRequests;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Comments class
@@ -26,15 +27,15 @@ class Comments extends API\Api
      * Get a list of a pull request comments
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      ID of the pull request
+     * @return MessageInterface
      */
-    public function all($account, $repo, $requestID)
+    public function all($account, $repo, $id)
     {
-        return $this->requestGet(
-            sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $requestID)
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $id)
         );
     }
 
@@ -42,15 +43,15 @@ class Comments extends API\Api
      * Get an individual pull request comment
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $requestID An integer representing an id for the request.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $requestID, $commentID)
     {
-        return $this->requestGet(
+        return $this->getClient()->setApiVersion('2.0')->get(
             sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID)
         );
     }
