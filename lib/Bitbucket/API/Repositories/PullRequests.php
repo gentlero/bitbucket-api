@@ -12,6 +12,8 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Bitbucket\API\Utils;
+use Buzz\Message\MessageInterface;
 
 /**
  * PullRequests class
@@ -38,10 +40,10 @@ class PullRequests extends API\Api
      * Get a list of pull requests
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  array  $params  Additional parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
      */
     public function all($account, $repo, $params = array())
     {
@@ -57,6 +59,41 @@ class PullRequests extends API\Api
         return $this->requestGet(
             sprintf('repositories/%s/%s/pullrequests', $account, $repo),
             $params
+        );
+    }
+
+    /**
+     * Create a new pull request
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
+     *
+     * @see https://confluence.atlassian.com/x/XAZAGQ
+     */
+    public function create($account, $repo, $params = array())
+    {
+        // allow developer to directly specify params as json if (s)he wants.
+        if (!empty($params) && is_array($params)) {
+            $params = json_encode(array_merge(
+                array(
+                    'title' => 'New pull request',
+                    'source' => array(
+                        'branch' => array(
+                            'name'  => 'develop'
+                        )
+                    )
+                ),
+                $params
+            ));
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->post(
+            sprintf('repositories/%s/%s/pullrequests', $account, $repo),
+            $params,
+            array('Content-Type' => 'application/json')
         );
     }
 }

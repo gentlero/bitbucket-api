@@ -9,43 +9,39 @@ $pull = new Bitbucket\API\Repositories\PullRequests();
 $pull->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
-### Get all pull requests
+### Get all pull requests:
 ```php
 $pull->all($account_name, $repo_slug);
 ```
 
-### Get all merged pull requests
+### Get all merged pull requests:
 ```php
 $pull->all($account_name, $repo_slug, array('state' => 'merged'));
 ```
 
-### Get a list of a pull request comments:
+### Create a new pull request:
 ```php
-$pull->comments()->all($account_name, $repo_slug, 1)
+$pull->create('gentle', 'secret-repo', array(
+    'title'         => 'Test PR',
+    'description'   => 'Fixed readme',
+    'source'        => array(
+        'branch'    => array(
+            'name'  => 'quickfix-1'
+        ),
+        'repository' => array(
+            'full_name' => 'vimishor/secret-repo'
+        )
+    ),
+    'destination'   => array(
+        'branch'    => array(
+            'name'  => 'master'
+        )
+    )
+));
 ```
-
-### Get an individual pull request comment:
-```php
-$pull->comments()->get($account_name, $repo_slug, 1, 2)
-```
-
-### Add a new comment:
-```php
-$pull->comments()->create($account_name, $repo_slug, 41, "dummy content");
-```
-
-### Update an existing comment:
-```php
-$pull->comments()->update($account_name, $repo_slug, 41, 4, "dummy content [edited]");
-```
-
-### Delete a pull request comment
-```php
-$pull->comments()->delete($account_name, $repo_slug, 41, 4);
-```
-
 ----
 
 #### Related:
   * [Authentication](../authentication.md)
+  * [PullRequests comments](pullrequests/comments.md)
   * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/pullrequests+Resource#pullrequestsResource-Overview)
