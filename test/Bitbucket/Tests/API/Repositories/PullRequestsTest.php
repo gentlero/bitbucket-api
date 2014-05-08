@@ -171,7 +171,7 @@ class PullRequestsTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
-    public function testApproveRequest()
+    public function testApproveAPullRequest()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/1/approve';
 
@@ -184,5 +184,20 @@ class PullRequestsTest extends Tests\TestCase
         $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
 
         $pull->approve('gentle', 'eof', 1);
+    }
+
+    public function testDeletePullRequestApproval()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/approve';
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+
+        $pull->deleteApproval('gentle', 'eof', 1);
     }
 }

@@ -177,4 +177,22 @@ class PullRequests extends API\Api
             sprintf('repositories/%s/%s/pullrequests/%d/approve', $account, $repo, $id)
         );
     }
+
+    /**
+     * Delete a pull request approval
+     *
+     * NOTE: On success returns `HTTP/1.1 204 NO CONTENT`
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      ID of the pull request
+     * @return MessageInterface
+     */
+    public function deleteApproval($account, $repo, $id)
+    {
+        return $this->getClient()->setApiVersion('2.0')->delete(
+            sprintf('repositories/%s/%s/pullrequests/%d/approve', $account, $repo, $id)
+        );
+    }
 }

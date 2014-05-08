@@ -67,6 +67,11 @@ $pull->commits($account_name, $repo_slug, 1);
 $pull->approve($account_name, $repo_slug, 1);
 ```
 
+### Delete a a pull request approval:
+```php
+$pull->delete($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:
