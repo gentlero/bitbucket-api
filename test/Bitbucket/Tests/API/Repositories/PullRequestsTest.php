@@ -200,4 +200,22 @@ class PullRequestsTest extends Tests\TestCase
 
         $pull->deleteApproval('gentle', 'eof', 1);
     }
+
+    public function testGetPullRequestDiff()
+    {
+        $endpoint       = 'repositories/gentle/eof/pullrequests/1/diff';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+        $actual = $pull->diff('gentle', 'eof', 1);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

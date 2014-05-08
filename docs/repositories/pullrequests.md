@@ -72,6 +72,11 @@ $pull->approve($account_name, $repo_slug, 1);
 $pull->delete($account_name, $repo_slug, 1);
 ```
 
+### Get the diff for a pull request:
+```php
+$pull->diff($account_name, $repo_slug, 1);
+```
+
 ----
 
 #### Related:
