@@ -2,17 +2,22 @@
 
 namespace Bitbucket\Tests\API;
 
+use Buzz\Message\Response;
+
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function getApiMock($class = null, $methods = array())
     {
         $class      = is_null($class) ? '\Bitbucket\API\Api' : $class;
         $methods    = array_merge(
-            array('requestGet', 'requestPost', 'requestPut', 'requestDelete'), $methods
+            array('requestGet', 'requestPost', 'requestPut', 'requestDelete'),
+            $methods
         );
 
-        $client = $this->getMock('\Buzz\Client\ClientInterface', 
-            array('setTimeout', 'setVerifyPeer', 'send'));
+        $client = $this->getMock(
+            '\Buzz\Client\ClientInterface',
+            array('setTimeout', 'setVerifyPeer', 'send')
+        );
 
         $client->expects($this->any())
             ->method('setTimeout')
@@ -34,7 +39,38 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $this->getMock('Buzz\Client\ClientInterface', array('setTimeout', 'setVerifyPeer', 'send'));
     }
 
-    protected function getMethod($class, $name) {
+    protected function getTransportClientMock()
+    {
+        $client = $this->getMock('\Buzz\Client\ClientInterface', array('setTimeout', 'setVerifyPeer', 'send'));
+
+        $client->expects($this->any())->method('setTimeout')->with(10);
+        $client->expects($this->any())->method('setVerifyPeer')->with(false);
+        $client->expects($this->any())->method('send');
+
+        return $client;
+    }
+
+    protected function getHttpClientMock()
+    {
+        $transportClient = $this->getTransportClientMock();
+
+        return $this->getMockBuilder('Bitbucket\API\HTTP\Client')
+            ->setMethods(array('get'))
+            ->setConstructorArgs(array(array(), $transportClient))
+            ->getMock();
+    }
+
+    protected function fakeResponse($data)
+    {
+        $response = new Response();
+
+        $response->setContent(json_encode($data));
+
+        return $response;
+    }
+
+    protected function getMethod($class, $name)
+    {
         $class = new \ReflectionClass($class);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
