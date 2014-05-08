@@ -12,7 +12,6 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Bitbucket\API\Utils;
 use Buzz\Message\MessageInterface;
 
 /**
@@ -92,6 +91,40 @@ class PullRequests extends API\Api
 
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests', $account, $repo),
+            $params,
+            array('Content-Type' => 'application/json')
+        );
+    }
+
+    /**
+     * Update a pull request
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      ID of the pull request that will be updated
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
+     */
+    public function update($account, $repo, $id, $params = array())
+    {
+        // allow developer to directly specify params as json if (s)he wants.
+        if (!empty($params) && is_array($params)) {
+            $params = json_encode(array_merge(
+                array(
+                    'title' => 'Updated pull request',
+                    'destination' => array(
+                        'branch' => array(
+                            'name'  => 'develop'
+                        )
+                    )
+                ),
+                $params
+            ));
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->put(
+            sprintf('repositories/%s/%s/pullrequests/%d', $account, $repo, $id),
             $params,
             array('Content-Type' => 'application/json')
         );

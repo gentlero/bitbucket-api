@@ -39,6 +39,19 @@ $pull->create('gentle', 'secret-repo', array(
     )
 ));
 ```
+
+### Update a pull request:
+```php
+$pull->update('gentle', 'secret-repo', 1, array(
+    'title'         => 'Test PR (updated)',
+    'destination'   => array(
+        'branch'    => array(
+            'name'  => 'master'
+        )
+    ),
+));
+```
+
 ----
 
 #### Related:
