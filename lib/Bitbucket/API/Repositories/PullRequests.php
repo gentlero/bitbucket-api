@@ -40,14 +40,23 @@ class PullRequests extends API\Api
      * @access public
      * @param  string $account The team or individual account owning the repository.
      * @param  string $repo    The repository identifier.
+     * @param  array  $params  Additional parameters
      * @return mixed
      */
-    public function all($account, $repo)
+    public function all($account, $repo, $params = array())
     {
+        $params = array_merge(
+            array(
+                'state' => 'OPEN'
+            ),
+            $params
+        );
+
         $this->httpClient->setApiVersion('2.0');
 
         return $this->requestGet(
-            sprintf('repositories/%s/%s/pullrequests', $account, $repo)
+            sprintf('repositories/%s/%s/pullrequests', $account, $repo),
+            $params
         );
     }
 }
