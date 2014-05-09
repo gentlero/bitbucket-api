@@ -7,6 +7,24 @@ use Bitbucket\API;
 
 class RepositoryTest extends Tests\TestCase
 {
+    public function testGetRepository()
+    {
+        $endpoint       = 'repositories/gentle/eof';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->get('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';

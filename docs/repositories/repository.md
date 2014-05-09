@@ -9,6 +9,11 @@ $repo = new Bitbucket\API\Repositories\Repository();
 $repo->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
+### Get information associated with an individual repository: (API 2.0)
+```php
+$repo->get($account_name, $repo_slug);
+```
+
 ### Create a new repository:
 ```php
 $repo->create($repo_slug, array(

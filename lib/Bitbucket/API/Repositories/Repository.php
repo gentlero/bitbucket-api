@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -12,16 +12,30 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
- * Repository class
- *
  * Allows you to create a new repository or edit a specific one.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
 class Repository extends API\Api
 {
+    /**
+     * Get information associated with an individual repository.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
+     */
+    public function get($account, $repo)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s', $account, $repo)
+        );
+    }
+
     /**
      * Create a new repository
      *
