@@ -110,18 +110,16 @@ class RepositoryTest extends Tests\TestCase
     public function testDeleteRepository()
     {
         $endpoint       = 'repositories/gentle/eof';
-        $expectedResult = true;
 
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint);
 
-        /** @var $repository \Bitbucket\API\Repositories\Repository */
-        $actual = $repository->delete('gentle', 'eof');
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
 
-        $this->assertEquals($expectedResult, $actual);
+        $repo->delete('gentle', 'eof');
     }
 
     public function testForkRepositorySuccess()

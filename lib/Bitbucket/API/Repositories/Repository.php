@@ -118,7 +118,7 @@ class Repository extends API\Api
      * @param  array  $params  Additional parameters
      * @return mixed
      *
-     * @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-PUTarepositoryupdate
+     * @see https://confluence.atlassian.com/x/WwZAGQ
      */
     public function update($account, $repo, array $params = array())
     {
@@ -138,7 +138,7 @@ class Repository extends API\Api
      */
     public function delete($account, $repo)
     {
-        return $this->requestDelete(
+        return $this->getClient()->setApiVersion('2.0')->delete(
             sprintf('repositories/%s/%s', $account, $repo)
         );
     }

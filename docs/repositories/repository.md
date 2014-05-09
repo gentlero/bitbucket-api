@@ -45,7 +45,7 @@ $repo->update($account_name, $repo_slug, array(
 ));
 ```
 
-### Delete a repository:
+### Delete a repository: (API 2.0)
 ```php
 $repo->delete($account_name, $repo_slug);
 ```
