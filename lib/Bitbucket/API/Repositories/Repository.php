@@ -159,6 +159,21 @@ class Repository extends API\Api
     }
 
     /**
+     * Gets the list of repository forks.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
+     */
+    public function forks($account, $repo)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/forks', $account, $repo)
+        );
+    }
+
+    /**
      * Fork a repository
      *
      * @access public

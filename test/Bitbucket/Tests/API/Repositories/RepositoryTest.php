@@ -140,6 +140,24 @@ class RepositoryTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    public function testGetRepositoryForks()
+    {
+        $endpoint       = 'repositories/gentle/eof/forks';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->forks('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testForkRepositorySuccess()
     {
         $endpoint       = 'repositories/gentle/eof/fork';

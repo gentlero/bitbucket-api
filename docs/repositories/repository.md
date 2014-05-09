@@ -50,9 +50,14 @@ $repo->update($account_name, $repo_slug, array(
 $repo->delete($account_name, $repo_slug);
 ```
 
-### Gets the list of accounts watching a repository: (API 2.0)
+### Get the list of accounts watching a repository: (API 2.0)
 ```php
 $repo->watchers($account_name, $repo_slug);
+```
+
+### Get the list of repository forks: (API 2.0)
+```php
+$repo->forks($account_name, $repo_slug);
 ```
 
 ### Fork a repository:
