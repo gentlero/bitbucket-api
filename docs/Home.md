@@ -18,7 +18,7 @@ A simple PHP wrapper for Bitbucket API.
     * [Issues](repositories/issues.md)
     * [Links](repositories/links.md)
     * [PullRequests](repositories/pullrequests.md) (API 2.0)
-    * [Repository](repositories/repository.md)
+    * [Repository](repositories/repository.md) (API 2.0)
     * [Services](repositories/services.md)
     * [Src](repositories/src.md)
     * [Wiki](repositories/wiki.md)

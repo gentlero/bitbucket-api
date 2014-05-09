@@ -7,6 +7,68 @@ use Bitbucket\API;
 
 class RepositoryTest extends Tests\TestCase
 {
+    public function testGetRepository()
+    {
+        $endpoint       = 'repositories/gentle/eof';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->get('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
+    public function testCreateRepositoryFromJSON()
+    {
+        $endpoint       = 'repositories/gentle/new-repo';
+        $params         = json_encode(array(
+            'scm'               => 'git',
+            'name'              => 'new-repo',
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_public_forks',
+        ));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->create('gentle', 'new-repo', $params);
+    }
+
+    public function testCreateRepositoryFromArray()
+    {
+        $endpoint       = 'repositories/gentle/new-repo';
+        $params         = array(
+            'scm'               => 'git',
+            'name'              => 'new-repo',
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_public_forks',
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->create('gentle', 'new-repo', $params);
+    }
+
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';
@@ -48,16 +110,50 @@ class RepositoryTest extends Tests\TestCase
     public function testDeleteRepository()
     {
         $endpoint       = 'repositories/gentle/eof';
-        $expectedResult = true;
 
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestDelete')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->delete('gentle', 'eof');
+    }
+
+    public function testGetRepositoryWatchers()
+    {
+        $endpoint       = 'repositories/gentle/eof/watchers';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
-        /** @var $repository \Bitbucket\API\Repositories\Repository */
-        $actual = $repository->delete('gentle', 'eof');
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->watchers('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
+    public function testGetRepositoryForks()
+    {
+        $endpoint       = 'repositories/gentle/eof/forks';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->forks('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
     }
