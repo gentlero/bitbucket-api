@@ -25,6 +25,50 @@ class RepositoryTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    public function testCreateRepositoryFromJSON()
+    {
+        $endpoint       = 'repositories/gentle/new-repo';
+        $params         = json_encode(array(
+            'scm'               => 'git',
+            'name'              => 'new-repo',
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_public_forks',
+        ));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->create('gentle', 'new-repo', $params);
+    }
+
+    public function testCreateRepositoryFromArray()
+    {
+        $endpoint       = 'repositories/gentle/new-repo';
+        $params         = array(
+            'scm'               => 'git',
+            'name'              => 'new-repo',
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_public_forks',
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->create('gentle', 'new-repo', $params);
+    }
+
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';

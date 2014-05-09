@@ -39,6 +39,49 @@ class Repository extends API\Api
     /**
      * Create a new repository
      *
+     * If `$params` are omitted, a private git repository will be created,
+     * with a "no forking" policy.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
+     *
+     * @see https://confluence.atlassian.com/x/WwZAGQ
+     */
+    public function create($account, $repo, $params = array())
+    {
+        // Keep BC for now.
+        // @todo[1]: to be removed.
+        if (is_array($repo)) {
+            return $this->createLegacy($account, $repo);
+        }
+
+        // allow developer to directly specify params as json if (s)he wants.
+        if (!empty($params) && is_array($params)) {
+            $params = json_encode(array_merge(
+                array(
+                    'scm'               => 'git',
+                    'name'              => $repo,
+                    'is_private'        => true,
+                    'description'       => 'My secret repo',
+                    'forking_policy'    => 'no_forks',
+                ),
+                $params
+            ));
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->post(
+            sprintf('repositories/%s/%s', $account, $repo),
+            $params,
+            array('Content-Type' => 'application/json')
+        );
+    }
+
+    /**
+     * Create a new repository
+     *
      * Available `$params`:
      *
      * <example>
@@ -52,8 +95,11 @@ class Repository extends API\Api
      * @param  string $name   The name of the repository
      * @param  array  $params Additional parameters
      * @return mixed
+     *
+     * @deprecated This API 1.0 endpoint is deprecated.
+     * @see $this->create() Sintax for using API 2.0 endpoint
      */
-    public function create($name, array $params = array())
+    private function createLegacy($name, array $params = array())
     {
         $params['name'] = $name;
 
