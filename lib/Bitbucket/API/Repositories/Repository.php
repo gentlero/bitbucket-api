@@ -132,14 +132,29 @@ class Repository extends API\Api
      * Delete a repository
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo)
     {
         return $this->getClient()->setApiVersion('2.0')->delete(
             sprintf('repositories/%s/%s', $account, $repo)
+        );
+    }
+
+    /**
+     * Gets the list of accounts watching a repository.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
+     */
+    public function watchers($account, $repo)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/watchers', $account, $repo)
         );
     }
 

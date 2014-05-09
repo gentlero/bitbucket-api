@@ -122,6 +122,24 @@ class RepositoryTest extends Tests\TestCase
         $repo->delete('gentle', 'eof');
     }
 
+    public function testGetRepositoryWatchers()
+    {
+        $endpoint       = 'repositories/gentle/eof/watchers';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->watchers('gentle', 'eof');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testForkRepositorySuccess()
     {
         $endpoint       = 'repositories/gentle/eof/fork';
