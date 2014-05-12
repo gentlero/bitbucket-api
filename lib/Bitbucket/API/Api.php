@@ -11,6 +11,7 @@
 
 namespace Bitbucket\API;
 
+use Bitbucket\API\Http\Listener\RequestListener;
 use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
@@ -62,6 +63,8 @@ class Api
         // @todo[1]: This exists for keeping BC. To be removed!
         $this->client       = (is_null($client)) ? new Curl : $client;
         $this->httpClient   = new Client(array(), $client);
+
+        $this->httpClient->addListener(new RequestListener());
 
         return $this;
     }
