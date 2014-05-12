@@ -74,4 +74,22 @@ class Commits extends Api
             sprintf('repositories/%s/%s/commit/%s/approve', $account, $repo, $revision)
         );
     }
+
+    /**
+     * Delete a commit approval
+     *
+     * NOTE: On success returns `HTTP/1.1 204 NO CONTENT`
+     *
+     * @access public
+     * @param  string           $account  The team or individual account owning the repository.
+     * @param  string           $repo     The repository identifier.
+     * @param  string           $revision A SHA1 value for the commit.
+     * @return MessageInterface
+     */
+    public function deleteApproval($account, $repo, $revision)
+    {
+        return $this->getClient()->setApiVersion('2.0')->delete(
+            sprintf('repositories/%s/%s/commit/%s/approve', $account, $repo, $revision)
+        );
+    }
 }

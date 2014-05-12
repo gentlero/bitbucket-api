@@ -75,4 +75,19 @@ class CommitsTest extends Tests\TestCase
 
         $commit->approve('gentle', 'eof', 'SHA1');
     }
+
+    public function testDeleteCommitApproval()
+    {
+        $endpoint       = 'repositories/gentle/eof/commit/SHA1/approve';
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\Commits $commit */
+        $commit   = $this->getClassMock('Bitbucket\API\Repositories\Commits', $client);
+
+        $commit->deleteApproval('gentle', 'eof', 'SHA1');
+    }
 }

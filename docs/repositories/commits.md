@@ -31,6 +31,11 @@ $commits->get($account_name, $repo_slug, $commitSHA1);
 $commits->approve($account_name, $repo_slug, $commitSHA1);
 ```
 
+### Delete a commit approval: (API 2.0)
+```php
+$commits->deleteApproval($account_name, $repo_slug, $commitSHA1);
+```
+
 ----
 
 #### Related:
