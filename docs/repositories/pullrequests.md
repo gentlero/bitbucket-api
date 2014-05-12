@@ -19,6 +19,11 @@ $pull->all($account_name, $repo_slug);
 $pull->all($account_name, $repo_slug, array('state' => 'merged'));
 ```
 
+### Get all merged and declined pull requests: (API 2.0)
+```php
+$pull->all($account_name, $repo_slug, array('state' => array('merged', 'declined')));
+```
+
 ### Create a new pull request: (API 2.0)
 ```php
 $pull->create('gentle', 'secret-repo', array(
