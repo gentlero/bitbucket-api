@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -14,10 +14,8 @@ namespace Bitbucket\API\Repositories;
 use Bitbucket\API;
 
 /**
- * Events class
- *
  * You can use events to track events that occur on public repositories.
- * NOTE: Traking events from private repositories are not supported for
+ * NOTE: Tracking events from private repositories are not supported for
  * the moment by the API.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

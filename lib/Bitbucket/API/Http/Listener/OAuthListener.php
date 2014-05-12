@@ -61,8 +61,7 @@ class OAuthListener implements ListenerInterface
         SignatureMethodInterface $signature = null,
         TokenInterface $token = null,
         ConsumerInterface $consumer = null
-    )
-    {
+    ) {
         $this->config       = array_merge($this->config, $config);
         $this->signature    = (!is_null($signature)) ? $signature : $this->getSigner();
 
@@ -76,7 +75,8 @@ class OAuthListener implements ListenerInterface
         $this->consumer = (!is_null($consumer)) ?
             $consumer :
             new OAuth1\Consumer\Consumer(
-                $this->config['oauth_consumer_key'], $this->config['oauth_consumer_secret']
+                $this->config['oauth_consumer_key'],
+                $this->config['oauth_consumer_secret']
             )
         ;
     }
@@ -96,7 +96,11 @@ class OAuthListener implements ListenerInterface
     {
         $params = $this->getParametersToSign($request);
         $req    = OAuth1\Request\Request::fromConsumerAndToken(
-            $this->consumer, $this->token, $request->getMethod(), $request->getUrl(), $params
+            $this->consumer,
+            $this->token,
+            $request->getMethod(),
+            $request->getUrl(),
+            $params
         );
 
         $req->signRequest($this->signature, $this->consumer, $this->token);
@@ -108,7 +112,8 @@ class OAuthListener implements ListenerInterface
      * {@inheritDoc}
      */
     public function postSend(RequestInterface $request, MessageInterface $response)
-    {}
+    {
+    }
 
     /**
      * Include OAuth and request body parameters

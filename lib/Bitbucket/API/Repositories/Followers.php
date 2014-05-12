@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -14,8 +14,6 @@ namespace Bitbucket\API\Repositories;
 use Bitbucket\API;
 
 /**
- * Followers class
- *
  * List a repository's followers.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

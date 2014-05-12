@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -14,8 +14,6 @@ namespace Bitbucket\API\Repositories\Changesets;
 use Bitbucket\API;
 
 /**
- * Comments class
- *
  * Manage changeset comments.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -75,7 +73,7 @@ class Comments extends API\Api
      * @param  array  $options The rest of available options
      * @return mixed
      *
-     * @see https://confluence.atlassian.com/display/BITBUCKET/changesets+Resource#changesetsResource-POSTanewcommentonachangeset
+     * @see https://confluence.atlassian.com/x/6A2mEQ
      */
     public function create($account, $repo, $node, $content, $options = array())
     {
@@ -105,7 +103,7 @@ class Comments extends API\Api
      * @param array  $options   The rest of available options
      * @return mixed
      *
-     * @see https://confluence.atlassian.com/display/BITBUCKET/changesets+Resource#changesetsResource-PUTanupdatetoanexistingchangesetcomment
+     * @see https://confluence.atlassian.com/x/6A2mEQ
      */
     public function update($account, $repo, $node, $commentID, $content, $options = array())
     {

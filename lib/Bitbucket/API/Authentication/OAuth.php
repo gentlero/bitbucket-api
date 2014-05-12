@@ -1,7 +1,7 @@
 <?php
 
-/*
- * This file is part of the bitbucket_api package.
+/**
+ * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
  *
@@ -14,8 +14,6 @@ namespace Bitbucket\API\Authentication;
 use Buzz\Message\RequestInterface;
 
 /**
- * OAuth class
- *
  * Build authorization header from previously signed OAuth parameters
  * and pass it to current request.
  *
