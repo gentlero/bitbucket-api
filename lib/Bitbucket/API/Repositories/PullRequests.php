@@ -41,14 +41,30 @@ class PullRequests extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  array            $params  Additional parameters
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function all($account, $repo, $params = array())
     {
+        $states = array('OPEN', 'MERGED', 'DECLINED');
         $params = array_merge(
             array(
                 'state' => 'OPEN'
             ),
             $params
+        );
+
+        if (!is_array($params['state'])) {
+            $params['state'] = array($params['state']);
+        }
+
+        array_walk(
+            $params['state'],
+            function ($state) use ($states) {
+                if (!in_array($state, $states)) {
+                    throw new \InvalidArgumentException(sprintf('Unknown `state` %s', $state));
+                }
+            }
         );
 
         return $this->getClient()->setApiVersion('2.0')->get(
@@ -66,6 +82,7 @@ class PullRequests extends API\Api
      * @param  array            $params  Additional parameters
      * @return MessageInterface
      *
+     * @throws \InvalidArgumentException
      * @see https://confluence.atlassian.com/x/XAZAGQ
      */
     public function create($account, $repo, $params = array())
@@ -85,6 +102,14 @@ class PullRequests extends API\Api
             ));
         }
 
+        if (empty($params['title'])) {
+            throw new \InvalidArgumentException('Pull request\'s title must be specified.');
+        }
+
+        if (empty($params['source']['branch']['name'])) {
+            throw new \InvalidArgumentException('Pull request\'s source branch name must be specified.');
+        }
+
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests', $account, $repo),
             $params,
@@ -101,6 +126,8 @@ class PullRequests extends API\Api
      * @param  int              $id      ID of the pull request that will be updated
      * @param  array            $params  Additional parameters
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function update($account, $repo, $id, $params = array())
     {
@@ -117,6 +144,14 @@ class PullRequests extends API\Api
                 ),
                 $params
             ));
+        }
+
+        if (empty($params['title'])) {
+            throw new \InvalidArgumentException('Pull request\'s title must be specified.');
+        }
+
+        if (empty($params['destination']['branch']['name'])) {
+            throw new \InvalidArgumentException('Pull request\'s destination branch name must be specified.');
         }
 
         return $this->getClient()->setApiVersion('2.0')->put(
