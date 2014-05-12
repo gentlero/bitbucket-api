@@ -21,6 +21,11 @@ $commits->all($account_name, $repo_slug, array(
 ));
 ```
 
+### Get an individual commit: (API 2.0)
+```php
+$commits->get($account_name, $repo_slug, $commitSHA1);
+```
+
 ----
 
 #### Related:
