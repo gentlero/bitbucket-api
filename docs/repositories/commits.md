@@ -40,4 +40,5 @@ $commits->deleteApproval($account_name, $repo_slug, $commitSHA1);
 
 #### Related:
   * [Authentication](../authentication.md)
+  * [Commit(s) comments](commits/comments.md)
   * [BB Wiki](https://confluence.atlassian.com/x/doA7Fw)

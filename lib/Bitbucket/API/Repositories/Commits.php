@@ -92,4 +92,16 @@ class Commits extends Api
             sprintf('repositories/%s/%s/commit/%s/approve', $account, $repo, $revision)
         );
     }
+
+    /**
+     * Get comments
+     *
+     * @access public
+     * @return Commits\Comments
+     * @codeCoverageIgnore
+     */
+    public function comments()
+    {
+        return $this->childFactory('Repositories\\Commits\\Comments');
+    }
 }
