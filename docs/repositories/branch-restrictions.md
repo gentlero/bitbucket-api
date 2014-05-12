@@ -14,6 +14,20 @@ $restrictions->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, 
 $restrictions->all($account_name, $repo_slug);
 ```
 
+### Creates restrictions: (API 2.0)
+
+Restrict push access to any branches starting with `joe-and-mary-` only to users `joe` and `mary`:
+```php
+$restrictions->create($account_name, $repo_slug, array(
+    'kind'      => 'push',
+    'pattern'   => 'joe-and-mary-*',
+    'users'     => array(
+        array('username' => 'joe'),
+        array('username' => 'mary')
+    )
+));
+```
+
 ----
 
 #### Related:

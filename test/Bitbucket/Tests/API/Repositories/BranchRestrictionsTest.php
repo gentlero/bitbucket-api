@@ -24,4 +24,68 @@ class BranchRestrictionsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testCreateRestrictionFromArray()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions';
+        $params         = array(
+            'kind' => 'push'
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
+        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+
+        $restrictions->create('gentle', 'eof', $params);
+    }
+
+    public function testCreateRestrictionFromJSON()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions';
+        $params         = json_encode(array(
+            'kind' => 'push'
+        ));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
+        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+
+        $restrictions->create('gentle', 'eof', $params);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateRestrictionFromArrayShouldFailWithInvalidRestrictionKind()
+    {
+        $params         = array(
+            'kind' => 'invalid'
+        );
+
+        $restrictions   = new \Bitbucket\API\Repositories\BranchRestrictions;
+
+        $restrictions->create('gentle', 'eof', $params);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateRestrictionFromJSONShouldFailWithInvalidRestrictionKind()
+    {
+        $params         = json_encode(array(
+            'kind' => 'invalid'
+        ));
+
+        $restrictions   = new \Bitbucket\API\Repositories\BranchRestrictions;
+
+        $restrictions->create('gentle', 'eof', $params);
+    }
 }

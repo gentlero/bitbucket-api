@@ -35,4 +35,42 @@ class BranchRestrictions extends Api
             sprintf('repositories/%s/%s/branch-restrictions', $account, $repo)
         );
     }
+
+    /**
+     * Creates restrictions for the specified repository.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function create($account, $repo, $params = array())
+    {
+        // allow developer to directly specify params as json if (s)he wants.
+        if (!empty($params) && is_string($params)) {
+            $params = $this->decodeJSON($params);
+        }
+
+        if (!empty($params) && is_array($params)) {
+            $params = array_merge(
+                array(
+                    'kind' => 'push'
+                ),
+                $params
+            );
+        }
+
+        if (empty($params['kind']) or !in_array($params['kind'], array('push', 'delete', 'force'))) {
+            throw new \InvalidArgumentException('Invalid restriction kind.');
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->post(
+            sprintf('repositories/%s/%s/branch-restrictions', $account, $repo),
+            json_encode($params),
+            array('Content-Type' => 'application/json')
+        );
+    }
 }
