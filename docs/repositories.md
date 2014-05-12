@@ -23,6 +23,7 @@ Only public repositories are returned.
 $repositories->all();
 ```
 
+* [Commit(s)](repositories/commits.md) (API 2.0)
 * [Changesets](repositories/changesets.md)
 * [Deploykeys](repositories/deploykeys.md)
 * [Events](repositories/events.md)
