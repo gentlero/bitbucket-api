@@ -58,4 +58,20 @@ class Commits extends Api
             sprintf('repositories/%s/%s/commit/%s', $account, $repo, $revision)
         );
     }
+
+    /**
+     * Approve a commit
+     *
+     * @access public
+     * @param  string           $account  The team or individual account owning the repository.
+     * @param  string           $repo     The repository identifier.
+     * @param  string           $revision A SHA1 value for the commit.
+     * @return MessageInterface
+     */
+    public function approve($account, $repo, $revision)
+    {
+        return $this->getClient()->setApiVersion('2.0')->post(
+            sprintf('repositories/%s/%s/commit/%s/approve', $account, $repo, $revision)
+        );
+    }
 }

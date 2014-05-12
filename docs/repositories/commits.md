@@ -26,6 +26,11 @@ $commits->all($account_name, $repo_slug, array(
 $commits->get($account_name, $repo_slug, $commitSHA1);
 ```
 
+### Approve a commit: (API 2.0)
+```php
+$commits->approve($account_name, $repo_slug, $commitSHA1);
+```
+
 ----
 
 #### Related:

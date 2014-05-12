@@ -60,4 +60,19 @@ class CommitsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testApproveACommit()
+    {
+        $endpoint       = 'repositories/gentle/eof/commit/SHA1/approve';
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\Commits $commit */
+        $commit   = $this->getClassMock('Bitbucket\API\Repositories\Commits', $client);
+
+        $commit->approve('gentle', 'eof', 'SHA1');
+    }
 }
