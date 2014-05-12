@@ -133,6 +133,13 @@ interface ClientInterface
     public function addListener(ListenerInterface $listener);
 
     /**
+     * @access public
+     * @param  ListenerInterface|string $name
+     * @return $this
+     */
+    public function delListener($name);
+
+    /**
      * Get listener interface
      *
      * @param  string            $name

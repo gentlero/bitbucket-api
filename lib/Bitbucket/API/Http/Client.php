@@ -80,6 +80,22 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
+    public function delListener($name)
+    {
+        if ($name instanceof ListenerInterface) {
+            $name = $name->getName();
+        }
+
+        if ($this->isListener($name) === true) {
+            unset($this->listeners[$name]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getListener($name)
     {
         if (!$this->isListener($name)) {
