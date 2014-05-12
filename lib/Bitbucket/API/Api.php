@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Bitbucket\API\Http\Listener\RequestListener;
+use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
@@ -18,8 +20,6 @@ use Bitbucket\API\Http\Client;
 use Buzz\Client\Curl;
 
 /**
- * Api
- *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
 class Api
@@ -61,6 +61,8 @@ class Api
         // @todo[1]: This exists for keeping BC. To be removed!
         $this->client       = (is_null($client)) ? new Curl : $client;
         $this->httpClient   = new Client(array(), $client);
+
+        $this->httpClient->addListener(new RequestListener());
 
         return $this;
     }
@@ -123,10 +125,10 @@ class Api
      * Make an HTTP GET request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   GET parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   GET parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestGet($endpoint, $params = array(), $headers = array())
     {
@@ -137,10 +139,10 @@ class Api
      * Make an HTTP POST request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   POST parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   POST parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestPost($endpoint, $params = array(), $headers = array())
     {
@@ -151,10 +153,10 @@ class Api
      * Make an HTTP PUT request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   POST parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   POST parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestPut($endpoint, $params = array(), $headers = array())
     {
@@ -165,10 +167,10 @@ class Api
      * Make a HTTP DELETE request to API
      *
      * @access public
-     * @param  string       $endpoint API endpoint
-     * @param  string|array $params   DELETE parameters
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $endpoint API endpoint
+     * @param  string|array     $params   DELETE parameters
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      */
     public function requestDelete($endpoint, $params = array(), $headers = array())
     {
@@ -179,11 +181,11 @@ class Api
      * Create HTTP request
      *
      * @access protected
-     * @param  string       $method   HTTP method
-     * @param  string       $endpoint Api endpoint
-     * @param  string|array $params   Request parameter(s)
-     * @param  array        $headers  HTTP headers
-     * @return mixed
+     * @param  string           $method   HTTP method
+     * @param  string           $endpoint Api endpoint
+     * @param  string|array     $params   Request parameter(s)
+     * @param  array            $headers  HTTP headers
+     * @return MessageInterface
      *
      * @throws \RuntimeException
      */

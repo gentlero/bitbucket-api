@@ -33,7 +33,7 @@ class Client implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/0.2.1 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/0.3.0 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => false
     );
@@ -102,7 +102,7 @@ class Client implements ClientInterface
      */
     public function get($endpoint, $params = array(), $headers = array())
     {
-        if (is_array($params) AND count($params) > 0) {
+        if (is_array($params) && count($params) > 0) {
             $endpoint   .= (strpos($endpoint, '?') === false ? '?' : '&').http_build_query($params, '', '&');
             $params     = array();
         }
@@ -137,7 +137,7 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
-    public function request($endpoint, array $params = array(), $method, array $headers = array())
+    public function request($endpoint, $params = array(), $method = 'GET', array $headers = array())
     {
         // do not set base URL if a full one was provided
         if (false === strpos($endpoint, $this->getApiBaseUrl())) {
@@ -159,7 +159,7 @@ class Client implements ClientInterface
             $request->setContent(is_array($params) ? http_build_query($params) : $params);
         }
 
-        $response       = new Response;
+        $response = new Response;
 
         $this->executeListeners($request, 'preSend');
 

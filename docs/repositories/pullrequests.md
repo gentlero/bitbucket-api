@@ -9,38 +9,98 @@ $pull = new Bitbucket\API\Repositories\PullRequests();
 $pull->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
-### Get a list of a pull request comments:
-```php
-$pull->comments()->all($account_name, $repo_slug, 1)
-```
-
-### Get an individual pull request comment:
-```php
-$pull->comments()->get($account_name, $repo_slug, 1, 2)
-```
-
-### Add a new comment:
-```php
-$pull->comments()->create($account_name, $repo_slug, 41, "dummy content");
-```
-
-### Update an existing comment:
-```php
-$pull->comments()->update($account_name, $repo_slug, 41, 4, "dummy content [edited]");
-```
-
-### Delete a pull request comment
-```php
-$pull->comments()->delete($account_name, $repo_slug, 41, 4);
-```
-
-### Get all pull requests
+### Get all pull requests: (API 2.0)
 ```php
 $pull->all($account_name, $repo_slug);
+```
+
+### Get all merged pull requests: (API 2.0)
+```php
+$pull->all($account_name, $repo_slug, array('state' => 'merged'));
+```
+
+### Create a new pull request: (API 2.0)
+```php
+$pull->create('gentle', 'secret-repo', array(
+    'title'         => 'Test PR',
+    'description'   => 'Fixed readme',
+    'source'        => array(
+        'branch'    => array(
+            'name'  => 'quickfix-1'
+        ),
+        'repository' => array(
+            'full_name' => 'vimishor/secret-repo'
+        )
+    ),
+    'destination'   => array(
+        'branch'    => array(
+            'name'  => 'master'
+        )
+    )
+));
+```
+
+### Update a pull request: (API 2.0)
+```php
+$pull->update('gentle', 'secret-repo', 1, array(
+    'title'         => 'Test PR (updated)',
+    'destination'   => array(
+        'branch'    => array(
+            'name'  => 'master'
+        )
+    ),
+));
+```
+
+### Get a specific pull request: (API 2.0)
+```php
+$pull->get($account_name, $repo_slug, 1);
+```
+
+### Get the commits for a pull request: (API 2.0)
+```php
+$pull->commits($account_name, $repo_slug, 1);
+```
+
+### Approve a pull request: (API 2.0)
+```php
+$pull->approve($account_name, $repo_slug, 1);
+```
+
+### Delete a a pull request approval: (API 2.0)
+```php
+$pull->delete($account_name, $repo_slug, 1);
+```
+
+### Get the diff for a pull request: (API 2.0)
+```php
+$pull->diff($account_name, $repo_slug, 1);
+```
+
+### Get the log of a pull request activity: (API 2.0)
+If pull request ID is omitted, the entire repository's pull request activity is returned.
+
+```php
+$pull->activity($account_name, $repo_slug, 1);
+```
+
+### Accept and merge a pull request: (API 2.0)
+```php
+$pull->accept($account_name, $repo_slug, 1, array(
+    'message' => 'This message will be used for merge commit.'
+));
+```
+
+### Decline a pull request: (API 2.0)
+```php
+$pull->accept($account_name, $repo_slug, 1, array(
+    'message' => 'Please update the docs to reflect new changes.'
+));
 ```
 
 ----
 
 #### Related:
   * [Authentication](../authentication.md)
+  * [PullRequests comments](pullrequests/comments.md)
   * [BB Wiki](https://confluence.atlassian.com/display/BITBUCKET/pullrequests+Resource#pullrequestsResource-Overview)

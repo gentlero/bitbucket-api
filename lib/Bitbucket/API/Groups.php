@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -11,10 +11,7 @@
 
 namespace Bitbucket\API;
 
-
 /**
- * Groups class
- *
  * Provides functionality for querying information about groups,
  * creating new ones, updating memberships, and deleting them.
  *

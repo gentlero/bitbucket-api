@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -15,8 +15,6 @@ use Bitbucket\API;
 use Bitbucket\API\Repositories;
 
 /**
- * Issue class
- *
  * Provides functionality for interacting with an issue tracker.
  *
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -32,7 +30,7 @@ class Issues extends API\Api
      * @param  array  $options Filtering parameters.
      * @return mixed
      *
-     * @see https://confluence.atlassian.com/display/BITBUCKET/issues+Resource#issuesResource-GETalistofissuesinarepository'stracker
+     * @see https://confluence.atlassian.com/x/1w2mEQ
      */
     public function all($account, $repo, $options = array())
     {
@@ -89,7 +87,7 @@ class Issues extends API\Api
      */
     public function create($account, $repo, $options = array())
     {
-        if (!isset($options['title']) OR !isset($options['content'])) {
+        if (!isset($options['title']) or !isset($options['content'])) {
             throw new \InvalidArgumentException(
                 'Arguments: "title" and "content" are mandatory.'
             );

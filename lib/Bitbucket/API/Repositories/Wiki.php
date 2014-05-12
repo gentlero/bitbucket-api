@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -14,8 +14,6 @@ namespace Bitbucket\API\Repositories;
 use Bitbucket\API;
 
 /**
- * Wiki class
- *
  * Provides functionality for getting information from pages in
  * a Bitbucket wiki, creating new pages, and updating them.
  *

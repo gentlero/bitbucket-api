@@ -10,15 +10,15 @@ A simple PHP wrapper for Bitbucket API.
 * [Group privileges](group-privileges.md)
 * [Invitations](invitations.md)
 * [Privileges](privileges.md)
-* [Repositories](repositories.md)
+* [Repositories](repositories.md) (API 2.0)
     * [Changesets](repositories/changesets.md)
     * [Deploykeys](repositories/deploykeys.md)
     * [Events](repositories/events.md)
     * [Followers](repositories/followers.md)
     * [Issues](repositories/issues.md)
     * [Links](repositories/links.md)
-    * [PullRequests](repositories/pullrequests.md)
-    * [Repository](repositories/repository.md)
+    * [PullRequests](repositories/pullrequests.md) (API 2.0)
+    * [Repository](repositories/repository.md) (API 2.0)
     * [Services](repositories/services.md)
     * [Src](repositories/src.md)
     * [Wiki](repositories/wiki.md)
@@ -31,3 +31,7 @@ A simple PHP wrapper for Bitbucket API.
     * [OAuth](users/oauth.md)
     * [Privileges](users/privileges.md)
     * [SSH Keys](users/ssh-keys.md)
+
+### Legend:
+
+- API 2.0 = Contains methods that can be used against Bitbucket API v2.0

@@ -1,7 +1,7 @@
 <?php
 
-/*
- * This file is part of the bitbucket_api package.
+/**
+ * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
  *
@@ -14,8 +14,6 @@ namespace Bitbucket\API\Users;
 use Bitbucket\API\Api;
 
 /**
- * SshKeys class
- *
  * Manipulate the ssh-keys on an individual or team account.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

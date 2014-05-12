@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -12,8 +12,6 @@
 namespace Bitbucket\API;
 
 /**
- * GroupPrivileges class
- *
  * Manages a group's repository permissions.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

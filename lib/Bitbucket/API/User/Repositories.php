@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -14,8 +14,6 @@ namespace Bitbucket\API\User;
 use Bitbucket\API;
 
 /**
- * Repositories class
- *
  * Get the details of the repositories associated with
  * an individual or team account.
  *

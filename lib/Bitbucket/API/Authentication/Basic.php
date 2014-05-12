@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -33,8 +33,8 @@ class Basic implements AuthenticationInterface
     private $password;
 
     /**
-     * @param  string $username API Username
-     * @param  string $password API Password
+     * @param string $username API Username
+     * @param string $password API Password
      */
     public function __construct($username, $password)
     {

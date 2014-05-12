@@ -25,4 +25,4 @@ class BasicAuthListener extends BaseListener implements ListenerInterface
     {
         return 'basicauth';
     }
-} 
+}

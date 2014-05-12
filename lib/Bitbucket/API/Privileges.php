@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -12,8 +12,6 @@
 namespace Bitbucket\API;
 
 /**
- * Privileges class
- *
  * Manage the user privileges (permissions) of your repositories. It allows you
  * to grant specific users access to read, write and or administer your repositories.
  *
@@ -137,7 +135,7 @@ class Privileges extends Api
      */
     public function delete($owner, $repo = null, $account = null)
     {
-        if (!is_null($account) AND is_null($repo)) {
+        if (!is_null($account) and is_null($repo)) {
             throw new \InvalidArgumentException("To delete an account privileges, you need to specify a repository.");
         }
 
