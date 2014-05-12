@@ -88,4 +88,22 @@ class BranchRestrictionsTest extends Tests\TestCase
 
         $restrictions->create('gentle', 'eof', $params);
     }
+
+    public function testGetSpecificRestriction()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
+        $restriction    = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $actual         = $restriction->get('gentle', 'eof', 1);
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

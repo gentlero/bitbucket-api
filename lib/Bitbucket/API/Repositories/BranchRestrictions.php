@@ -73,4 +73,20 @@ class BranchRestrictions extends Api
             array('Content-Type' => 'application/json')
         );
     }
+
+    /**
+     * Get a specific restriction
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      The restriction's identifier.
+     * @return MessageInterface
+     */
+    public function get($account, $repo, $id)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/branch-restrictions/%d', $account, $repo, $id)
+        );
+    }
 }

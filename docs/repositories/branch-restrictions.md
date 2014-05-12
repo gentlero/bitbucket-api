@@ -28,6 +28,11 @@ $restrictions->create($account_name, $repo_slug, array(
 ));
 ```
 
+### Get a specific restriction: (API 2.0)
+```php
+$restrictions->get($account_name, $repo_slug, $restrictionID);
+```
+
 ----
 
 #### Related:
