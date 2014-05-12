@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -12,8 +12,6 @@
 namespace Bitbucket\API;
 
 /**
- * User class
- *
  * Manages the currently authenticated account profile.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

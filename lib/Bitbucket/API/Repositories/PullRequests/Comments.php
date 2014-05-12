@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -15,8 +15,6 @@ use Bitbucket\API;
 use Buzz\Message\MessageInterface;
 
 /**
- * Comments class
- *
  * Manage the comments on pull requests.
  *
  * @author  Alexandru G.    <alex@gentle.ro>

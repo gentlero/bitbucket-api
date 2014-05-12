@@ -25,4 +25,4 @@ interface ListenerInterface extends BaseInterface
      * @return string
      */
     public function getName();
-} 
+}

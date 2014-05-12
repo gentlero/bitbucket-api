@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -12,8 +12,6 @@
 namespace Bitbucket\API;
 
 /**
- * Invitations class
- *
  * Allows repository administrators to send email invitations to
  * grant read, write, or admin privileges to a repository.
  *

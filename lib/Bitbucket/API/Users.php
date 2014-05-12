@@ -1,7 +1,7 @@
 <?php
 
-/*
- * This file is part of the bitbucket_api package.
+/**
+ * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
  *
@@ -12,8 +12,6 @@
 namespace Bitbucket\API;
 
 /**
- * Users class
- *
  * Get information related to an individual or team account.
  * NOTE: For making calls against the currently authenticated account, see the `User` resource.
  *

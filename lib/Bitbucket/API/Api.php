@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the bitbucket-api package.
  *
  * (c) Alexandru G. <alex@gentle.ro>
@@ -20,8 +20,6 @@ use Bitbucket\API\Http\Client;
 use Buzz\Client\Curl;
 
 /**
- * Api
- *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
 class Api
