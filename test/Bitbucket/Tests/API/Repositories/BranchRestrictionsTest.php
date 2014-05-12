@@ -106,4 +106,60 @@ class BranchRestrictionsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testUpdateRestrictionFromArray()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
+        $params         = array(
+            'users' => array(
+                array('username' => 'vimishor'),
+                array('username' => 'gtl_test1')
+            )
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('put')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
+        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+
+        $restriction->update('gentle', 'eof', 1, $params);
+    }
+
+    public function testUpdateRestrictionFromJSON()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
+        $params         = json_encode(array(
+            'dummy' => array(
+                array('username' => 'vimishor'),
+                array('username' => 'gtl_test1')
+            )
+        ));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('put')
+            ->with($endpoint, $params);
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
+        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+
+        $restriction->update('gentle', 'eof', 1, $params);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateRestrictionShouldFailIfKindIsSpecified()
+    {
+        $params         = array(
+                'kind' => 'invalid'
+            );
+
+        $restrictions   = new \Bitbucket\API\Repositories\BranchRestrictions;
+
+        $restrictions->update('gentle', 'eof', 1, $params);
+    }
 }

@@ -89,4 +89,34 @@ class BranchRestrictions extends Api
             sprintf('repositories/%s/%s/branch-restrictions/%d', $account, $repo, $id)
         );
     }
+
+    /**
+     * Updates a specific branch restriction.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      The restriction's identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function update($account, $repo, $id, $params = array())
+    {
+        // allow developer to directly specify params as json if (s)he wants.
+        if (!empty($params) && is_string($params)) {
+            $params = $this->decodeJSON($params);
+        }
+
+        if (!empty($params['kind'])) {
+            throw new \InvalidArgumentException('You cannot change the "kind" value.');
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->put(
+            sprintf('repositories/%s/%s/branch-restrictions/%d', $account, $repo, $id),
+            json_encode($params),
+            array('Content-Type' => 'application/json')
+        );
+    }
 }

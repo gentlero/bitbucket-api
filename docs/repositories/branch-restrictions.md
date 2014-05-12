@@ -33,6 +33,17 @@ $restrictions->create($account_name, $repo_slug, array(
 $restrictions->get($account_name, $repo_slug, $restrictionID);
 ```
 
+### Update a specific restriction: (API 2.0)
+```php
+$restrictions->update($account_name, $repo_slug, $restrictionID, array(
+    'users' => array(
+        array('username' => 'joe'),
+        array('username' => 'mary'),
+        array('username' => 'joe-work')
+    )
+));
+```
+
 ----
 
 #### Related:
