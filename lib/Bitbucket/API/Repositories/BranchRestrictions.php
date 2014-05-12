@@ -119,4 +119,22 @@ class BranchRestrictions extends Api
             array('Content-Type' => 'application/json')
         );
     }
+
+    /**
+     * Delete a specific branch restriction.
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $id      The restriction's identifier.
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function delete($account, $repo, $id)
+    {
+        return $this->getClient()->setApiVersion('2.0')->delete(
+            sprintf('repositories/%s/%s/branch-restrictions/%d', $account, $repo, $id)
+        );
+    }
 }

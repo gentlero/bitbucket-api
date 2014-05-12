@@ -162,4 +162,19 @@ class BranchRestrictionsTest extends Tests\TestCase
 
         $restrictions->update('gentle', 'eof', 1, $params);
     }
+
+    public function testDeleteRestriction()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint);
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
+        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+
+        $restriction->delete('gentle', 'eof', 1);
+    }
 }

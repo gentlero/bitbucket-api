@@ -44,6 +44,11 @@ $restrictions->update($account_name, $repo_slug, $restrictionID, array(
 ));
 ```
 
+### Delete a specific restriction: (API 2.0)
+```php
+$restrictions->delete($account_name, $repo_slug, $restrictionID);
+```
+
 ----
 
 #### Related:
