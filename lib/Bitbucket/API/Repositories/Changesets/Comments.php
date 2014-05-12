@@ -95,12 +95,12 @@ class Comments extends API\Api
      * 'filename'   (string) = A String representing a filename in the changeset to which this comment applies.
      * </example>
      *
-     * @param string $account   The team or individual account owning the repo.
-     * @param string $repo      The repo identifier.
-     * @param string $node      The raw_node changeset identifier.
-     * @param int    $commentID The comment identifier.
-     * @param string $content   Comment content.
-     * @param array  $options   The rest of available options
+     * @param  string $account   The team or individual account owning the repo.
+     * @param  string $repo      The repo identifier.
+     * @param  string $node      The raw_node changeset identifier.
+     * @param  int    $commentID The comment identifier.
+     * @param  string $content   Comment content.
+     * @param  array  $options   The rest of available options
      * @return mixed
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ

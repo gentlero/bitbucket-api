@@ -11,7 +11,6 @@
 
 namespace Bitbucket\API;
 
-
 /**
  * Provides functionality for querying information about groups,
  * creating new ones, updating memberships, and deleting them.

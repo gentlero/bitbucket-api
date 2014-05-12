@@ -215,4 +215,4 @@ class OAuthListener implements ListenerInterface
 
         return new $class;
     }
-} 
+}

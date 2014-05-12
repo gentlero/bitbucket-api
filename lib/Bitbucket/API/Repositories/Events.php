@@ -28,9 +28,9 @@ class Events extends API\Api
      * Available `$options`:
      *
      * <example>
-     * 'start'  (int)       = An integer specifying the offset to start with. By default, this call starts with 0.
-     * 'limit'  (int)       = An integer specifying the number of events to return. (0 - 50 range)
-     * 'type'   (string)    = The event type to return.
+     * 'start'  (int) = An integer specifying the offset to start with. By default, this call starts with 0.
+     * 'limit'  (int) = An integer specifying the number of events to return. (0 - 50 range)
+     * 'type'   (string) = The event type to return.
      * </example>
      *
      * @access public
