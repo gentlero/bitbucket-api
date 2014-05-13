@@ -19,6 +19,11 @@ $team->profile($team_name);
 $team->members($team_name);
 ```
 
+### Get the team followers: (API 2.0)
+```php
+$team->followers($team_name);
+```
+
 ----
 
 #### Related:

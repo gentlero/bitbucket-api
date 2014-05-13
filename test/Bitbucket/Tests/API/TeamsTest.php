@@ -41,4 +41,22 @@ class TeamsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetTeamFollowers()
+    {
+        $endpoint       = 'teams/gentle-web/followers';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Teams $team */
+        $team   = $this->getClassMock('Bitbucket\API\Teams', $client);
+        $actual = $team->followers('gentle-web');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
