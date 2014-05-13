@@ -27,7 +27,7 @@ A simple PHP wrapper for Bitbucket API.
 * [Teams](teams.md) (API 2.0)
 * [User](user.md)
     * [Repositories](user/repositories.md)
-* [Users](users.md)
+* [Users](users.md) (API 2.0)
     * [Account](users/account.md)
     * [Emails](users/emails.md)
     * [Invitations](users/invitations.md)
