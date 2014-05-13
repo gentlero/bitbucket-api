@@ -50,6 +50,20 @@ class Users extends Api
     }
 
     /**
+     * Get a list of accounts the user is following
+     *
+     * @access public
+     * @param  string           $username
+     * @return MessageInterface
+     */
+    public function following($username)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('users/%s/following', $username)
+        );
+    }
+
+    /**
      * Get account
      *
      * @access public

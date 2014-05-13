@@ -19,6 +19,10 @@ $user->get($username);
 $user->followers($username);
 ```
 
+### Get a list of accounts the user is following: (API 2.0)
+```php
+$user->following($username);
+```
 
 ----
 
