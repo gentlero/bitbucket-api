@@ -36,6 +36,20 @@ class Users extends Api
     }
 
     /**
+     * Get the list of followers.
+     *
+     * @access public
+     * @param  string           $username
+     * @return MessageInterface
+     */
+    public function followers($username)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('users/%s/followers', $username)
+        );
+    }
+
+    /**
      * Get account
      *
      * @access public

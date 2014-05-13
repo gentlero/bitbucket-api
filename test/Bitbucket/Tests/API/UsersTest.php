@@ -38,6 +38,24 @@ class UsersTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    public function testGetUserFollowers()
+    {
+        $endpoint       = 'users/john-doe/followers';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Users $user */
+        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $actual = $user->followers('john-doe');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testGetAccountInstance()
     {
         $this->assertInstanceOf('\Bitbucket\API\Users\Account', $this->users->account());
