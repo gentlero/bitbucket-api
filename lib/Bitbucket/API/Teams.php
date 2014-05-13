@@ -59,4 +59,18 @@ class Teams extends Api
             sprintf('teams/%s/followers', $name)
         );
     }
+
+    /**
+     * Get a list of accounts the team is following.
+     *
+     * @access public
+     * @param  string           $name The team's name.
+     * @return MessageInterface
+     */
+    public function following($name)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('teams/%s/following', $name)
+        );
+    }
 }

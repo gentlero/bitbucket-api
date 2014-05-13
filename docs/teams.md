@@ -24,6 +24,11 @@ $team->members($team_name);
 $team->followers($team_name);
 ```
 
+### Get a list of accounts the team is following: (API 2.0)
+```php
+$team->following($team_name);
+```
+
 ----
 
 #### Related:
