@@ -24,6 +24,11 @@ $user->followers($username);
 $user->following($username);
 ```
 
+### Get the list of the user's repositories: (API 2.0)
+```php
+$user->repositories($username);
+```
+
 ----
 
 #### Related:

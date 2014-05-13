@@ -64,6 +64,20 @@ class Users extends Api
     }
 
     /**
+     * Get the list of the user's repositories
+     *
+     * @access public
+     * @param  string           $username
+     * @return MessageInterface
+     */
+    public function repositories($username)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s', $username)
+        );
+    }
+
+    /**
      * Get account
      *
      * @access public
