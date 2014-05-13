@@ -73,4 +73,18 @@ class Teams extends Api
             sprintf('teams/%s/following', $name)
         );
     }
+
+    /**
+     * Get the team's repositories.
+     *
+     * @access public
+     * @param  string           $name The team's name.
+     * @return MessageInterface
+     */
+    public function repositories($name)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('teams/%s/repositories', $name)
+        );
+    }
 }

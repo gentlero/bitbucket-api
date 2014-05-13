@@ -77,4 +77,22 @@ class TeamsTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testGetTeamRepositories()
+    {
+        $endpoint       = 'teams/gentle-web/repositories';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Teams $team */
+        $team   = $this->getClassMock('Bitbucket\API\Teams', $client);
+        $actual = $team->repositories('gentle-web');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }

@@ -29,6 +29,12 @@ $team->followers($team_name);
 $team->following($team_name);
 ```
 
+### Get the team's repositories: (API 2.0)
+```php
+$team->repositories($team_name);
+```
+
+
 ----
 
 #### Related:
