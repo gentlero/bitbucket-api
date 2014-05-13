@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * Get information related to an individual or team account.
  * NOTE: For making calls against the currently authenticated account, see the `User` resource.
@@ -19,6 +21,20 @@ namespace Bitbucket\API;
  */
 class Users extends Api
 {
+    /**
+     * Get the public information associated with a user
+     *
+     * @access public
+     * @param  string           $username
+     * @return MessageInterface
+     */
+    public function get($username)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('users/%s', $username)
+        );
+    }
+
     /**
      * Get account
      *

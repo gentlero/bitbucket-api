@@ -9,6 +9,13 @@ $users = new Bitbucket\API\Users();
 $users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
+### Get the public information associated with a user: (API 2.0)
+```php
+$users->get($username);
+```
+
+
+
 ----
 
 #### Related:

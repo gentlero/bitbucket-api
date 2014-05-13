@@ -20,6 +20,24 @@ class UsersTest extends Tests\TestCase
         );
     }
 
+    public function testGetUserPublicInformation()
+    {
+        $endpoint       = 'users/john-doe';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Users $user */
+        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $actual = $user->get('john-doe');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testGetAccountInstance()
     {
         $this->assertInstanceOf('\Bitbucket\API\Users\Account', $this->users->account());
