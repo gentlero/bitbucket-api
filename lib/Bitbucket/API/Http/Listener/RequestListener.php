@@ -36,6 +36,11 @@ class RequestListener implements ListenerInterface
             // Transform: "foo[0]=xxx&foo[1]=yyy" to "foo=xxx&foo=yyy"
             preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $request->getContent())
         );
+
+        $request->setResource(
+            // Transform: "foo[0]=xxx&foo[1]=yyy" to "foo=xxx&foo=yyy"
+            preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $request->getResource())
+        );
     }
 
     /**

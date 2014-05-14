@@ -298,4 +298,24 @@ class Api
 
         return $child;
     }
+
+    /**
+     * Convert JSON to array with error check
+     *
+     * @access protected
+     * @param  string $body JSON data
+     * @return array
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function decodeJSON($body)
+    {
+        $params = json_decode($body, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \InvalidArgumentException('Invalid JSON data provided.');
+        }
+
+        return $params;
+    }
 }

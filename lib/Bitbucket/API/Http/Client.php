@@ -33,7 +33,7 @@ class Client implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/0.3.0 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/0.4.0 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => false
     );
@@ -73,6 +73,22 @@ class Client implements ClientInterface
     public function addListener(ListenerInterface $listener)
     {
         $this->listeners[$listener->getName()] = $listener;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delListener($name)
+    {
+        if ($name instanceof ListenerInterface) {
+            $name = $name->getName();
+        }
+
+        if ($this->isListener($name) === true) {
+            unset($this->listeners[$name]);
+        }
 
         return $this;
     }
