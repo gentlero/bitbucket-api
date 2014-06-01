@@ -126,7 +126,13 @@ class OAuthListener implements ListenerInterface
      */
     protected function getParametersToSign(RequestInterface $request)
     {
-        return array_merge($this->getOAuthParameters($request), $this->getContentAsParameters($request));
+        $params         = $this->getOAuthParameters($request);
+
+        if ($request->getHeader('Content-Type') === 'application/x-www-form-urlencoded') {
+            $params = array_merge($params, $this->getContentAsParameters($request));
+        }
+
+        return $params;
     }
 
     /**
