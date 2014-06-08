@@ -70,9 +70,14 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
-    public function addListener(ListenerInterface $listener)
+    public function addListener(ListenerInterface $listener, $priority = 0)
     {
-        $this->listeners[$listener->getName()] = $listener;
+        // Don't allow same listener with different priorities.
+        if ($this->isListener($listener->getName())) {
+            $this->delListener($listener->getName());
+        }
+
+        $this->listeners[$priority][$listener->getName()] = $listener;
 
         return $this;
     }
@@ -87,7 +92,9 @@ class Client implements ClientInterface
         }
 
         if ($this->isListener($name) === true) {
-            unset($this->listeners[$name]);
+            foreach ($this->listeners as $collection) {
+                unset($collection[$name]);
+            }
         }
 
         return $this;
@@ -98,11 +105,11 @@ class Client implements ClientInterface
      */
     public function getListener($name)
     {
-        if (!$this->isListener($name)) {
+        if (!$listener = $this->searchListener($name)) {
             throw new \InvalidArgumentException(sprintf('Unknown listener %s', $name));
         }
 
-        return $this->listeners[$name];
+        return $listener;
     }
 
     /**
@@ -110,7 +117,7 @@ class Client implements ClientInterface
      */
     public function isListener($name)
     {
-        return isset($this->listeners[$name]);
+        return ($this->searchListener($name) instanceof ListenerInterface);
     }
 
     /**
@@ -322,8 +329,31 @@ class Client implements ClientInterface
             $params[] = $response;
         }
 
-        foreach ($this->listeners as $listener) {
-            call_user_func_array(array($listener, $when), $params);
+        ksort($this->listeners, SORT_ASC);
+
+        array_walk_recursive(
+            $this->listeners,
+            function ($class) use ($when, $params) {
+                if ($class instanceof ListenerInterface) {
+                    call_user_func_array(array($class, $when), $params);
+                }
+            }
+        );
+    }
+
+    /**
+     * @access protected
+     * @param  string                 $name Listener name
+     * @return ListenerInterface|bool false on error
+     */
+    protected function searchListener($name)
+    {
+        foreach ($this->listeners as $collection) {
+            if (isset($collection[$name])) {
+                return $collection[$name];
+            }
         }
+
+        return false;
     }
 }
