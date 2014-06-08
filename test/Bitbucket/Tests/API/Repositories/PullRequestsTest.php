@@ -267,7 +267,7 @@ class PullRequestsTest extends Tests\TestCase
         $client = $this->getHttpClientMock();
         $client->expects($this->once())
             ->method('post')
-            ->with($endpoint, $params);
+            ->with($endpoint, json_encode($params));
 
         /** @var \Bitbucket\API\Repositories\PullRequests $pull */
         $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
@@ -285,7 +285,7 @@ class PullRequestsTest extends Tests\TestCase
         $client = $this->getHttpClientMock();
         $client->expects($this->once())
             ->method('post')
-            ->with($endpoint, $params);
+            ->with($endpoint, json_encode($params));
 
         /** @var \Bitbucket\API\Repositories\PullRequests $pull */
         $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
