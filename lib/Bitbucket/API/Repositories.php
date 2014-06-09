@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
@@ -25,7 +27,7 @@ class Repositories extends Api
      *
      * @access public
      * @param  string $owner The account of the repo owner.
-     * @return mixed
+     * @return MessageInterface
      *
      * @api 2.0
      * @since Method available since 0.2.0
