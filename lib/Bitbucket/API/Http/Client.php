@@ -44,12 +44,12 @@ class Client implements ClientInterface
     protected $client;
 
     /**
-     * @var MessageInterface
+     * @var RequestInterface
      */
     private $lastRequest;
 
     /**
-     * @var RequestInterface
+     * @var MessageInterface
      */
     private $lastResponse;
 
