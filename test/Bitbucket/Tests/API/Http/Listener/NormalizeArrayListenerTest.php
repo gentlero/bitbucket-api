@@ -2,18 +2,18 @@
 
 namespace Bitbucket\Tests\API\Http\Listener;
 
-use Bitbucket\API\Http\Listener\RequestListener;
+use Bitbucket\API\Http\Listener\NormalizeArrayListener;
 use Bitbucket\Tests\API as Tests;
 use Buzz\Message\Request;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class RequestListenerTest extends Tests\TestCase
+class NormalizeArrayListenerTest extends Tests\TestCase
 {
     public function testPHPArrayToApiArrayConversion()
     {
-        $listener   = new RequestListener();
+        $listener   = new NormalizeArrayListener();
         $request    = new Request('POST', '/dummy');
 
         $request->setContent(

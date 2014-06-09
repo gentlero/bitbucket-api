@@ -15,16 +15,23 @@ use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 
 /**
+ * Transform PHP array to API array
+ *
+ * PHP array square brackets does not play nice with remote API,
+ * which expects just the key name, without brackets.
+ *
+ * Transforms: foo[0]=xxx&foo[1]=yyy" to "foo=xxx&foo=yyy"
+ *
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class RequestListener implements ListenerInterface
+class NormalizeArrayListener implements ListenerInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getName()
     {
-        return 'request';
+        return 'normalize_array';
     }
 
     /**

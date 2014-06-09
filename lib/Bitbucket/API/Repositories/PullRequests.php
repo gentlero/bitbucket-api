@@ -290,7 +290,8 @@ class PullRequests extends API\Api
     {
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests/%d/merge', $account, $repo, $id),
-            $params
+            json_encode($params),
+            array('Content-Type' => 'application/json')
         );
     }
 
@@ -308,7 +309,8 @@ class PullRequests extends API\Api
     {
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests/%d/decline', $account, $repo, $id),
-            $params
+            json_encode($params),
+            array('Content-Type' => 'application/json')
         );
     }
 }
