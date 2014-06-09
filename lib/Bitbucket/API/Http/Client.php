@@ -58,6 +58,16 @@ class Client implements ClientInterface
      */
     protected $listeners = array();
 
+    /**
+     * @var MessageInterface
+     */
+    protected $responseObj;
+
+    /**
+     * @var RequestInterface
+     */
+    protected $requestObj;
+
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
         $this->client   = (is_null($client)) ? new Curl : $client;
@@ -182,7 +192,7 @@ class Client implements ClientInterface
             $request->setContent(is_array($params) ? http_build_query($params) : $params);
         }
 
-        $response = new Response;
+        $response = is_object($this->responseObj) ? $this->responseObj : new Response;
 
         $this->executeListeners($request, 'preSend');
 
@@ -288,6 +298,26 @@ class Client implements ClientInterface
     }
 
     /**
+     * @access public
+     * @param  MessageInterface $response
+     * @return void
+     */
+    public function setResponse(MessageInterface $response)
+    {
+        $this->responseObj = $response;
+    }
+
+    /**
+     * @access public
+     * @param  RequestInterface $request
+     * @return void
+     */
+    public function setRequest(RequestInterface $request)
+    {
+        $this->requestObj = $request;
+    }
+
+    /**
      * @access protected
      * @param  string           $method
      * @param  string           $url
@@ -295,7 +325,8 @@ class Client implements ClientInterface
      */
     protected function createRequest($method, $url)
     {
-        $request = new Request($method);
+        $request = is_object($this->requestObj) ? $this->requestObj : new Request();
+        $request->setMethod($method);
         $request->addHeaders(array(
                 'User-Agent' => $this->options['user_agent']
             ));
