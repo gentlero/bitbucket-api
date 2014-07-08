@@ -182,6 +182,11 @@ class Client implements ClientInterface
             $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
         }
 
+        // add a default content-type if none was set
+        if (in_array(strtoupper($method), array('POST', 'PUT')) && empty($headers['Content-Type'])) {
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
+
         $request = $this->createRequest($method, $endpoint);
 
         if (!empty($headers)) {
