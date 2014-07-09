@@ -225,7 +225,7 @@ class Api
      * Process response received from API
      *
      * @access protected
-     * @param  \Buzz\Message\MessageInterface $response
+     * @param  MessageInterface $response
      * @return mixed
      *
      * @throws Authentication\Exception
@@ -233,7 +233,7 @@ class Api
      *
      * @deprecated Method deprecated in 0.2.0
      */
-    protected function processResponse(\Buzz\Message\MessageInterface $response)
+    protected function processResponse(MessageInterface $response)
     {
         switch ($response->getStatusCode()) {
             case self::HTTP_RESPONSE_OK:
