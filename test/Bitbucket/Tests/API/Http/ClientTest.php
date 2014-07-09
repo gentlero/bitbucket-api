@@ -91,7 +91,10 @@ class ClientTest extends Tests\TestCase
 
         $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
         $this->assertEquals('1=2', $client->getLastRequest()->getContent());
-        $this->assertEquals( array('User-Agent: tests', '4'), $client->getLastRequest()->getHeaders() );
+        $this->assertEquals(
+            array('User-Agent: tests', '4', 'Content-Type: application/x-www-form-urlencoded'),
+            $client->getLastRequest()->getHeaders()
+        );
     }
 
     public function testShouldDoPutRequestAndReturnResponseInstance()
