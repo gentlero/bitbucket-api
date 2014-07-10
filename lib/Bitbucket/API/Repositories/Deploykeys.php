@@ -65,7 +65,7 @@ class Deploykeys extends API\Api
      */
     public function create($account, $repo, $key, $label = null)
     {
-        $options['key'] = $key;
+        $options = array('key' => $key);
 
         if (!is_null($label)) {
             $options['label'] = $label;
