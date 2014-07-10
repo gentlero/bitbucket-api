@@ -45,7 +45,7 @@ class SshKeys extends Api
      */
     public function create($account, $key, $label = null)
     {
-        $params['key'] = $key;
+        $params = array('key' => $key);
 
         if (!is_null($label)) {
             $params['label'] = $label;
