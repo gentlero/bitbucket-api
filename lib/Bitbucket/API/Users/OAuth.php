@@ -46,7 +46,7 @@ class OAuth extends Api
      */
     public function create($account, $name, $description = null, $url = null)
     {
-        $params['name'] = $name;
+        $params = array('name' => $name);
 
         if (!is_null($description)) {
             $params['description'] = $description;
@@ -75,7 +75,7 @@ class OAuth extends Api
      */
     public function update($account, $name, $key_id, $description = null, $url = null)
     {
-        $params['name'] = $name;
+        $params = array('name' => $name);
 
         if (!is_null($description)) {
             $params['description'] = $description;
