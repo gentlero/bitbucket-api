@@ -99,9 +99,7 @@ class PrivilegesTest extends Tests\TestCase
     public function testGrantPrivilegesSuccess()
     {
         $endpoint       = 'privileges/gentle/repo/vimishor';
-        $params         = array(
-            'filter' => 'read'
-        );
+        $params         = 'read';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
         $privileges->expects($this->once())

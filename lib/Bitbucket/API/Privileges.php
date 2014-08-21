@@ -111,11 +111,9 @@ class Privileges extends Api
             throw new \InvalidArgumentException("Invalid privilege provided.");
         }
 
-        $params = array('filter' => $privilege);
-
         return $this->requestPut(
             sprintf('privileges/%s/%s/%s', $owner, $repo, $account),
-            $params
+            $privilege
         );
     }
 
