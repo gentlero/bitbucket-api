@@ -5,7 +5,7 @@ Manage branch restrictions on a repository
 
 ### Prepare:
 ```php
-$restrictions = new Bitbucket\API\Repositories\PullRequests();
+$restrictions = new Bitbucket\API\Repositories\BranchRestrictions();
 $restrictions->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
