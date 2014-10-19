@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Manage changesets resources on a repository.
@@ -24,11 +25,11 @@ class Changesets extends API\Api
      * Get a list of changesets
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $start   A hash value representing the earliest node to start with.
-     * @param  int    $limit   How many changesets to return
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $start   A hash value representing the earliest node to start with.
+     * @param  int              $limit   How many changesets to return
+     * @return MessageInterface
      */
     public function all($account, $repo, $start = null, $limit = 15)
     {
@@ -45,10 +46,10 @@ class Changesets extends API\Api
      * Get an individual changeset
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $node    The raw_node changeset identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $node)
     {
@@ -61,10 +62,10 @@ class Changesets extends API\Api
      * Get statistics associated with an individual changeset
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $node    The raw_node changeset identifier.
+     * @return MessageInterface
      */
     public function diffstat($account, $repo, $node)
     {
@@ -77,10 +78,10 @@ class Changesets extends API\Api
      * Get the diff associated with a changeset
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $node    The raw_node changeset identifier.
+     * @return MessageInterface
      */
     public function diff($account, $repo, $node)
     {
