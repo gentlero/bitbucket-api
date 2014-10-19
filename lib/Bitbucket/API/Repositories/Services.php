@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Provides functionality for adding, removing, and configuring brokers on your repositories
@@ -24,9 +25,9 @@ class Services extends API\Api
      * Get a list of services on a repository
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -39,10 +40,10 @@ class Services extends API\Api
      * Get a single service attached to your repository
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $serviceID The service id.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $serviceID The service id.
+     * @return MessageInterface
      */
     public function get($account, $repo, $serviceID)
     {
@@ -55,11 +56,11 @@ class Services extends API\Api
      * Create a new service
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $type    Service type
-     * @param  array  $params  Additional service parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $type    Service type
+     * @param  array            $params  Additional service parameters
+     * @return MessageInterface
      */
     public function create($account, $repo, $type, array $params = array())
     {
@@ -73,11 +74,11 @@ class Services extends API\Api
      * Update a service
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  string $serviceID The service id.
-     * @param  array  $params    Service parameters
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  string           $serviceID The service id.
+     * @param  array            $params    Service parameters
+     * @return MessageInterface
      */
     public function update($account, $repo, $serviceID, array $params)
     {
@@ -91,10 +92,10 @@ class Services extends API\Api
      * Delete a service
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $serviceID The service id.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $serviceID The service id.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $serviceID)
     {
