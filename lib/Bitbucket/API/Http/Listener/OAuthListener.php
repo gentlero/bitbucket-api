@@ -64,21 +64,8 @@ class OAuthListener implements ListenerInterface
     ) {
         $this->config       = array_merge($this->config, $config);
         $this->signature    = (!is_null($signature)) ? $signature : $this->getSigner();
-
-        $this->token = (!is_null($token)) ?
-            $token :
-            empty($this->config['oauth_token']) ?
-                new OAuth1\Token\NullToken :
-                new OAuth1\Token\Token($this->config['oauth_token'], $this->config['oauth_token_secret'])
-        ;
-
-        $this->consumer = (!is_null($consumer)) ?
-            $consumer :
-            new OAuth1\Consumer\Consumer(
-                $this->config['oauth_consumer_key'],
-                $this->config['oauth_consumer_secret']
-            )
-        ;
+        $this->token        = $this->initToken($token);
+        $this->consumer     = $this->initConsumer($consumer);
     }
 
     /**
@@ -160,6 +147,7 @@ class OAuthListener implements ListenerInterface
     /**
      * White list based filter
      *
+     * @access protected
      * @param  array $include
      * @return array
      */
@@ -220,5 +208,36 @@ class OAuthListener implements ListenerInterface
         $class = '\JacobKiers\OAuth\SignatureMethod\\'.$signature;
 
         return new $class;
+    }
+
+    /**
+     * @access public
+     * @param  TokenInterface|null $token
+     * @return TokenInterface
+     */
+    protected function initToken(TokenInterface $token)
+    {
+        return (!is_null($token)) ?
+            $token :
+            empty($this->config['oauth_token']) ?
+                new OAuth1\Token\NullToken :
+                new OAuth1\Token\Token($this->config['oauth_token'], $this->config['oauth_token_secret'])
+            ;
+    }
+
+    /**
+     * @access public
+     * @param  ConsumerInterface $consumer
+     * @return ConsumerInterface
+     */
+    protected function initConsumer(ConsumerInterface $consumer)
+    {
+        return (!is_null($consumer)) ?
+            $consumer :
+            new OAuth1\Consumer\Consumer(
+                $this->config['oauth_consumer_key'],
+                $this->config['oauth_consumer_secret']
+            )
+            ;
     }
 }
