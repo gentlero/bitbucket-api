@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -24,9 +25,9 @@ class Versions extends API\Api
      * Get a list of versions associated with the issue tracker
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -39,10 +40,10 @@ class Versions extends API\Api
      * Get an individual version
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $versionID The version identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $versionID The version identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $versionID)
     {
@@ -55,10 +56,10 @@ class Versions extends API\Api
      * Add a new version
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $name    The version name to create.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    The version name to create.
+     * @return MessageInterface
      */
     public function create($account, $repo, $name)
     {
@@ -72,11 +73,11 @@ class Versions extends API\Api
      * Update an existing version
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $versionID The version identifier.
-     * @param  string $name      The version name to update.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $versionID The version identifier.
+     * @param  string           $name      The version name to update.
+     * @return MessageInterface
      */
     public function update($account, $repo, $versionID, $name)
     {
@@ -90,10 +91,10 @@ class Versions extends API\Api
      * Delete an existing version
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $versionID The version identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $versionID The version identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $versionID)
     {
