@@ -25,10 +25,10 @@ class Invitations extends Api
      * Sending an invite
      *
      * @access public
-     * @param  string $account    The team or individual account.
-     * @param  string $repo       A repository belonging to the account.
-     * @param  string $email      The email recipient.
-     * @param  string $permission The permission the recipient is granted.
+     * @param  string           $account    The team or individual account.
+     * @param  string           $repo       A repository belonging to the account.
+     * @param  string           $email      The email recipient.
+     * @param  string           $permission The permission the recipient is granted.
      * @return MessageInterface
      */
     public function send($account, $repo, $email, $permission)

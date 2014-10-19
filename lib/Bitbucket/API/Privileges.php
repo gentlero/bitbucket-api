@@ -25,9 +25,9 @@ class Privileges extends Api
      * Get a list of user privileges granted on a repository.
      *
      * @access public
-     * @param  string                    $account   Owner of the repository.
-     * @param  string                    $repo      Repository identifier.
-     * @param  string                    $privilege Filters for a particular privilege.
+     * @param  string           $account   Owner of the repository.
+     * @param  string           $repo      Repository identifier.
+     * @param  string           $privilege Filters for a particular privilege.
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException
@@ -55,9 +55,9 @@ class Privileges extends Api
      * Get privileges for an individual.
      *
      * @access public
-     * @param  string $owner   Owner of the repository.
-     * @param  string $repo    Repository identifier.
-     * @param  string $account The account to list privileges for.
+     * @param  string           $owner   Owner of the repository.
+     * @param  string           $repo    Repository identifier.
+     * @param  string           $account The account to list privileges for.
      * @return MessageInterface
      */
     public function account($owner, $repo, $account)
@@ -73,8 +73,8 @@ class Privileges extends Api
      * If a repository has no individual users with privileges, it does not appear in this list.
      *
      * @access public
-     * @param  string                    $account   Owner of the repository.
-     * @param  string                    $privilege Filters for a particular privilege.
+     * @param  string           $account   Owner of the repository.
+     * @param  string           $privilege Filters for a particular privilege.
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException
@@ -102,10 +102,10 @@ class Privileges extends Api
      * Grants an account a privilege on a repository.
      *
      * @access public
-     * @param  string                    $owner     Owner of the repository.
-     * @param  string                    $repo      Repository identifier.
-     * @param  string                    $account   The account to list privileges for.
-     * @param  string                    $privilege The privilege to assign.
+     * @param  string           $owner     Owner of the repository.
+     * @param  string           $repo      Repository identifier.
+     * @param  string           $account   The account to list privileges for.
+     * @param  string           $privilege The privilege to assign.
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException
@@ -130,9 +130,9 @@ class Privileges extends Api
      * If `repo` is not specified, then all privileges from all repositories will be deleted.
      *
      * @access public
-     * @param  string                    $owner   Owner of the repository.
-     * @param  string                    $repo    Repository identifier.
-     * @param  string                    $account The account to list privileges for.
+     * @param  string           $owner   Owner of the repository.
+     * @param  string           $repo    Repository identifier.
+     * @param  string           $account The account to list privileges for.
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException

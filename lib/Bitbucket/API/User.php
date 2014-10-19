@@ -35,7 +35,7 @@ class User extends Api
      * Update user
      *
      * @access public
-     * @param  array $options Filed->value pair of account settings
+     * @param  array            $options Filed->value pair of account settings
      * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint#userEndpoint-Updateauser
