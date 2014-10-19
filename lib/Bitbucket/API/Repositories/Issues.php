@@ -88,7 +88,7 @@ class Issues extends API\Api
      */
     public function create($account, $repo, $options = array())
     {
-        if (!isset($options['title']) or !isset($options['content'])) {
+        if (!isset($options['title']) || !isset($options['content'])) {
             throw new \InvalidArgumentException(
                 'Arguments: "title" and "content" are mandatory.'
             );

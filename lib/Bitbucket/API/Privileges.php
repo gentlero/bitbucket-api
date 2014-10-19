@@ -139,7 +139,7 @@ class Privileges extends Api
      */
     public function delete($owner, $repo = null, $account = null)
     {
-        if (!is_null($account) and is_null($repo)) {
+        if (!is_null($account) && is_null($repo)) {
             throw new \InvalidArgumentException("To delete an account privileges, you need to specify a repository.");
         }
 
