@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Provides functionality for getting information from pages in
@@ -25,10 +26,10 @@ class Wiki extends API\Api
      * Get the raw content of a Wiki page
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $page    Page title. (case sensitive)
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $page    Page title. (case sensitive)
+     * @return MessageInterface
      */
     public function get($account, $repo, $page)
     {
@@ -46,12 +47,12 @@ class Wiki extends API\Api
      *      `create` method will use PUT instead of POST for adding a new page.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $title   Page title.
-     * @param  string $content Page content.
-     * @param  string $path    Path to the page. (optional)
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $title   Page title.
+     * @param  string           $content Page content.
+     * @param  string           $path    Path to the page. (optional)
+     * @return MessageInterface
      */
     public function create($account, $repo, $title, $content, $path = null)
     {
@@ -71,13 +72,13 @@ class Wiki extends API\Api
      * If no $path is specified, then the page title will be used to generate one.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $title   Page title.
-     * @param  string $content Page content.
-     * @param  string $path    Path to the page. (optional)
-     * @param  string $rev     The current revision of the file before it was modified. (optional)
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $title   Page title.
+     * @param  string           $content Page content.
+     * @param  string           $path    Path to the page. (optional)
+     * @param  string           $rev     The current revision of the file before it was modified. (optional)
+     * @return MessageInterface
      */
     public function update($account, $repo, $title, $content, $path = null, $rev = null)
     {
