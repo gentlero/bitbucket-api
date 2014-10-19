@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * Manages the currently authenticated account profile.
  *
@@ -22,7 +24,7 @@ class User extends Api
      * Get user profile
      *
      * @access public
-     * @return mixed
+     * @return MessageInterface
      */
     public function get()
     {
@@ -34,7 +36,7 @@ class User extends Api
      *
      * @access public
      * @param  array $options Filed->value pair of account settings
-     * @return mixed
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/user+Endpoint#userEndpoint-Updateauser
      */
@@ -47,7 +49,7 @@ class User extends Api
      * Get a list of user privileges
      *
      * @access public
-     * @return mixed
+     * @return MessageInterface
      */
     public function privileges()
     {
@@ -58,7 +60,7 @@ class User extends Api
      * Get a list of repositories an account follows
      *
      * @access public
-     * @return mixed
+     * @return MessageInterface
      */
     public function follows()
     {

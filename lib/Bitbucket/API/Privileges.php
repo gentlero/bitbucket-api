@@ -134,7 +134,7 @@ class Privileges extends Api
      * @param  string                    $repo    Repository identifier.
      * @param  string                    $account The account to list privileges for.
      * @return MessageInterface
-     * 
+     *
      * @throws \InvalidArgumentException
      */
     public function delete($owner, $repo = null, $account = null)
