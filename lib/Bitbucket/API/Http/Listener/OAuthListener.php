@@ -215,7 +215,7 @@ class OAuthListener implements ListenerInterface
      * @param  TokenInterface|null $token
      * @return TokenInterface
      */
-    protected function initToken(TokenInterface $token)
+    protected function initToken($token)
     {
         return (!is_null($token)) ?
             $token :
@@ -227,10 +227,10 @@ class OAuthListener implements ListenerInterface
 
     /**
      * @access public
-     * @param  ConsumerInterface $consumer
+     * @param  ConsumerInterface|null $consumer
      * @return ConsumerInterface
      */
-    protected function initConsumer(ConsumerInterface $consumer)
+    protected function initConsumer($consumer)
     {
         return (!is_null($consumer)) ?
             $consumer :
