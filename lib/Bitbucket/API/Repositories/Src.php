@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Allows you to browse directories and view files.
@@ -26,11 +27,11 @@ class Src extends API\Api
      * Get a list of repo source
      *
      * @access public
-     * @param  string $account  The team or individual account owning the repository.
-     * @param  string $repo     The repository identifier.
-     * @param  string $revision A value representing the revision or branch to list.
-     * @param  string $path     The path can be a filename or a directory path.
-     * @return mixed
+     * @param  string           $account  The team or individual account owning the repository.
+     * @param  string           $repo     The repository identifier.
+     * @param  string           $revision A value representing the revision or branch to list.
+     * @param  string           $path     The path can be a filename or a directory path.
+     * @return MessageInterface
      */
     public function get($account, $repo, $revision, $path)
     {
@@ -43,11 +44,11 @@ class Src extends API\Api
      * Get raw content of an individual file
      *
      * @access public
-     * @param  string $account  The team or individual account owning the repository.
-     * @param  string $repo     The repository identifier.
-     * @param  string $revision A value representing the revision or branch to list.
-     * @param  string $path     The path can be a filename or a directory path.
-     * @return mixed
+     * @param  string           $account  The team or individual account owning the repository.
+     * @param  string           $repo     The repository identifier.
+     * @param  string           $revision A value representing the revision or branch to list.
+     * @param  string           $path     The path can be a filename or a directory path.
+     * @return MessageInterface
      */
     public function raw($account, $repo, $revision, $path)
     {
