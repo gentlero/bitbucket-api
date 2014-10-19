@@ -92,9 +92,9 @@ class Repository extends API\Api
      * </example>
      *
      * @access public
-     * @param  string $name   The name of the repository
-     * @param  array  $params Additional parameters
-     * @return mixed
+     * @param  string           $name   The name of the repository
+     * @param  array            $params Additional parameters
+     * @return MessageInterface
      *
      * @deprecated This API 1.0 endpoint is deprecated.
      * @see $this->create() Sintax for using API 2.0 endpoint
@@ -113,10 +113,10 @@ class Repository extends API\Api
      * Update a repository
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  array  $params  Additional parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/x/WwZAGQ
      */
@@ -177,11 +177,11 @@ class Repository extends API\Api
      * Fork a repository
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $name    Fork name
-     * @param  array  $params  Additional parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    Fork name
+     * @param  array            $params  Additional parameters
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewfork
      */
@@ -199,9 +199,9 @@ class Repository extends API\Api
      * Get a list of branches associated with a repository.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function branches($account, $repo)
     {
@@ -214,9 +214,9 @@ class Repository extends API\Api
      * Get the repository's main branch
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function branch($account, $repo)
     {
@@ -229,10 +229,10 @@ class Repository extends API\Api
      * Get the repository manifest
      *
      * @access public
-     * @param  string $account  The team or individual account owning the repository.
-     * @param  string $repo     The repository identifier.
-     * @param  string $revision A revision to get such as default or master.
-     * @return mixed
+     * @param  string           $account  The team or individual account owning the repository.
+     * @param  string           $repo     The repository identifier.
+     * @param  string           $revision A revision to get such as default or master.
+     * @return MessageInterface
      */
     public function manifest($account, $repo, $revision)
     {
@@ -245,9 +245,9 @@ class Repository extends API\Api
      * Get a list of tags
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function tags($account, $repo)
     {
@@ -262,11 +262,11 @@ class Repository extends API\Api
      * Get the raw content of a file or directory.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $rev     A value representing the revision or branch to list.
-     * @param  string $path    The path can be a filename or a directory path.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $rev     A value representing the revision or branch to list.
+     * @param  string           $path    The path can be a filename or a directory path.
+     * @return MessageInterface
      */
     public function raw($account, $repo, $rev, $path)
     {
@@ -281,11 +281,11 @@ class Repository extends API\Api
      * Returns the history of a file starting from the provided changeset.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The simple changeset node id.
-     * @param  string $path    Filename.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $node    The simple changeset node id.
+     * @param  string           $path    Filename.
+     * @return MessageInterface
      */
     public function filehistory($account, $repo, $node, $path)
     {
