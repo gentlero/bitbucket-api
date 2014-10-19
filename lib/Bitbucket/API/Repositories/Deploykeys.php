@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Manage ssh keys used for deploying product builds.
@@ -24,9 +25,9 @@ class Deploykeys extends API\Api
      * Get a list of keys
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -41,10 +42,10 @@ class Deploykeys extends API\Api
      * TIP: You can use `$this->all()` to obtain assigned `$pk`.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $pk      The key identifier assigned by Bitbucket.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @return MessageInterface
      */
     public function get($account, $repo, $pk)
     {
@@ -57,11 +58,11 @@ class Deploykeys extends API\Api
      * Add a new key
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $key     The content of the key.
-     * @param  string $label   A display name for the key. (optional)
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $key     The content of the key.
+     * @param  string           $label   A display name for the key. (optional)
+     * @return MessageInterface
      */
     public function create($account, $repo, $key, $label = null)
     {
@@ -88,11 +89,11 @@ class Deploykeys extends API\Api
      * </example>
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $pk      The key identifier assigned by Bitbucket.
-     * @param  array  $options The rest of available options
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @param  array            $options The rest of available options
+     * @return MessageInterface
      */
     public function update($account, $repo, $pk, $options = array())
     {
@@ -108,10 +109,10 @@ class Deploykeys extends API\Api
      * TIP: You can use `$this->all()` to obtain assigned `$pk`.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $pk      The key identifier assigned by Bitbucket.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $pk)
     {
