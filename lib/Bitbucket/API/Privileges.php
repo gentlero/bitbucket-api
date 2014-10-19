@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * Manage the user privileges (permissions) of your repositories. It allows you
  * to grant specific users access to read, write and or administer your repositories.
@@ -26,7 +28,8 @@ class Privileges extends Api
      * @param  string                    $account   Owner of the repository.
      * @param  string                    $repo      Repository identifier.
      * @param  string                    $privilege Filters for a particular privilege.
-     * @return mixed
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function repository($account, $repo, $privilege = null)
@@ -55,7 +58,7 @@ class Privileges extends Api
      * @param  string $owner   Owner of the repository.
      * @param  string $repo    Repository identifier.
      * @param  string $account The account to list privileges for.
-     * @return mixed
+     * @return MessageInterface
      */
     public function account($owner, $repo, $account)
     {
@@ -72,7 +75,8 @@ class Privileges extends Api
      * @access public
      * @param  string                    $account   Owner of the repository.
      * @param  string                    $privilege Filters for a particular privilege.
-     * @return mixed
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function repositories($account, $privilege = null)
@@ -102,7 +106,8 @@ class Privileges extends Api
      * @param  string                    $repo      Repository identifier.
      * @param  string                    $account   The account to list privileges for.
      * @param  string                    $privilege The privilege to assign.
-     * @return mixed
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function grant($owner, $repo, $account, $privilege)
@@ -128,7 +133,8 @@ class Privileges extends Api
      * @param  string                    $owner   Owner of the repository.
      * @param  string                    $repo    Repository identifier.
      * @param  string                    $account The account to list privileges for.
-     * @return mixed
+     * @return MessageInterface
+     * 
      * @throws \InvalidArgumentException
      */
     public function delete($owner, $repo = null, $account = null)
