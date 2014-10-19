@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\Changesets;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Manage changeset comments.
@@ -24,10 +25,10 @@ class Comments extends API\Api
      * Get a list of comments on a changeset
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repository identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $node    The raw_node changeset identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo, $node)
     {
@@ -40,11 +41,11 @@ class Comments extends API\Api
      * Delete a comment on a changeset
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repo.
-     * @param  string $repo      The repository identifier.
-     * @param  string $node      The raw_node changeset identifier.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repo.
+     * @param  string           $repo      The repository identifier.
+     * @param  string           $node      The raw_node changeset identifier.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $node, $commentID)
     {
@@ -66,12 +67,12 @@ class Comments extends API\Api
      * </example>
      *
      * @access public
-     * @param  string $account The team or individual account owning the repo.
-     * @param  string $repo    The repo identifier.
-     * @param  string $node    The raw_node changeset identifier.
-     * @param  string $content Comment content.
-     * @param  array  $options The rest of available options
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repo.
+     * @param  string           $repo    The repo identifier.
+     * @param  string           $node    The raw_node changeset identifier.
+     * @param  string           $content Comment content.
+     * @param  array            $options The rest of available options
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
@@ -95,13 +96,13 @@ class Comments extends API\Api
      * 'filename'   (string) = A String representing a filename in the changeset to which this comment applies.
      * </example>
      *
-     * @param  string $account   The team or individual account owning the repo.
-     * @param  string $repo      The repo identifier.
-     * @param  string $node      The raw_node changeset identifier.
-     * @param  int    $commentID The comment identifier.
-     * @param  string $content   Comment content.
-     * @param  array  $options   The rest of available options
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repo.
+     * @param  string           $repo      The repo identifier.
+     * @param  string           $node      The raw_node changeset identifier.
+     * @param  int              $commentID The comment identifier.
+     * @param  string           $content   Comment content.
+     * @param  array            $options   The rest of available options
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
