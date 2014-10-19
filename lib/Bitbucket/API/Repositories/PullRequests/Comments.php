@@ -58,11 +58,11 @@ class Comments extends API\Api
      * Add a new comment
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @param  string $content   The comment.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $requestID An integer representing an id for the request.
+     * @param  string           $content   The comment.
+     * @return MessageInterface
      */
     public function create($account, $repo, $requestID, $content)
     {
@@ -76,12 +76,12 @@ class Comments extends API\Api
      * Update an existing comment
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @param  string $content   The comment.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $requestID An integer representing an id for the request.
+     * @param  string           $content   The comment.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function update($account, $repo, $requestID, $commentID, $content)
     {
@@ -95,11 +95,11 @@ class Comments extends API\Api
      * Delete a pull request comment
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $requestID An integer representing an id for the request.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $requestID An integer representing an id for the request.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $requestID, $commentID)
     {
