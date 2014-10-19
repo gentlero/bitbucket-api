@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
+use Buzz\Message\MessageInterface;
 
 /**
  * Manipulate the ssh-keys on an individual or team account.
@@ -24,8 +25,8 @@ class SshKeys extends Api
      * Gets a list of the keys associated with an account.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @return MessageInterface
      */
     public function all($account)
     {
@@ -38,10 +39,10 @@ class SshKeys extends Api
      * Create a key on the specified account.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  string $key     The key value.
-     * @param  string $label   A label for the key. (optional)
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  string           $key     The key value.
+     * @param  string           $label   A label for the key. (optional)
+     * @return MessageInterface
      */
     public function create($account, $key, $label = null)
     {
@@ -61,46 +62,46 @@ class SshKeys extends Api
      * Updates a key on the specified account.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  int    $key_id  Key identifier.
-     * @param  string $key     The key value.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  int              $keyId   Key identifier.
+     * @param  string           $key     The key value.
+     * @return MessageInterface
      */
-    public function update($account, $key_id, $key)
+    public function update($account, $keyId, $key)
     {
         return $this->requestPut(
-            sprintf('users/%s/ssh-keys/%d', $account, $key_id),
+            sprintf('users/%s/ssh-keys/%d', $account, $keyId),
             array('key' => $key)
         );
     }
 
     /**
-     * Gets the content of the specified key_id.
+     * Gets the content of the specified keyId.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  int    $key_id  Key identifier.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  int              $keyId   Key identifier.
+     * @return MessageInterface
      */
-    public function get($account, $key_id)
+    public function get($account, $keyId)
     {
         return $this->requestGet(
-            sprintf('users/%s/ssh-keys/%d', $account, $key_id)
+            sprintf('users/%s/ssh-keys/%d', $account, $keyId)
         );
     }
 
     /**
-     * Deletes the key specified by the key_id value
+     * Deletes the key specified by the keyId value
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  int    $key_id  Key identifier.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  int              $keyId   Key identifier.
+     * @return MessageInterface
      */
-    public function delete($account, $key_id)
+    public function delete($account, $keyId)
     {
         return $this->requestDelete(
-            sprintf('users/%s/ssh-keys/%d', $account, $key_id)
+            sprintf('users/%s/ssh-keys/%d', $account, $keyId)
         );
     }
 }

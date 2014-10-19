@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
+use Buzz\Message\MessageInterface;
 
 /**
  * List, change, or create an email address.
@@ -24,8 +25,8 @@ class Emails extends Api
      * Get a list of user's email addresses
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @return MessageInterface
      */
     public function all($account)
     {
@@ -41,9 +42,9 @@ class Emails extends Api
      * or if is active.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  string $email   The email address to get.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  string           $email   The email address to get.
+     * @return MessageInterface
      */
     public function get($account, $email)
     {
@@ -56,9 +57,9 @@ class Emails extends Api
      * Add a new email address to an account
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  string $email   The email address to get.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  string           $email   The email address to get.
+     * @return MessageInterface
      */
     public function create($account, $email)
     {
@@ -73,10 +74,10 @@ class Emails extends Api
      * Sets an individual email address associated with an account to primary.
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  string $email   The email address to get.
-     * @param  bool   $primary Set this address as primary for this account ?
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  string           $email   The email address to get.
+     * @param  bool             $primary Set this address as primary for this account ?
+     * @return MessageInterface
      */
     public function update($account, $email, $primary = false)
     {
@@ -90,9 +91,9 @@ class Emails extends Api
      * Delete an email address
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  string $email   The email address to get.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  string           $email   The email address to get.
+     * @return MessageInterface
      */
     public function delete($account, $email)
     {

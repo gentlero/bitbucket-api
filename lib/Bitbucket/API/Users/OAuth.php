@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
+use Buzz\Message\MessageInterface;
 
 /**
  * Allows you to maintain OAuth consumers.
@@ -24,8 +25,8 @@ class OAuth extends Api
      * Get all OAuth consumers
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @return MessageInterface
      */
     public function all($account)
     {
@@ -38,11 +39,11 @@ class OAuth extends Api
      * Create new OAuth consumer
      *
      * @access public
-     * @param  string $account     The name of an individual or team account.
-     * @param  string $name        A display name for the key.
-     * @param  string $description A description of the key. (optional)
-     * @param  string $url         The location of the service that will use the key. (optional)
-     * @return mixed
+     * @param  string           $account     The name of an individual or team account.
+     * @param  string           $name        A display name for the key.
+     * @param  string           $description A description of the key. (optional)
+     * @param  string           $url         The location of the service that will use the key. (optional)
+     * @return MessageInterface
      */
     public function create($account, $name, $description = null, $url = null)
     {
@@ -66,14 +67,14 @@ class OAuth extends Api
      * Update an OAuth consumer
      *
      * @access public
-     * @param  string $account     The name of an individual or team account.
-     * @param  string $name        A display name for the key.
-     * @param  int    $key_id      The id of the key to update.
-     * @param  string $description A description of the key. (optional)
-     * @param  string $url         The location of the service that will use the key. (optional)
-     * @return mixed
+     * @param  string           $account     The name of an individual or team account.
+     * @param  string           $name        A display name for the key.
+     * @param  int              $keyId       The id of the key to update.
+     * @param  string           $description A description of the key. (optional)
+     * @param  string           $url         The location of the service that will use the key. (optional)
+     * @return MessageInterface
      */
-    public function update($account, $name, $key_id, $description = null, $url = null)
+    public function update($account, $name, $keyId, $description = null, $url = null)
     {
         $params = array('name' => $name);
 
@@ -86,7 +87,7 @@ class OAuth extends Api
         }
 
         return $this->requestPut(
-            sprintf('users/%s/consumers/%d', $account, $key_id),
+            sprintf('users/%s/consumers/%d', $account, $keyId),
             $params
         );
     }
@@ -95,14 +96,14 @@ class OAuth extends Api
      * Delete OAuth consumer
      *
      * @access public
-     * @param  string $account The name of an individual or team account.
-     * @param  int    $key_id  The id of the key to delete.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account.
+     * @param  int              $keyId   The id of the key to delete.
+     * @return MessageInterface
      */
-    public function delete($account, $key_id)
+    public function delete($account, $keyId)
     {
         return $this->requestDelete(
-            sprintf('users/%s/consumers/%d', $account, $key_id)
+            sprintf('users/%s/consumers/%d', $account, $keyId)
         );
     }
 }
