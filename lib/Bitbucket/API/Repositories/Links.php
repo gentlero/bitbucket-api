@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * Links connect your commit messages and code comments directly to your
@@ -25,9 +26,9 @@ class Links extends API\Api
      * Get list of links
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -40,10 +41,10 @@ class Links extends API\Api
      * Get a link
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $linkID  The link id.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $linkID  The link id.
+     * @return MessageInterface
      */
     public function get($account, $repo, $linkID)
     {
@@ -56,12 +57,12 @@ class Links extends API\Api
      * Create a new link
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $handler ex: jira, bamboo, crucible, jenkins, custom
-     * @param  string $url     A valid URL that starts with either http or https.
-     * @param  string $key     This parameter is the project key that you are trying to link to.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $handler ex: jira, bamboo, crucible, jenkins, custom
+     * @param  string           $url     A valid URL that starts with either http or https.
+     * @param  string           $key     This parameter is the project key that you are trying to link to.
+     * @return MessageInterface
      *
      * @throws \InvalidArgumentException
      *
@@ -89,12 +90,12 @@ class Links extends API\Api
      * Update a link
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $linkID  Link identifier.
-     * @param  string $url     A valid URL that starts with either http or https.
-     * @param  string $key     This parameter is the project key that you are trying to link to.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $linkID  Link identifier.
+     * @param  string           $url     A valid URL that starts with either http or https.
+     * @param  string           $key     This parameter is the project key that you are trying to link to.
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/links+Resources#linksResources-PUTanupdatetoalink
      */
@@ -113,10 +114,10 @@ class Links extends API\Api
      * Delete a link
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $linkID  Link identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $linkID  Link identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $linkID)
     {
