@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -24,10 +25,10 @@ class Comments extends API\Api
      * Comments are returned in DESC order by posted date.
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo, $issueID)
     {
@@ -40,11 +41,11 @@ class Comments extends API\Api
      * Get an individual comment for specified issue
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $issueID   The issue identifier.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $issueID   The issue identifier.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $issueID, $commentID)
     {
@@ -57,11 +58,11 @@ class Comments extends API\Api
      * Add a new comment to specified issue
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @param  string $content The comment.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @param  string           $content The comment.
+     * @return MessageInterface
      */
     public function create($account, $repo, $issueID, $content)
     {
@@ -75,12 +76,12 @@ class Comments extends API\Api
      * Update an existing comment to specified issue
      *
      * @access public
-     * @param  string $account   The team or individual account owning the repository.
-     * @param  string $repo      The repository identifier.
-     * @param  int    $issueID   The issue identifier.
-     * @param  string $content   The comment.
-     * @param  int    $commentID The comment identifier.
-     * @return mixed
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  int              $issueID   The issue identifier.
+     * @param  string           $content   The comment.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
      */
     public function update($account, $repo, $issueID, $commentID, $content)
     {
