@@ -142,8 +142,8 @@ interface ClientInterface
     /**
      * Get listener interface
      *
-     * @param  string            $name
-     * @return ListenerInterface
+     * @param  string                 $name
+     * @return ListenerInterface|bool False when listener does not exist
      *
      * @throws \InvalidArgumentException
      */
