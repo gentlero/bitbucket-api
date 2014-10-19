@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -24,9 +25,9 @@ class Milestones extends API\Api
      * Get a list of milestones associated with the issue tracker
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -39,10 +40,10 @@ class Milestones extends API\Api
      * Get an individual milestone
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $milestoneID The milestone identifier.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $milestoneID The milestone identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $milestoneID)
     {
@@ -55,10 +56,10 @@ class Milestones extends API\Api
      * Add a new milestone
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $name    The milestone name to create.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    The milestone name to create.
+     * @return MessageInterface
      */
     public function create($account, $repo, $name)
     {
@@ -72,11 +73,11 @@ class Milestones extends API\Api
      * Update an existing milestone
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $milestoneID The milestone identifier.
-     * @param  string $name        The milestone name to update.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $milestoneID The milestone identifier.
+     * @param  string           $name        The milestone name to update.
+     * @return MessageInterface
      */
     public function update($account, $repo, $milestoneID, $name)
     {
@@ -90,10 +91,10 @@ class Milestones extends API\Api
      * Delete an existing milestone
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $milestoneID The milestone identifier.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $milestoneID The milestone identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $milestoneID)
     {
