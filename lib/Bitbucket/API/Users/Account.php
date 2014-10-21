@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
+use Buzz\Message\MessageInterface;
 
 /**
  * This resource returns a user structure and the repositories array associated
@@ -25,8 +26,8 @@ class Account extends Api
      * Get the account profile
      *
      * @access public
-     * @param  string $account The name of an individual or team account, or validated email address.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account, or validated email address.
+     * @return MessageInterface
      */
     public function profile($account)
     {
@@ -41,8 +42,8 @@ class Account extends Api
      * Gets the number of users counted against an account's plan.
      *
      * @access public
-     * @param  string $account The name of an individual or team account, or validated email address.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account, or validated email address.
+     * @return MessageInterface
      */
     public function plan($account)
     {
@@ -57,8 +58,8 @@ class Account extends Api
      * Gets a count and the list of accounts following an account.
      *
      * @access public
-     * @param  string $account The name of an individual or team account, or validated email address.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account, or validated email address.
+     * @return MessageInterface
      */
     public function followers($account)
     {
@@ -73,8 +74,8 @@ class Account extends Api
      * Gets a count and the list of events associated with an account.
      *
      * @access public
-     * @param  string $account The name of an individual or team account, or validated email address.
-     * @return mixed
+     * @param  string           $account The name of an individual or team account, or validated email address.
+     * @return MessageInterface
      */
     public function events($account)
     {

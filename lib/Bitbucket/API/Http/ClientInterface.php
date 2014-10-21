@@ -90,7 +90,7 @@ interface ClientInterface
      *
      * @access public
      * @param  string $format
-     * @return string
+     * @return $this
      *
      * @throws \InvalidArgumentException If invalid response format is provided
      */
@@ -100,7 +100,7 @@ interface ClientInterface
      * Get API version currently used
      *
      * @access public
-     * @return mixed
+     * @return string
      */
     public function getApiVersion();
 
@@ -142,8 +142,8 @@ interface ClientInterface
     /**
      * Get listener interface
      *
-     * @param  string            $name
-     * @return ListenerInterface
+     * @param  string                 $name
+     * @return ListenerInterface|bool False when listener does not exist
      *
      * @throws \InvalidArgumentException
      */

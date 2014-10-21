@@ -33,7 +33,7 @@ class Client implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/0.5.2 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/0.6.0 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => false
     );
@@ -172,22 +172,12 @@ class Client implements ClientInterface
      */
     public function request($endpoint, $params = array(), $method = 'GET', array $headers = array())
     {
-        // do not set base URL if a full one was provided
-        if (false === strpos($endpoint, $this->getApiBaseUrl())) {
-            $endpoint = $this->getApiBaseUrl().'/'.$endpoint;
-        }
-
-        // change the response format
-        if (strpos($endpoint, 'format=') === false) {
-            $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
-        }
+        $request = $this->createRequest($method, $endpoint);
 
         // add a default content-type if none was set
         if (in_array(strtoupper($method), array('POST', 'PUT')) && empty($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
-
-        $request = $this->createRequest($method, $endpoint);
 
         if (!empty($headers)) {
             $request->addHeaders($headers);
@@ -330,6 +320,16 @@ class Client implements ClientInterface
      */
     protected function createRequest($method, $url)
     {
+        // do not set base URL if a full one was provided
+        if (false === strpos($url, $this->getApiBaseUrl())) {
+            $url = $this->getApiBaseUrl().'/'.$url;
+        }
+
+        // change the response format
+        if (strpos($url, 'format=') === false) {
+            $url .= (strpos($url, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
+        }
+
         $request = is_object($this->requestObj) ? $this->requestObj : new Request();
         $request->setMethod($method);
         $request->addHeaders(array(

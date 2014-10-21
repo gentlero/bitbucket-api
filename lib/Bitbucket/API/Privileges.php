@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * Manage the user privileges (permissions) of your repositories. It allows you
  * to grant specific users access to read, write and or administer your repositories.
@@ -23,10 +25,11 @@ class Privileges extends Api
      * Get a list of user privileges granted on a repository.
      *
      * @access public
-     * @param  string                    $account   Owner of the repository.
-     * @param  string                    $repo      Repository identifier.
-     * @param  string                    $privilege Filters for a particular privilege.
-     * @return mixed
+     * @param  string           $account   Owner of the repository.
+     * @param  string           $repo      Repository identifier.
+     * @param  string           $privilege Filters for a particular privilege.
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function repository($account, $repo, $privilege = null)
@@ -52,10 +55,10 @@ class Privileges extends Api
      * Get privileges for an individual.
      *
      * @access public
-     * @param  string $owner   Owner of the repository.
-     * @param  string $repo    Repository identifier.
-     * @param  string $account The account to list privileges for.
-     * @return mixed
+     * @param  string           $owner   Owner of the repository.
+     * @param  string           $repo    Repository identifier.
+     * @param  string           $account The account to list privileges for.
+     * @return MessageInterface
      */
     public function account($owner, $repo, $account)
     {
@@ -70,9 +73,10 @@ class Privileges extends Api
      * If a repository has no individual users with privileges, it does not appear in this list.
      *
      * @access public
-     * @param  string                    $account   Owner of the repository.
-     * @param  string                    $privilege Filters for a particular privilege.
-     * @return mixed
+     * @param  string           $account   Owner of the repository.
+     * @param  string           $privilege Filters for a particular privilege.
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function repositories($account, $privilege = null)
@@ -98,11 +102,12 @@ class Privileges extends Api
      * Grants an account a privilege on a repository.
      *
      * @access public
-     * @param  string                    $owner     Owner of the repository.
-     * @param  string                    $repo      Repository identifier.
-     * @param  string                    $account   The account to list privileges for.
-     * @param  string                    $privilege The privilege to assign.
-     * @return mixed
+     * @param  string           $owner     Owner of the repository.
+     * @param  string           $repo      Repository identifier.
+     * @param  string           $account   The account to list privileges for.
+     * @param  string           $privilege The privilege to assign.
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function grant($owner, $repo, $account, $privilege)
@@ -111,11 +116,9 @@ class Privileges extends Api
             throw new \InvalidArgumentException("Invalid privilege provided.");
         }
 
-        $params['filter'] = $privilege;
-
         return $this->requestPut(
             sprintf('privileges/%s/%s/%s', $owner, $repo, $account),
-            $params
+            $privilege
         );
     }
 
@@ -127,15 +130,16 @@ class Privileges extends Api
      * If `repo` is not specified, then all privileges from all repositories will be deleted.
      *
      * @access public
-     * @param  string                    $owner   Owner of the repository.
-     * @param  string                    $repo    Repository identifier.
-     * @param  string                    $account The account to list privileges for.
-     * @return mixed
+     * @param  string           $owner   Owner of the repository.
+     * @param  string           $repo    Repository identifier.
+     * @param  string           $account The account to list privileges for.
+     * @return MessageInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function delete($owner, $repo = null, $account = null)
     {
-        if (!is_null($account) and is_null($repo)) {
+        if (!is_null($account) && is_null($repo)) {
             throw new \InvalidArgumentException("To delete an account privileges, you need to specify a repository.");
         }
 

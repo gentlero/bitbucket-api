@@ -63,7 +63,7 @@ class BranchRestrictions extends Api
             );
         }
 
-        if (empty($params['kind']) or !in_array($params['kind'], array('push', 'delete', 'force'))) {
+        if (empty($params['kind']) || !in_array($params['kind'], array('push', 'delete', 'force'))) {
             throw new \InvalidArgumentException('Invalid restriction kind.');
         }
 

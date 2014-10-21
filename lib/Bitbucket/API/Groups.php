@@ -11,6 +11,8 @@
 
 namespace Bitbucket\API;
 
+use Buzz\Message\MessageInterface;
+
 /**
  * Provides functionality for querying information about groups,
  * creating new ones, updating memberships, and deleting them.
@@ -31,9 +33,9 @@ class Groups extends Api
      * </example>
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  array  $filters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  array            $filters
+     * @return MessageInterface
      */
     public function get($account, array $filters = array())
     {
@@ -55,9 +57,9 @@ class Groups extends Api
      * Create a new group
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $name    The name of the group.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $name    The name of the group.
+     * @return MessageInterface
      */
     public function create($account, $name)
     {
@@ -71,10 +73,10 @@ class Groups extends Api
      * Update a group
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $name    The name of the group.
-     * @param  array  $params
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $name    The name of the group.
+     * @param  array            $params
+     * @return MessageInterface
      */
     public function update($account, $name, array $params)
     {
@@ -88,9 +90,9 @@ class Groups extends Api
      * Delete a group
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $name    The name of the group.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $name    The name of the group.
+     * @return MessageInterface
      */
     public function delete($account, $name)
     {

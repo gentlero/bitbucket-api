@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * List a repository's followers.
@@ -24,9 +25,9 @@ class Followers extends API\Api
      * Get the repository followers
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {

@@ -12,6 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -22,9 +23,9 @@ class Components extends API\Api
      * Get all components defined on a issue tracker
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @return MessageInterface
      */
     public function all($account, $repo)
     {
@@ -37,10 +38,10 @@ class Components extends API\Api
      * Get an individual component
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $componentID The component identifier.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $componentID The component identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $componentID)
     {
@@ -53,10 +54,10 @@ class Components extends API\Api
      * Add a new component
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  string $name    The component name to create.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    The component name to create.
+     * @return MessageInterface
      */
     public function create($account, $repo, $name)
     {
@@ -70,11 +71,11 @@ class Components extends API\Api
      * Update an existing component
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $componentID The component identifier.
-     * @param  string $name        The component name to update.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $componentID The component identifier.
+     * @param  string           $name        The component name to update.
+     * @return MessageInterface
      */
     public function update($account, $repo, $componentID, $name)
     {
@@ -88,10 +89,10 @@ class Components extends API\Api
      * Delete an existing component
      *
      * @access public
-     * @param  string $account     The team or individual account owning the repository.
-     * @param  string $repo        The repository identifier.
-     * @param  int    $componentID The component identifier.
-     * @return mixed
+     * @param  string           $account     The team or individual account owning the repository.
+     * @param  string           $repo        The repository identifier.
+     * @param  int              $componentID The component identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $componentID)
     {

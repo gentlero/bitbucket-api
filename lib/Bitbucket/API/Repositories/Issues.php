@@ -13,6 +13,7 @@ namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
 use Bitbucket\API\Repositories;
+use Buzz\Message\MessageInterface;
 
 /**
  * Provides functionality for interacting with an issue tracker.
@@ -25,10 +26,10 @@ class Issues extends API\Api
      * GET a list of issues in a repository's tracker
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  array  $options Filtering parameters.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $options Filtering parameters.
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/x/1w2mEQ
      */
@@ -44,10 +45,10 @@ class Issues extends API\Api
      * GET an individual issue
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @return MessageInterface
      */
     public function get($account, $repo, $issueID)
     {
@@ -60,10 +61,10 @@ class Issues extends API\Api
      * GET a list of an issue's followers
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @return MessageInterface
      */
     public function followers($account, $repo, $issueID)
     {
@@ -76,10 +77,10 @@ class Issues extends API\Api
      * POST a new issue
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  array  $options Issue parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  array            $options Issue parameters
+     * @return MessageInterface
      *
      * @throws \InvalidArgumentException
      *
@@ -87,7 +88,7 @@ class Issues extends API\Api
      */
     public function create($account, $repo, $options = array())
     {
-        if (!isset($options['title']) or !isset($options['content'])) {
+        if (!isset($options['title']) || !isset($options['content'])) {
             throw new \InvalidArgumentException(
                 'Arguments: "title" and "content" are mandatory.'
             );
@@ -103,11 +104,11 @@ class Issues extends API\Api
      * Update existing issue
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @param  array  $options Issue parameters
-     * @return mixed
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @param  array            $options Issue parameters
+     * @return MessageInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/issues+Resource#issuesResource-Updateanexistingissue
      */
@@ -123,10 +124,10 @@ class Issues extends API\Api
      * Delete issue
      *
      * @access public
-     * @param  string $account The team or individual account owning the repository.
-     * @param  string $repo    The repository identifier.
-     * @param  int    $issueID The issue identifier.
-     * @return bool
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  int              $issueID The issue identifier.
+     * @return MessageInterface
      */
     public function delete($account, $repo, $issueID)
     {
