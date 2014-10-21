@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.6.0 / 2014-10-21
+
+  - Added Changelog
+  - Added `Api::api()*` as a single entry point for concrete apis ( *thanks to @digitalkaoz* )
+  - Fixed `Privileges::grant()` parameters format ( [Fixes #22] )
+  - Marked `eabay/bitbucket-repo-sync` as conflict in composer.json
+  - CS fixes
+
+[Fixes #22]: https://bitbucket.org/gentlero/bitbucket-api/issue/22/grant-account-privileges-to-repo
+
 ## 0.5.2 / 2014-07-09
 
   - Make tests go green again. ( *My bad and I'm sorry* ).
