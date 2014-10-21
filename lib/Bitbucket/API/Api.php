@@ -267,6 +267,17 @@ class Api
     }
 
     /**
+     * @param  string $name
+     * @return Api
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function api($name)
+    {
+        return $this->childFactory($name);
+    }
+
+    /**
      * Factory for child classes
      *
      * NOTE: This exists only to keep BC. Do not rely on this factory because
