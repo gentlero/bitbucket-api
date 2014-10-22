@@ -22,7 +22,7 @@ use Bitbucket\API\Http\Listener\ListenerInterface;
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class Client extends Listener implements ClientInterface
+class Client extends ClientListener implements ClientInterface
 {
     /**
      * @var array

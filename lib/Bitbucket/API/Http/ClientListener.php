@@ -16,7 +16,7 @@ use Bitbucket\API\Http\Listener\ListenerInterface;
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-abstract class Listener
+abstract class ClientListener implements ClientListenerInterface
 {
     /**
      * @var ListenerInterface[]
