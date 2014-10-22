@@ -77,6 +77,39 @@ abstract class Listener
     }
 
     /**
+     * @access public
+     * @return array
+     */
+    public function getListeners()
+    {
+        return $this->listeners;
+    }
+
+    /**
+     * @access public
+     * @return bool
+     */
+    public function hasListeners()
+    {
+        return (count($this->listeners) > 0);
+    }
+
+    /**
+     * @access public
+     * @param  array $listeners
+     * @return $this;
+     */
+    public function setListeners(array $listeners)
+    {
+        foreach ($listeners as $prio => $listener) {
+            $listener = array_values($listener);
+            $this->addListener($listener[0], $prio);
+        }
+
+        return $this;
+    }
+
+    /**
      * @access protected
      * @param  string                 $name Listener name
      * @return ListenerInterface|bool false on error

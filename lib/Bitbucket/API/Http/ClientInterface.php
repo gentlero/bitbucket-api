@@ -150,6 +150,25 @@ interface ClientInterface
     public function getListener($name);
 
     /**
+     * @access public
+     * @return array
+     */
+    public function getListeners();
+
+    /**
+     * @access public
+     * @return bool
+     */
+    public function hasListeners();
+
+    /**
+     * @access public
+     * @param  array $listeners
+     * @return $this
+     */
+    public function setListeners(array $listeners);
+
+    /**
      * Check if a listener exists
      *
      * @access public

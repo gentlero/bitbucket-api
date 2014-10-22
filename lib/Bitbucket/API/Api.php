@@ -299,12 +299,8 @@ class Api
         $class = '\\Bitbucket\\API\\'.$name;
         $child = new $class($this->client);
 
-        if ($this->getClient()->isListener('basicauth')) {
-            $child->getClient()->addListener($this->getClient()->getListener('basicauth'));
-        }
-
-        if ($this->getClient()->isListener('oauth')) {
-            $child->getClient()->addListener($this->getClient()->getListener('oauth'));
+        if ($this->getClient()->hasListeners()) {
+            $child->getClient()->setListeners($this->getClient()->getListeners());
         }
 
         return $child;
