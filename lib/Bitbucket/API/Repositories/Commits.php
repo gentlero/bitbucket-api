@@ -37,7 +37,7 @@ class Commits extends Api
             unset($params['branch']);
         }
 
-        return $this->getClient()->setApiVersion('2.0')->post(
+        return $this->getClient()->setApiVersion('2.0')->get(
             $endpoint,
             $params
         );
