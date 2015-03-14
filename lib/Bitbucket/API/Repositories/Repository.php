@@ -48,6 +48,8 @@ class Repository extends API\Api
      * @param  array            $params  Additional parameters
      * @return MessageInterface
      *
+     * @throws \InvalidArgumentException If invalid JSON is provided.
+     *
      * @see https://confluence.atlassian.com/x/WwZAGQ
      */
     public function create($account, $repo, $params = array())
@@ -58,19 +60,24 @@ class Repository extends API\Api
             return $this->createLegacy($account, $repo);
         }
 
+        $defaults = array(
+            'scm'               => 'git',
+            'name'              => $repo,
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_forks',
+        );
+
         // allow developer to directly specify params as json if (s)he wants.
-        if (!empty($params) && is_array($params)) {
-            $params = json_encode(array_merge(
-                array(
-                    'scm'               => 'git',
-                    'name'              => $repo,
-                    'is_private'        => true,
-                    'description'       => 'My secret repo',
-                    'forking_policy'    => 'no_forks',
-                ),
-                $params
-            ));
+        if ('string' === gettype($params)) {
+            $params = json_decode($params, true);
+
+            if (JSON_ERROR_NONE !== json_last_error()) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
         }
+
+        $params = json_encode(array_merge($defaults, $params));
 
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s', $account, $repo),
