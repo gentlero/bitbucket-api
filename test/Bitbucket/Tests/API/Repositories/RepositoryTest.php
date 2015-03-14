@@ -94,6 +94,18 @@ class RepositoryTest extends Tests\TestCase
         $repo->create('gentle', 'new-repo', array());
     }
 
+    /**
+     * @ticket 26
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateRepositoryWithWrongParamsType()
+    {
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
+        $repo->create('gentle', 'new-repo', '');
+    }
+
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';

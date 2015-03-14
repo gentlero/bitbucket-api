@@ -70,6 +70,10 @@ class Repository extends API\Api
 
         // allow developer to directly specify params as json if (s)he wants.
         if ('string' === gettype($params)) {
+            if (empty($params)) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
+
             $params = json_decode($params, true);
 
             if (JSON_ERROR_NONE !== json_last_error()) {
