@@ -78,7 +78,7 @@ abstract class ClientListener implements ClientListenerInterface
 
     /**
      * @access public
-     * @return array
+     * @return ListenerInterface[]
      */
     public function getListeners()
     {
