@@ -1,4 +1,10 @@
-# PHP Bitbucket API [![Build Status](https://travis-ci.org/gentlero/bitbucket-api.png?branch=develop)](https://travis-ci.org/gentlero/bitbucket-api) [![Coverage Status](https://coveralls.io/repos/gentlero/bitbucket-api/badge.png?branch=develop)](https://coveralls.io/r/gentlero/bitbucket-api?branch=develop) 
+# PHP Bitbucket API
+
+[![Latest Version](https://img.shields.io/packagist/v/gentle/bitbucket-api.svg?style=flat-square)](https://packagist.org/packages/gentle/bitbucket-api)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/gentlero/bitbucket-api/blob/master/LICENSE)
+[![Build Status](http://img.shields.io/travis/gentlero/bitbucket-api/master.svg?style=flat-square)](https://travis-ci.org/gentlero/bitbucket-api)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/gentlero/bitbucket-api.svg?style=flat-square)](https://scrutinizer-ci.com/g/gentlero/bitbucket-api/code-structure)
+[![Code quality](http://img.shields.io/scrutinizer/g/gentlero/bitbucket-api/develop.svg)](https://scrutinizer-ci.com/g/gentlero/bitbucket-api/)
 
 Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
