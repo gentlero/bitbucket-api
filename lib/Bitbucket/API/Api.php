@@ -54,7 +54,6 @@ class Api
 
     /**
      * @param  BuzzClientInterface $client
-     * @return self
      */
     public function __construct(BuzzClientInterface $client = null)
     {
@@ -63,8 +62,6 @@ class Api
         $this->httpClient   = new Client(array(), $client);
 
         $this->httpClient->addListener(new NormalizeArrayListener());
-
-        return $this;
     }
 
     /**
