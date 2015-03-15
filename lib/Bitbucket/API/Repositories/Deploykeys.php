@@ -39,18 +39,18 @@ class Deploykeys extends API\Api
     /**
      * Get the key's content
      *
-     * TIP: You can use `$this->all()` to obtain assigned `$pk`.
+     * TIP: You can use `$this->all()` to obtain assigned `$keyId`.
      *
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @param  string           $keyId   The key identifier assigned by Bitbucket.
      * @return MessageInterface
      */
-    public function get($account, $repo, $pk)
+    public function get($account, $repo, $keyId)
     {
         return $this->requestGet(
-            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $pk)
+            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $keyId)
         );
     }
 
@@ -91,14 +91,14 @@ class Deploykeys extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @param  string           $keyId   The key identifier assigned by Bitbucket.
      * @param  array            $options The rest of available options
      * @return MessageInterface
      */
-    public function update($account, $repo, $pk, $options = array())
+    public function update($account, $repo, $keyId, $options = array())
     {
         return $this->requestPut(
-            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $pk),
+            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $keyId),
             $options
         );
     }
@@ -106,18 +106,18 @@ class Deploykeys extends API\Api
     /**
      * Delete a key
      *
-     * TIP: You can use `$this->all()` to obtain assigned `$pk`.
+     * TIP: You can use `$this->all()` to obtain assigned `$keyId`.
      *
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  string           $pk      The key identifier assigned by Bitbucket.
+     * @param  string           $keyId   The key identifier assigned by Bitbucket.
      * @return MessageInterface
      */
-    public function delete($account, $repo, $pk)
+    public function delete($account, $repo, $keyId)
     {
         return $this->requestDelete(
-            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $pk)
+            sprintf('repositories/%s/%s/deploy-keys/%s', $account, $repo, $keyId)
         );
     }
 }
