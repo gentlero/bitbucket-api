@@ -49,19 +49,20 @@ class BranchRestrictions extends Api
      */
     public function create($account, $repo, $params = array())
     {
+        $defaults = array(
+            'kind' => 'push'
+        );
+
         // allow developer to directly specify params as json if (s)he wants.
-        if (!empty($params) && is_string($params)) {
+        if ('array' !== gettype($params)) {
+            if (empty($params)) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
+
             $params = $this->decodeJSON($params);
         }
 
-        if (!empty($params) && is_array($params)) {
-            $params = array_merge(
-                array(
-                    'kind' => 'push'
-                ),
-                $params
-            );
-        }
+        $params = array_merge($defaults, $params);
 
         if (empty($params['kind']) || !in_array($params['kind'], array('push', 'delete', 'force'))) {
             throw new \InvalidArgumentException('Invalid restriction kind.');
