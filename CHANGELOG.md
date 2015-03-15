@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.6.1 / 2015-xx-yy
+
+  - Fixed: Request body was build the wrong way when no ( _or wrong type of_ ) additional params where passed to Repository::create()
+  - Fixed: `Commits::all()` should use GET instead of POST
+  - Fixed: `Listener::delListener` did not properly deleted the listener.
+  - Fixed: Forward all available listener when a child class is requested via Api::api or Api::childClass.
+
 ## 0.6.0 / 2014-10-21
 
   - Added Changelog
@@ -24,7 +31,7 @@ All notable changes to this project will be documented in this file.
 ## 0.5.0 / 2014-06-09
 
   - Allow setting custom `Request` and `Response` inside HTTP client, which should facilitate integration in 3rd party software.
-  - Implemented basic prioriy for listeners.
+  - Implemented basic priority for listeners.
   - Bug: Missing content-type made `PullRequests::merge` and `PullRequests::declined` unusable.
 
 ## 0.4.1 / 2014-06-01
