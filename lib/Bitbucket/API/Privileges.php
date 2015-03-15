@@ -34,20 +34,9 @@ class Privileges extends Api
      */
     public function repository($account, $repo, $privilege = null)
     {
-        $params = array();
-
-        if (!is_null($privilege)) {
-
-            if (!in_array($privilege, array('read', 'write', 'admin'))) {
-                throw new \InvalidArgumentException("Invalid privilege provided.");
-            }
-
-            $params['filter'] = $privilege;
-        }
-
         return $this->requestGet(
             sprintf('privileges/%s/%s', $account, $repo),
-            $params
+            $this->getRepoParams($privilege)
         );
     }
 
@@ -81,20 +70,9 @@ class Privileges extends Api
      */
     public function repositories($account, $privilege = null)
     {
-        $params = array();
-
-        if (!is_null($privilege)) {
-
-            if (!in_array($privilege, array('read', 'write', 'admin'))) {
-                throw new \InvalidArgumentException("Invalid privilege provided.");
-            }
-
-            $params['filter'] = $privilege;
-        }
-
         return $this->requestGet(
             sprintf('privileges/%s', $account),
-            $params
+            $this->getRepoParams($privilege)
         );
     }
 
@@ -154,5 +132,25 @@ class Privileges extends Api
         }
 
         return $this->requestDelete($endpoint);
+    }
+
+    /**
+     * @access public
+     * @param  string $privilege
+     * @return array
+     */
+    private function getRepoParams($privilege)
+    {
+        $params = array();
+
+        if (!is_null($privilege)) {
+            if (!in_array($privilege, array('read', 'write', 'admin'))) {
+                throw new \InvalidArgumentException("Invalid privilege provided.");
+            }
+
+            $params['filter'] = $privilege;
+        }
+
+        return $params;
     }
 }
