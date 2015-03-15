@@ -74,11 +74,7 @@ class Repository extends API\Api
                 throw new \InvalidArgumentException('Invalid JSON provided.');
             }
 
-            $params = json_decode($params, true);
-
-            if (!is_array($params) || (JSON_ERROR_NONE !== json_last_error())) {
-                throw new \InvalidArgumentException('Invalid JSON provided.');
-            }
+            $params = $this->decodeJSON($params);
         }
 
         $params = json_encode(array_merge($defaults, $params));
