@@ -28,7 +28,7 @@ class Commits extends Api
      * @param  array            $params  Additional parameters
      * @return MessageInterface
      */
-    public function all($account, $repo, $params = array())
+    public function all($account, $repo, array $params = array())
     {
         $endpoint = sprintf('repositories/%s/%s/commits', $account, $repo);
 

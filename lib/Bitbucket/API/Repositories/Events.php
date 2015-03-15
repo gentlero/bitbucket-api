@@ -42,7 +42,7 @@ class Events extends API\Api
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/events+Resources#eventsResources-GETalistofevents
      */
-    public function all($account, $repo, $options = array())
+    public function all($account, $repo, array $options = array())
     {
         return $this->requestGet(
             sprintf('repositories/%s/%s/events', $account, $repo),
