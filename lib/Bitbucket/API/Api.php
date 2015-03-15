@@ -316,7 +316,7 @@ class Api
     {
         $params = json_decode($body, true);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (!is_array($params) || (JSON_ERROR_NONE !== json_last_error())) {
             throw new \InvalidArgumentException('Invalid JSON data provided.');
         }
 

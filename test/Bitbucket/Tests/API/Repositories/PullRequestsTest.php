@@ -90,6 +90,19 @@ class PullRequestsTest extends Tests\TestCase
         $pull->create('gentle', 'eof', $params);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateNewPullRequestWithWrongParamsType()
+    {
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getApiMock('Bitbucket\API\Repositories\PullRequests');
+
+        $pull->create('gentle', 'eof', '');
+        $pull->create('gentle', 'eof', 3);
+        $pull->create('gentle', 'eof', "{ 'foo': 'bar' }");
+    }
+
     public function testUpdatePullRequestFromJSON()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/1';
