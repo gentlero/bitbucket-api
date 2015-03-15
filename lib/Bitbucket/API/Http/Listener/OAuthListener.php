@@ -38,7 +38,7 @@ class OAuthListener implements ListenerInterface
         'oauth_signature_method'    => 'HMAC-SHA1',
         'oauth_callback'            => '',
         'oauth_verifier'            => '',
-        'oauth_version'             => '1.0'
+        'oauth_version'             => '1.0',
     );
 
     /**
@@ -148,7 +148,7 @@ class OAuthListener implements ListenerInterface
      * White list based filter
      *
      * @access protected
-     * @param  array $include
+     * @param  string[] $include
      * @return array
      */
     protected function filterOAuthParameters(array $include)
@@ -207,7 +207,7 @@ class OAuthListener implements ListenerInterface
 
         $class = '\JacobKiers\OAuth\SignatureMethod\\'.$signature;
 
-        return new $class;
+        return new $class();
     }
 
     /**
@@ -220,7 +220,7 @@ class OAuthListener implements ListenerInterface
         return (!is_null($token)) ?
             $token :
             empty($this->config['oauth_token']) ?
-                new OAuth1\Token\NullToken :
+                new OAuth1\Token\NullToken() :
                 new OAuth1\Token\Token($this->config['oauth_token'], $this->config['oauth_token_secret'])
             ;
     }
