@@ -45,7 +45,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  array            $params  Additional parameters
+     * @param  array|string     $params  Additional parameters as array or JSON string
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException If invalid JSON is provided.
@@ -55,7 +55,7 @@ class Repository extends API\Api
     public function create($account, $repo, $params = array())
     {
         // Keep BC for now.
-        // @todo[1]: to be removed.
+        // @todo[gtl]: to be removed.
         if (is_array($repo)) {
             return $this->createLegacy($account, $repo);
         }
@@ -69,14 +69,14 @@ class Repository extends API\Api
         );
 
         // allow developer to directly specify params as json if (s)he wants.
-        if ('string' === gettype($params)) {
+        if ('array' !== gettype($params)) {
             if (empty($params)) {
                 throw new \InvalidArgumentException('Invalid JSON provided.');
             }
 
             $params = json_decode($params, true);
 
-            if (JSON_ERROR_NONE !== json_last_error()) {
+            if (!is_array($params) || (JSON_ERROR_NONE !== json_last_error())) {
                 throw new \InvalidArgumentException('Invalid JSON provided.');
             }
         }

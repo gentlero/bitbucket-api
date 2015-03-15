@@ -104,6 +104,8 @@ class RepositoryTest extends Tests\TestCase
         $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
 
         $repo->create('gentle', 'new-repo', '');
+        $repo->create('gentle', 'new-repo', 3);
+        $repo->create('gentle', 'new-repo', "{ 'foo': 'bar' }");
     }
 
     public function testCreateRepositorySuccess()
