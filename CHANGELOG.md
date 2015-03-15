@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## 0.6.1 / 2015-xx-yy
 
+  - Better parameters validation and type hints.
   - Fixed: Request body was build the wrong way when no ( _or wrong type of_ ) additional params where passed to Repository::create()
   - Fixed: `Commits::all()` should use GET instead of POST
   - Fixed: `Listener::delListener` did not properly deleted the listener.
