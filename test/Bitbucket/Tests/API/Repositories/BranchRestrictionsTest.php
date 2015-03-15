@@ -165,6 +165,19 @@ class BranchRestrictionsTest extends Tests\TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
+    public function testUpdateRestrictionWithInvalidParams()
+    {
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
+        $restrictions   = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
+
+        $restrictions->update('gentle', 'eof', 1, '');
+        $restrictions->update('gentle', 'eof', 1, 3);
+        $restrictions->update('gentle', 'eof', 1, "{ 'foo': 'bar' }");
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateRestrictionShouldFailIfKindIsSpecified()
     {
         $params         = array(
