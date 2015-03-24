@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased] / [unreleased]
+##  0.6.1 / 2015-03-24
 
 ### Changed:
   - Better parameters validation and type hints.
+  - Documentation has been updated and is available at http://gentlero.bitbucket.org/bitbucket-api/
 
 ### Fixed:
   - Request body was build the wrong way when no ( _or wrong type of_ ) additional params where passed to Repository::create()
