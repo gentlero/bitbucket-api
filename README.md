@@ -16,13 +16,7 @@ Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
 ## Getting started
 
-  1. Install dependencies with composer:
-  
-    ```
-    $ php composer.phar install
-    ```  
-
-  2. See `examples/` directory and tests.
+Read [Introduction](http://gentlero.bitbucket.org/bitbucket-api/#introduction) and [Installation](http://gentlero.bitbucket.org/bitbucket-api/installation.html) from the documentation.
 
 ## Documentation
 
