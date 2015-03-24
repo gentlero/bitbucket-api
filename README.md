@@ -26,7 +26,7 @@ Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
 ## Documentation
 
-See the `docs` directory for more detailed documentation.
+See [http://gentlero.bitbucket.org/bitbucket-api/](http://gentlero.bitbucket.org/bitbucket-api/) for more detailed documentation.
 
 ## License
 
