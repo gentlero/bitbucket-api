@@ -14,7 +14,7 @@ class CommitsTest extends Tests\TestCase
 
         $client = $this->getHttpClientMock();
         $client->expects($this->once())
-            ->method('post')
+            ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
@@ -32,7 +32,7 @@ class CommitsTest extends Tests\TestCase
 
         $client = $this->getHttpClientMock();
         $client->expects($this->once())
-            ->method('post')
+            ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 

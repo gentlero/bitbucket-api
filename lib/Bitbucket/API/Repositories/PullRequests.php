@@ -44,7 +44,7 @@ class PullRequests extends API\Api
      *
      * @throws \InvalidArgumentException
      */
-    public function all($account, $repo, $params = array())
+    public function all($account, $repo, array $params = array())
     {
         $states = array('OPEN', 'MERGED', 'DECLINED');
         $params = array_merge(
@@ -79,7 +79,7 @@ class PullRequests extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  array            $params  Additional parameters
+     * @param  array|string     $params  Additional parameters as array or JSON string
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException
@@ -87,24 +87,25 @@ class PullRequests extends API\Api
      */
     public function create($account, $repo, $params = array())
     {
+        $defaults = array(
+            'title' => 'New pull request',
+            'source' => array(
+                'branch' => array(
+                    'name'  => 'develop'
+                )
+            )
+        );
+
         // allow developer to directly specify params as json if (s)he wants.
-        if (!empty($params) && is_string($params)) {
+        if ('array' !== gettype($params)) {
+            if (empty($params)) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
+
             $params = $this->decodeJSON($params);
         }
 
-        if (!empty($params) && is_array($params)) {
-            $params = array_merge(
-                array(
-                    'title' => 'New pull request',
-                    'source' => array(
-                        'branch' => array(
-                            'name'  => 'develop'
-                        )
-                    )
-                ),
-                $params
-            );
-        }
+        $params = array_merge($defaults, $params);
 
         if (empty($params['title'])) {
             throw new \InvalidArgumentException('Pull request\'s title must be specified.');
@@ -128,31 +129,32 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request that will be updated
-     * @param  array            $params  Additional parameters
+     * @param  array|string     $params  Additional parameters as array or JSON string
      * @return MessageInterface
      *
      * @throws \InvalidArgumentException
      */
     public function update($account, $repo, $id, $params = array())
     {
+        $defaults = array(
+            'title' => 'Updated pull request',
+            'destination' => array(
+                'branch' => array(
+                    'name'  => 'develop'
+                )
+            )
+        );
+
         // allow developer to directly specify params as json if (s)he wants.
-        if (!empty($params) && is_string($params)) {
+        if ('array' !== gettype($params)) {
+            if (empty($params)) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
+
             $params = $this->decodeJSON($params);
         }
 
-        if (!empty($params) && is_array($params)) {
-            $params = array_merge(
-                array(
-                    'title' => 'Updated pull request',
-                    'destination' => array(
-                        'branch' => array(
-                            'name'  => 'develop'
-                        )
-                    )
-                ),
-                $params
-            );
-        }
+        $params = array_merge($defaults, $params);
 
         if (empty($params['title'])) {
             throw new \InvalidArgumentException('Pull request\'s title must be specified.');

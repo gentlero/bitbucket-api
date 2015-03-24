@@ -69,6 +69,45 @@ class RepositoryTest extends Tests\TestCase
         $repo->create('gentle', 'new-repo', $params);
     }
 
+    /**
+     * @ticket 26
+     */
+    public function testCreateRepositoryWithDefaultParams()
+    {
+        $endpoint       = 'repositories/gentle/new-repo';
+        $params         = array(
+            'scm'               => 'git',
+            'name'              => 'new-repo',
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_forks',
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+
+        $repo->create('gentle', 'new-repo', array());
+    }
+
+    /**
+     * @ticket 26
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateRepositoryWithWrongParamsType()
+    {
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
+        $repo->create('gentle', 'new-repo', '');
+        $repo->create('gentle', 'new-repo', 3);
+        $repo->create('gentle', 'new-repo', "{ 'foo': 'bar' }");
+    }
+
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';

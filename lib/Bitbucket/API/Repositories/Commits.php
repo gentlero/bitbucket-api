@@ -20,7 +20,7 @@ use Buzz\Message\MessageInterface;
 class Commits extends Api
 {
     /**
-     * Get a list of pull requests
+     * Get a list of commits
      *
      * @access public
      * @param  string           $account The team or individual account owning the repository.
@@ -28,7 +28,7 @@ class Commits extends Api
      * @param  array            $params  Additional parameters
      * @return MessageInterface
      */
-    public function all($account, $repo, $params = array())
+    public function all($account, $repo, array $params = array())
     {
         $endpoint = sprintf('repositories/%s/%s/commits', $account, $repo);
 
@@ -37,7 +37,7 @@ class Commits extends Api
             unset($params['branch']);
         }
 
-        return $this->getClient()->setApiVersion('2.0')->post(
+        return $this->getClient()->setApiVersion('2.0')->get(
             $endpoint,
             $params
         );

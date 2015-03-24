@@ -22,7 +22,7 @@ use Bitbucket\API\Http\Listener\ListenerInterface;
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class Client implements ClientInterface
+class Client extends ClientListener implements ClientInterface
 {
     /**
      * @var array
@@ -33,7 +33,7 @@ class Client implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/0.6.0 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/0.6.1 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => false
     );
@@ -54,11 +54,6 @@ class Client implements ClientInterface
     private $lastResponse;
 
     /**
-     * @var ListenerInterface[]
-     */
-    protected $listeners = array();
-
-    /**
      * @var MessageInterface
      */
     protected $responseObj;
@@ -75,59 +70,6 @@ class Client implements ClientInterface
 
         $this->client->setTimeout($this->options['timeout']);
         $this->client->setVerifyPeer($this->options['verify_peer']);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addListener(ListenerInterface $listener, $priority = 0)
-    {
-        // Don't allow same listener with different priorities.
-        if ($this->isListener($listener->getName())) {
-            $this->delListener($listener->getName());
-        }
-
-        $this->listeners[$priority][$listener->getName()] = $listener;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function delListener($name)
-    {
-        if ($name instanceof ListenerInterface) {
-            $name = $name->getName();
-        }
-
-        if ($this->isListener($name) === true) {
-            foreach ($this->listeners as $collection) {
-                unset($collection[$name]);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getListener($name)
-    {
-        if (!$listener = $this->searchListener($name)) {
-            throw new \InvalidArgumentException(sprintf('Unknown listener %s', $name));
-        }
-
-        return $listener;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isListener($name)
-    {
-        return ($this->searchListener($name) instanceof ListenerInterface);
     }
 
     /**
@@ -375,21 +317,5 @@ class Client implements ClientInterface
                 }
             }
         );
-    }
-
-    /**
-     * @access protected
-     * @param  string                 $name Listener name
-     * @return ListenerInterface|bool false on error
-     */
-    protected function searchListener($name)
-    {
-        foreach ($this->listeners as $collection) {
-            if (isset($collection[$name])) {
-                return $collection[$name];
-            }
-        }
-
-        return false;
     }
 }

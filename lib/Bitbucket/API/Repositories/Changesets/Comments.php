@@ -76,7 +76,7 @@ class Comments extends API\Api
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
-    public function create($account, $repo, $node, $content, $options = array())
+    public function create($account, $repo, $node, $content, array $options = array())
     {
         return $this->requestPost(
             sprintf('repositories/%s/%s/changesets/%s/comments', $account, $repo, $node),
@@ -106,7 +106,7 @@ class Comments extends API\Api
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
-    public function update($account, $repo, $node, $commentID, $content, $options = array())
+    public function update($account, $repo, $node, $commentID, $content, array $options = array())
     {
         return $this->requestPut(
             sprintf('repositories/%s/%s/changesets/%s/comments/%d', $account, $repo, $node, $commentID),

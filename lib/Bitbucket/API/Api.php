@@ -54,7 +54,6 @@ class Api
 
     /**
      * @param  BuzzClientInterface $client
-     * @return self
      */
     public function __construct(BuzzClientInterface $client = null)
     {
@@ -63,8 +62,6 @@ class Api
         $this->httpClient   = new Client(array(), $client);
 
         $this->httpClient->addListener(new NormalizeArrayListener());
-
-        return $this;
     }
 
     /**
@@ -299,12 +296,8 @@ class Api
         $class = '\\Bitbucket\\API\\'.$name;
         $child = new $class($this->client);
 
-        if ($this->getClient()->isListener('basicauth')) {
-            $child->getClient()->addListener($this->getClient()->getListener('basicauth'));
-        }
-
-        if ($this->getClient()->isListener('oauth')) {
-            $child->getClient()->addListener($this->getClient()->getListener('oauth'));
+        if ($this->getClient()->hasListeners()) {
+            $child->getClient()->setListeners($this->getClient()->getListeners());
         }
 
         return $child;
@@ -323,7 +316,7 @@ class Api
     {
         $params = json_decode($body, true);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (!is_array($params) || (JSON_ERROR_NONE !== json_last_error())) {
             throw new \InvalidArgumentException('Invalid JSON data provided.');
         }
 

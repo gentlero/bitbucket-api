@@ -45,32 +45,39 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  array            $params  Additional parameters
+     * @param  array|string     $params  Additional parameters as array or JSON string
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException If invalid JSON is provided.
      *
      * @see https://confluence.atlassian.com/x/WwZAGQ
      */
     public function create($account, $repo, $params = array())
     {
         // Keep BC for now.
-        // @todo[1]: to be removed.
+        // @todo[gtl]: to be removed.
         if (is_array($repo)) {
             return $this->createLegacy($account, $repo);
         }
 
+        $defaults = array(
+            'scm'               => 'git',
+            'name'              => $repo,
+            'is_private'        => true,
+            'description'       => 'My secret repo',
+            'forking_policy'    => 'no_forks',
+        );
+
         // allow developer to directly specify params as json if (s)he wants.
-        if (!empty($params) && is_array($params)) {
-            $params = json_encode(array_merge(
-                array(
-                    'scm'               => 'git',
-                    'name'              => $repo,
-                    'is_private'        => true,
-                    'description'       => 'My secret repo',
-                    'forking_policy'    => 'no_forks',
-                ),
-                $params
-            ));
+        if ('array' !== gettype($params)) {
+            if (empty($params)) {
+                throw new \InvalidArgumentException('Invalid JSON provided.');
+            }
+
+            $params = $this->decodeJSON($params);
         }
+
+        $params = json_encode(array_merge($defaults, $params));
 
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s', $account, $repo),

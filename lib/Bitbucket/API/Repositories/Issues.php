@@ -33,7 +33,7 @@ class Issues extends API\Api
      *
      * @see https://confluence.atlassian.com/x/1w2mEQ
      */
-    public function all($account, $repo, $options = array())
+    public function all($account, $repo, array $options = array())
     {
         return $this->requestGet(
             sprintf('repositories/%s/%s/issues', $account, $repo),
@@ -86,7 +86,7 @@ class Issues extends API\Api
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/issues+Resource#issuesResource-POSTanewissue
      */
-    public function create($account, $repo, $options = array())
+    public function create($account, $repo, array $options = array())
     {
         if (!isset($options['title']) || !isset($options['content'])) {
             throw new \InvalidArgumentException(
