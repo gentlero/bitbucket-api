@@ -2,6 +2,8 @@
 
 namespace Bitbucket\Tests\API\Http;
 
+use Bitbucket\API\Http\Listener\NormalizeArrayListener;
+use Bitbucket\API\Http\Listener\OAuthListener;
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API\Http\Client;
 use Buzz\Client\Curl;
@@ -161,6 +163,23 @@ class ClientTest extends Tests\TestCase
     public function testGetAbsentListener()
     {
         $this->client->getListener('invalid');
+    }
+
+    public function testSetListenersWorksWithMultipleListeners()
+    {
+        $listeners = array(
+            '0' => array(
+                new NormalizeArrayListener(),
+                new OAuthListener(array()),
+            )
+        );
+
+        $this->client->setListeners($listeners);
+
+        $listeners = $this->client->getListeners();
+
+        $this->assertArrayHasKey('normalize_array', $listeners[0]);
+        $this->assertArrayHasKey('oauth', $listeners[0]);
     }
 
     private function getListenerMock($name = 'dummy')
