@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## 0.6.2 / 2015-05-18
+
 ### Fixed:
   - Client listener propagation to child classes. (PR #23)
 
