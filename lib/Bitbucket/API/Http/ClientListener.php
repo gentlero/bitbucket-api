@@ -101,9 +101,12 @@ abstract class ClientListener implements ClientListenerInterface
      */
     public function setListeners(array $listeners)
     {
-        foreach ($listeners as $prio => $listener) {
+        foreach ($listeners as $priority => $listener) {
             $listener = array_values($listener);
-            $this->addListener($listener[0], $prio);
+
+            foreach ($listener as $samePriorityListener) {
+                $this->addListener($samePriorityListener, $priority);
+            }
         }
 
         return $this;
