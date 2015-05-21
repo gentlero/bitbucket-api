@@ -13,16 +13,20 @@
 >
     <testsuites>
         <testsuite name="bitbucket-api Test Suite">
-            <directory>./test/Bitbucket/Tests/API/</directory>
+            <directory>test/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./lib/Bitbucket/API/</directory>
+            <directory suffix=".php">lib/</directory>
         </whitelist>
     </filter>
     <logging>
+        <log type="tap" target="build/report.tap"/>
+        <log type="junit" target="build/report.junit.xml"/>
+        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
+        <log type="coverage-text" target="build/coverage.txt"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 </phpunit>
