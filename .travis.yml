@@ -16,8 +16,9 @@ before_script:
   - travis_retry composer install ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
 script:
-  - mkdir -p build/logs
-  - php vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - mkdir -p ./build/logs
+  - php vendor/bin/phpunit --coverage-clover=./build/logs/coverage.clover
 
 after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+  - travis_retry wget https://scrutinizer-ci.com/ocular.phar -O ocular.phar
+  - travis_retry php ocular.phar code-coverage:upload --format=php-clover ./build/logs/coverage.clover
