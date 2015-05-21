@@ -29,5 +29,8 @@
     },
     "autoload": {
         "psr-0": { "Bitbucket\\": "lib/" }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
