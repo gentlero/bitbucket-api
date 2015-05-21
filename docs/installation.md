@@ -4,7 +4,7 @@ permalink: /installation.html
 title: Installation
 ---
 
-# Instalation
+# Installation
 
 ### Requirements
 
