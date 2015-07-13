@@ -25,6 +25,46 @@ class RepositoryTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    /**
+     * @return array of invalid value for repo creations parameter
+     */
+    public function invalidCreateProvider()
+    {
+        return array(
+            array(''),
+            array("\t"),
+            array("\n"),
+            array(' '),
+            array("{ 'bar': 'baz' }"),
+            array('{ repo: "company", }'),
+            array('{ repo: "company" }'),
+            array(
+                substr(
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                    mt_rand( 0 ,50 ) ,1 ) .substr( md5( time() ), 1)
+            )
+        );
+
+    }
+
+    /**
+     * @param $check
+     * @param $expectation
+     * @return mixed
+     * @expectedException \InvalidArgumentException
+     *  @dataProvider invalidCreateProvider
+     */
+    public function testInvalidCreate($check)
+    {
+
+        $client     = $this->getHttpClientMock();
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $this->setExpectedException('\InvalidArgumentException');
+        $repo->create('gentle', 'new-repo', $check);
+    }
+
     public function testCreateRepositoryFromJSON()
     {
         $endpoint       = 'repositories/gentle/new-repo';
