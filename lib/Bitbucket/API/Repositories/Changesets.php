@@ -34,7 +34,7 @@ class Changesets extends API\Api
     public function all($account, $repo, $start = null, $limit = 15)
     {
         return $this->requestGet(
-            sprintf('repositories/%s/%s/changesets', $account, $repo, $start, $limit),
+            sprintf('repositories/%s/%s/changesets', $account, $repo),
             array(
                 'start' => $start,
                 'limit' => $limit
