@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added:
   - Implemented webhooks endpoints.
+  - Toggle spam on a changeset comment. (issue #2)
+
+### Changed:
+  - Marked Repositories/Services as deprecated in favor of Repositories/Hooks. (issue #29)
+
+### Fixed:
+  - `forking_policy` parameter renamed to `fork_policy` on repository endpoint. (issue #32)
 
 ## 0.6.2 / 2015-05-18
 
