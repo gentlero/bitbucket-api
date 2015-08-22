@@ -71,7 +71,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_public_forks',
+            'fork_policy'       => 'no_public_forks',
         ));
 
         $client = $this->getHttpClientMock();
@@ -93,7 +93,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_public_forks',
+            'fork_policy'       => 'no_public_forks',
         );
 
         $client = $this->getHttpClientMock();
@@ -118,7 +118,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_forks',
+            'fork_policy'       => 'no_forks',
         );
 
         $client = $this->getHttpClientMock();

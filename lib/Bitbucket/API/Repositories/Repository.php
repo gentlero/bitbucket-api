@@ -65,7 +65,7 @@ class Repository extends API\Api
             'name'              => $repo,
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_forks',
+            'fork_policy'       => 'no_forks',
         );
 
         // allow developer to directly specify params as json if (s)he wants.

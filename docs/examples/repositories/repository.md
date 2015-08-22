@@ -41,7 +41,7 @@ $repo->create($account_name, $repo_slug, array(
     'description'       => 'My super secret project.',
     'language'          => 'php',
     'is_private'        => true,
-    'forking_policy'    => 'no_public_forks',
+    'fork_policy'       => 'no_public_forks',
 ));
 ```
 
