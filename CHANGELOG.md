@@ -2,7 +2,19 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## [0.7.0] / 2015-09-08
+
+### Added:
+  - Implemented webhooks endpoints.
+  - Toggle spam on a changeset comment. (issue #2)
+  - Support for OAuth2. (issue #34)
+
+### Changed:
+  - Marked Repositories/Services as deprecated in favor of Repositories/Hooks. (issue #29)
+  - [DOCS] Added example on how to use this library in combination with a 3rd party OAuth1 client in a 3-legged flow.
+
+### Fixed:
+  - `forking_policy` parameter renamed to `fork_policy` on repository endpoint. (issue #32)
 
 ## 0.6.2 / 2015-05-18
 

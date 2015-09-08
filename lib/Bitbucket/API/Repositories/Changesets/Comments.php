@@ -113,4 +113,21 @@ class Comments extends API\Api
             array_merge(array('content' => $content), $options)
         );
     }
+
+    /**
+     * Toggle spam flag on an existing changeset comment
+     *
+     * @access public
+     * @param  string           $account   The team or individual account owning the repo.
+     * @param  string           $repo      The repo identifier.
+     * @param  string           $node      The raw_node changeset identifier.
+     * @param  int              $commentID The comment identifier.
+     * @return MessageInterface
+     */
+    public function spam($account, $repo, $node, $commentID)
+    {
+        return $this->requestPut(
+            sprintf('repositories/%s/%s/changesets/%s/comments/spam/%d', $account, $repo, $node, $commentID)
+        );
+    }
 }

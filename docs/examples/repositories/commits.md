@@ -11,7 +11,7 @@ Retrieve and compare information about commits.
 ### Prepare:
 
 ```php
-$commits = new Bitbucket\API\Repositories\PullRequests();
+$commits = new Bitbucket\API\Repositories\Commits();
 $commits->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 

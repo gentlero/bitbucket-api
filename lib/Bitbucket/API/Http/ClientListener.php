@@ -97,7 +97,7 @@ abstract class ClientListener implements ClientListenerInterface
     /**
      * @access public
      * @param  array $listeners
-     * @return $this;
+     * @return $this
      */
     public function setListeners(array $listeners)
     {

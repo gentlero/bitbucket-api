@@ -25,6 +25,44 @@ class RepositoryTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    /**
+     * @return array of invalid value for repo creations parameter
+     */
+    public function invalidCreateProvider()
+    {
+        return array(
+            array(''),
+            array(3),
+            array("\t"),
+            array("\n"),
+            array(' '),
+            array("{ 'bar': 'baz' }"),
+            array('{ repo: "company", }'),
+            array('{ repo: "company" }'),
+            array(
+                substr(
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                    mt_rand(0, 50), 1).substr(md5(time()), 1),
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $check
+     * @expectedException \InvalidArgumentException
+     * @dataProvider invalidCreateProvider
+     * @ticket 27, 26
+     */
+    public function testInvalidCreate($check)
+    {
+        $client = $this->getHttpClientMock();
+
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $this->setExpectedException('\InvalidArgumentException');
+        $repo->create('gentle', 'new-repo', $check);
+    }
+
     public function testCreateRepositoryFromJSON()
     {
         $endpoint       = 'repositories/gentle/new-repo';
@@ -33,7 +71,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_public_forks',
+            'fork_policy'       => 'no_public_forks',
         ));
 
         $client = $this->getHttpClientMock();
@@ -55,7 +93,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_public_forks',
+            'fork_policy'       => 'no_public_forks',
         );
 
         $client = $this->getHttpClientMock();
@@ -80,7 +118,7 @@ class RepositoryTest extends Tests\TestCase
             'name'              => 'new-repo',
             'is_private'        => true,
             'description'       => 'My secret repo',
-            'forking_policy'    => 'no_forks',
+            'fork_policy'       => 'no_forks',
         );
 
         $client = $this->getHttpClientMock();
@@ -94,20 +132,6 @@ class RepositoryTest extends Tests\TestCase
         $repo->create('gentle', 'new-repo', array());
     }
 
-    /**
-     * @ticket 26
-     * @expectedException \InvalidArgumentException
-     */
-    public function testCreateRepositoryWithWrongParamsType()
-    {
-        /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-
-        $repo->create('gentle', 'new-repo', '');
-        $repo->create('gentle', 'new-repo', 3);
-        $repo->create('gentle', 'new-repo', "{ 'foo': 'bar' }");
-    }
-
     public function testCreateRepositorySuccess()
     {
         $endpoint       = 'repositories';
@@ -115,7 +139,7 @@ class RepositoryTest extends Tests\TestCase
             'name'          => 'secret',
             'description'   => 'My super secret project',
             'language'      => 'php',
-            'is_private'    => true
+            'is_private'    => true,
         );
 
         $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
@@ -134,7 +158,7 @@ class RepositoryTest extends Tests\TestCase
             'description'   => 'My super secret project',
             'language'      => 'php',
             'is_private'    => false,
-            'main_branch'   => 'master'
+            'main_branch'   => 'master',
         );
 
         $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
@@ -202,7 +226,7 @@ class RepositoryTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/fork';
         $params         = array(
             'name'          => 'my-eof',
-            'is_private'    => true
+            'is_private'    => true,
         );
 
         $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
@@ -223,7 +247,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->branches('gentle', 'eof');
@@ -240,7 +264,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->branch('gentle', 'eof');
@@ -257,7 +281,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->manifest('gentle', 'eof', 'develop');
@@ -274,7 +298,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->tags('gentle', 'eof');
@@ -291,7 +315,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->raw('gentle', 'eof', '1bc8345', 'lib/file.php');
@@ -308,7 +332,7 @@ class RepositoryTest extends Tests\TestCase
         $repository->expects($this->once())
             ->method('requestGet')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+            ->will($this->returnValue($expectedResult));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
         $actual = $repository->filehistory('gentle', 'eof', '1bc8345', 'lib/file.php');

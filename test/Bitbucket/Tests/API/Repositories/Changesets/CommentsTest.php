@@ -64,4 +64,17 @@ class CommentsTest extends Tests\TestCase
         /** @var $comments \Bitbucket\API\Repositories\Changesets\Comments */
         $comments->update('gentle', 'eof', 'aea95f1', 3, 'edited comment');
     }
+
+    public function testMarkCommentAsSpamSuccess()
+    {
+        $endpoint       = 'repositories/gentle/eof/changesets/aea95f1/comments/spam/3';
+
+        $comments = $this->getApiMock('Bitbucket\API\Repositories\Changesets\Comments');
+        $comments->expects($this->any())
+            ->method('requestPut')
+            ->with($endpoint);
+
+        /** @var $comments \Bitbucket\API\Repositories\Changesets\Comments */
+        $comments->spam('gentle', 'eof', 'aea95f1', 3);
+    }
 }
