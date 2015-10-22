@@ -55,11 +55,11 @@ class Api
     /**
      * @param  BuzzClientInterface $client
      */
-    public function __construct(BuzzClientInterface $client = null)
+    public function __construct(BuzzClientInterface $client = null, $options = [])
     {
         // @todo[1]: This exists for keeping BC. To be removed!
         $this->client       = (is_null($client)) ? new Curl : $client;
-        $this->httpClient   = new Client(array(), $client);
+        $this->httpClient   = new Client($options, $client);
 
         $this->httpClient->addListener(new NormalizeArrayListener());
     }
@@ -286,7 +286,7 @@ class Api
      *
      * @throws \InvalidArgumentException
      */
-    protected function childFactory($name)
+    protected function childFactory($name, $options = [])
     {
         if (empty($name)) {
             throw new \InvalidArgumentException('Not child specified.');
@@ -294,7 +294,7 @@ class Api
 
         /** @var Api $child */
         $class = '\\Bitbucket\\API\\'.$name;
-        $child = new $class($this->client);
+        $child = new $class($this->client, $options);
 
         if ($this->getClient()->hasListeners()) {
             $child->getClient()->setListeners($this->getClient()->getListeners());

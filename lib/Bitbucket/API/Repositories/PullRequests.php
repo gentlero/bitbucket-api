@@ -30,7 +30,7 @@ class PullRequests extends API\Api
      */
     public function comments()
     {
-        return $this->childFactory('Repositories\\PullRequests\\Comments');
+        return $this->childFactory('Repositories\\PullRequests\\Comments', $this->getClient()->getOptions());
     }
 
     /**
