@@ -181,6 +181,14 @@ class Client extends ClientListener implements ClientInterface
     {
         return $this->options['api_version'];
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 
     /**
      * {@inheritDoc}

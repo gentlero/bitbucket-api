@@ -123,4 +123,12 @@ interface ClientInterface extends ClientListenerInterface
      * @return string
      */
     public function getApiBaseUrl();
+    
+    /**
+     * Get all Client Options
+     *
+     * @access public
+     * @return array
+     */
+    public function getOptions();
 }
