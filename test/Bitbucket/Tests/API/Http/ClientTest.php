@@ -135,6 +135,18 @@ class ClientTest extends Tests\TestCase
         $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
     }
 
+    public function testClientIsKeptWhenInvokingChildFactory()
+    {
+        $options = [
+            'base_url' => 'localhost'
+        ];
+        $client = new Client($options);
+        $pullRequest = new \Bitbucket\API\Repositories\PullRequests();
+        $pullRequest->setClient($client);
+        $comments = $pullRequest->comments();
+        $this->assertSame($client, $comments->getClient());
+    }
+
     public function testAddListener()
     {
         $listener = $this->getListenerMock();
