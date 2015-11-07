@@ -295,6 +295,7 @@ class Api
         /** @var Api $child */
         $class = '\\Bitbucket\\API\\'.$name;
         $child = new $class($this->client);
+        $child->setClient($this->getClient());
 
         if ($this->getClient()->hasListeners()) {
             $child->getClient()->setListeners($this->getClient()->getListeners());
