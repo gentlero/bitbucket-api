@@ -137,9 +137,9 @@ class ClientTest extends Tests\TestCase
 
     public function testClientIsKeptWhenInvokingChildFactory()
     {
-        $options = [
+        $options = array(
             'base_url' => 'localhost'
-        ];
+        );
         $client = new Client($options);
         $pullRequest = new \Bitbucket\API\Repositories\PullRequests();
         $pullRequest->setClient($client);
