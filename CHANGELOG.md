@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.0 / 2015-12-05
+
+### Added:
+  - Implemented build statuses endpoints. (PR #27)
+
+## Fixed:
+  - Usage of short array syntax inside one test, forced the test suite to fail on PHP 5.3
+
 ## 0.7.1 / 2015-11-07
 
 ### Fixed:
