@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed:
+  - Minimum required PHP version has been bumped to 5.4 from 5.3
+
 ## 0.8.0 / 2015-12-05
 
 ### Added:
