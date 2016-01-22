@@ -29,4 +29,5 @@ after_script:
 
 notifications:
   webhooks:
-    - ${HOOKS_URL}
+    urls:
+      secure: "Xqj40L7H7t01GvXZWLFGBHJSelhNZeGO107+EyBr3BjGX6iurDUWE1JAAWfEA5+TXE1Nv902t5EaXzc4KnRSwXwNjpVXj3cIOZX/xlQ4bE0rtU5Fzd93aULtshIAfexN99AG6iV4URtIlWYBgwqV7vadMy/UEgBlELLKUQS0GOI="
