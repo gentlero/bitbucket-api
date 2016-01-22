@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "241640db17ed33fb8d97ab700c3fee1b",
+    "hash": "37deec2bfbe293ad340a9da7727ec666",
+    "content-hash": "0d82de073ca1b364a7b9f416ead44ff2",
     "packages": [
         {
             "name": "jacobkiers/oauth",
@@ -540,7 +541,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~5.3"
+        "php": ">=5.3"
     },
     "platform-dev": []
 }
