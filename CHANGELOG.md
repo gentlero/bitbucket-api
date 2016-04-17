@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## Fixed:
+### Fixed:
   - Declining a PR without a `message` parameter caused a 500 response. (issue #43)
 
 
