@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed:
+  - Declining a PR without a `message` parameter caused a 500 response. (issue #43)
+
 ### Changed:
   - Minimum required PHP version has been bumped to 5.4 from 5.3
 

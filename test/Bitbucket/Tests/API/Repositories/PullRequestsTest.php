@@ -4,6 +4,7 @@ namespace Bitbucket\Tests\API\Repositories;
 
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API;
+use Buzz\Message\RequestInterface;
 
 /**
  * Class PullRequestsTest
@@ -317,5 +318,26 @@ class PullRequestsTest extends Tests\TestCase
         $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
 
         $pull->decline('gentle', 'eof', 1, $params);
+    }
+
+    /**
+     * @ticket 43
+     */
+    public function testDeclineAPullRequestWithoutAMessage()
+    {
+        $endpoint   = 'repositories/gentle/eof/pullrequests/1/decline';
+        $params     = array(
+            'message' => ''
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\PullRequests $pull */
+        $pull   = $this->getClassMock('Bitbucket\API\Repositories\PullRequests', $client);
+
+        $pull->decline('gentle', 'eof', 1, array());
     }
 }
