@@ -309,6 +309,10 @@ class PullRequests extends API\Api
      */
     public function decline($account, $repo, $id, $params = array())
     {
+        if (false === array_key_exists('message', $params)) {
+            $params['message'] = '';
+        }
+
         return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests/%d/decline', $account, $repo, $id),
             json_encode($params),
