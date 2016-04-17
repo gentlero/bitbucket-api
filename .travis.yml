@@ -1,4 +1,5 @@
 language: php
+sudo: false
 php:
   - 5.3
   - 5.4
@@ -25,3 +26,8 @@ after_script:
   - travis_retry php ocular.phar self-update
   - php ocular.phar --version
   - travis_retry php ocular.phar code-coverage:upload --repository=b/gentlero/bitbucket-api --format=php-clover ./build/logs/coverage.clover
+
+notifications:
+  webhooks:
+    urls:
+      secure: "Xqj40L7H7t01GvXZWLFGBHJSelhNZeGO107+EyBr3BjGX6iurDUWE1JAAWfEA5+TXE1Nv902t5EaXzc4KnRSwXwNjpVXj3cIOZX/xlQ4bE0rtU5Fzd93aULtshIAfexN99AG6iV4URtIlWYBgwqV7vadMy/UEgBlELLKUQS0GOI="
