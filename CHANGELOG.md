@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added:
   - Implemented build statuses endpoints. (PR #27)
 
-## Fixed:
+### Fixed:
   - Usage of short array syntax inside one test, forced the test suite to fail on PHP 5.3
 
 ## 0.7.1 / 2015-11-07
