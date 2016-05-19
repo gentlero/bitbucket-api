@@ -1,5 +1,3 @@
 vendor/
 report/
-.idea/
-.dev/
-build
+build/
