@@ -8,11 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Endpoint to get a list of teams to which caller has access.
   - Endpoint to get emails for authenticated user.
 
-### Fixed:
-  - Declining a PR without a `message` parameter caused a 500 response. (issue #43)
-
 ### Changed:
   - Minimum required PHP version has been bumped to 5.4 from 5.3
+  - User::get() now uses version 2 of the API.
 
 ## 0.8.1 / 2016-05-08
 

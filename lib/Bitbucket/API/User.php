@@ -25,10 +25,12 @@ class User extends Api
      *
      * @access public
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function get()
     {
-        return $this->requestGet('user/');
+        return $this->getClient()->setApiVersion('2.0')->get('user');
     }
 
     /**
