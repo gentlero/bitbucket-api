@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added:
   - Endpoint to get a list of teams to which caller has access.
+  - Endpoint to get emails for authenticated user.
 
 ### Fixed:
   - Declining a PR without a `message` parameter caused a 500 response. (issue #43)

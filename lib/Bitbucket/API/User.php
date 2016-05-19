@@ -78,4 +78,17 @@ class User extends Api
     {
         return $this->childFactory('User\\Repositories');
     }
+
+    /**
+     * Retrieves the email for an authenticated user.
+     *
+     * @access public
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function emails()
+    {
+        return $this->getClient()->setApiVersion('2.0')->get('user/emails');
+    }
 }

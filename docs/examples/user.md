@@ -41,6 +41,12 @@ $user->privileges();
 ```php
 $user->follows();
 ```
+
+### Retrieves the email for an authenticated user.
+
+```php
+$user->emails();
+```
 ----
 
 #### Related:
