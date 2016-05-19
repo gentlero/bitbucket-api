@@ -15,6 +15,14 @@ $team = new Bitbucket\API\Teams();
 $team->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
 
+### Get a list of teams to which the caller has access: (API 2.0)
+
+```php
+$team->all($role);
+```
+
+Where `$role` can be: _member_, _contributor_ or _admin_
+
 ### Get the team profile: (API 2.0)
 
 ```php
