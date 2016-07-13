@@ -27,6 +27,7 @@ class Repositories extends Api
      *
      * @access public
      * @param  string $owner The account of the repo owner.
+     * @param int|null $page THe page number of the listing
      * @return MessageInterface
      *
      * @api 2.0
