@@ -35,7 +35,7 @@ class Client extends ClientListener implements ClientInterface
         'formats'       => array('json', 'xml'),    // supported response formats
         'user_agent'    => 'bitbucket-api-php/1.0.0-dev (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
-        'verify_peer'   => false
+        'verify_peer'   => true
     );
 
     /**
