@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Bitbucket\API\Http;
 
 use Buzz\Client\ClientInterface as BuzzClientInterface;
@@ -65,7 +64,7 @@ class Client extends ClientListener implements ClientInterface
 
     public function __construct(array $options = array(), BuzzClientInterface $client = null)
     {
-        $this->client   = (is_null($client)) ? new Curl : $client;
+        $this->client   = (null === $client) ? new Curl() : $client;
         $this->options  = array_merge($this->options, $options);
 
         $this->client->setTimeout($this->options['timeout']);
@@ -73,7 +72,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function get($endpoint, $params = array(), $headers = array())
     {
@@ -86,7 +85,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function post($endpoint, $params = array(), $headers = array())
     {
@@ -94,7 +93,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function put($endpoint, $params = array(), $headers = array())
     {
@@ -102,7 +101,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function delete($endpoint, $params = array(), $headers = array())
     {
@@ -110,26 +109,26 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function request($endpoint, $params = array(), $method = 'GET', array $headers = array())
     {
         $request = $this->createRequest($method, $endpoint);
 
         // add a default content-type if none was set
-        if (in_array(strtoupper($method), array('POST', 'PUT')) && empty($headers['Content-Type'])) {
+        if (empty($headers['Content-Type']) && in_array(strtoupper($method), array('POST', 'PUT'), true)) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
-        if (!empty($headers)) {
+        if (count($headers) > 0) {
             $request->addHeaders($headers);
         }
 
-        if (!empty($params)) {
+        if (count($params) > 0) {
             $request->setContent(is_array($params) ? http_build_query($params) : $params);
         }
 
-        $response = is_object($this->responseObj) ? $this->responseObj : new Response;
+        $response = is_object($this->responseObj) ? $this->responseObj : new Response();
 
         $this->executeListeners($request, 'preSend');
 
@@ -153,7 +152,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getResponseFormat()
     {
@@ -161,11 +160,11 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setResponseFormat($format)
     {
-        if (!in_array($format, $this->options['formats'])) {
+        if (!in_array($format, $this->options['formats'], true)) {
             throw new \InvalidArgumentException(sprintf('Unsupported response format %s', $format));
         }
 
@@ -175,7 +174,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getApiVersion()
     {
@@ -183,11 +182,11 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setApiVersion($version)
     {
-        if (!in_array($version, $this->options['api_versions'])) {
+        if (!in_array($version, $this->options['api_versions'], true)) {
             throw new \InvalidArgumentException(sprintf('Unsupported API version %s', $version));
         }
 
@@ -197,7 +196,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * Check if specified API version is the one currently in use
+     * Check if specified API version is the one currently in use.
      *
      * @access public
      * @param  float $version
@@ -205,11 +204,11 @@ class Client extends ClientListener implements ClientInterface
      */
     public function isApiVersion($version)
     {
-        return (abs($this->options['api_version'] - $version) < 0.00001);
+        return abs($this->options['api_version'] - $version) < 0.00001;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getApiBaseUrl()
     {
@@ -284,7 +283,7 @@ class Client extends ClientListener implements ClientInterface
     }
 
     /**
-     * Execute all available listeners
+     * Execute all available listeners.
      *
      * $when can be: preSend or postSend
      *
@@ -303,7 +302,7 @@ class Client extends ClientListener implements ClientInterface
 
         $params = array($request);
 
-        if (!is_null($response)) {
+        if (null !== $response) {
             $params[] = $response;
         }
 
