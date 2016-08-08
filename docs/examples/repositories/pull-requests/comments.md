@@ -9,11 +9,7 @@ title: Pull requests comments
 Manage pull requests comments.
 
 ### Prepare:
-
-```php
-$pull = new Bitbucket\API\Repositories\PullRequests();
-$pull->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="pull" class_ns="Repositories\PullRequests" %}
 
 ### Get a list of a pull request comments:
 

@@ -9,11 +9,7 @@ title: Changeset comments
 Manage changeset comments.
 
 ### Prepare:
-
-```php
-$changesets = new Bitbucket\API\Repositories\Changesets();
-$changesets->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="changesets" class_ns="Repositories\Changesets" %}
 
 ### Get a list of comments on a changeset:
 

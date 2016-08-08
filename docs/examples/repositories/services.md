@@ -9,11 +9,7 @@ title: Services
 Provides functionality for adding, removing, and configuring brokers on your repositories.
 
 ### Prepare:
-
-```php
-$services = new Bitbucket\API\Repositories\Services();
-$services->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="services" class_ns="Repositories\Services" %}
 
 ### Get a list of services on a repository:
 

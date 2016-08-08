@@ -9,11 +9,7 @@ title: Build Statuses
 Manages build statuses on a commit.
 
 ### Prepare:
-
-```php
-$buildStatuses = new Bitbucket\API\Repositories\Commits\BuildStatuses();
-$buildStatuses->setCredentials( new Bitbucket\API\Authentication\Basic($user, $password) );
-```
+{% include auth.md var_name="buildStatuses" class_ns="Repositories\Commits\BuildStatuses" %}
 
 ### Get the build status for a commit: (API 2.0)
 

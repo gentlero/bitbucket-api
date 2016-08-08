@@ -34,6 +34,7 @@ title: Examples
       - [Comments](repositories/changesets/comments.html)
     - [Commits](repositories/commits.html)
       - [Comments](repositories/commits/comments.html)
+      - [Build statuses](repositories/commits/build-statuses.html)
     - [Deploy keys](repositories/deploy-keys.html)
     - [Events](repositories/events.html)
     - [Followers](repositories/followers.html)

@@ -10,11 +10,7 @@ Manage the user privileges (permissions) of your repositories. It allows you to 
 write and or administer your repositories.
 
 ### Prepare
-
-```php
-$privileges = new Bitbucket\API\Privileges();
-$privileges->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="privileges" class_ns="Privileges" %}
 
 ### Get a list of user privileges granted on a repository with `read` access.
 

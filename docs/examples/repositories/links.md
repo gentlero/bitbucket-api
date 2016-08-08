@@ -9,11 +9,7 @@ title: Links
 Links connect your commit messages and code comments directly to your JIRA issue tracker or Bamboo build server.
 
 ### Prepare:
-
-```php
-$links = new Bitbucket\API\Repositories\Links();
-$links->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="links" class_ns="Repositories\Links" %}
 
 ### Get list of links:
 

@@ -10,10 +10,7 @@ title: Followers
 List a repository's followers.
 
 ### Prepare:
-
-```php
-$followers = new Bitbucket\API\Repositories\Followers();
-```
+{% include auth.md var_name="followers" class_ns="Repositories\Followers" %}
 
 ### Get the repository followers:
 

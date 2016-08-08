@@ -9,11 +9,7 @@ title: Issue comments
 Manage issue comments.
 
 ### Prepare:
-
-```php
-$issue = new Bitbucket\API\Repositories\Issues();
-$issue->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="issue" class_ns="Repositories\Issues" %}
 
 ### Fetch all comments:
 

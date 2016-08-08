@@ -9,11 +9,7 @@ title: User
 Manages the currently authenticated account profile.
 
 ### Prepare
-
-```php
-$user = new Bitbucket\API\User();
-$user->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="user" class_ns="User" %}
 
 ### Get user profile
 

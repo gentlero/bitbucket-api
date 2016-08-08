@@ -9,11 +9,7 @@ title: Users ssh keys
 Use the ssh-keys resource to manipulate the ssh-keys on an individual or team account.
 
 ### Prepare:
-
-```php
-$users = new Bitbucket\API\Users();
-$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="user" class_ns="Users" %}
 
 ### Get a list of the keys associated with an account:
 

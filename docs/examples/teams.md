@@ -9,11 +9,7 @@ title: Teams
 Get Team related information.
 
 ### Prepare:
-
-```php
-$team = new Bitbucket\API\Teams();
-$team->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="team" class_ns="Teams" %}
 
 ### Get a list of teams to which the caller has access: (API 2.0)
 
