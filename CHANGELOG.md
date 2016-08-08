@@ -10,7 +10,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed:
   - Minimum required PHP version has been bumped to 5.4 from 5.3
-  - User::get() now uses version 2 of the API.
   - SSL certificate verification is now enabled by default.
 
 ## 0.8.1 / 2016-05-08
