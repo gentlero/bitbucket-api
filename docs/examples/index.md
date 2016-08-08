@@ -47,7 +47,7 @@ title: Examples
     - [Pull requests](repositories/pull-requests.html)
       - [Comments](repositories/pull-requests/comments.html)
     - [Repository](repositories/repository.html)
-    - ~~[Services](repositories/services.html)~~ (deprecated since 0.7.0 -- @see [WebHooks](repositories/webhooks.html))
+    - [Services](repositories/services.html)
     - [Hooks](repositories/webhooks.html)
     - [Src](repositories/src.html)
     - [Wiki](repositories/wiki.html)
