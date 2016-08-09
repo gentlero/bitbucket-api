@@ -141,11 +141,13 @@ class Issues extends API\Api
      *
      * @access public
      * @return Repositories\Issues\Comments
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        return $this->childFactory('Repositories\\Issues\\Comments');
+        return $this->api('Repositories\\Issues\\Comments');
     }
 
     /**
@@ -153,11 +155,13 @@ class Issues extends API\Api
      *
      * @access public
      * @return Repositories\Issues\Components
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function components()
     {
-        return $this->childFactory('Repositories\\Issues\\Components');
+        return $this->api('Repositories\\Issues\\Components');
     }
 
     /**
@@ -165,11 +169,13 @@ class Issues extends API\Api
      *
      * @access public
      * @return Repositories\Issues\Versions
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function versions()
     {
-        return $this->childFactory('Repositories\\Issues\\Versions');
+        return $this->api('Repositories\\Issues\\Versions');
     }
 
     /**
@@ -177,10 +183,12 @@ class Issues extends API\Api
      *
      * @access public
      * @return Repositories\Issues\Milestones
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function milestones()
     {
-        return $this->childFactory('Repositories\\Issues\\Milestones');
+        return $this->api('Repositories\\Issues\\Milestones');
     }
 }

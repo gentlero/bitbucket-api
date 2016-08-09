@@ -74,11 +74,13 @@ class User extends Api
      *
      * @access public
      * @return User\Repositories
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function repositories()
     {
-        return $this->childFactory('User\\Repositories');
+        return $this->api('User\\Repositories');
     }
 
     /**

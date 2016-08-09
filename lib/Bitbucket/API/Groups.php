@@ -106,10 +106,12 @@ class Groups extends Api
      *
      * @access public
      * @return Groups\Members
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function members()
     {
-        return $this->childFactory('Groups\\Members');
+        return $this->api('Groups\\Members');
     }
 }

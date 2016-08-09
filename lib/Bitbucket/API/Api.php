@@ -271,7 +271,20 @@ class Api
      */
     public function api($name)
     {
-        return $this->childFactory($name);
+        if (!is_string($name) || $name === '') {
+            throw new \InvalidArgumentException('No child specified.');
+        }
+
+        /** @var Api $child */
+        $class = '\\Bitbucket\\API\\'.$name;
+        $child = new $class($this->client);
+        $child->setClient($this->getClient());
+
+        if ($this->getClient()->hasListeners()) {
+            $child->getClient()->setListeners($this->getClient()->getListeners());
+        }
+
+        return $child;
     }
 
     /**
