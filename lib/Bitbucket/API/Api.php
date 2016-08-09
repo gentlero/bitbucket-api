@@ -1,9 +1,8 @@
 <?php
-
 /**
  * This file is part of the bitbucket-api package.
  *
- * (c) Alexandru G. <alex@gentle.ro>
+ * (c) Alexandru Guzinschi <alex@gentle.ro>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +19,7 @@ use Bitbucket\API\Http\Client;
 use Buzz\Client\Curl;
 
 /**
- * @author  Alexandru G.    <alex@gentle.ro>
+ * @author Alexandru Guzinschi <alex@gentle.ro>
  */
 class Api
 {
@@ -273,36 +272,6 @@ class Api
     {
         if (!is_string($name) || $name === '') {
             throw new \InvalidArgumentException('No child specified.');
-        }
-
-        /** @var Api $child */
-        $class = '\\Bitbucket\\API\\'.$name;
-        $child = new $class($this->client);
-        $child->setClient($this->getClient());
-
-        if ($this->getClient()->hasListeners()) {
-            $child->getClient()->setListeners($this->getClient()->getListeners());
-        }
-
-        return $child;
-    }
-
-    /**
-     * Factory for child classes
-     *
-     * NOTE: This exists only to keep BC. Do not rely on this factory because
-     * it will be removed in a future version!
-     *
-     * @access protected
-     * @param  string $name
-     * @return mixed
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function childFactory($name)
-    {
-        if (empty($name)) {
-            throw new \InvalidArgumentException('Not child specified.');
         }
 
         /** @var Api $child */
