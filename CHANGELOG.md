@@ -11,6 +11,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed:
   - Minimum required PHP version has been bumped to 5.4 from 5.3
   - SSL certificate verification is now enabled by default.
+  
+### Removed:
+  - Removed deprecated methods from `Api` (_childFactory, processResponse, authorize_)
 
 ## 0.8.1 / 2016-05-08
 
