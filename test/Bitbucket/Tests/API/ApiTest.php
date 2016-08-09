@@ -81,4 +81,20 @@ class ApiTest extends TestCase
         $api->setFormat('invalid format');
     }
 
+    /**
+     * @dataProvider invalidChildNameProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSPFShouldFailWithInvalidClassName($name)
+    {
+        $bitbucket = new API\Api();
+        $bitbucket->api($name);
+    }
+
+    public function invalidChildNameProvider()
+    {
+        return [
+            [array()], [new \stdClass()], [21], ['32.4'], ['invalid']
+        ];
+    }
 }

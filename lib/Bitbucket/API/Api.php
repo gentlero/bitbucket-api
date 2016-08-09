@@ -12,7 +12,6 @@ namespace Bitbucket\API;
 
 use Bitbucket\API\Http\Listener\NormalizeArrayListener;
 use Buzz\Message\MessageInterface;
-use Buzz\Message\RequestInterface;
 use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
@@ -217,6 +216,11 @@ class Api
 
         /** @var Api $child */
         $class = '\\Bitbucket\\API\\'.$name;
+
+        if (!class_exists($class)) {
+            throw new \InvalidArgumentException(sprintf('No such child class [%s].', $name));
+        }
+
         $child = new $class($this->client);
         $child->setClient($this->getClient());
 
