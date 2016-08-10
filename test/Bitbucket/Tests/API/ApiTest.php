@@ -20,9 +20,7 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
+        $api            = new API\Api(array(), $this->getHttpClientMock());
 
         $api->requestGet($endpoint, $params, $headers);
     }
@@ -32,9 +30,7 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
+        $api            = new API\Api(array(), $this->getHttpClientMock());
 
         $api->requestPost($endpoint, $params, $headers);
     }
@@ -44,9 +40,7 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
+        $api            = new API\Api(array(), $this->getHttpClientMock());
 
         $api->requestPut($endpoint, $params, $headers);
     }
@@ -56,9 +50,7 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
+        $api            = new API\Api(array(), $this->getHttpClientMock());
 
         $api->requestDelete($endpoint, $params, $headers);
     }

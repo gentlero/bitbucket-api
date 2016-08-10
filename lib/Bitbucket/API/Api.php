@@ -34,12 +34,6 @@ class Api
     const HTTP_RESPONSE_NOT_FOUND       = 404;
 
     /**
-     * Transport object
-     * @var BuzzClientInterface
-     */
-    protected $client;
-
-    /**
      * @var ClientInterface
      */
     protected $httpClient;
@@ -51,13 +45,12 @@ class Api
     protected $auth;
 
     /**
-     * @param  BuzzClientInterface $client
+     * @param array           $options
+     * @param ClientInterface $client
      */
-    public function __construct(BuzzClientInterface $client = null)
+    public function __construct(array $options = array(), ClientInterface $client = null)
     {
-        // @todo[1]: This exists for keeping BC. To be removed!
-        $this->client       = (is_null($client)) ? new Curl : $client;
-        $this->httpClient   = new Client(array(), $client);
+        $this->httpClient = (null !== $client) ? $client : new Client($options, $client);
 
         $this->httpClient->addListener(new NormalizeArrayListener());
     }
@@ -221,7 +214,7 @@ class Api
             throw new \InvalidArgumentException(sprintf('No such child class [%s].', $name));
         }
 
-        $child = new $class($this->client);
+        $child = new $class();
         $child->setClient($this->getClient());
 
         if ($this->getClient()->hasListeners()) {

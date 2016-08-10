@@ -13,7 +13,7 @@ class BranchRestrictionsTest extends Tests\TestCase
         $expectedResult = $this->fakeResponse(array('dummy'));
 
         $client = $this->getHttpClientMock();
-        $client->expects($this->once())
+        $client->expects($this->any())
             ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
