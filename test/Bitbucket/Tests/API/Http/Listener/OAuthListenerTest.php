@@ -72,12 +72,18 @@ class OAuthListenerTest extends Tests\TestCase
         $listener   = new OAuthListener($oauth_params);
         $bb         = new \Bitbucket\API\Api(array(), $this->getHttpClient());
 
-        $bb->getClient()->addListener($listener);
-
-        $bb->requestGet('/dummy');
-
         /** @var \Bitbucket\API\Http\Client $httpClient */
         $httpClient = $bb->getClient();
+
+        $httpClient->addListener($listener);
+
+        $bb->requestGet(
+            \Bitbucket\API\Http\Listener\OAuthListener::ENDPOINT_REQUEST_TOKEN,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+
         $authHeader = $httpClient->getLastRequest()->getHeader('Authorization');
 
         $this->assertContains('OAuth', $authHeader);

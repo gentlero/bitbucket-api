@@ -194,6 +194,17 @@ class ClientTest extends Tests\TestCase
         $this->assertArrayHasKey('oauth', $listeners[0]);
     }
 
+    public function testCurrentApiVersion()
+    {
+        $client = new \Bitbucket\API\Http\Client();
+        $client->setApiVersion('1.0');
+        $this->assertFalse($client->isApiVersion('2.0'));
+        $client->setApiVersion('2.0');
+        $this->assertFalse($client->isApiVersion('1'));
+        $this->assertTrue($client->isApiVersion('2.0'));
+        $this->assertTrue($client->isApiVersion('2'));
+    }
+
     private function getListenerMock($name = 'dummy')
     {
         $listener = $this->getMock('Bitbucket\API\Http\Listener\ListenerInterface');
@@ -201,5 +212,12 @@ class ClientTest extends Tests\TestCase
         $listener->expects($this->any())->method('getName')->will($this->returnValue($name));
 
         return $listener;
+    }
+
+    public function invalidApiVersionsProvider()
+    {
+        return [
+            ['3.1'], ['1,2'], ['1,0'], ['2.1'], ['4'], [2], ['string'], [new \stdClass()]
+        ];
     }
 }

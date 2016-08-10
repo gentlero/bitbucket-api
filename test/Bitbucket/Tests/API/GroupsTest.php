@@ -24,20 +24,20 @@ class GroupsTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
-    public function testGetAllGroupsWithFilter()
+    public function testGetAllGroupsWithFilters()
     {
         $endpoint       = 'groups';
-        $params         = array('group' => 'gentle/testers');
-        $expectedResult = json_encode('dummy');
+        $params         = array('group' => 'gentle/testers&group=gentle/maintainers');
+        $expectedResult = 'x';
 
-        $groups = $this->getApiMock('Bitbucket\API\Groups');
-        $groups->expects($this->once())
+        $groups = $this->getApiMock('\Bitbucket\API\Groups');
+        $groups->expects($this->any())
             ->method('requestGet')
             ->with($endpoint, $params)
             ->will( $this->returnValue($expectedResult) );
 
         /** @var $groups \Bitbucket\API\Groups */
-        $actual = $groups->get('gentle', $params);
+        $actual = $groups->get('gentle', array('group' => array('gentle/testers', 'gentle/maintainers')));
 
         $this->assertEquals($expectedResult, $actual);
     }
