@@ -22,7 +22,8 @@
         "phpunit/phpunit":          "3.7.*"
     },
     "conflict": {
-        "eabay/bitbucket-repo-sync": "*"
+        "eabay/bitbucket-repo-sync": "*",
+        "rlacerda83/bitbucket-api": "*"
     },
     "suggest": {
         "ext-curl": "*"
