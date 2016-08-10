@@ -12,10 +12,8 @@ namespace Bitbucket\API;
 
 use Bitbucket\API\Http\Listener\NormalizeArrayListener;
 use Buzz\Message\MessageInterface;
-use Buzz\Client\ClientInterface as BuzzClientInterface;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
-use Buzz\Client\Curl;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
