@@ -91,6 +91,17 @@ class ApiTest extends TestCase
         $bitbucket->api($name);
     }
 
+    public function testDifferentHttpClientInstanceOnCloning()
+    {
+        $repo1 = new \Bitbucket\API\Repositories();
+        $repo2 = clone $repo1;
+        $repo1->setFormat('xml');
+
+        $this->assertEquals('xml', $repo1->getFormat());
+        $this->assertNotEquals('xml', $repo2->getFormat());
+        $this->assertNotSame($repo1, $repo2);
+    }
+
     public function invalidChildNameProvider()
     {
         return [

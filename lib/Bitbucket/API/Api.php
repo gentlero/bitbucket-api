@@ -232,6 +232,16 @@ class Api
     }
 
     /**
+     * @access public
+     * @return void
+     */
+    public function __clone()
+    {
+        // prevent reference to the same HTTP client.
+        $this->setClient(clone $this->getClient());
+    }
+
+    /**
      * Convert JSON to array with error check
      *
      * @access protected
