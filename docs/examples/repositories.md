@@ -12,6 +12,9 @@ repositories:
 ### Prepare:
 {% include auth.md var_name="repositories" class_ns="Repositories" %}
 
+### Pagination:
+{% include pagination.md var_name="repositories" class_ns="Repositories" %}
+
 ### Get a list of repositories for an account:
 
 If the caller is properly authenticated and authorized, this method returns a collection containing public and private repositories.
