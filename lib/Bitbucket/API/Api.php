@@ -10,6 +10,7 @@
 
 namespace Bitbucket\API;
 
+use Bitbucket\API\Http\Listener\ApiOneCollectionListener;
 use Bitbucket\API\Http\Listener\NormalizeArrayListener;
 use Buzz\Message\MessageInterface;
 use Bitbucket\API\Http\ClientInterface;
@@ -51,6 +52,7 @@ class Api
         $this->httpClient = (null !== $client) ? $client : new Client($options, $client);
 
         $this->httpClient->addListener(new NormalizeArrayListener());
+        $this->httpClient->addListener(new ApiOneCollectionListener());
     }
 
     /**
