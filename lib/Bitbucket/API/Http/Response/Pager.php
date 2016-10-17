@@ -130,6 +130,10 @@ class Pager implements PagerInterface
         $content = json_decode($this->response->getContent(), true);
 
         if (is_array($content) && JSON_ERROR_NONE === json_last_error()) {
+            // replace reference inserted by `LegacyCollectionListener` with actual data.
+            if (is_string($content['values']) && strpos($content['values'], '.') !== false) {
+                $content['values'] = $content[str_replace('.', '', $content['values'])];
+            }
             return $content;
         }
 
