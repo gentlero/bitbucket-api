@@ -34,6 +34,22 @@ class Tags extends API\Api
     }
 
     /**
+     * Get an individual tag
+     *
+     * @access public
+     * @param  string           $account   The team or individual account owning the repository.
+     * @param  string           $repo      The repository identifier.
+     * @param  string           $name      The tag identifier.
+     * @return MessageInterface
+     */
+    public function get($account, $repo, $name)
+    {
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/refs/tags/%s', $account, $repo, $name)
+        );
+    }
+
+    /**
      * Create a new tag
      *
      * @access public
