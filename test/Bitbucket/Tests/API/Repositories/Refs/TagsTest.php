@@ -25,6 +25,25 @@ class TagsTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    public function testGet()
+    {
+        $endpoint       = 'repositories/gentle/eof/refs/tags/atag';
+        $expectedResult = json_encode('dummy');
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        $repository = $this->getClassMock('Bitbucket\API\Repositories\Refs\Tags', $client);
+
+        /** @var $repository \Bitbucket\API\Repositories\Refs\Tags */
+        $actual = $repository->get('gentle', 'eof', 'atag');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testCreate()
     {
         $endpoint       = 'repositories/gentle/eof/refs/tags';
@@ -39,7 +58,7 @@ class TagsTest extends Tests\TestCase
         $repository = $this->getClassMock('Bitbucket\API\Repositories\Refs\Tags', $client);
 
         /** @var $repository \Bitbucket\API\Repositories\Refs\Tags */
-        $actual = $repository->create('gentle', 'eof', 'tagName', '2310abb944423ecf1a90be9888dafd096744b531');
+        $actual = $repository->create('gentle', 'eof', 'atag', '2310abb944423ecf1a90be9888dafd096744b531');
 
         $this->assertEquals($expectedResult, $actual);
     }
