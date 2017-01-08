@@ -24,12 +24,14 @@ class Tags extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
+     * @param  string|array     $params   GET parameters
      * @return MessageInterface
      */
-    public function all($account, $repo)
+    public function all($account, $repo, $params = array())
     {
         return $this->getClient()->setApiVersion('2.0')->get(
-            sprintf('repositories/%s/%s/refs/tags', $account, $repo)
+            sprintf('repositories/%s/%s/refs/tags', $account, $repo),
+            $params
         );
     }
 
