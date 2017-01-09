@@ -30,7 +30,12 @@ See [http://gentlero.bitbucket.org/bitbucket-api/](http://gentlero.bitbucket.org
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+## Security
+
+For any security related issues, please send an email at [alex@gentle.ro][maintainer-pgp] instead of using the issue tracker.
 
 ## Credits
 
 - [Alexandru G.](https://bitbucket.org/vimishor)
+
+[maintainer-pgp]: https://keybase.io/vimishor/key.asc
