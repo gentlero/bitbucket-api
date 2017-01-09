@@ -28,7 +28,8 @@ See [http://gentlero.bitbucket.org/bitbucket-api/](http://gentlero.bitbucket.org
 
 ## Contribute
 
-Send pull requests on [Bitbucket](https://bitbucket.org/gentlero/bitbucket-api).
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
 
 ## Credits
 
