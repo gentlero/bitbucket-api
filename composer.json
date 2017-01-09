@@ -19,7 +19,8 @@
         "jacobkiers/oauth":     "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit":          "3.7.*"
+        "phpunit/phpunit":          "3.7.*",
+        "squizlabs/php_codesniffer": "~2.7"
     },
     "conflict": {
         "eabay/bitbucket-repo-sync": "*",
@@ -33,6 +34,7 @@
         "files": ["polyfill-55.php"]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "style": "php vendor/bin/phpcs --standard=psr2 lib/",
+        "test": "php vendor/bin/phpunit"
     }
 }
