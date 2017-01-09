@@ -57,7 +57,6 @@ class OAuth implements AuthenticationInterface
         if (is_array($params)) {
             $this->authHeader = $this->toHeader($params);
         } else {
-
             if (strpos($params, 'Authorization: ') !== false) {
                 $params = str_replace('Authorization: ', '', $params);
             }
