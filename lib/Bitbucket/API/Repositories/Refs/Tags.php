@@ -1,17 +1,16 @@
 <?php
-
 /**
  * This file is part of the bitbucket-api package.
  *
- * (c) Alexandru G. <alex@gentle.ro>
+ * (c) Alexandru Guzinschi <alex@gentle.ro>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Bitbucket\API\Repositories\Refs;
 
 use Bitbucket\API;
+use Buzz\Message\MessageInterface;
 
 /**
  * @author  Kevin Howe    <kjhowe@gmail.com>
@@ -24,10 +23,12 @@ class Tags extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @param  string|array     $params   GET parameters
+     * @param  string|array     $params  GET parameters
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
-    public function all($account, $repo, $params = array())
+    public function all($account, $repo, array $params = array())
     {
         return $this->getClient()->setApiVersion('2.0')->get(
             sprintf('repositories/%s/%s/refs/tags', $account, $repo),
@@ -39,10 +40,12 @@ class Tags extends API\Api
      * Get an individual tag
      *
      * @access public
-     * @param  string           $account   The team or individual account owning the repository.
-     * @param  string           $repo      The repository identifier.
-     * @param  string           $name      The tag identifier.
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    The tag identifier.
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function get($account, $repo, $name)
     {
@@ -55,11 +58,13 @@ class Tags extends API\Api
      * Create a new tag
      *
      * @access public
-     * @param  string           $account The team or individual account owning the repository.
-     * @param  string           $repo    The repository identifier.
-     * @param  string           $name    The name of the new tag.
-     * @param  string           $hash    The hash to tag.
+     * @param  string                    $account The team or individual account owning the repository.
+     * @param  string                    $repo    The repository identifier.
+     * @param  string                    $name    The name of the new tag.
+     * @param  string                    $hash    The hash to tag.
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function create($account, $repo, $name, $hash)
     {
