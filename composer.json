@@ -28,7 +28,8 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-0": { "Bitbucket\\": "lib/" }
+        "psr-0": { "Bitbucket\\": "lib/" },
+        "files": ["polyfill-55.php"]
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
