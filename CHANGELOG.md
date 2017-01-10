@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Endpoint to get a list of teams to which caller has access.
   - Endpoint to get emails for authenticated user.
   - Basic pager in order to support response pagination. (_@see #17_)
+  - Refs/Branches and Refs/Tags endpoints.
 
 ### Changed:
   - Minimum required PHP version has been bumped to 5.4 from 5.3
