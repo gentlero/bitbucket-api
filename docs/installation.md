@@ -8,7 +8,7 @@ title: Installation
 
 ### Requirements
 
-* PHP >= 5.3 with [cURL][2] extension.
+* PHP >= 5.4 with [cURL][2] extension.
 * [Buzz][3] library,
 * PHPUnit to run tests. ( _optional_ )
 
