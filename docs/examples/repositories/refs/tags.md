@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /examples/repositories/refs.html
+permalink: /examples/repositories/tags.html
 title: Tags
 ---
 

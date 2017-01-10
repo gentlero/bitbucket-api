@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /examples/repositories/refs.html
+permalink: /examples/repositories/branches.html
 title: Branches
 ---
 
