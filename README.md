@@ -20,7 +20,7 @@ Read [Introduction](http://gentlero.bitbucket.org/bitbucket-api/#introduction) a
 
 ## Documentation
 
-See [http://gentlero.bitbucket.org/bitbucket-api/](http://gentlero.bitbucket.org/bitbucket-api/) for more detailed documentation.
+See [https://gentlero.bitbucket.io/bitbucket-api/](https://gentlero.bitbucket.io/bitbucket-api/0.8/) for more detailed documentation.
 
 ## License
 
