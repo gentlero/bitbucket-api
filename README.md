@@ -16,11 +16,11 @@ Simple Bitbucket API wrapper for PHP >= 5.3.2.
 
 ## Getting started
 
-Read [Introduction](http://gentlero.bitbucket.org/bitbucket-api/#introduction) and [Installation](http://gentlero.bitbucket.org/bitbucket-api/installation.html) from the documentation.
+Read [Introduction](https://gentlero.bitbucket.io/bitbucket-api/#introduction) and [Installation](https://gentlero.bitbucket.io/bitbucket-api/installation.html) from the documentation.
 
 ## Documentation
 
-See [http://gentlero.bitbucket.org/bitbucket-api/](http://gentlero.bitbucket.org/bitbucket-api/) for more detailed documentation.
+See [https://gentlero.bitbucket.io/bitbucket-api/](https://gentlero.bitbucket.io/bitbucket-api/0.8/) for more detailed documentation.
 
 ## License
 
