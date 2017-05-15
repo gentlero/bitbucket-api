@@ -109,7 +109,7 @@ interface ClientInterface extends ClientListenerInterface
      * Supported versions: 1.0, 2.0
      *
      * @access public
-     * @param  float $version
+     * @param  string $version
      * @return $this
      *
      * @throws \InvalidArgumentException If invalid API version is provided
