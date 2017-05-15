@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.4 / 2017-05-15
+
+### Fixed:
+  - Updated broken links (_.org to .io_) inside README.md
+
 ## 0.8.3 / 2017-05-15
 
 ### Fixed:
