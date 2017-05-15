@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.3 / 2017-05-15
+
+### Fixed:
+  - Client::setApiVersion should accept only argument of type string (issue #57)
+
+
 ## 0.8.2 / 2017-01-10
 
 ### Fixed:
