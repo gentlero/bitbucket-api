@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed:
   - Updated broken links (_.org to .io_) inside README.md
+  - Fixed broken tests on PHP 5.3 due to short array syntax.
 
 ## 0.8.3 / 2017-05-15
 

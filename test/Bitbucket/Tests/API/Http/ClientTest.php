@@ -207,8 +207,8 @@ class ClientTest extends Tests\TestCase
 
     public function invalidApiVersionsProvider()
     {
-        return [
-            ['3.1'], ['1,2'], ['1,0'], ['2.1'], ['4'], [2], ['string'], [2.0]
-        ];
+        return array(
+            array('3.1'), array('1,2'), array('1,0'), array('2.1'), array('4'), array(2), array('string'), array(2.0)
+        );
     }
 }
