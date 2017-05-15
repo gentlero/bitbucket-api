@@ -43,11 +43,13 @@ class ClientTest extends Tests\TestCase
     }
 
     /**
+     * @dataProvider invalidApiVersionsProvider
      * @expectedException \InvalidArgumentException
+     * @ticket 57
      */
-    public function testSetApiVersionInvalid()
+    public function testSetApiVersionInvalid($version)
     {
-        $this->client->setApiVersion('1.1.1');
+        $this->client->setApiVersion($version);
     }
 
     public function testApiVersionSuccess()
@@ -201,5 +203,12 @@ class ClientTest extends Tests\TestCase
         $listener->expects($this->any())->method('getName')->will($this->returnValue($name));
 
         return $listener;
+    }
+
+    public function invalidApiVersionsProvider()
+    {
+        return [
+            ['3.1'], ['1,2'], ['1,0'], ['2.1'], ['4'], [2], ['string'], [2.0]
+        ];
     }
 }

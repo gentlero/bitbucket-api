@@ -33,7 +33,7 @@ class Client extends ClientListener implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/0.8.2 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/0.8.3 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => false
     );
@@ -187,7 +187,7 @@ class Client extends ClientListener implements ClientInterface
      */
     public function setApiVersion($version)
     {
-        if (!in_array($version, $this->options['api_versions'])) {
+        if (!in_array($version, $this->options['api_versions'], true)) {
             throw new \InvalidArgumentException(sprintf('Unsupported API version %s', $version));
         }
 
