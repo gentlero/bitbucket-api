@@ -19,6 +19,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Removed deprecated methods from `Api` (_childFactory, processResponse, authorize_)
   - Removed transport object dependency from `Api`.
 
+## 0.8.4 / 2017-05-15
+
+### Fixed:
+  - Updated broken links (_.org to .io_) inside README.md
+  - Fixed broken tests on PHP 5.3 due to short array syntax.
+
 ## 0.8.3 / 2017-05-15
 
 ### Fixed:
