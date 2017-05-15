@@ -187,7 +187,7 @@ class Client extends ClientListener implements ClientInterface
      */
     public function setApiVersion($version)
     {
-        if (!in_array($version, $this->options['api_versions'])) {
+        if (!in_array($version, $this->options['api_versions'], true)) {
             throw new \InvalidArgumentException(sprintf('Unsupported API version %s', $version));
         }
 
