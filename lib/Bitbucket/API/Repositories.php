@@ -27,12 +27,13 @@ class Repositories extends Api
      *
      * @access public
      * @param  string $owner The account of the repo owner.
+     * @param int|null $page THe page number of the listing
      * @return MessageInterface
      *
      * @api 2.0
      * @since Method available since 0.2.0
      */
-    public function all($owner = null)
+    public function all($owner = null, $page = null)
     {
         $endpoint = 'repositories';
 
@@ -40,6 +41,11 @@ class Repositories extends Api
             $endpoint = sprintf('repositories/%s', $owner);
         }
 
-        return $this->getClient()->setApiVersion('2.0')->get($endpoint);
+        $params = array();
+        if (!is_null($page)) {
+            $params['page'] = $page;
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->get($endpoint, $params);
     }
 }
