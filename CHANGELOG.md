@@ -18,6 +18,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed:
   - Removed deprecated methods from `Api` (_childFactory, processResponse, authorize_)
   - Removed transport object dependency from `Api`.
+  
+### Fixed:
+  - NormalizeArrayListener should not run on `FormRequest` (issue #62)
+  - [Tests] Use mocked HTTP client in `OAuth2ListenerTest:testGetAccessTokenFail`
 
 ## 0.8.4 / 2017-05-15
 
