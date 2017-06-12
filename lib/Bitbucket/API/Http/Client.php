@@ -113,7 +113,8 @@ class Client extends ClientListener implements ClientInterface
      */
     public function request($endpoint, $params = array(), $method = 'GET', array $headers = array())
     {
-        $request = $this->createRequest($method, $endpoint);
+        //$request = $this->createRequest($method, $endpoint);
+        $request = ($this->requestObj !== null) ? $this->requestObj : $this->createRequest($method, $endpoint);
 
         // add a default content-type if none was set
         if (empty($headers['Content-Type']) && in_array(strtoupper($method), array('POST', 'PUT'), true)) {
