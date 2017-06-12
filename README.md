@@ -1,16 +1,16 @@
 # PHP Bitbucket API
 
 [![Latest Version](https://img.shields.io/packagist/v/gentle/bitbucket-api.svg?style=flat-square)](https://packagist.org/packages/gentle/bitbucket-api)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/gentlero/bitbucket-api/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://bitbucket.org/gentlero/bitbucket-api/src/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/gentlero/bitbucket-api/master.svg?style=flat-square)](https://travis-ci.org/gentlero/bitbucket-api)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/b/gentlero/bitbucket-api.svg?style=flat-square)](https://scrutinizer-ci.com/b/gentlero/bitbucket-api/?branch=develop)
 [![Code quality](https://img.shields.io/scrutinizer/b/gentlero/bitbucket-api.svg?style=flat-square)](https://scrutinizer-ci.com/b/gentlero/bitbucket-api/?branch=develop)
 
-Simple Bitbucket API wrapper for PHP >= 5.3.2.
+Simple Bitbucket API wrapper for PHP >= 5.4
 
 ## Requirements
 
-* PHP >= 5.3 with [cURL](http://php.net/manual/en/book.curl.php) extension.
+* PHP >= 5.4.0 with [cURL](http://php.net/manual/en/book.curl.php) extension.
 * [Buzz](https://github.com/kriswallsmith/Buzz) library,
 * PHPUnit to run tests. ( _optional_ )
 
@@ -20,7 +20,7 @@ Read [Introduction](https://gentlero.bitbucket.io/bitbucket-api/#introduction) a
 
 ## Documentation
 
-See [https://gentlero.bitbucket.io/bitbucket-api/](https://gentlero.bitbucket.io/bitbucket-api/0.8/) for more detailed documentation.
+See [https://gentlero.bitbucket.io/bitbucket-api/](https://gentlero.bitbucket.io/bitbucket-api/) for more detailed documentation.
 
 ## License
 
@@ -28,8 +28,10 @@ See [https://gentlero.bitbucket.io/bitbucket-api/](https://gentlero.bitbucket.io
 
 ## Contribute
 
-Send pull requests on [Bitbucket](https://bitbucket.org/gentlero/bitbucket-api).
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Credits
+## Security
 
-- [Alexandru G.](https://bitbucket.org/vimishor)
+For any security related issues, please send an email at [alex@gentle.ro][maintainer-pgp] instead of using the issue tracker.
+
+[maintainer-pgp]: https://keybase.io/vimishor/key.asc

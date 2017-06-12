@@ -6,6 +6,50 @@ use Bitbucket\Tests\API as Tests;
 
 class TeamsTest extends Tests\TestCase
 {
+    public function invalidRoleProvider()
+    {
+        return array(
+            array('invalid'),
+            array(2),
+            array(array('invalid')),
+            array('2.0'),
+            array(true),
+            array(array('admin')),
+            array(array())
+        );
+    }
+
+    /**
+     * @dataProvider invalidRoleProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetTeamsListWithInvalidRole($role)
+    {
+        $client = $this->getHttpClientMock();
+
+        /** @var \Bitbucket\API\Teams $team */
+        $team = $this->getClassMock('Bitbucket\API\Teams', $client);
+        $team->all($role);
+    }
+
+    public function testGetTeamsList()
+    {
+        $endpoint       = 'teams';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->any())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\Teams $team */
+        $team = $this->getClassMock('Bitbucket\API\Teams', $client);
+        $actual = $team->all('member');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testGetTeamProfile()
     {
         $endpoint       = 'teams/gentle-web';

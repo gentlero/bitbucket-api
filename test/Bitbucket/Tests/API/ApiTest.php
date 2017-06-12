@@ -20,10 +20,8 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-        
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
-        
+        $api            = new API\Api(array(), $this->getHttpClientMock());
+
         $api->requestGet($endpoint, $params, $headers);
     }
 
@@ -32,10 +30,8 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-        
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
-        
+        $api            = new API\Api(array(), $this->getHttpClientMock());
+
         $api->requestPost($endpoint, $params, $headers);
     }
 
@@ -44,10 +40,8 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-        
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
-        
+        $api            = new API\Api(array(), $this->getHttpClientMock());
+
         $api->requestPut($endpoint, $params, $headers);
     }
 
@@ -56,67 +50,9 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-
-        $client     = $this->getBrowserMock();
-        $api        = new API\Api($client);
+        $api            = new API\Api(array(), $this->getHttpClientMock());
 
         $api->requestDelete($endpoint, $params, $headers);
-    }
-
-    public function testProcessResponseContent()
-    {
-        $expectedResult = file_get_contents(__DIR__.'/data/issue/single.json');
-
-        $actual = $this->processResponse('HTTP/1.1 200 OK', $expectedResult);
-
-        $this->assertEquals($expectedResult, $actual);
-    }
-
-    public function testProcessResponseNoContent()
-    {
-        $expectedResult = true;
-        
-        $actual = $this->processResponse('HTTP/1.1 204 No Content', $expectedResult);
-
-        $this->assertEquals($expectedResult, $actual);
-    }
-
-    public function testProcessResponseBadRequest()
-    {
-        $response = new \Buzz\Message\Response;
-        $response->addHeader('HTTP/1.1 400 Bad Request');
-        $expectedResult = $response;
-        
-        $method = $this->getMethod('Bitbucket\API\Api', 'processResponse');
-        $obj    = new API\Api;
-        $actual = $method->invokeArgs($obj, array($response));
-
-        $this->assertEquals($expectedResult, $actual);
-    }
-
-    /**
-     * @expectedException \Bitbucket\API\Authentication\Exception
-     */
-    public function testProcessResponseUnauthorized()
-    {
-        $this->processResponse('HTTP/1.1 401 Unauthorized');
-    }
-
-    /**
-     * @expectedException \Bitbucket\API\Exceptions\ForbiddenAccessException
-     */
-    public function testProcessResponseForbidden()
-    {
-        $this->processResponse('HTTP/1.1 403 Forbidden');
-    }
-
-    public function testProcessResponseNotFound()
-    {
-        $expectedResult = false;
-        
-        $actual = $this->processResponse('HTTP/1.1 404 Not Found', $expectedResult);
-
-        $this->assertEquals($expectedResult, $actual);
     }
 
     /**
@@ -137,15 +73,31 @@ class ApiTest extends TestCase
         $api->setFormat('invalid format');
     }
 
-    protected function processResponse($header, $expectedResult = null)
+    /**
+     * @dataProvider invalidChildNameProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSPFShouldFailWithInvalidClassName($name)
     {
-        $response = new \Buzz\Message\Response;
-        $response->setContent($expectedResult);
-        $response->addHeader($header);        
+        $bitbucket = new API\Api();
+        $bitbucket->api($name);
+    }
 
-        $method = $this->getMethod('Bitbucket\API\Api', 'processResponse');
-        $obj = new API\Api;
-        
-        return $method->invokeArgs($obj, array($response));
+    public function testDifferentHttpClientInstanceOnCloning()
+    {
+        $repo1 = new \Bitbucket\API\Repositories();
+        $repo2 = clone $repo1;
+        $repo1->setFormat('xml');
+
+        $this->assertEquals('xml', $repo1->getFormat());
+        $this->assertNotEquals('xml', $repo2->getFormat());
+        $this->assertNotSame($repo1, $repo2);
+    }
+
+    public function invalidChildNameProvider()
+    {
+        return [
+            [array()], [new \stdClass()], [21], ['32.4'], ['invalid']
+        ];
     }
 }

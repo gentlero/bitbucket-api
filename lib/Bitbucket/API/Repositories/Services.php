@@ -18,8 +18,6 @@ use Buzz\Message\MessageInterface;
  * Provides functionality for adding, removing, and configuring brokers on your repositories
  *
  * @author  Alexandru G.    <alex@gentle.ro>
- *
- * @deprecated Deprecated since version 0.7.0 in favor of Repositories\Hooks
  */
 class Services extends API\Api
 {

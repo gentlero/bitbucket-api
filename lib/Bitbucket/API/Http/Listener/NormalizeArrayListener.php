@@ -11,6 +11,7 @@
 
 namespace Bitbucket\API\Http\Listener;
 
+use Buzz\Message\Form\FormRequestInterface;
 use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 
@@ -39,6 +40,10 @@ class NormalizeArrayListener implements ListenerInterface
      */
     public function preSend(RequestInterface $request)
     {
+        if ($request instanceof FormRequestInterface) {
+            return;
+        }
+
         $request->setContent(
             // Transform: "foo[0]=xxx&foo[1]=yyy" to "foo=xxx&foo=yyy"
             preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $request->getContent())

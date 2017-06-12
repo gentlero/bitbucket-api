@@ -2,6 +2,27 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0 / 2017-06-12
+
+### Added:
+  - Endpoint to get a list of teams to which caller has access.
+  - Endpoint to get emails for authenticated user.
+  - Basic pager in order to support response pagination. (_@see #17_)
+  - Refs/Branches and Refs/Tags endpoints.
+
+### Changed:
+  - Minimum required PHP version has been bumped to 5.4 from 5.3
+  - SSL certificate verification is now enabled by default.
+  - `Api` constructor signature was modified in order to reflect removal of transport object dependency. (_@see Removed[2]_)
+  
+### Removed:
+  - Removed deprecated methods from `Api` (_childFactory, processResponse, authorize_)
+  - Removed transport object dependency from `Api`.
+  
+### Fixed:
+  - NormalizeArrayListener should not run on `FormRequest` (issue #62)
+  - [Tests] Use mocked HTTP client in `OAuth2ListenerTest:testGetAccessTokenFail`
+
 ## 0.8.4 / 2017-05-15
 
 ### Fixed:

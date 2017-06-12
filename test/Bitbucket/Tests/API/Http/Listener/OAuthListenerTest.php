@@ -70,18 +70,26 @@ class OAuthListenerTest extends Tests\TestCase
             'oauth_consumer_secret'   => 'bbb'
         );
         $listener   = new OAuthListener($oauth_params);
-        $bb         = new \Bitbucket\API\Api($this->getBrowserMock());
+        $bb         = new \Bitbucket\API\Api(array(), $this->getHttpClient());
 
-        $bb->getClient()->addListener($listener);
+        /** @var \Bitbucket\API\Http\Client $httpClient */
+        $httpClient = $bb->getClient();
 
-        $bb->requestGet('/dummy');
+        $httpClient->addListener($listener);
 
-        $auth_header = $bb->getClient()->getLastRequest()->getHeader('Authorization');
+        $bb->requestGet(
+            \Bitbucket\API\Http\Listener\OAuthListener::ENDPOINT_REQUEST_TOKEN,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
 
-        $this->assertContains('OAuth', $auth_header);
+
+        $authHeader = $httpClient->getLastRequest()->getHeader('Authorization');
+
+        $this->assertContains('OAuth', $authHeader);
         $this->assertContains(
             sprintf('oauth_consumer_key="%s"', $oauth_params['oauth_consumer_key']),
-            $auth_header
+            $authHeader
         );
     }
-} 
+}

@@ -26,11 +26,13 @@ class PullRequests extends API\Api
      *
      * @access public
      * @return PullRequests\Comments
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        return $this->childFactory('Repositories\\PullRequests\\Comments');
+        return $this->api('Repositories\\PullRequests\\Comments');
     }
 
     /**

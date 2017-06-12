@@ -8,35 +8,23 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function getApiMock($class = null, $methods = array())
     {
-        $class      = is_null($class) ? '\Bitbucket\API\Api' : $class;
-        $methods    = array_merge(
+        $class = is_null($class) ? '\Bitbucket\API\Api' : $class;
+        $methods = array_merge(
             array('requestGet', 'requestPost', 'requestPut', 'requestDelete'),
             $methods
         );
 
-        $client = $this->getMock(
-            '\Buzz\Client\ClientInterface',
-            array('setTimeout', 'setVerifyPeer', 'send')
-        );
-
-        $client->expects($this->any())
-            ->method('setTimeout')
-            ->with(10);
-        $client->expects($this->any())
-            ->method('setVerifyPeer')
-            ->with(false);
-        $client->expects($this->any())
-            ->method('send');
+        $client = $this->getHttpClientMock();
 
         return $this->getMockBuilder($class)
             ->setMethods($methods)
-            ->setConstructorArgs(array($client))
+            ->setConstructorArgs(array(array(), $client))
             ->getMock();
     }
 
     protected function getBrowserMock()
     {
-        return $this->getMock('Buzz\Client\ClientInterface', array('setTimeout', 'setVerifyPeer', 'send'));
+        return $this->getMock('\Buzz\Client\ClientInterface', array('setTimeout', 'setVerifyPeer', 'send'));
     }
 
     protected function getTransportClientMock()
@@ -44,7 +32,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $client = $this->getBrowserMock();
 
         $client->expects($this->any())->method('setTimeout')->with(10);
-        $client->expects($this->any())->method('setVerifyPeer')->with(false);
+        $client->expects($this->any())->method('setVerifyPeer')->with(true);
         $client->expects($this->any())->method('send');
 
         return $client;
@@ -60,6 +48,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
+    protected function getHttpClient()
+    {
+        return new \Bitbucket\API\Http\Client(array(), $this->getTransportClientMock());
+    }
+
     protected function fakeResponse($data)
     {
         $response = new Response();
@@ -71,7 +64,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function getClassMock($class, $httpClient)
     {
-        $obj = new $class($this->getTransportClientMock());
+        /** @var \Bitbucket\API\Api $obj */
+        $obj = new $class();
         $obj->setClient($httpClient);
 
         return $obj;

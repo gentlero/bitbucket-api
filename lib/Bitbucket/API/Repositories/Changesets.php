@@ -95,10 +95,12 @@ class Changesets extends API\Api
      *
      * @access public
      * @return Changesets\Comments
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        return $this->childFactory('Repositories\\Changesets\\Comments');
+        return $this->api('Repositories\\Changesets\\Comments');
     }
 }

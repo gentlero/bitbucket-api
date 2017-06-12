@@ -10,10 +10,10 @@ The repositories namespace has a number of resources you can use to manage repos
 repositories:
 
 ### Prepare:
-  ```php
-  $repositories = new Bitbucket\API\Repositories();
-  $repositories->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-  ```
+{% include auth.md var_name="repositories" class_ns="Repositories" %}
+
+### Pagination:
+{% include pagination.md var_name="repositories" class_ns="Repositories" %}
 
 ### Get a list of repositories for an account:
 

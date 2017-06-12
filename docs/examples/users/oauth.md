@@ -9,11 +9,7 @@ title: Users OAuth
 Use the oauth resource to create and maintain your own OAuth consumers.
 
 ### Prepare:
-
-```php
-$users = new Bitbucket\API\Users();
-$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="user" class_ns="Users" %}
 
 ### Get all OAuth consumers:
 

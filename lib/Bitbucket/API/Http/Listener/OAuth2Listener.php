@@ -1,9 +1,8 @@
 <?php
-
 /**
  * This file is part of the bitbucket-api package.
  *
- * (c) Alexandru G. <alex@gentle.ro>
+ * (c) Alexandru Guzinschi <alex@gentle.ro>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +18,7 @@ use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 
 /**
- * @author  Alexandru G.    <alex@gentle.ro>
+ * @author Alexandru Guzinschi <alex@gentle.ro>
  */
 class OAuth2Listener implements ListenerInterface
 {
@@ -27,7 +26,7 @@ class OAuth2Listener implements ListenerInterface
     const ENDPOINT_AUTHORIZE        = 'authorize';
 
     /** @var array */
-    protected static $config = array(
+    private $config = array(
         'oauth_client_id'       => 'anon',
         'oauth_client_secret'   => 'anon',
         'token_type'            => 'bearer',
@@ -39,7 +38,7 @@ class OAuth2Listener implements ListenerInterface
 
     public function __construct(array $config, ClientInterface $client = null)
     {
-        self::$config       = array_merge(self::$config, $config);
+        $this->config       = array_merge($this->config, $config);
         $this->httpClient   = (null !== $client) ? $client : new Client(
             array(
                 'base_url'      => 'https://bitbucket.org/site',
@@ -71,11 +70,11 @@ class OAuth2Listener implements ListenerInterface
             return;
         }
 
-        if (false === array_key_exists('access_token', self::$config)) {
+        if (false === array_key_exists('access_token', $this->config)) {
             try {
                 $data = $this->getAccessToken();
-                self::$config['token_type']     = $data['token_type'];
-                self::$config['access_token']   = $data['access_token'];
+                $this->config['token_type']     = $data['token_type'];
+                $this->config['access_token']   = $data['access_token'];
             } catch (HttpResponseException $e) {
                 throw new ForbiddenAccessException("Can't fetch access_token.", 0, $e);
             }
@@ -84,8 +83,8 @@ class OAuth2Listener implements ListenerInterface
         $request->addHeader(
             sprintf(
                 'Authorization: %s %s',
-                ucfirst(strtolower(self::$config['token_type'])),
-                self::$config['access_token']
+                ucfirst(strtolower($this->config['token_type'])),
+                $this->config['access_token']
             )
         );
     }
@@ -113,9 +112,9 @@ class OAuth2Listener implements ListenerInterface
                 self::ENDPOINT_ACCESS_TOKEN,
                 array(
                     'grant_type'    => 'client_credentials',
-                    'client_id'     => self::$config['client_id'],
-                    'client_secret' => self::$config['client_secret'],
-                    'scope'         => implode(',', self::$config['scopes'])
+                    'client_id'     => $this->config['client_id'],
+                    'client_secret' => $this->config['client_secret'],
+                    'scope'         => implode(',', $this->config['scopes'])
                 )
             )
         ;

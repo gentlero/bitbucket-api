@@ -9,11 +9,7 @@ title: Repository
 Allows you to create a new repository or edit a specific one.
 
 ### Prepare:
-
-```php
-$repo = new Bitbucket\API\Repositories\Repository();
-$repo->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="repo" class_ns="Repositories\Repository" %}
 
 ### Get information associated with an individual repository: (API 2.0)
 

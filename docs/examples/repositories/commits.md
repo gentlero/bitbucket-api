@@ -9,11 +9,7 @@ title: Commits
 Retrieve and compare information about commits.
 
 ### Prepare:
-
-```php
-$commits = new Bitbucket\API\Repositories\Commits();
-$commits->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="commits" class_ns="Repositories\Commits" %}
 
 ### Get all commits for a repository: (API 2.0)
 

@@ -10,13 +10,7 @@ Allows you to browse directories and view files.
 *NOTE:* This is a read-only resource.
 
 ### Prepare:
-
-```php
-$src = new Bitbucket\API\Repositories\Src();
-
-# Authentication is required if the repository is private.
-$src->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="src" class_ns="Repositories\Src" %}
 
 ### Get a list of the src in a repository.:
 

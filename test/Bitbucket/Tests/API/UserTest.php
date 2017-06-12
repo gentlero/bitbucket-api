@@ -7,18 +7,37 @@ use Bitbucket\API;
 
 class UserTest extends Tests\TestCase
 {
+    public function testGetEmails()
+    {
+        $endpoint       = 'user/emails';
+        $expectedResult = $this->fakeResponse(array('dummy'));
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->any())
+            ->method('get')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        /** @var \Bitbucket\API\User $user */
+        $user = $this->getClassMock('Bitbucket\API\User', $client);
+        $actual = $user->emails();
+
+        $this->assertEquals($expectedResult, $actual);
+    }
+
     public function testGetUserProfileSuccess()
     {
         $endpoint       = 'user/';
         $expectedResult = json_encode('dummy');
 
-        $user = $this->getApiMock('\Bitbucket\API\User');
-        $user->expects($this->once())
-            ->method('requestGet')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->any())
+            ->method('get')
             ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+            ->will($this->returnValue($expectedResult));
 
-        /** @var $user \Bitbucket\API\User */
+        /** @var \Bitbucket\API\User $user */
+        $user = $this->getClassMock('Bitbucket\API\User', $client);
         $actual = $user->get();
 
         $this->assertEquals($expectedResult, $actual);

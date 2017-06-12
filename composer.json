@@ -1,7 +1,7 @@
 {
     "name": "gentle/bitbucket-api",
     "type": "library",
-    "description": "Bitbucket API wrapper for PHP >= 5.3",
+    "description": "Bitbucket API wrapper for PHP >= 5.4",
     "homepage": "https://bitbucket.org/gentlero/bitbucket-api",
     "keywords": ["bitbucket", "api"],
     "license": "MIT",
@@ -14,15 +14,17 @@
         }
     ],
     "require": {
-        "php":                  ">=5.3",
-        "kriswallsmith/buzz":   "~0.13",
-        "jacobkiers/oauth":     "~1.0.10"
+        "php":                  ">=5.4.0",
+        "kriswallsmith/buzz":   "~0.15",
+        "jacobkiers/oauth":     "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit":          "3.7.*"
+        "phpunit/phpunit":          "3.7.*",
+        "squizlabs/php_codesniffer": "~2.7"
     },
     "conflict": {
-        "eabay/bitbucket-repo-sync": "*"
+        "eabay/bitbucket-repo-sync": "*",
+        "rlacerda83/bitbucket-api": "*"
     },
     "suggest": {
         "ext-curl": "*"
@@ -32,6 +34,7 @@
         "files": ["polyfill-55.php"]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "style": "php vendor/bin/phpcs --standard=psr2 lib/",
+        "test": "php vendor/bin/phpunit"
     }
 }

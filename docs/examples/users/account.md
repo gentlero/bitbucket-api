@@ -9,11 +9,7 @@ title: Users account
 This resource returns a user structure and the repositories array associated with an existing account.
 
 ### Prepare:
-
-```php
-$users = new Bitbucket\API\Users();
-$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="users" class_ns="Users" %}
 
 ### Get the account profile:
 

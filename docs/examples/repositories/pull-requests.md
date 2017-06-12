@@ -9,11 +9,7 @@ title: Pull requests
 Manage the comments on pull requests. Other users can reply to them. This allows for the construction of a thread of comments.
 
 ### Prepare:
-
-```php
-$pull = new Bitbucket\API\Repositories\PullRequests();
-$pull->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="pull" class_ns="Repositories\PullRequests" %}
 
 ### Get all pull requests: (API 2.0)
 

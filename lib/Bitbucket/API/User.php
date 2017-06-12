@@ -25,10 +25,12 @@ class User extends Api
      *
      * @access public
      * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public function get()
     {
-        return $this->requestGet('user/');
+        return $this->getClient()->get('user/');
     }
 
     /**
@@ -72,10 +74,25 @@ class User extends Api
      *
      * @access public
      * @return User\Repositories
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function repositories()
     {
-        return $this->childFactory('User\\Repositories');
+        return $this->api('User\\Repositories');
+    }
+
+    /**
+     * Retrieves the email for an authenticated user.
+     *
+     * @access public
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function emails()
+    {
+        return $this->getClient()->setApiVersion('2.0')->get('user/emails');
     }
 }

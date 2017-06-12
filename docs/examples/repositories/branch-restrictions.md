@@ -9,11 +9,7 @@ title: Branch restrictions
 Manage branch restrictions on a repository
 
 ### Prepare:
-
-```php
-$restrictions = new Bitbucket\API\Repositories\BranchRestrictions();
-$restrictions->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="restrictions" class_ns="Repositories\BranchRestrictions" %}
 
 ### Get the information associated with a repository's branch restrictions: (API 2.0)
 

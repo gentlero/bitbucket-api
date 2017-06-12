@@ -98,10 +98,12 @@ class Commits extends Api
      *
      * @access public
      * @return Commits\Comments
+     *
+     * @throws \InvalidArgumentException
      * @codeCoverageIgnore
      */
     public function comments()
     {
-        return $this->childFactory('Repositories\\Commits\\Comments');
+        return $this->api('Repositories\\Commits\\Comments');
     }
 }

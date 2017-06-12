@@ -9,11 +9,7 @@ title: Deploy keys
 Manage ssh keys used for deploying product builds.
 
 ### Prepare:
-
-```php
-$dk = new Bitbucket\API\Repositories\Deploykeys();
-$dk->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="dk" class_ns="Repositories\Deploykeys" %}
 
 ### Get a list of keys:
 

@@ -9,11 +9,7 @@ title: Wiki
 Provides functionality for getting information from pages in a Bitbucket wiki, creating new pages, and updating them.
 
 ### Prepare:
-
-```php
-$wiki = new Bitbucket\API\Repositories\Wiki();
-$wiki->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="wiki" class_ns="Repositories\Wiki" %}
 
 ### Get the raw content of a Wiki page:
 

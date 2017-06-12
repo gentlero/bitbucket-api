@@ -82,10 +82,12 @@ class Users extends Api
      *
      * @access public
      * @return Users\Account
+     *
+     * @throws \InvalidArgumentException
      */
     public function account()
     {
-        return $this->childFactory('Users\\Account');
+        return $this->api('Users\\Account');
     }
 
     /**
@@ -93,10 +95,12 @@ class Users extends Api
      *
      * @access public
      * @return Users\Emails
+     *
+     * @throws \InvalidArgumentException
      */
     public function emails()
     {
-        return $this->childFactory('Users\\Emails');
+        return $this->api('Users\\Emails');
     }
 
     /**
@@ -104,10 +108,12 @@ class Users extends Api
      *
      * @access public
      * @return Users\Invitations
+     *
+     * @throws \InvalidArgumentException
      */
     public function invitations()
     {
-        return $this->childFactory('Users\\Invitations');
+        return $this->api('Users\\Invitations');
     }
 
     /**
@@ -115,10 +121,12 @@ class Users extends Api
      *
      * @access public
      * @return Users\OAuth
+     *
+     * @throws \InvalidArgumentException
      */
     public function oauth()
     {
-        return $this->childFactory('Users\\OAuth');
+        return $this->api('Users\\OAuth');
     }
 
     /**
@@ -126,10 +134,12 @@ class Users extends Api
      *
      * @access public
      * @return Users\Privileges
+     *
+     * @throws \InvalidArgumentException
      */
     public function privileges()
     {
-        return $this->childFactory('Users\\Privileges');
+        return $this->api('Users\\Privileges');
     }
 
     /**
@@ -137,9 +147,11 @@ class Users extends Api
      *
      * @access public
      * @return Users\SshKeys
+     *
+     * @throws \InvalidArgumentException
      */
     public function sshKeys()
     {
-        return $this->childFactory('Users\\SshKeys');
+        return $this->api('Users\\SshKeys');
     }
 }

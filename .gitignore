@@ -1,5 +1,4 @@
 vendor/
 report/
-.idea/
-.dev/
-build
+build/
+composer.lock

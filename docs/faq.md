@@ -15,4 +15,12 @@ Starting with version 1.0 of this library, minimum PHP version will be bumped to
 ### How can I commit to the repository using this library ?
 You can't, because Bitbucket offers only read-only access to a repository source through their API.
 
+### How can I fetch all pages of a paginated response ?
+
+Using `Response\Pager`.
+
+_Example: Fetching all repositories from an account:_
+
+{% include pagination.md var_name="repositories" class_ns="Repositories" %}
+
 [1]: http://semver.org/

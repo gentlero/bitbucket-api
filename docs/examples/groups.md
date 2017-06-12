@@ -9,10 +9,7 @@ title: Groups
 Provides functionality for querying information about groups, creating new ones, updating memberships, and deleting them.
 
 ### Prepare:
-```php
-$groups = new Bitbucket\API\Groups();
-$groups->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="groups" class_ns="Groups" %}
 
 ### Get a list of groups:
 ```php

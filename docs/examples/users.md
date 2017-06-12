@@ -9,11 +9,7 @@ title: Users
 Get information related to an individual or team account.
 
 ### Prepare:
-
-```php
-$user = new Bitbucket\API\Users();
-$user->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="user" class_ns="Users" %}
 
 ### Get the public information associated with a user: (API 2.0)
 

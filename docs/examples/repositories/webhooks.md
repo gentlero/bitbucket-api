@@ -10,13 +10,10 @@ This resource manages webhooks on a repository. The administrators of the reposi
 the only users who can create, access, update, or delete the webhook.
 
 ### Prepare:
-
 ```php
 $uuid	= '30b60aee-9cdf-407d-901c-2de106ee0c9d'; // unique identifier of the webhook
-$hooks	= new Bitbucket\API\Repositories\Hooks();
-
-$hooks->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
 ```
+{% include auth.md var_name="hooks" class_ns="Repositories\Hooks" %}
 
 ### Get a webhook:
 

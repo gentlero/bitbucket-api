@@ -10,11 +10,7 @@ Use this resource to manage privilege settings for a team account. Team accounts
 as well as repository access.
 
 ### Prepare:
-
-```php
-$users = new Bitbucket\API\Users();
-$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="user" class_ns="Users" %}
 
 ### Get a list of privilege groups on a team account:
 

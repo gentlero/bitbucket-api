@@ -10,17 +10,72 @@ Although you can access any public data without authentication, you need to auth
 (_but not limited to_) accessing data from a private repository, or give access to a repository.
 Bitbucket provides Basic and OAuth authentication.
 
-### Basic authentication
-To use basic authentication, you need to attach `BasicAuthListener` to http client with your username and password.
+### OAuth2 authorization
+
+You can use `OAuth2Listener` in order to make authorized requests using version 2 of OAuth protocol.
+
+#### OAuth2 client credentials (_2-legged flow_)
 
   ```php
-  $user = new Bitbucket\API\User();
-  $user->getClient()->addListener(
-      new Bitbucket\API\Http\Listener\BasicAuthListener($bb_user, $bb_pass)
+  // @see: https://bitbucket.org/account/user/<username or team>/api
+  $oauth_params = array(
+      'client_id'         => 'aaa',
+      'client_secret'     => 'bbb'
   );
 
-  // now you can access protected endpoints as $bb_user
-  $response = $user->get();
+  $bitbucket = new \Bitbucket\API\Api();
+  $bitbucket->getClient()->addListener(
+      new \Bitbucket\API\Http\Listener\OAuth2Listener($oauth_params)
+  );
+
+  $repositories = $bitbucket->api('Repositories');
+  $response     = $repositories->all('my_account'); // should include private repositories
+  ```
+
+#### OAuth2 Authorization code (_3-legged flow_)
+
+You can use any 3rd party library to complete this [flow][3] and set `access_token` option when you instantiate `OAuth2Listener`.
+
+In the following example [PHP League's OAuth 2.0 Client][1] is used with [Bitbucket Provider][2].
+
+  ```php
+  session_start();
+
+  $provider = new Stevenmaguire\OAuth2\Client\Provider\Bitbucket([
+      'clientId'          => $_ENV['bitbucket_consumer_key'],
+      'clientSecret'      => $_ENV['bitbucket_consumer_secret'],
+      'redirectUri'       => 'http://example.com/bitbucket_login.php'
+  ]);
+  if (!isset($_GET['code'])) {
+
+      // If we don't have an authorization code then get one
+      $authUrl = $provider->getAuthorizationUrl();
+      $_SESSION['oauth2state'] = $provider->getState();
+      header('Location: '.$authUrl);
+      exit;
+
+  // Check given state against previously stored one to mitigate CSRF attack
+  } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
+
+      unset($_SESSION['oauth2state']);
+      exit('Invalid state');
+
+  } else {
+
+      // Try to get an access token (using the authorization code grant)
+      $token = $provider->getAccessToken('authorization_code', [
+          'code' => $_GET['code']
+      ]);
+
+      $bitbucket = new Bitbucket\API\Repositories();
+      $bitbucket->getClient()->addListener(
+          new \Bitbucket\API\Http\Listener\OAuth2Listener(
+              array('access_token'  => $token->getToken())
+          )
+      );
+
+      echo $bitbucket->all('my_account')->getContent(); // should include private repositories
+  }
   ```
 
 ### OAuth1 authorization
@@ -138,72 +193,20 @@ In the following example [PHP League's OAuth 1.0 Client][4] is used.
   echo '<a href="?login">Login with BitBucket!</a>';
   ```
 
-### OAuth2 authorization
+### Basic authentication
+To use basic authentication, you need to attach `BasicAuthListener` to http client with your username and password.
 
-You can use `OAuth2Listener` in order to make authorized requests using version 2 of OAuth protocol.
-
-#### OAuth2 client credentials (_2-legged flow_)
-
-  ```php
-  // @see: https://bitbucket.org/account/user/<username or team>/api
-  $oauth_params = array(
-      'client_id'         => 'aaa',
-      'client_secret'     => 'bbb'
-  );
-
-  $bitbucket = new \Bitbucket\API\Api();
-  $bitbucket->getClient()->addListener(
-      new \Bitbucket\API\Http\Listener\OAuth2Listener($oauth_params)
-  );
-
-  $repositories = $bitbucket->api('Repositories');
-  $response     = $repositories->all('my_account'); // should include private repositories
-  ```
-
-#### OAuth2 Authorization code (_3-legged flow_)
-
-You can use any 3rd party library to complete this [flow][3] and set `access_token` option when you instantiate `OAuth2Listener`.
-
-In the following example [PHP League's OAuth 2.0 Client][1] is used with [Bitbucket Provider][2].
+_Please note that is not recommended from a security perspective to use your main account in automated tools and scripts
+and you should really consider switching to [OAuth2](#oauth2-authorization) or [OAuth1](#oauth1-authorization)._
 
   ```php
-  session_start();
+  $user = new Bitbucket\API\User();
+  $user->getClient()->addListener(
+      new Bitbucket\API\Http\Listener\BasicAuthListener($bb_user, $bb_pass)
+  );
 
-  $provider = new Stevenmaguire\OAuth2\Client\Provider\Bitbucket([
-      'clientId'          => $_ENV['bitbucket_consumer_key'],
-      'clientSecret'      => $_ENV['bitbucket_consumer_secret'],
-      'redirectUri'       => 'http://example.com/bitbucket_login.php'
-  ]);
-  if (!isset($_GET['code'])) {
-
-      // If we don't have an authorization code then get one
-      $authUrl = $provider->getAuthorizationUrl();
-      $_SESSION['oauth2state'] = $provider->getState();
-      header('Location: '.$authUrl);
-      exit;
-
-  // Check given state against previously stored one to mitigate CSRF attack
-  } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-
-      unset($_SESSION['oauth2state']);
-      exit('Invalid state');
-
-  } else {
-
-      // Try to get an access token (using the authorization code grant)
-      $token = $provider->getAccessToken('authorization_code', [
-          'code' => $_GET['code']
-      ]);
-
-      $bitbucket = new Bitbucket\API\Repositories();
-      $bitbucket->getClient()->addListener(
-          new \Bitbucket\API\Http\Listener\OAuth2Listener(
-              array('access_token'  => $token->getToken())
-          )
-      );
-
-      echo $bitbucket->all('my_account')->getContent(); // should include private repositories
-  }
+  // now you can access protected endpoints as $bb_user
+  $response = $user->get();
   ```
 
 ----

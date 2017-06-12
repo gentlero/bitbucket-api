@@ -9,11 +9,7 @@ title: Group Privileges
 Manages a group's repository permissions.
 
 ### Prepare
-
-```php
-$privileges = new Bitbucket\API\User();
-$privileges->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="privileges" class_ns="GroupPrivileges" %}
 
 ### Get a list of privileged groups
 

@@ -8,6 +8,9 @@ title: User repositories
 
 Get the details of the repositories associated with an individual or team account.
 
+### Prepare:
+{% include auth.md var_name="user" class_ns="User" %}
+
 ### Get a list of repositories visible to an account:
 
 ```php

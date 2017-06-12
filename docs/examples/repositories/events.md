@@ -10,10 +10,7 @@ Track events that occur on public repositories.
 *NOTE:* Tracking events from private repositories are not supported for the moment by the API.
 
 ### Prepare:
-
-```php
-$events = new Bitbucket\API\Repositories\Events();
-```
+{% include auth.md var_name="events" class_ns="Repositories\Events" %}
 
 ### Get all events with `report_issue` type:
 

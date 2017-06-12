@@ -10,11 +10,7 @@ An invitation is a request sent to an external email address to participate one 
 Any user with admin access to the account can invite someone to a group.
 
 ### Prepare:
-
-```php
-$users = new Bitbucket\API\Users();
-$users->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
-```
+{% include auth.md var_name="users" class_ns="Users" %}
 
 ### Get a list of pending invitations:
 
