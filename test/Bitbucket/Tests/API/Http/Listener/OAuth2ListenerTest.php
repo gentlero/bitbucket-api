@@ -51,14 +51,30 @@ class OAuth2ListenerTest extends Tests\TestCase
      */
     public function testGetAccessTokenFail()
     {
+        $response = new Response();
+        $response->setContent('{"error_description": "Invalid OAuth client credentials", "error": "unauthorized_client"}');
+
         $oauth_params = array(
             'client_id'         => 'aaa',
             'client_secret'     => 'bbb'
         );
 
+        $httpClient = $this->getHttpClientMock();
+        $httpClient->expects($this->any())
+            ->method('POST')
+            ->with(OAuth2Listener::ENDPOINT_ACCESS_TOKEN,
+                array(
+                    'grant_type'    => 'client_credentials',
+                    'client_id'     => $oauth_params['client_id'],
+                    'client_secret' => $oauth_params['client_secret'],
+                    'scope'         => ''
+                ))
+            ->will($this->returnValue($response))
+        ;
+
         $repositories = new Repositories(array(), $this->getHttpClient());
         $repositories->getClient()->addListener(
-            new OAuth2Listener($oauth_params)
+            new OAuth2Listener($oauth_params, $httpClient)
         );
 
         $repositories->all('my_account');
