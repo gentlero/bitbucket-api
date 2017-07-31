@@ -268,7 +268,7 @@ class Client extends ClientListener implements ClientInterface
         }
 
         // change the response format
-        if (strpos($url, 'format=') === false) {
+        if ($this->getApiVersion() === '1.0' && strpos($url, 'format=') === false) {
             $url .= (strpos($url, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
         }
 
