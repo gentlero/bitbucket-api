@@ -212,8 +212,8 @@ class Repository extends API\Api
      */
     public function branches($account, $repo)
     {
-        return $this->requestGet(
-            sprintf('repositories/%s/%s/branches', $account, $repo)
+        return $this->getClient()->setApiVersion('2.0')->get(
+            sprintf('repositories/%s/%s/refs/branches', $account, $repo)
         );
     }
 
