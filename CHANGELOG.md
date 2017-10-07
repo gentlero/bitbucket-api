@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased]
+
+### Added:
+  - Implemented [Pipeline] support. ( *thanks to @marco_veenendaal* )
+
+[Pipeline]: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pipelines
+
+
 ## 1.0.0 / 2017-06-12
 
 ### Added:
