@@ -34,6 +34,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed:
   - Client::setApiVersion should accept only argument of type string (issue #57)
 
+
 ## 0.8.2 / 2017-01-10
 
 ### Fixed:
@@ -43,6 +44,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed:
   - Declining a PR without a `message` parameter caused a 500 response. (issue #43)
+
 
 ## 0.8.0 / 2015-12-05
 
