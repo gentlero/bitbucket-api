@@ -3,13 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [Unreleased]
+## 1.1.0 / 2017-11-06
 
 ### Added:
   - Implemented [Pipeline] support. ( *thanks to @marco_veenendaal* )
 
 ### Changed:
   - Added $params arg to Repositories:all method (issue #65)
+
+### Fixed:
+  - Include format param only in API v1
 
 [Pipeline]: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pipelines
 
