@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 1.1.0 / 2017-11-06
+
+### Added:
+  - Implemented [Pipeline] support. ( *thanks to @marco_veenendaal* )
+
+### Changed:
+  - Added $params arg to Repositories:all method (issue #65)
+
+[Pipeline]: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pipelines
+
+
 ## 1.0.0 / 2017-06-12
 
 ### Added:
@@ -14,20 +26,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Minimum required PHP version has been bumped to 5.4 from 5.3
   - SSL certificate verification is now enabled by default.
   - `Api` constructor signature was modified in order to reflect removal of transport object dependency. (_@see Removed[2]_)
-  
+
 ### Removed:
   - Removed deprecated methods from `Api` (_childFactory, processResponse, authorize_)
   - Removed transport object dependency from `Api`.
-  
+
 ### Fixed:
   - NormalizeArrayListener should not run on `FormRequest` (issue #62)
   - [Tests] Use mocked HTTP client in `OAuth2ListenerTest:testGetAccessTokenFail`
+
 
 ## 0.8.4 / 2017-05-15
 
 ### Fixed:
   - Updated broken links (_.org to .io_) inside README.md
   - Fixed broken tests on PHP 5.3 due to short array syntax.
+
 
 ## 0.8.3 / 2017-05-15
 
@@ -39,6 +53,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed:
   - Added missing polyfill for "json_last_error_msg".
+
 
 ## 0.8.1 / 2016-05-08
 
@@ -54,10 +69,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed:
   - Usage of short array syntax inside one test, forced the test suite to fail on PHP 5.3
 
+
 ## 0.7.1 / 2015-11-07
 
 ### Fixed:
   - HTTP Client options where not forwarded to child classes. (PR #26)
+
 
 ## 0.7.0 / 2015-09-08
 
@@ -73,12 +90,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed:
   - `forking_policy` parameter renamed to `fork_policy` on repository endpoint. (issue #32)
 
+
 ## 0.6.2 / 2015-05-18
 
 ### Fixed:
   - Client listener propagation to child classes. (PR #23)
 
-##  0.6.1 / 2015-03-24
+
+## 0.6.1 / 2015-03-24
 
 ### Changed:
   - Better parameters validation and type hints.
@@ -89,6 +108,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - `Commits::all()` should use GET instead of POST
   - `Listener::delListener` did not properly deleted the listener.
   - Forward all available listener when a child class is requested via Api::api or Api::childClass.
+
 
 ## 0.6.0 / 2014-10-21
 
@@ -105,10 +125,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Fixes #22]: https://bitbucket.org/gentlero/bitbucket-api/issue/22/grant-account-privileges-to-repo
 
+
 ## 0.5.2 / 2014-07-09
 
 ### Fixed:
   - Make tests go green again. ( *My bad and I'm sorry* ).
+
 
 ## 0.5.1 / 2014-07-08
 
@@ -116,6 +138,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Bug: A default content-type is added for POST and PUT, if none was given. ( [Fixes #19] )
 
 [Fixes #19]: https://bitbucket.org/gentlero/bitbucket-api/issue/19
+
 
 ## 0.5.0 / 2014-06-09
 
@@ -128,12 +151,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed:
   - Bug: Missing content-type made `PullRequests::merge` and `PullRequests::declined` unusable.
 
+
 ## 0.4.1 / 2014-06-01
 
 ### Fixed:
   - Bug: OAuthListener: Parameters may be included from the body if the content-type is urlencoded. ( [Fixes #18] )
 
 [Fixes #18]: https://bitbucket.org/gentlero/bitbucket-api/issue/18
+
 
 ## 0.4.0 / 2014-05-14
 
@@ -148,6 +173,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed:
   - Documentation updated.
+
 
 ## 0.3.0 / 2014-05-12
 
@@ -188,6 +214,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Updated `Api::setCredentials()` to use our new EventListener.
 
 [Fixes #14]: https://bitbucket.org/gentlero/bitbucket-api/issue/14
+
 
 ## 0.1.2 / 2013-12-24
 

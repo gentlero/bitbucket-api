@@ -207,6 +207,33 @@ class ClientTest extends Tests\TestCase
         $this->assertTrue($client->isApiVersion('2'));
     }
 
+    /**
+     * @ticket 64
+     */
+    public function testIncludeFormatParamOnlyInV1()
+    {
+        $endpoint = sprintf(
+            'repositories/gentlero/bitbucket-api/src/%s/%s',
+            'develop',
+            'lib/Bitbucket/API/Repositories'
+        );
+        $params = $headers = [];
+
+        $baseClient = $this->getBrowserMock();
+        $client     = new Client(['api_version' => '2.0'], $baseClient);
+        $client->get($endpoint, $params, $headers);
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $req    = $client->getLastRequest()->getResource();
+        $parts  = parse_url($req);
+
+        if (false === array_key_exists('query', $parts)) {
+            $parts['query'] = '';
+        }
+
+        $this->assertFalse(strpos($parts['query'], 'format'));
+    }
+
     private function getListenerMock($name = 'dummy')
     {
         $listener = $this->getMock('Bitbucket\API\Http\Listener\ListenerInterface');

@@ -26,13 +26,14 @@ class Repositories extends Api
      * - If `$owner` is omitted, will return a list of all public repositories on Bitbucket.
      *
      * @access public
-     * @param  string $owner The account of the repo owner.
+     * @param  string           $owner  The account of the repo owner.
+     * @param  array            $params Additional parameters
      * @return MessageInterface
      *
      * @api 2.0
      * @since Method available since 0.2.0
      */
-    public function all($owner = null)
+    public function all($owner = null, array $params = array())
     {
         $endpoint = 'repositories';
 
@@ -40,6 +41,6 @@ class Repositories extends Api
             $endpoint = sprintf('repositories/%s', $owner);
         }
 
-        return $this->getClient()->setApiVersion('2.0')->get($endpoint);
+        return $this->getClient()->setApiVersion('2.0')->get($endpoint, $params);
     }
 }
