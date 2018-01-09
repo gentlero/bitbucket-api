@@ -207,11 +207,15 @@ class Api
             throw new \InvalidArgumentException('No child specified.');
         }
 
-        /** @var Api $child */
-        $class = '\\Bitbucket\\API\\'.$name;
+        if (class_exists($name)) {
+            $class = $name;
+        } else {
+            /** @var Api $child */
+            $class = '\\Bitbucket\\API\\'.$name;
 
-        if (!class_exists($class)) {
-            throw new \InvalidArgumentException(sprintf('No such child class [%s].', $name));
+            if (!class_exists($class)) {
+                throw new \InvalidArgumentException(sprintf('No such child class [%s].', $name));
+            }
         }
 
         $child = new $class();
