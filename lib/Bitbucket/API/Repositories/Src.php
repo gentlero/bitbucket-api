@@ -56,4 +56,34 @@ class Src extends API\Api
             sprintf('repositories/%s/%s/raw/%s/%s', $account, $repo, $revision, $path)
         );
     }
+
+    /**
+     * Create file in repository
+     *      $params contains the files to create, the key is the file (with path) to create and the value is the
+     *      data that will be written to the file.
+     *      See https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/src#post
+     *      for details on what options are available
+     * @param $account
+     * @param $repo
+     * @param array $params
+     * @return MessageInterface
+     */
+    public function create($account, $repo, array $params = array())
+    {
+        $mandatory = array(
+            'author'   => '',
+            'message'  => '',
+        );
+
+        $diff = array_diff(array_keys($mandatory), array_keys($params));
+
+        if (count($diff) > 0) {
+            throw new \InvalidArgumentException('Missing parameters for creating new files.');
+        }
+
+        return $this->getClient()->setApiVersion('2.0')->post(
+            sprintf('repositories/%s/%s/src', $account, $repo),
+            $params
+        );
+    }
 }
