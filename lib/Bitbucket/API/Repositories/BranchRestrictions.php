@@ -81,7 +81,7 @@ class BranchRestrictions extends Api
 
         $params = array_merge($defaults, $params);
 
-        if (empty($params['kind']) || !in_array($params['kind'], $this->$allowedRestrictionTypes)) {
+        if (empty($params['kind']) || !in_array($params['kind'], $this->allowedRestrictionTypes)) {
             throw new \InvalidArgumentException('Invalid restriction kind.');
         }
 
