@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added:
+  - Create a file through API via `Src:create` (PR #40)
+
+### Changed:
+  - Updated `Api:api` in order to support class name resolution via `::class` (PR #38)
+  - Updated `BranchRestrictions` with newly available restriction types (PR #39)
 
 ## 1.1.0 / 2017-11-06
 
