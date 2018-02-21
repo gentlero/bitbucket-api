@@ -22,6 +22,23 @@ use Buzz\Message\MessageInterface;
 class BranchRestrictions extends Api
 {
     /**
+     * Allowed restrictions to create a new branch permission for
+     * @var array
+     */
+    protected $allowedRestrictionTypes = array(
+        'require_tasks_to_be_completed',
+        'require_passing_builds_to_merge',
+        'force',
+        'require_all_dependencies_merged',
+        'push',
+        'require_approvals_to_merge',
+        'enforce_merge_checks',
+        'restrict_merges',
+        'reset_pullrequest_approvals_on_change',
+        'delete'
+    );
+
+    /**
      * Get the information associated with a repository's branch restrictions
      *
      * @access public
@@ -64,7 +81,7 @@ class BranchRestrictions extends Api
 
         $params = array_merge($defaults, $params);
 
-        if (empty($params['kind']) || !in_array($params['kind'], array('push', 'delete', 'force','restrict_merges'))) {
+        if (empty($params['kind']) || !in_array($params['kind'], $this->allowedRestrictionTypes)) {
             throw new \InvalidArgumentException('Invalid restriction kind.');
         }
 
@@ -141,5 +158,15 @@ class BranchRestrictions extends Api
         return $this->getClient()->setApiVersion('2.0')->delete(
             sprintf('repositories/%s/%s/branch-restrictions/%d', $account, $repo, $id)
         );
+    }
+
+    /**
+     * Add allowed permission types
+     *
+     * @param array $restrictions
+     */
+    public function addAllowedRestrictionType($restrictions = array())
+    {
+        $this->allowedRestrictionTypes = array_merge($this->allowedRestrictionTypes, $restrictions);
     }
 }

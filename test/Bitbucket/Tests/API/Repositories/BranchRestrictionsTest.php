@@ -25,6 +25,25 @@ class BranchRestrictionsTest extends Tests\TestCase
         $this->assertEquals($expectedResult, $actual);
     }
 
+    public function testAddRestrictionType()
+    {
+        $endpoint       = 'repositories/gentle/eof/branch-restrictions';
+        $params         = array(
+            'kind' => 'testpermission'
+        );
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint, json_encode($params));
+
+        /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
+        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restrictions->addAllowedRestrictionType(array('testpermission'));
+
+        $restrictions->create('gentle', 'eof', $params);
+    }
+
     public function testCreateRestrictionFromArray()
     {
         $endpoint       = 'repositories/gentle/eof/branch-restrictions';
