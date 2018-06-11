@@ -94,6 +94,28 @@ class HooksTest extends Tests\TestCase
         $hooks->create('gentle', 'eof', $params);
     }
 
+    /**
+     * @ticket 72
+     */
+    public function testCreateIssue72()
+    {
+        $params     = array(
+            'description'   => 'My first webhook',
+            'url'           => 'http://requestb.in/xxx',
+            'active'        => true,
+            'events'        => array(
+                'repo:push',
+                'issue:created',
+            )
+        );
+
+        /** @var \Bitbucket\API\Repositories\Hooks $hooks */
+        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $this->getHttpClient());
+        $response = $hooks->create('gentle', 'eof', $params);
+
+        $this->assertInstanceOf('Buzz\Message\MessageInterface', $response);
+    }
+
     public function testCreateSuccessWithExtraParameters()
     {
         $endpoint   = 'repositories/gentle/eof/hooks';
