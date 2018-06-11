@@ -12,6 +12,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Updated `Api:api` in order to support class name resolution via `::class` (PR #38)
   - Updated `BranchRestrictions` with newly available restriction types (PR #39)
 
+
+## 1.1.1 / 2018-06-11
+
+### Fixed:
+  - Fixed `count()` issue with PHP 7.2 (issue #72)
+  - `kriswallsmith/buzz` constrained to `^0.16` from `~0.15` in order to work on PHP > 7.0 (issue #73)
+
+
 ## 1.1.0 / 2017-11-06
 
 ### Added:
