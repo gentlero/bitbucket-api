@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.1.2 / 2018-06-18
+
+### Fixed:
+  - Request content was not set when a json was provided (issue #74)
+
+
+
 ## 1.1.1 / 2018-06-11
 
 ### Fixed:

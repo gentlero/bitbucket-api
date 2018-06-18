@@ -101,6 +101,26 @@ class ClientTest extends Tests\TestCase
         );
     }
 
+    /**
+     * @ticket 74
+     */
+    public function testShouldDoPostRequestWithJsonContentAndReturnResponseInstance()
+    {
+        $endpoint   = 'repositories/gentle/eof/pullrequests';
+        $params     = json_encode(array('1' => '2', 'name' => 'john'));
+        $headers    = array('Content-Type' => 'application/json');
+        $baseClient = $this->getBrowserMock();
+        $client     = new Client(array('user_agent' => 'tests'), $baseClient);
+        $response   = $client->post($endpoint, $params, $headers);
+
+        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
+        $this->assertEquals($params, $client->getLastRequest()->getContent());
+        $this->assertEquals(
+            array('User-Agent: tests', 'Content-Type: application/json'),
+            $client->getLastRequest()->getHeaders()
+        );
+    }
+
     public function testShouldDoPutRequestAndReturnResponseInstance()
     {
         $endpoint   = 'repositories/gentle/eof/issues/3';
