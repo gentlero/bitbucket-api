@@ -32,7 +32,7 @@ class Client extends ClientListener implements ClientInterface
         'api_versions'  => array('1.0', '2.0'),     // supported versions
         'format'        => 'json',
         'formats'       => array('json', 'xml'),    // supported response formats
-        'user_agent'    => 'bitbucket-api-php/1.1.1 (https://bitbucket.org/gentlero/bitbucket-api)',
+        'user_agent'    => 'bitbucket-api-php/1.1.2 (https://bitbucket.org/gentlero/bitbucket-api)',
         'timeout'       => 10,
         'verify_peer'   => true
     );
@@ -132,6 +132,10 @@ class Client extends ClientListener implements ClientInterface
 
         if (is_string($paramsString) && $paramsString !== null) {
             $request->setContent($paramsString);
+        }
+
+        if (is_string($params) && $params !== null) {
+            $request->setContent($params);
         }
 
         $response = is_object($this->responseObj) ? $this->responseObj : new Response();
