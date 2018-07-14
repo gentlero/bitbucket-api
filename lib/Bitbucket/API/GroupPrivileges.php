@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manages a group's repository permissions.
@@ -27,7 +27,7 @@ class GroupPrivileges extends Api
      *
      * @access public
      * @param  string           $account The team or individual account owning the repository.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function groups($account)
     {
@@ -44,7 +44,7 @@ class GroupPrivileges extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    A repository belonging to the account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function repository($account, $repo)
     {
@@ -63,7 +63,7 @@ class GroupPrivileges extends Api
      * @param  string           $repo       A repository belonging to the account.
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group slug.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function group($account, $repo, $groupOwner, $groupSlug)
     {
@@ -81,7 +81,7 @@ class GroupPrivileges extends Api
      * @param  string           $account    The team or individual account owning the repository.
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group slug.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function repositories($account, $groupOwner, $groupSlug)
     {
@@ -100,7 +100,7 @@ class GroupPrivileges extends Api
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group slug.
      * @param  string           $privilege  A privilege value
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -124,7 +124,7 @@ class GroupPrivileges extends Api
      * @param  string           $repo       The repository to remove privileges from.
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group slug.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $groupOwner, $groupSlug)
     {

@@ -57,7 +57,7 @@ class OAuthListenerTest extends Tests\TestCase
     public function testFilterOAuthParameters()
     {
         $method = $this->getMethod('\Bitbucket\API\Http\Listener\OAuthListener', 'filterOAuthParameters');
-        $actual = $method->invokeArgs(new OAuthListener(array()),  array(array('invalid_option', 'oauth_version')));
+        $actual = $method->invokeArgs(new OAuthListener(array()), array(array('invalid_option', 'oauth_version')));
 
         $this->assertArrayHasKey('oauth_version', $actual);
         $this->assertArrayNotHasKey('invalid_option', $actual);
@@ -70,7 +70,8 @@ class OAuthListenerTest extends Tests\TestCase
             'oauth_consumer_secret'   => 'bbb'
         );
         $listener   = new OAuthListener($oauth_params);
-        $bb         = new \Bitbucket\API\Api(array(), $this->getHttpClient());
+
+        $bb = $this->getApiMock("Bitbucket\API\Api");
 
         /** @var \Bitbucket\API\Http\Client $httpClient */
         $httpClient = $bb->getClient();

@@ -12,7 +12,7 @@
 namespace Bitbucket\API\User;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Get the details of the repositories associated with
@@ -26,7 +26,7 @@ class Repositories extends API\Api
      * Get a list of repositories visible to an account
      *
      * @access public
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get()
     {
@@ -37,7 +37,7 @@ class Repositories extends API\Api
      * Get a list of repositories the account is following
      *
      * @access public
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function overview()
     {
@@ -48,7 +48,7 @@ class Repositories extends API\Api
      * Get the list of repositories on the dashboard
      *
      * @access public
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function dashboard()
     {

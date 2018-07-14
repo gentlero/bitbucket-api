@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage the comments on pull requests.
@@ -42,7 +42,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array            $params  Additional parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -82,7 +82,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array|string     $params  Additional parameters as array or JSON string
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      * @see https://confluence.atlassian.com/x/XAZAGQ
@@ -132,7 +132,7 @@ class PullRequests extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request that will be updated
      * @param  array|string     $params  Additional parameters as array or JSON string
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -180,7 +180,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $id)
     {
@@ -196,7 +196,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function commits($account, $repo, $id)
     {
@@ -212,7 +212,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function approve($account, $repo, $id)
     {
@@ -230,7 +230,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function deleteApproval($account, $repo, $id)
     {
@@ -246,7 +246,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function diff($account, $repo, $id)
     {
@@ -265,7 +265,7 @@ class PullRequests extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      (Optional) ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function activity($account, $repo, $id = 0)
     {
@@ -288,7 +288,7 @@ class PullRequests extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      (Optional) ID of the pull request
      * @param  array            $params  Additional parameters.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function accept($account, $repo, $id, $params = array())
     {
@@ -307,7 +307,7 @@ class PullRequests extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      (Optional) ID of the pull request
      * @param  array            $params  Additional parameters.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function decline($account, $repo, $id, $params = array())
     {

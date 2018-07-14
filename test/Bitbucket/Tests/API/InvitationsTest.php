@@ -10,14 +10,16 @@ class InvitationsTest extends Tests\TestCase
     public function testSendInvitationSuccess()
     {
         $endpoint       = 'invitations/gentle/eof/john_doe@example.com';
-        $params         = array('permission' => 'read');
 
         $invitation = $this->getApiMock('Bitbucket\API\Invitations');
-        $invitation->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
 
         /** @var $invitation \Bitbucket\API\Invitations */
         $invitation->send('gentle', 'eof', 'john_doe@example.com', 'read');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('permission=read', $request->getBody()->getContents());
     }
 }

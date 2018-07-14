@@ -10,37 +10,35 @@ class UserTest extends Tests\TestCase
     public function testGetEmails()
     {
         $endpoint       = 'user/emails';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\User $user */
-        $user = $this->getClassMock('Bitbucket\API\User', $client);
+        $user = $this->getApiMock('Bitbucket\API\User');
         $actual = $user->emails();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserProfileSuccess()
     {
         $endpoint       = 'user/';
-        $expectedResult = json_encode('dummy');
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var \Bitbucket\API\User $user */
-        $user = $this->getClassMock('Bitbucket\API\User', $client);
+        $user = $this->getApiMock('Bitbucket\API\User');
         $actual = $user->get();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testUpdateUserSuccess()
@@ -51,51 +49,56 @@ class UserTest extends Tests\TestCase
             'last_name'     => 'Doe'
         );
 
-        $user = $this->getApiMock('\Bitbucket\API\User');
-        $user->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
-
         /** @var $user \Bitbucket\API\User */
+        $user = $this->getApiMock('\Bitbucket\API\User');
+
         $user->update($params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('first_name=John&last_name=Doe', $request->getBody()->getContents());
     }
 
     public function testGetUserPrivilegesSuccess()
     {
         $endpoint       = 'user/privileges';
-        $expectedResult = json_encode(array(
-                'teams' => array(
-                    'team1' => 'admin',
-                    'team2' => 'admin'
-                )
-            ));
-
-        $user = $this->getApiMock('\Bitbucket\API\User');
-        $user->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode(array(
+            'teams' => array(
+                'team1' => 'admin',
+                'team2' => 'admin'
+            )
+        )));
 
         /** @var $user \Bitbucket\API\User */
+        $user = $this->getApiMock('\Bitbucket\API\User');
+
         $actual = $user->privileges();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserRepositoriesFollowSuccess()
     {
         $endpoint       = 'user/follows';
-        $expectedResult = json_encode('dummy');
-
-        $user = $this->getApiMock('\Bitbucket\API\User');
-        $user->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $user \Bitbucket\API\User */
+        $user = $this->getApiMock('\Bitbucket\API\User');
+
         $actual = $user->follows();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 }

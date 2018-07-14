@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage ssh keys used for deploying product builds.
@@ -27,7 +27,7 @@ class Deploykeys extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -45,7 +45,7 @@ class Deploykeys extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $keyId   The key identifier assigned by Bitbucket.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $keyId)
     {
@@ -62,7 +62,7 @@ class Deploykeys extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $key     The content of the key.
      * @param  string           $label   A display name for the key. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $key, $label = null)
     {
@@ -93,7 +93,7 @@ class Deploykeys extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $keyId   The key identifier assigned by Bitbucket.
      * @param  array            $options The rest of available options
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $keyId, $options = array())
     {
@@ -112,7 +112,7 @@ class Deploykeys extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $keyId   The key identifier assigned by Bitbucket.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $keyId)
     {

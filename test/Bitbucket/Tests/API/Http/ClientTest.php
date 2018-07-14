@@ -6,7 +6,6 @@ use Bitbucket\API\Http\Listener\NormalizeArrayListener;
 use Bitbucket\API\Http\Listener\OAuthListener;
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API\Http\Client;
-use Buzz\Client\Curl;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -20,12 +19,12 @@ class ClientTest extends Tests\TestCase
 
     public function setUp()
     {
-        $this->client = new Client(array(), new Curl());
+        $this->client = new Client(array(), $this->getHttpPluginClientBuilder());
     }
 
     public function testGetSelfInstance()
     {
-        $this->assertInstanceOf('\Buzz\Client\Curl', $this->client->getClient());
+        $this->assertInstanceOf('Http\Client\Common\HttpMethodsClient', $this->client->getClient());
     }
 
     /**
@@ -71,17 +70,18 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/issues/3';
         $params     = array('format' => 'json');
         $headers    = array('2' => '4');
-        $baseClient = $this->getBrowserMock();
-        $client     = new Client(array(
-                'base_url'      => '',
-                'api_version'   => ''
+        $baseClient = $this->getHttpPluginClientBuilder();
+        $client     = new Client(
+            array(
+                'base_url'      => 'https://example.com',
+                'api_version'   => '1.0'
             ),
             $baseClient
         );
         $response   = $client->get($endpoint, $params, $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $client->getLastResponse());
+        $this->assertInstanceOf('Psr\Http\Message\MessageInterface', $response);
+        $this->assertInstanceOf('Psr\Http\Message\MessageInterface', $client->getLastResponse());
     }
 
     public function testShouldDoPostRequestWithContentAndReturnResponseInstance()
@@ -89,14 +89,14 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/issues/3';
         $params     = array('1' => '2');
         $headers    = array('3' => '4');
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(array('user_agent' => 'tests'), $baseClient);
         $response   = $client->post($endpoint, $params, $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
-        $this->assertEquals('1=2', $client->getLastRequest()->getContent());
+        $this->assertInstanceOf('Psr\Http\Message\MessageInterface', $response);
+        $this->assertEquals('1=2', $client->getLastRequest()->getBody()->getContents());
         $this->assertEquals(
-            array('User-Agent: tests', '4', 'Content-Type: application/x-www-form-urlencoded'),
+            array('Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => 'tests', '4'),
             $client->getLastRequest()->getHeaders()
         );
     }
@@ -109,14 +109,14 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/pullrequests';
         $params     = json_encode(array('1' => '2', 'name' => 'john'));
         $headers    = array('Content-Type' => 'application/json');
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(array('user_agent' => 'tests'), $baseClient);
         $response   = $client->post($endpoint, $params, $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
-        $this->assertEquals($params, $client->getLastRequest()->getContent());
+        $this->assertInstanceOf('Psr\Http\Message\MessageInterface', $response);
+        $this->assertEquals($params, $client->getLastRequest()->getBody()->getContents());
         $this->assertEquals(
-            array('User-Agent: tests', 'Content-Type: application/json'),
+            array('User-Agent' => 'tests', 'Content-Type' => ['application/json']),
             $client->getLastRequest()->getHeaders()
         );
     }
@@ -126,11 +126,11 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/issues/3';
         $params     = array('1' => '2');
         $headers    = array('3' => '4');
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(array(), $baseClient);
         $response   = $client->put($endpoint, $params, $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
+        $this->assertInstanceOf('\Psr\Http\Message\MessageInterface', $response);
     }
 
     public function testShouldDoDeleteRequestAndReturnResponseInstance()
@@ -138,11 +138,11 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/issues/3';
         $params     = array('1' => '2');
         $headers    = array('3' => '4');
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(array(), $baseClient);
         $response   = $client->delete($endpoint, $params, $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
+        $this->assertInstanceOf('\Psr\Http\Message\MessageInterface', $response);
     }
 
     public function testShouldDoPatchRequestAndReturnResponseInstance()
@@ -150,70 +150,23 @@ class ClientTest extends Tests\TestCase
         $endpoint   = 'repositories/gentle/eof/issues/3';
         $params     = array('1' => '2');
         $headers    = array('3' => '4');
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(array(), $baseClient);
         $response   = $client->request($endpoint, $params, 'PATCH', $headers);
 
-        $this->assertInstanceOf('\Buzz\Message\MessageInterface', $response);
+        $this->assertInstanceOf('\Psr\Http\Message\MessageInterface', $response);
     }
 
     public function testClientIsKeptWhenInvokingChildFactory()
     {
         $options = array(
-            'base_url' => 'localhost'
+            'base_url' => 'https://localhost'
         );
         $client = new Client($options);
         $pullRequest = new \Bitbucket\API\Repositories\PullRequests();
         $pullRequest->setClient($client);
         $comments = $pullRequest->comments();
         $this->assertSame($client, $comments->getClient());
-    }
-
-    public function testAddListener()
-    {
-        $listener = $this->getListenerMock();
-
-        $this->client->addListener($listener, 1);
-        $this->client->addListener($listener, 14);
-
-        $this->assertInstanceOf('Bitbucket\API\Http\Listener\ListenerInterface', $this->client->getListener('dummy'));
-    }
-
-    public function testDeleteListener()
-    {
-        $listener = $this->getListenerMock('lorem');
-
-        $this->client->addListener($listener);
-        $this->assertTrue($this->client->isListener('lorem'));
-
-        $this->client->delListener($listener);
-
-        $this->assertFalse($this->client->isListener('lorem'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetAbsentListener()
-    {
-        $this->client->getListener('invalid');
-    }
-
-    public function testSetListenersWorksWithMultipleListeners()
-    {
-        $listeners = array(
-            '0' => array(
-                new NormalizeArrayListener(),
-                new OAuthListener(array()),
-            )
-        );
-
-        $this->client->setListeners($listeners);
-
-        $listeners = $this->client->getListeners();
-
-        $this->assertArrayHasKey('normalize_array', $listeners[0]);
-        $this->assertArrayHasKey('oauth', $listeners[0]);
     }
 
     public function testCurrentApiVersion()
@@ -239,12 +192,12 @@ class ClientTest extends Tests\TestCase
         );
         $params = $headers = [];
 
-        $baseClient = $this->getBrowserMock();
+        $baseClient = $this->getHttpPluginClientBuilder();
         $client     = new Client(['api_version' => '2.0'], $baseClient);
         $client->get($endpoint, $params, $headers);
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $req    = $client->getLastRequest()->getResource();
+        $req    = $client->getLastRequest()->getUri();
         $parts  = parse_url($req);
 
         if (false === array_key_exists('query', $parts)) {

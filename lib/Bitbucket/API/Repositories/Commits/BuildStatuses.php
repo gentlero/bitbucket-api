@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Commits;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Brice M. <brice.mancone@gmail.com>
@@ -27,7 +27,7 @@ class BuildStatuses extends Api
      * @param  string           $repository The repository identifier.
      * @param  string           $revision   A SHA1 value for the commit.
      * @param  string           $key        The key that distinguishes the build status from others.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/bitbucket/buildstatus-resource-779295267.html
      */
@@ -47,7 +47,7 @@ class BuildStatuses extends Api
      * @param  string           $repository The repository identifier.
      * @param  string           $revision   A SHA1 value for the commit.
      * @param  array            $params     The status.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/bitbucket/buildstatus-resource-779295267.html
      */
@@ -69,7 +69,7 @@ class BuildStatuses extends Api
      * @param  string           $revision   A SHA1 value for the commit.
      * @param  string           $key        The key that distinguishes the build status from others.
      * @param  array            $params     The status.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/bitbucket/buildstatus-resource-779295267.html
      */

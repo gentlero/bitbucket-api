@@ -63,11 +63,11 @@ class HooksTest extends Tests\TestCase
      */
     public function testInvalidCreate($check)
     {
-        $client = $this->getHttpClientMock();
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $hooks->create('gentle', 'my-repo', $check);
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     public function testCreateSuccess()
@@ -83,15 +83,16 @@ class HooksTest extends Tests\TestCase
             ),
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('post')
-            ->with($endpoint, json_encode($params))
-        ;
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $hooks->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -99,6 +100,8 @@ class HooksTest extends Tests\TestCase
      */
     public function testCreateIssue72()
     {
+        $endpoint = 'repositories/gentle/eof/hooks';
+
         $params     = array(
             'description'   => 'My first webhook',
             'url'           => 'http://requestb.in/xxx',
@@ -110,10 +113,17 @@ class HooksTest extends Tests\TestCase
         );
 
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $this->getHttpClient());
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $response = $hooks->create('gentle', 'eof', $params);
 
-        $this->assertInstanceOf('Buzz\Message\MessageInterface', $response);
+        $this->assertInstanceOf('Psr\Http\Message\MessageInterface', $response);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testCreateSuccessWithExtraParameters()
@@ -130,15 +140,16 @@ class HooksTest extends Tests\TestCase
             ),
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('post')
-            ->with($endpoint, json_encode($params))
-        ;
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $hooks->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testUpdateSuccess()
@@ -154,15 +165,16 @@ class HooksTest extends Tests\TestCase
             ),
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('put')
-            ->with($endpoint, json_encode($params))
-        ;
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $hooks->update('gentle', 'eof', '30b60aee-9cdf-407d-901c-2de106ee0c9d', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -175,63 +187,59 @@ class HooksTest extends Tests\TestCase
      */
     public function testInvalidUpdate($check)
     {
-        $client = $this->getHttpClientMock();
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $hooks->update('gentle', 'eof', '30b60aee-9cdf-407d-901c-2de106ee0c9d', $check);
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     public function testGetAllHooks()
     {
         $endpoint       = 'repositories/gentle/eof/hooks';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult))
-        ;
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks  = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks  = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $actual = $hooks->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetSingleHook()
     {
         $endpoint       = 'repositories/gentle/eof/hooks/30b60aee-9cdf-407d-901c-2de106ee0c9d';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult))
-        ;
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks  = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks  = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
         $actual = $hooks->get('gentle', 'eof', '30b60aee-9cdf-407d-901c-2de106ee0c9d');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testDeleteSingleHook()
     {
         $endpoint = 'repositories/gentle/eof/hooks/30b60aee-9cdf-407d-901c-2de106ee0c9d';
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('delete')
-            ->with($endpoint);
-
         /** @var \Bitbucket\API\Repositories\Hooks $hooks */
-        $hooks = $this->getClassMock('Bitbucket\API\Repositories\Hooks', $client);
+        $hooks = $this->getApiMock('Bitbucket\API\Repositories\Hooks');
 
         $hooks->delete('gentle', 'eof', '30b60aee-9cdf-407d-901c-2de106ee0c9d');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Allows repository administrators to send email invitations to
@@ -29,7 +29,7 @@ class Invitations extends Api
      * @param  string           $repo       A repository belonging to the account.
      * @param  string           $email      The email recipient.
      * @param  string           $permission The permission the recipient is granted.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function send($account, $repo, $email, $permission)
     {

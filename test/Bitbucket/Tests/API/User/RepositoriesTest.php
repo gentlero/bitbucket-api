@@ -26,51 +26,54 @@ class RepositoriesTest extends Tests\TestCase
     public function testGetUserRepositoriesVisibleSuccess()
     {
         $endpoint       = 'user/repositories';
-        $expectedResult = json_encode('dummy');
-
-        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
-        $repositories->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repositories \Bitbucket\API\User\Repositories */
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
+
         $actual = $repositories->get();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserRepositoriesFollowingSuccess()
     {
         $endpoint       = 'user/repositories/overview';
-        $expectedResult = json_encode('dummy');
-
-        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
-        $repositories->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repositories \Bitbucket\API\User\Repositories */
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
+
         $actual = $repositories->overview();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserRepositoriesDashboardSuccess()
     {
         $endpoint       = 'user/repositories/dashboard';
-        $expectedResult = json_encode('dummy');
-
-        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
-        $repositories->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repositories \Bitbucket\API\User\Repositories */
+        $repositories = $this->getApiMock('\Bitbucket\API\User\Repositories');
+
         $actual = $repositories->dashboard();
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 }

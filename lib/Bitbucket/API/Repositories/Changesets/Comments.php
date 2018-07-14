@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Changesets;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage changeset comments.
@@ -28,7 +28,7 @@ class Comments extends API\Api
      * @param  string           $account The team or individual account owning the repo.
      * @param  string           $repo    The repository identifier.
      * @param  string           $node    The raw_node changeset identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $node)
     {
@@ -45,7 +45,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  string           $node      The raw_node changeset identifier.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $node, $commentID)
     {
@@ -72,7 +72,7 @@ class Comments extends API\Api
      * @param  string           $node    The raw_node changeset identifier.
      * @param  string           $content Comment content.
      * @param  array            $options The rest of available options
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
@@ -102,7 +102,7 @@ class Comments extends API\Api
      * @param  int              $commentID The comment identifier.
      * @param  string           $content   Comment content.
      * @param  array            $options   The rest of available options
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/x/6A2mEQ
      */
@@ -122,7 +122,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repo identifier.
      * @param  string           $node      The raw_node changeset identifier.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function spam($account, $repo, $node, $commentID)
     {

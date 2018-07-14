@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login (optional)
-$followers->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$followers->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 # get all events with `report_issue` type
 print_r($followers->all($accountname, $repo_slug));

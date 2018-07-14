@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Provides functionality for querying information about groups,
@@ -35,7 +35,7 @@ class Groups extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  array            $filters
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, array $filters = array())
     {
@@ -59,7 +59,7 @@ class Groups extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $name    The name of the group.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $name)
     {
@@ -76,7 +76,7 @@ class Groups extends Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $name    The name of the group.
      * @param  array            $params
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $name, array $params)
     {
@@ -92,7 +92,7 @@ class Groups extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $name    The name of the group.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $name)
     {

@@ -10,7 +10,7 @@
 namespace Bitbucket\API\Repositories\Refs;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Kevin Howe    <kjhowe@gmail.com>
@@ -24,7 +24,7 @@ class Tags extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string|array     $params  GET parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -43,7 +43,7 @@ class Tags extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $name    The tag identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -62,7 +62,7 @@ class Tags extends API\Api
      * @param  string                    $repo    The repository identifier.
      * @param  string                    $name    The name of the new tag.
      * @param  string                    $hash    The hash to tag.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */

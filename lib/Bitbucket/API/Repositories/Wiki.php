@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Provides functionality for getting information from pages in
@@ -29,7 +29,7 @@ class Wiki extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $page    Page title. (case sensitive)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $page)
     {
@@ -52,7 +52,7 @@ class Wiki extends API\Api
      * @param  string           $title   Page title.
      * @param  string           $content Page content.
      * @param  string           $path    Path to the page. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $title, $content, $path = null)
     {
@@ -78,7 +78,7 @@ class Wiki extends API\Api
      * @param  string           $content Page content.
      * @param  string           $path    Path to the page. (optional)
      * @param  string           $rev     The current revision of the file before it was modified. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $title, $content, $path = null, $rev = null)
     {

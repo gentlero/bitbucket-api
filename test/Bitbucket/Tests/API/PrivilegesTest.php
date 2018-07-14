@@ -12,26 +12,30 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle/test3';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repository('gentle', 'test3');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetRepositoryPrivilegesWithFilterSuccess()
     {
         $endpoint       = 'privileges/gentle/test3';
-        $params         = array('filter' => 'read');
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint, $params);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repository('gentle', 'test3', 'read');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('filter=read&format=json', $request->getUri()->getQuery());
     }
 
     /**
@@ -50,12 +54,14 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle/test3/vimishor';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->account('gentle', 'test3', 'vimishor');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetRepositoriesPrivilegesWithoutFilterSuccess()
@@ -63,26 +69,30 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repositories('gentle');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetRepositoriesPrivilegesWithFilterSuccess()
     {
         $endpoint       = 'privileges/gentle';
-        $params         = array('filter' => 'write');
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint, $params);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->repositories('gentle', 'write');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('filter=write&format=json', $request->getUri()->getQuery());
     }
 
     /**
@@ -99,15 +109,17 @@ class PrivilegesTest extends Tests\TestCase
     public function testGrantPrivilegesSuccess()
     {
         $endpoint       = 'privileges/gentle/repo/vimishor';
-        $params         = 'read';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->grant('gentle', 'repo', 'vimishor', 'read');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('read', $request->getBody()->getContents());
     }
 
     /**
@@ -126,12 +138,14 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle/repo/vimishor';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->delete('gentle', 'repo', 'vimishor');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 
     public function testDeleteAllPrivilegesFromRepositorySuccess()
@@ -139,12 +153,14 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle/repo';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->delete('gentle', 'repo');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 
     public function testDeleteAllPrivilegesFromAllRepositoriesSuccess()
@@ -152,12 +168,14 @@ class PrivilegesTest extends Tests\TestCase
         $endpoint       = 'privileges/gentle';
 
         $privileges = $this->getApiMock('Bitbucket\API\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
 
         /** @var $privileges \Bitbucket\API\Privileges */
         $privileges->delete('gentle');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 
     /**

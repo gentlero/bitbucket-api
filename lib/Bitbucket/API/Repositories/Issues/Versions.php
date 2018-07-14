@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -27,7 +27,7 @@ class Versions extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -43,7 +43,7 @@ class Versions extends API\Api
      * @param  string           $account   The team or individual account owning the repository.
      * @param  string           $repo      The repository identifier.
      * @param  int              $versionID The version identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $versionID)
     {
@@ -59,7 +59,7 @@ class Versions extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $name    The version name to create.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $name)
     {
@@ -77,7 +77,7 @@ class Versions extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  int              $versionID The version identifier.
      * @param  string           $name      The version name to update.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $versionID, $name)
     {
@@ -94,7 +94,7 @@ class Versions extends API\Api
      * @param  string           $account   The team or individual account owning the repository.
      * @param  string           $repo      The repository identifier.
      * @param  int              $versionID The version identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $versionID)
     {

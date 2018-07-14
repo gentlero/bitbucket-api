@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
@@ -24,7 +24,7 @@ class Hooks extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array            $params  Additional service parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -60,7 +60,7 @@ class Hooks extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $uuid    The universally unique identifier of the webhook.
      * @param  array            $params  Additional service parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -94,7 +94,7 @@ class Hooks extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -108,7 +108,7 @@ class Hooks extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $uuid    The universally unique identifier of the webhook.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $uuid)
     {
@@ -122,7 +122,7 @@ class Hooks extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $uuid    The universally unique identifier of the webhook.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $uuid)
     {

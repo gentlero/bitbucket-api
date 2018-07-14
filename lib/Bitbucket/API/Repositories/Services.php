@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Provides functionality for adding, removing, and configuring brokers on your repositories
@@ -27,7 +27,7 @@ class Services extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -43,7 +43,7 @@ class Services extends API\Api
      * @param  string           $account   The team or individual account owning the repository.
      * @param  string           $repo      The repository identifier.
      * @param  int              $serviceID The service id.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $serviceID)
     {
@@ -60,7 +60,7 @@ class Services extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $type    Service type
      * @param  array            $params  Additional service parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $type, array $params = array())
     {
@@ -78,7 +78,7 @@ class Services extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  string           $serviceID The service id.
      * @param  array            $params    Service parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $serviceID, array $params)
     {
@@ -95,7 +95,7 @@ class Services extends API\Api
      * @param  string           $account   The team or individual account owning the repository.
      * @param  string           $repo      The repository identifier.
      * @param  int              $serviceID The service id.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $serviceID)
     {

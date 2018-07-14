@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$user->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$user->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 # get user profile
 # print_r($user->get());

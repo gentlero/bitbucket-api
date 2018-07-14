@@ -16,7 +16,7 @@ $accountname    = 'company';
 $repo_slug      = 'sandbox';
 
 // login
-$pullRequests->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$pullRequests->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 # get list of pull requests
 print_r($pullRequests->all($accountname, $repo_slug));

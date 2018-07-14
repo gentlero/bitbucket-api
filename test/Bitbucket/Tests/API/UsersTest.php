@@ -4,6 +4,7 @@ namespace Bitbucket\Tests\API\Repositories;
 
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API;
+use Http\Message\Authentication\BasicAuth;
 
 class UsersTest extends Tests\TestCase
 {
@@ -16,80 +17,77 @@ class UsersTest extends Tests\TestCase
     {
         $this->users = new API\Users();
         $this->users->setCredentials(
-            new API\Authentication\Basic('dummy', 'password')
+            new BasicAuth('dummy', 'password')
         );
     }
 
     public function testGetUserPublicInformation()
     {
         $endpoint       = 'users/john-doe';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Users $user */
-        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $user   = $this->getApiMock('Bitbucket\API\Users');
         $actual = $user->get('john-doe');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserFollowers()
     {
         $endpoint       = 'users/john-doe/followers';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Users $user */
-        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $user   = $this->getApiMock('Bitbucket\API\Users');
         $actual = $user->followers('john-doe');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserFollowing()
     {
         $endpoint       = 'users/john-doe/following';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Users $user */
-        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $user   = $this->getApiMock('Bitbucket\API\Users');
         $actual = $user->following('john-doe');
 
         $this->assertEquals($expectedResult, $actual);
+
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetUserRepositories()
     {
         $endpoint       = 'repositories/john-doe';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Users $user */
-        $user   = $this->getClassMock('Bitbucket\API\Users', $client);
+        $user   = $this->getApiMock('Bitbucket\API\Users');
         $actual = $user->repositories('john-doe');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetAccountInstance()

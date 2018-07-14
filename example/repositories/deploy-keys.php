@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$dk->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$dk->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 # get a list of keys
 print_r($dk->all($accountname, $repo_slug));

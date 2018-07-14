@@ -10,53 +10,58 @@ class LinksTest extends Tests\TestCase
     public function testGetAllLinks()
     {
         $endpoint       = 'repositories/gentle/eof/links';
-        $expectedResult = json_encode('dummy');
-
-        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $links->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $links \Bitbucket\API\Repositories\Links */
+        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
+
         $actual = $links->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetSingleLink()
     {
         $endpoint       = 'repositories/gentle/eof/links/3';
-        $expectedResult = json_encode('dummy');
-
-        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $links->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $links \Bitbucket\API\Repositories\Links */
+        $links = $this->getApiMock('Bitbucket\API\Repositories\Links');
+
         $actual = $links->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreateLinkSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/links';
-        $params         = array(
-            'handler'   => 'custom',
-            'link_url'  => 'https://example.com',
-            'link_key'  => 'my-project-key'
-        );
-
-        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $link->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
+        $params = [
+            'handler' => 'custom',
+            'link_url' => 'https://example.com',
+            'link_key' => 'my-project-key',
+        ];
 
         /** @var $link \Bitbucket\API\Repositories\Links */
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
+
         $link->create('gentle', 'eof', 'custom', 'https://example.com', 'my-project-key');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(http_build_query($params), $request->getBody()->getContents());
     }
 
     /**
@@ -64,41 +69,46 @@ class LinksTest extends Tests\TestCase
      */
     public function testCreateLinkInvalidArguments()
     {
-        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $link->expects($this->never())
-            ->method('requestPost');
-
         /** @var $link \Bitbucket\API\Repositories\Links */
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
+
         $link->create('gentle', 'eof', 'invalid', 'https://example.com', 'my-project-key');
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     public function testUpdateLinkSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/links/3';
-        $params         = array(
-            'link_url'  => 'https://example.com',
-            'link_key'  => 'my-project-key'
-        );
-
-        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $link->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
+        $params = [
+            'link_url' => 'https://example.com',
+            'link_key' => 'my-project-key'
+        ];
 
         /** @var $link \Bitbucket\API\Repositories\Links */
+        $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
+
         $link->update('gentle', 'eof', 3, 'https://example.com', 'my-project-key');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame(http_build_query($params), $request->getBody()->getContents());
     }
 
     public function testDeleteLinkSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/links/3';
 
+        /** @var $link \Bitbucket\API\Repositories\Links */
         $link = $this->getApiMock('Bitbucket\API\Repositories\Links');
-        $link->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
 
-        /** @var $link \Bitbucket\API\Repositories\Issues\Links */
         $link->delete('gentle', 'eof', 3);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

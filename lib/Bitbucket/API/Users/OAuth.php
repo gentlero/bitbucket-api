@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Allows you to maintain OAuth consumers.
@@ -26,7 +26,7 @@ class OAuth extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account)
     {
@@ -43,7 +43,7 @@ class OAuth extends Api
      * @param  string           $name        A display name for the key.
      * @param  string           $description A description of the key. (optional)
      * @param  string           $url         The location of the service that will use the key. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $name, $description = null, $url = null)
     {
@@ -72,7 +72,7 @@ class OAuth extends Api
      * @param  int              $keyId       The id of the key to update.
      * @param  string           $description A description of the key. (optional)
      * @param  string           $url         The location of the service that will use the key. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $name, $keyId, $description = null, $url = null)
     {
@@ -98,7 +98,7 @@ class OAuth extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  int              $keyId   The id of the key to delete.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $keyId)
     {

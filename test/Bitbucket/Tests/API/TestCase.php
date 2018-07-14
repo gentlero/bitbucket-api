@@ -2,73 +2,66 @@
 
 namespace Bitbucket\Tests\API;
 
-use Buzz\Message\Response;
+use Bitbucket\API\Http\HttpPluginClientBuilder;
+use Http\Mock\Client;
+use Psr\Http\Message\ResponseInterface;
 
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
-    protected function getApiMock($class = null, $methods = array())
+    /** @var Client */
+    protected $mockClient;
+
+    protected function getApiMock($class = null)
     {
         $class = is_null($class) ? '\Bitbucket\API\Api' : $class;
-        $methods = array_merge(
-            array('requestGet', 'requestPost', 'requestPut', 'requestDelete'),
-            $methods
-        );
 
-        $client = $this->getHttpClientMock();
-
-        return $this->getMockBuilder($class)
-            ->setMethods($methods)
-            ->setConstructorArgs(array(array(), $client))
-            ->getMock();
+        return new $class([], new \Bitbucket\API\Http\Client(array(), $this->getHttpPluginClientBuilder()));
     }
 
-    protected function getBrowserMock()
+    private function getMockHttpClient()
     {
-        return $this->getMock('\Buzz\Client\ClientInterface', array('setTimeout', 'setVerifyPeer', 'send'));
+        return $this->mockClient ? : $this->mockClient = new Client();
     }
 
-    protected function getTransportClientMock()
+    protected function getHttpPluginClientBuilder()
     {
-        $client = $this->getBrowserMock();
-
-        $client->expects($this->any())->method('setTimeout')->with(10);
-        $client->expects($this->any())->method('setVerifyPeer')->with(true);
-        $client->expects($this->any())->method('send');
-
-        return $client;
+        return new HttpPluginClientBuilder($this->getMockHttpClient());
     }
 
-    protected function getHttpClientMock()
+    protected function addFakeResponse($data, $statusCode = 200)
     {
-        $transportClient = $this->getTransportClientMock();
+        $content = $this->getMockBuilder('Psr\Http\Message\StreamInterface')->disableOriginalConstructor()->getMock();
+        /** @var ResponseInterface $response */
+        $response = $this->getMockBuilder('Psr\Http\Message\ResponseInterface')->getMock();
 
-        return $this->getMockBuilder('Bitbucket\API\HTTP\Client')
-            ->setMethods(array('get', 'post', 'put', 'delete'))
-            ->setConstructorArgs(array(array(), $transportClient))
-            ->getMock();
-    }
+        $response
+            ->expects($this->any())
+            ->method('getBody')
+            ->will($this->returnValue($content));
 
-    protected function getHttpClient()
-    {
-        return new \Bitbucket\API\Http\Client(array(), $this->getTransportClientMock());
-    }
+        $response
+            ->expects($this->any())
+            ->method('getStatusCode')
+            ->will($this->returnValue($statusCode));
 
-    protected function fakeResponse($data)
-    {
-        $response = new Response();
+        $response
+            ->expects($this->any())
+            ->method('getProtocolVersion')
+            ->will($this->returnValue('1.1'));
 
-        $response->setContent(json_encode($data));
+        $response
+            ->expects($this->any())
+            ->method('getHeaders')
+            ->will($this->returnValue([]));
+
+        $content
+            ->expects($this->any())
+            ->method('getContents')
+            ->will($this->returnValue($data));
+
+        $this->getMockHttpClient()->addResponse($response);
 
         return $response;
-    }
-
-    protected function getClassMock($class, $httpClient)
-    {
-        /** @var \Bitbucket\API\Api $obj */
-        $obj = new $class();
-        $obj->setClient($httpClient);
-
-        return $obj;
     }
 
     protected function getMethod($class, $name)

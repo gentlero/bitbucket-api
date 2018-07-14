@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This resource returns a user structure and the repositories array associated
@@ -27,7 +27,7 @@ class Account extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account, or validated email address.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function profile($account)
     {
@@ -43,7 +43,7 @@ class Account extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account, or validated email address.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function plan($account)
     {
@@ -59,7 +59,7 @@ class Account extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account, or validated email address.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function followers($account)
     {
@@ -75,7 +75,7 @@ class Account extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account, or validated email address.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function events($account)
     {

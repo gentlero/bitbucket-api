@@ -10,18 +10,18 @@
  */
 namespace Bitbucket\API\Http;
 
-use Buzz\Client\ClientInterface as BuzzClientInterface;
-use Buzz\Client\Curl;
-use Buzz\Message\MessageInterface;
-use Buzz\Message\RequestInterface;
-use Buzz\Message\Request;
-use Buzz\Message\Response;
-use Bitbucket\API\Http\Listener\ListenerInterface;
+use Bitbucket\API\Http\Plugin\ApiVersionPlugin;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\Plugin;
+use Http\Discovery\UriFactoryDiscovery;
+use Http\Message\MessageFactory;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-class Client extends ClientListener implements ClientInterface
+class Client implements ClientInterface
 {
     /**
      * @var array
@@ -37,38 +37,31 @@ class Client extends ClientListener implements ClientInterface
         'verify_peer'   => true
     );
 
-    /**
-     * @var BuzzClientInterface
-     */
-    protected $client;
-
-    /**
-     * @var RequestInterface
-     */
+    /** @var HttpPluginClientBuilder */
+    private $httpClientBuilder;
+    /** @var MessageFactory */
+    private $messageFactory;
+    /** @var RequestInterface */
     private $lastRequest;
-
-    /**
-     * @var MessageInterface
-     */
+    /** @var ResponseInterface */
     private $lastResponse;
 
-    /**
-     * @var MessageInterface
-     */
-    protected $responseObj;
-
-    /**
-     * @var RequestInterface
-     */
-    protected $requestObj;
-
-    public function __construct(array $options = array(), BuzzClientInterface $client = null)
+    public function __construct(array $options = array(), HttpPluginClientBuilder $httpClientBuilder = null)
     {
-        $this->client   = (null === $client) ? new Curl() : $client;
-        $this->options  = array_merge($this->options, $options);
+        $this->options = array_merge(array_merge($this->options, $options));
+        $this->httpClientBuilder = $httpClientBuilder ?: new HttpPluginClientBuilder();
 
-        $this->client->setTimeout($this->options['timeout']);
-        $this->client->setVerifyPeer($this->options['verify_peer']);
+        $this->httpClientBuilder->addPlugin(
+            new Plugin\AddHostPlugin(UriFactoryDiscovery::find()->createUri($this->options['base_url']))
+        );
+        $this->httpClientBuilder->addPlugin(new Plugin\RedirectPlugin());
+        $this->httpClientBuilder->addPlugin(new Plugin\HeaderDefaultsPlugin([
+            'User-Agent' => $this->options['user_agent'],
+        ]));
+
+        $this->setApiVersion($this->options['api_version']);
+
+        $this->messageFactory = $this->httpClientBuilder->getMessageFactory();
     }
 
     /**
@@ -113,16 +106,9 @@ class Client extends ClientListener implements ClientInterface
      */
     public function request($endpoint, $params = array(), $method = 'GET', array $headers = array())
     {
-        //$request = $this->createRequest($method, $endpoint);
-        $request = ($this->requestObj !== null) ? $this->requestObj : $this->createRequest($method, $endpoint);
-
         // add a default content-type if none was set
         if (empty($headers['Content-Type']) && in_array(strtoupper($method), array('POST', 'PUT'), true)) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        }
-
-        if (count($headers) > 0) {
-            $request->addHeaders($headers);
         }
 
         $paramsString = null;
@@ -130,35 +116,41 @@ class Client extends ClientListener implements ClientInterface
             $paramsString = http_build_query($params);
         }
 
+        $body = null;
         if (is_string($paramsString) && $paramsString !== null) {
-            $request->setContent($paramsString);
+            $body = $paramsString;
         }
 
         if (is_string($params) && $params !== null) {
-            $request->setContent($params);
+            $body = $params;
         }
 
-        $response = is_object($this->responseObj) ? $this->responseObj : new Response();
+        // change the response format
+        if ($this->getApiVersion() === '1.0' && strpos($endpoint, 'format=') === false) {
+            $endpoint .= (strpos($endpoint, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
+        }
 
-        $this->executeListeners($request, 'preSend');
+        $this->lastRequest = $this->messageFactory->createRequest($method, $endpoint, $headers, $body);
 
-        $this->client->send($request, $response);
-
-        $this->executeListeners($request, 'postSend', $response);
-
-        $this->lastRequest  = $request;
-        $this->lastResponse = $response;
-
-        return $response;
+        return $this->lastResponse = $this->getClient()->sendRequest($this->lastRequest);
     }
 
     /**
      * @access public
-     * @return BuzzClientInterface
+     * @return HttpMethodsClient
      */
     public function getClient()
     {
-        return $this->client;
+        return $this->httpClientBuilder->getHttpClient();
+    }
+
+    /**
+     * @access public
+     * @return HttpPluginClientBuilder
+     */
+    public function getClientBuilder()
+    {
+        return $this->httpClientBuilder;
     }
 
     /**
@@ -202,6 +194,9 @@ class Client extends ClientListener implements ClientInterface
 
         $this->options['api_version'] = $version;
 
+        $this->httpClientBuilder->removePlugin("Bitbucket\API\Http\Plugin\ApiVersionPlugin");
+        $this->httpClientBuilder->addPlugin(new ApiVersionPlugin($this->options['api_version']));
+
         return $this;
     }
 
@@ -227,7 +222,7 @@ class Client extends ClientListener implements ClientInterface
 
     /**
      * @access public
-     * @return MessageInterface
+     * @return RequestInterface
      */
     public function getLastRequest()
     {
@@ -236,95 +231,10 @@ class Client extends ClientListener implements ClientInterface
 
     /**
      * @access public
-     * @return RequestInterface
+     * @return ResponseInterface
      */
     public function getLastResponse()
     {
         return $this->lastResponse;
-    }
-
-    /**
-     * @access public
-     * @param  MessageInterface $response
-     * @return void
-     */
-    public function setResponse(MessageInterface $response)
-    {
-        $this->responseObj = $response;
-    }
-
-    /**
-     * @access public
-     * @param  RequestInterface $request
-     * @return void
-     */
-    public function setRequest(RequestInterface $request)
-    {
-        $this->requestObj = $request;
-    }
-
-    /**
-     * @access protected
-     * @param  string           $method
-     * @param  string           $url
-     * @return RequestInterface
-     */
-    protected function createRequest($method, $url)
-    {
-        // do not set base URL if a full one was provided
-        if (false === strpos($url, $this->getApiBaseUrl())) {
-            $url = $this->getApiBaseUrl().'/'.$url;
-        }
-
-        // change the response format
-        if ($this->getApiVersion() === '1.0' && strpos($url, 'format=') === false) {
-            $url .= (strpos($url, '?') === false ? '?' : '&').'format='.$this->getResponseFormat();
-        }
-
-        $request = is_object($this->requestObj) ? $this->requestObj : new Request();
-        $request->setMethod($method);
-        $request->addHeaders(array(
-                'User-Agent' => $this->options['user_agent']
-            ));
-        $request->setProtocolVersion(1.1);
-        $request->fromUrl($url);
-
-        return $request;
-    }
-
-    /**
-     * Execute all available listeners.
-     *
-     * $when can be: preSend or postSend
-     *
-     * @access protected
-     * @param RequestInterface $request
-     * @param string           $when     When to execute the listener
-     * @param MessageInterface $response
-     */
-    protected function executeListeners(RequestInterface $request, $when = 'preSend', MessageInterface $response = null)
-    {
-        $haveListeners  = count($this->listeners) > 0;
-
-        if (!$haveListeners) {
-            return;
-        }
-
-        $params = array($request);
-
-        if (null !== $response) {
-            $params[] = $response;
-        }
-
-        ksort($this->listeners, SORT_ASC);
-
-        array_walk_recursive(
-            $this->listeners,
-            function ($class) use ($when, $params) {
-                if ($class instanceof ListenerInterface) {
-                    call_user_func_array(array($class, $when), $params);
-                }
-            }
-        );
     }
 }

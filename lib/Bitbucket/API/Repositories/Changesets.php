@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage changesets resources on a repository.
@@ -29,7 +29,7 @@ class Changesets extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $start   A hash value representing the earliest node to start with.
      * @param  int              $limit   How many changesets to return
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $start = null, $limit = 15)
     {
@@ -49,7 +49,7 @@ class Changesets extends API\Api
      * @param  string           $account The team or individual account owning the repo.
      * @param  string           $repo    The repository identifier.
      * @param  string           $node    The raw_node changeset identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $node)
     {
@@ -65,7 +65,7 @@ class Changesets extends API\Api
      * @param  string           $account The team or individual account owning the repo.
      * @param  string           $repo    The repository identifier.
      * @param  string           $node    The raw_node changeset identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function diffstat($account, $repo, $node)
     {
@@ -81,7 +81,7 @@ class Changesets extends API\Api
      * @param  string           $account The team or individual account owning the repo.
      * @param  string           $repo    The repository identifier.
      * @param  string           $node    The raw_node changeset identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function diff($account, $repo, $node)
     {

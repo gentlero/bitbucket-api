@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * List, change, or create an email address.
@@ -26,7 +26,7 @@ class Emails extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account)
     {
@@ -44,7 +44,7 @@ class Emails extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  string           $email   The email address to get.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $email)
     {
@@ -59,7 +59,7 @@ class Emails extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  string           $email   The email address to get.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $email)
     {
@@ -77,7 +77,7 @@ class Emails extends Api
      * @param  string           $account The name of an individual or team account.
      * @param  string           $email   The email address to get.
      * @param  bool             $primary Set this address as primary for this account ?
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $email, $primary = false)
     {
@@ -93,7 +93,7 @@ class Emails extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  string           $email   The email address to get.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $email)
     {

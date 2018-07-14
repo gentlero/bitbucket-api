@@ -10,52 +10,51 @@ class GroupsTest extends Tests\TestCase
     public function testGetAllGroups()
     {
         $endpoint       = 'groups/gentle/';
-        $expectedResult = json_encode('dummy');
-
-        $groups = $this->getApiMock('Bitbucket\API\Groups');
-        $groups->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $groups \Bitbucket\API\Groups */
+        $groups = $this->getApiMock('Bitbucket\API\Groups');
         $actual = $groups->get('gentle');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetAllGroupsWithFilters()
     {
         $endpoint       = 'groups';
-        $params         = array('group' => 'gentle/testers&group=gentle/maintainers');
-        $expectedResult = 'x';
-
-        $groups = $this->getApiMock('\Bitbucket\API\Groups');
-        $groups->expects($this->any())
-            ->method('requestGet')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse('x');
 
         /** @var $groups \Bitbucket\API\Groups */
+        $groups = $this->getApiMock('\Bitbucket\API\Groups');
         $actual = $groups->get('gentle', array('group' => array('gentle/testers', 'gentle/maintainers')));
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreateGroupSuccess()
     {
         $endpoint       = 'groups/gentle/';
-        $params         = array(
-            'name'  => 'testers'
-        );
 
         $groups = $this->getApiMock('Bitbucket\API\Groups');
-        $groups->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
 
         /** @var $groups \Bitbucket\API\Groups */
         $groups->create('gentle', 'testers');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('name=testers', $request->getBody()->getContents());
     }
 
     public function testUpdateGroupSuccess()
@@ -67,12 +66,16 @@ class GroupsTest extends Tests\TestCase
         );
 
         $group = $this->getApiMock('Bitbucket\API\Groups');
-        $group->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
+
 
         /** @var $group \Bitbucket\API\Groups */
         $group->update('gentle', 'dummy', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('accountname=gentle&name=Dummy+group', $request->getBody()->getContents());
     }
 
     public function testDeleteGroupSuccess()
@@ -80,11 +83,13 @@ class GroupsTest extends Tests\TestCase
         $endpoint       = 'groups/gentle/dummy/';
 
         $groups = $this->getApiMock('Bitbucket\API\Groups');
-        $groups->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
 
         /** @var $groups \Bitbucket\API\Groups */
         $groups->delete('gentle', 'dummy');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$events->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$events->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 # get all events with `report_issue` type
 print_r($events->all($accountname, $repo_slug, array(

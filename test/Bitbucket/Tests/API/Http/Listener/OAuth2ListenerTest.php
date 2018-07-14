@@ -38,7 +38,8 @@ class OAuth2ListenerTest extends Tests\TestCase
             ->will($this->returnValue($response))
         ;
 
-        $repositories = new Repositories(array(), $this->getHttpClient());
+        /** @var Repositories $repositories */
+        $repositories = $this->getApiMock("Bitbucket\API\Repositories");
         $repositories->getClient()->addListener(
             new OAuth2Listener($oauth_params, $httpClient)
         );
@@ -52,7 +53,9 @@ class OAuth2ListenerTest extends Tests\TestCase
     public function testGetAccessTokenFail()
     {
         $response = new Response();
-        $response->setContent('{"error_description": "Invalid OAuth client credentials", "error": "unauthorized_client"}');
+        $response->setContent(
+            '{"error_description": "Invalid OAuth client credentials", "error": "unauthorized_client"}'
+        );
 
         $oauth_params = array(
             'client_id'         => 'aaa',
@@ -62,17 +65,20 @@ class OAuth2ListenerTest extends Tests\TestCase
         $httpClient = $this->getHttpClientMock();
         $httpClient->expects($this->any())
             ->method('POST')
-            ->with(OAuth2Listener::ENDPOINT_ACCESS_TOKEN,
+            ->with(
+                OAuth2Listener::ENDPOINT_ACCESS_TOKEN,
                 array(
                     'grant_type'    => 'client_credentials',
                     'client_id'     => $oauth_params['client_id'],
                     'client_secret' => $oauth_params['client_secret'],
                     'scope'         => ''
-                ))
+                )
+            )
             ->will($this->returnValue($response))
         ;
 
-        $repositories = new Repositories(array(), $this->getHttpClient());
+        /** @var Repositories $repositories */
+        $repositories = $this->getApiMock("Bitbucket\API\Repositories");
         $repositories->getClient()->addListener(
             new OAuth2Listener($oauth_params, $httpClient)
         );
@@ -87,9 +93,10 @@ class OAuth2ListenerTest extends Tests\TestCase
             'client_secret'     => 'bbb'
         );
 
-        $repositories = new Repositories(array(), $this->getHttpClient());
+        /** @var Repositories $repositories */
+        $repositories = $this->getApiMock("Bitbucket\API\Repositories");
         $repositories->getClient()->addListener(
-            new OAuth2Listener($oauth_params, $this->getHttpClient())
+            new OAuth2Listener($oauth_params, $this->getHttpClientMock())
         );
 
         $repositories->getClient()->request('something', array(), 'GET', array(
@@ -129,7 +136,8 @@ class OAuth2ListenerTest extends Tests\TestCase
             ->will($this->returnValue($response))
         ;
 
-        $repositories = new Repositories(array(), $this->getHttpClient());
+        /** @var Repositories $repositories */
+        $repositories = $this->getApiMock("Bitbucket\API\Repositories");
         $repositories->getClient()->addListener(
             new OAuth2Listener($oauth_params, $httpClient)
         );

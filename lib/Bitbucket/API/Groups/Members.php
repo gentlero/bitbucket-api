@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Groups;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage group members.
@@ -27,7 +27,7 @@ class Members extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -43,7 +43,7 @@ class Members extends API\Api
      * @param  string           $account    The team or individual account owning the repository.
      * @param  string           $groupSlug  The slug of the group.
      * @param  string           $memberName An individual account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function add($account, $groupSlug, $memberName)
     {
@@ -59,7 +59,7 @@ class Members extends API\Api
      * @param  string           $account    The team or individual account owning the repository.
      * @param  string           $groupSlug  The slug of the group.
      * @param  string           $memberName An individual account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $groupSlug, $memberName)
     {

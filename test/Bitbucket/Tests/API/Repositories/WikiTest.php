@@ -10,52 +10,50 @@ class WikiTest extends Tests\TestCase
     public function testGetWikiPage()
     {
         $endpoint       = 'repositories/gentle/eof/wiki/Home';
-        $expectedResult = json_encode('dummy');
-
-        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
-        $wiki->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $wiki \Bitbucket\API\Repositories\Wiki */
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
+
         $actual = $wiki->get('gentle', 'eof', 'Home');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreateWikiPageSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/wiki/Dummy';
-        $params         = array(
-            'path' => '/Dummy',
-            'data' => 'Dummy page content'
-        );
-
-        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
-        $wiki->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
 
         /** @var $wiki \Bitbucket\API\Repositories\Wiki */
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
+
         $wiki->create('gentle', 'eof', 'Dummy', 'Dummy page content');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('data=Dummy+page+content&path=%2FDummy', $request->getBody()->getContents());
     }
 
     public function testUpdateWikiPageSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/wiki/Dummy';
-        $params         = array(
-            'path'  => '/Dummy',
-            'data'  => 'Dummy page content',
-            'rev'   => '6b81a60'
-        );
-
-        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
-        $wiki->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
 
         /** @var $wiki \Bitbucket\API\Repositories\Wiki */
+        $wiki = $this->getApiMock('Bitbucket\API\Repositories\Wiki');
+
         $wiki->update('gentle', 'eof', 'Dummy', 'Dummy page content', null, '6b81a60');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('data=Dummy+page+content&path=%2FDummy&rev=6b81a60', $request->getBody()->getContents());
     }
 }

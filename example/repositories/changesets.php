@@ -17,7 +17,7 @@ $repo_slug      = 'sandbox';
 
 
 // login
-$changesets->setCredentials( new Bitbucket\API\Authentication\Basic($bb_user, $bb_pass) );
+$changesets->setCredentials(new \Http\Message\Authentication\BasicAuth($bb_user, $bb_pass));
 
 // gets a list of change sets associated with a repository.
 #print_r($changesets->all($accountname, $repo_slug, 'aea95f1', 20));

@@ -10,19 +10,18 @@ class RepositoryTest extends Tests\TestCase
     public function testGetRepository()
     {
         $endpoint       = 'repositories/gentle/eof';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $actual = $repo->get('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     /**
@@ -42,7 +41,9 @@ class RepositoryTest extends Tests\TestCase
             array(
                 substr(
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                    mt_rand(0, 50), 1).substr(md5(time()), 1),
+                    mt_rand(0, 50),
+                    1
+                ).substr(md5(time()), 1),
             ),
         );
     }
@@ -55,12 +56,11 @@ class RepositoryTest extends Tests\TestCase
      */
     public function testInvalidCreate($check)
     {
-        $client = $this->getHttpClientMock();
-
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
-        $this->setExpectedException('\InvalidArgumentException');
+        $repo = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $repo->create('gentle', 'new-repo', $check);
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     public function testCreateRepositoryFromJSON()
@@ -74,15 +74,16 @@ class RepositoryTest extends Tests\TestCase
             'fork_policy'       => 'no_public_forks',
         ));
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, $params);
-
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
 
         $repo->create('gentle', 'new-repo', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame($params, $request->getBody()->getContents());
     }
 
     public function testCreateRepositoryFromArray()
@@ -96,15 +97,16 @@ class RepositoryTest extends Tests\TestCase
             'fork_policy'       => 'no_public_forks',
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, json_encode($params));
-
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
 
         $repo->create('gentle', 'new-repo', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
     }
 
     /**
@@ -121,15 +123,16 @@ class RepositoryTest extends Tests\TestCase
             'fork_policy'       => 'no_forks',
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, json_encode($params));
-
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
 
         $repo->create('gentle', 'new-repo', array());
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
     }
 
     public function testCreateRepositorySuccess()
@@ -142,13 +145,16 @@ class RepositoryTest extends Tests\TestCase
             'is_private'    => true,
         );
 
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
-
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $repository->create('secret', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(http_build_query($params), $request->getBody()->getContents());
     }
 
     public function testUpdateRepositorySuccess()
@@ -161,182 +167,188 @@ class RepositoryTest extends Tests\TestCase
             'main_branch'   => 'master',
         );
 
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
-
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $repository->update('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame(http_build_query($params), $request->getBody()->getContents());
     }
 
     public function testDeleteRepository()
     {
         $endpoint       = 'repositories/gentle/eof';
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('delete')
-            ->with($endpoint);
-
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
 
         $repo->delete('gentle', 'eof');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 
     public function testGetRepositoryWatchers()
     {
         $endpoint       = 'repositories/gentle/eof/watchers';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $actual = $repo->watchers('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetRepositoryForks()
     {
         $endpoint       = 'repositories/gentle/eof/forks';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Repository $repo */
-        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $repo   = $this->getApiMock('Bitbucket\API\Repositories\Repository');
         $actual = $repo->forks('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testForkRepositorySuccess()
     {
         $endpoint       = 'repositories/gentle/eof/fork';
-        $params         = array(
-            'name'          => 'my-eof',
-            'is_private'    => true,
-        );
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $repository->fork('gentle', 'eof', 'my-eof', array('is_private' => true));
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('is_private=1&name=my-eof', $request->getBody()->getContents());
     }
 
     public function testGetBranches()
     {
         $endpoint       = 'repositories/gentle/eof/branches';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->branches('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetMainBranch()
     {
         $endpoint       = 'repositories/gentle/eof/main-branch';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->branch('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetManifest()
     {
         $endpoint       = 'repositories/gentle/eof/manifest/develop';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->manifest('gentle', 'eof', 'develop');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetTags()
     {
         $endpoint       = 'repositories/gentle/eof/tags';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->tags('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetRawSource()
     {
         $endpoint       = 'repositories/gentle/eof/raw/1bc8345/lib/file.php';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->raw('gentle', 'eof', '1bc8345', 'lib/file.php');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetFileHistory()
     {
         $endpoint       = 'repositories/gentle/eof/filehistory/1bc8345/lib/file.php';
-        $expectedResult = json_encode('dummy');
-
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $repository \Bitbucket\API\Repositories\Repository */
+        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
+
         $actual = $repository->filehistory('gentle', 'eof', '1bc8345', 'lib/file.php');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 }

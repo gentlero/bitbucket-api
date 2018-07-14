@@ -3,16 +3,14 @@
 namespace Bitbucket\Tests\API;
 
 use Bitbucket\API;
+use Http\Message\Authentication\BasicAuth;
 
 class ApiTest extends TestCase
 {
     public function testCredentials()
     {
-        $auth = new API\Authentication\Basic('api_username', 'api_password');
-        $this->assertInstanceOf('Bitbucket\API\Authentication\Basic', $auth);
-
         $api = new API\Api;
-        $api->setCredentials($auth);
+        $api->setCredentials(new BasicAuth('api_username', 'api_password'));
     }
 
     public function testShouldDoGetRequest()
@@ -20,29 +18,46 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-        $api            = new API\Api(array(), $this->getHttpClientMock());
+        $api            = $this->getApiMock("Bitbucket\API\Api");
 
         $api->requestGet($endpoint, $params, $headers);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/' . $api->getClient()->getApiVersion() . '/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testShouldDoPostRequest()
     {
         $endpoint       = 'repositories/gentle/eof/issues/3';
-        $params         = array();
+        $params         = array('key' => 'value');
         $headers        = array();
-        $api            = new API\Api(array(), $this->getHttpClientMock());
+        $api            = $this->getApiMock("Bitbucket\API\Api");
 
         $api->requestPost($endpoint, $params, $headers);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/' . $api->getClient()->getApiVersion() . '/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('key=value', $request->getBody()->getContents());
     }
 
     public function testShouldDoPutRequest()
     {
         $endpoint       = 'repositories/gentle/eof/issues/3';
-        $params         = array();
+        $params         = array('key' => 'value');
         $headers        = array();
-        $api            = new API\Api(array(), $this->getHttpClientMock());
+        $api            = $this->getApiMock("Bitbucket\API\Api");
 
         $api->requestPut($endpoint, $params, $headers);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/' . $api->getClient()->getApiVersion() . '/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('key=value', $request->getBody()->getContents());
     }
 
     public function testShouldDoDeleteRequest()
@@ -50,9 +65,15 @@ class ApiTest extends TestCase
         $endpoint       = 'repositories/gentle/eof/issues/3';
         $params         = array();
         $headers        = array();
-        $api            = new API\Api(array(), $this->getHttpClientMock());
+        /** @var Api\Api $api */
+        $api            = $this->getApiMock("Bitbucket\API\Api");
 
         $api->requestDelete($endpoint, $params, $headers);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/' . $api->getClient()->getApiVersion() . '/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 
     /**

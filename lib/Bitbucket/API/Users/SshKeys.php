@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manipulate the ssh-keys on an individual or team account.
@@ -26,7 +26,7 @@ class SshKeys extends Api
      *
      * @access public
      * @param  string           $account The name of an individual or team account.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account)
     {
@@ -42,7 +42,7 @@ class SshKeys extends Api
      * @param  string           $account The name of an individual or team account.
      * @param  string           $key     The key value.
      * @param  string           $label   A label for the key. (optional)
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $key, $label = null)
     {
@@ -65,7 +65,7 @@ class SshKeys extends Api
      * @param  string           $account The name of an individual or team account.
      * @param  int              $keyId   Key identifier.
      * @param  string           $key     The key value.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $keyId, $key)
     {
@@ -81,7 +81,7 @@ class SshKeys extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  int              $keyId   Key identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $keyId)
     {
@@ -96,7 +96,7 @@ class SshKeys extends Api
      * @access public
      * @param  string           $account The name of an individual or team account.
      * @param  int              $keyId   Key identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $keyId)
     {

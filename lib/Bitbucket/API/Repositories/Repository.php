@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Allows you to create a new repository or edit a specific one.
@@ -27,7 +27,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo)
     {
@@ -46,7 +46,7 @@ class Repository extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array|string     $params  Additional parameters as array or JSON string
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException If invalid JSON is provided.
      *
@@ -101,7 +101,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $name   The name of the repository
      * @param  array            $params Additional parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @deprecated This API 1.0 endpoint is deprecated.
      * @see $this->create() Sintax for using API 2.0 endpoint
@@ -123,7 +123,7 @@ class Repository extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array            $params  Additional parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/x/WwZAGQ
      */
@@ -141,7 +141,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo)
     {
@@ -156,7 +156,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function watchers($account, $repo)
     {
@@ -171,7 +171,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function forks($account, $repo)
     {
@@ -188,7 +188,7 @@ class Repository extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $name    Fork name
      * @param  array            $params  Additional parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewfork
      */
@@ -208,7 +208,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function branches($account, $repo)
     {
@@ -223,7 +223,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function branch($account, $repo)
     {
@@ -239,7 +239,7 @@ class Repository extends API\Api
      * @param  string           $account  The team or individual account owning the repository.
      * @param  string           $repo     The repository identifier.
      * @param  string           $revision A revision to get such as default or master.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function manifest($account, $repo, $revision)
     {
@@ -254,7 +254,7 @@ class Repository extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function tags($account, $repo)
     {
@@ -273,7 +273,7 @@ class Repository extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $rev     A value representing the revision or branch to list.
      * @param  string           $path    The path can be a filename or a directory path.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function raw($account, $repo, $rev, $path)
     {
@@ -292,7 +292,7 @@ class Repository extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  string           $node    The simple changeset node id.
      * @param  string           $path    Filename.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function filehistory($account, $repo, $node, $path)
     {

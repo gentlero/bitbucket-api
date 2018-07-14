@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -27,7 +27,7 @@ class Milestones extends API\Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -43,7 +43,7 @@ class Milestones extends API\Api
      * @param  string           $account     The team or individual account owning the repository.
      * @param  string           $repo        The repository identifier.
      * @param  int              $milestoneID The milestone identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $milestoneID)
     {
@@ -59,7 +59,7 @@ class Milestones extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  string           $name    The milestone name to create.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $name)
     {
@@ -77,7 +77,7 @@ class Milestones extends API\Api
      * @param  string           $repo        The repository identifier.
      * @param  int              $milestoneID The milestone identifier.
      * @param  string           $name        The milestone name to update.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $milestoneID, $name)
     {
@@ -94,7 +94,7 @@ class Milestones extends API\Api
      * @param  string           $account     The team or individual account owning the repository.
      * @param  string           $repo        The repository identifier.
      * @param  int              $milestoneID The milestone identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $milestoneID)
     {

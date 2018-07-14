@@ -10,53 +10,53 @@ class PrivilegesTest extends Tests\TestCase
     public function testGetPrivilegeGroupsOnTeam()
     {
         $endpoint       = 'users/gentle/privileges';
-        $expectedResult = json_encode('dummy');
-
-        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
         $actual = $privileges->team('gentle');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetPrivilegeGroupsOnGroup()
     {
         $endpoint       = 'users/gentle/privileges/john/testers';
-        $expectedResult = json_encode('dummy');
-
-        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
         $actual = $privileges->group('gentle', 'john', 'testers');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testUpdateGroupPrivilege()
     {
         $endpoint       = 'users/gentle/privileges/john/testers';
-        $expectedResult = json_encode('dummy');
-        $params         = array('privileges' => 'admin');
-
-        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
         $actual = $privileges->update('gentle', 'john', 'testers', 'admin');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('privileges=admin', $request->getBody()->getContents());
     }
 
     /**
@@ -73,19 +73,19 @@ class PrivilegesTest extends Tests\TestCase
     public function testCreateGroupPrivilege()
     {
         $endpoint       = 'users/gentle/privileges/john/testers';
-        $expectedResult = json_encode('dummy');
-        $params         = array('privileges' => 'admin');
-
-        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
         $actual = $privileges->create('gentle', 'john', 'testers', 'admin');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('privileges=admin', $request->getBody()->getContents());
     }
 
     /**
@@ -102,17 +102,17 @@ class PrivilegesTest extends Tests\TestCase
     public function testDeleteGroupPrivilege()
     {
         $endpoint       = 'users/gentle/privileges/john/testers';
-        $expectedResult = json_encode('dummy');
-
-        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
-        $privileges->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $privileges \Bitbucket\API\Users\Privileges */
+        $privileges = $this->getApiMock('Bitbucket\API\Users\Privileges');
         $actual = $privileges->delete('gentle', 'john', 'testers');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

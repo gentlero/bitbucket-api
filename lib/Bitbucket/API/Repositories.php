@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -28,7 +28,7 @@ class Repositories extends Api
      * @access public
      * @param  string           $owner  The account of the repo owner.
      * @param  array            $params Additional parameters
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @api 2.0
      * @since Method available since 0.2.0

@@ -10,59 +10,62 @@ class IssueTest extends Tests\TestCase
     public function testGetIssuesWithAdditionalParams()
     {
         $endpoint       = 'repositories/gentle/eof/issues';
-        $expectedResult = file_get_contents(__DIR__.'/../data/issue/multiple.json');
+        $expectedResult = $this->addFakeResponse(file_get_contents(__DIR__.'/../data/issue/multiple.json'));
         $params         = array(
             'format'    => 'json',
             'limit'     => 5,
             'start'     => 0
         );
 
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
-
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $actual = $issue->all('gentle', 'eof', $params);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('format=json&limit=5&start=0', $request->getUri()->getQuery());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGet()
     {
         $endpoint       = 'repositories/gentle/eof/issues/3';
-        $expectedResult = file_get_contents(__DIR__.'/../data/issue/single.json');
-        $params         = array();
-
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(file_get_contents(__DIR__.'/../data/issue/single.json'));
 
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
+
         $actual = $issue->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetIssueFollowers()
     {
         $endpoint       = 'repositories/gentle/eof/issues/3/followers';
-        $expectedResult = file_get_contents(__DIR__.'/../data/issue/followers.json');
-        $params         = array();
-
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint, $params)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(file_get_contents(__DIR__.'/../data/issue/followers.json'));
 
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $actual = $issue->followers('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreateIssue()
@@ -74,13 +77,16 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
-
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $issue->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('format=json&title=dummy+title&content=dummy+content', $request->getBody()->getContents());
     }
 
     /**
@@ -93,12 +99,12 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->never())
-            ->method('requestPost');
-
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $issue->create('gentle', 'eof', $params);
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     /**
@@ -111,12 +117,12 @@ class IssueTest extends Tests\TestCase
             'title'     => 'dummy title'
         );
 
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->never())
-            ->method('requestPost');
-
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $issue->create('gentle', 'eof', $params);
+
+        $this->assertNull($this->mockClient->getLastRequest());
     }
 
     public function testUpdateIssue()
@@ -128,30 +134,34 @@ class IssueTest extends Tests\TestCase
             'content'   => 'dummy content'
         );
 
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
-
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $issue->update('gentle', 'eof', 3, $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('format=json&title=dummy+title&content=dummy+content', $request->getBody()->getContents());
     }
 
 
     public function testDeleteIssue()
     {
         $endpoint       = 'repositories/gentle/eof/issues/2';
-        $expectedResult = array('dummyOutput');
-
-        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
-        $issue->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummyOutput'));
 
         /** @var $issue \Bitbucket\API\Repositories\Issues */
+        $issue = $this->getApiMock('Bitbucket\API\Repositories\Issues');
+
         $actual = $issue->delete('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

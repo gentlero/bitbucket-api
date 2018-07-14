@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage branch restrictions on a repository
@@ -44,7 +44,7 @@ class BranchRestrictions extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo)
     {
@@ -60,7 +60,7 @@ class BranchRestrictions extends Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array|string     $params  Additional parameters as array or JSON string
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -99,7 +99,7 @@ class BranchRestrictions extends Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      The restriction's identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $id)
     {
@@ -116,7 +116,7 @@ class BranchRestrictions extends Api
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      The restriction's identifier.
      * @param  array|string     $params  Additional parameters as array or JSON string
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -149,7 +149,7 @@ class BranchRestrictions extends Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      The restriction's identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */

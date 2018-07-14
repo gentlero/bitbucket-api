@@ -9,7 +9,7 @@
  */
 namespace Bitbucket\API\Http\Response;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
@@ -32,7 +32,7 @@ interface PagerInterface
      * Fetch next page and return http response
      *
      * @access public
-     * @return MessageInterface|null
+     * @return ResponseInterface|null
      */
     public function fetchNext();
 
@@ -40,7 +40,7 @@ interface PagerInterface
      * Fetch previous page and return http response
      *
      * @access public
-     * @return MessageInterface|null
+     * @return ResponseInterface|null
      */
     public function fetchPrevious();
 
@@ -48,7 +48,7 @@ interface PagerInterface
      * Fetch all available pages.
      *
      * @access public
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function fetchAll();
 
@@ -56,7 +56,7 @@ interface PagerInterface
      * Get current http response.
      *
      * @access public
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function getCurrent();
 }

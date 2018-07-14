@@ -10,19 +10,19 @@ class BranchRestrictionsTest extends Tests\TestCase
     public function testGetAllRestrictions()
     {
         $endpoint       = 'repositories/gentle/eof/branch-restrictions';
-        $expectedResult = $this->fakeResponse(array('dummy'));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
 
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
-        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restrictions   = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
         $actual         = $restrictions->all('gentle', 'eof', array('dummy'));
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testAddRestrictionType()
@@ -32,16 +32,19 @@ class BranchRestrictionsTest extends Tests\TestCase
             'kind' => 'testpermission'
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, json_encode($params));
 
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
-        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restrictions   = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
         $restrictions->addAllowedRestrictionType(array('testpermission'));
 
         $restrictions->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('{"kind":"testpermission"}', $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testCreateRestrictionFromArray()
@@ -51,15 +54,17 @@ class BranchRestrictionsTest extends Tests\TestCase
             'kind' => 'push'
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, json_encode($params));
-
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
-        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restrictions   = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
 
         $restrictions->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('{"kind":"push"}', $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testCreateRestrictionFromJSON()
@@ -69,15 +74,17 @@ class BranchRestrictionsTest extends Tests\TestCase
             'kind' => 'push'
         ));
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, $params);
-
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restrictions */
-        $restrictions   = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restrictions   = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
 
         $restrictions->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('{"kind":"push"}', $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -124,19 +131,18 @@ class BranchRestrictionsTest extends Tests\TestCase
     public function testGetSpecificRestriction()
     {
         $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
-        $restriction    = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restriction    = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
         $actual         = $restriction->get('gentle', 'eof', 1);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testUpdateRestrictionFromArray()
@@ -149,15 +155,17 @@ class BranchRestrictionsTest extends Tests\TestCase
             )
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('put')
-            ->with($endpoint, json_encode($params));
-
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
-        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restriction = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
 
         $restriction->update('gentle', 'eof', 1, $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testUpdateRestrictionFromJSON()
@@ -170,15 +178,17 @@ class BranchRestrictionsTest extends Tests\TestCase
             )
         ));
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('put')
-            ->with($endpoint, $params);
-
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
-        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restriction = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
 
         $restriction->update('gentle', 'eof', 1, $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame($params, $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -212,14 +222,14 @@ class BranchRestrictionsTest extends Tests\TestCase
     {
         $endpoint       = 'repositories/gentle/eof/branch-restrictions/1';
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('delete')
-            ->with($endpoint);
-
         /** @var \Bitbucket\API\Repositories\BranchRestrictions $restriction */
-        $restriction = $this->getClassMock('Bitbucket\API\Repositories\BranchRestrictions', $client);
+        $restriction = $this->getApiMock('Bitbucket\API\Repositories\BranchRestrictions');
 
         $restriction->delete('gentle', 'eof', 1);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

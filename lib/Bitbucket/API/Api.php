@@ -12,9 +12,11 @@ namespace Bitbucket\API;
 
 use Bitbucket\API\Http\Listener\ApiOneCollectionListener;
 use Bitbucket\API\Http\Listener\NormalizeArrayListener;
-use Buzz\Message\MessageInterface;
 use Bitbucket\API\Http\ClientInterface;
 use Bitbucket\API\Http\Client;
+use Http\Client\Common\Plugin\AuthenticationPlugin;
+use Http\Message\Authentication;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
@@ -38,12 +40,6 @@ class Api
     protected $httpClient;
 
     /**
-     * Authentication object
-     * @var Authentication\AuthenticationInterface
-     */
-    protected $auth;
-
-    /**
      * @param array           $options
      * @param ClientInterface $client
      */
@@ -51,8 +47,8 @@ class Api
     {
         $this->httpClient = (null !== $client) ? $client : new Client($options, $client);
 
-        $this->httpClient->addListener(new NormalizeArrayListener());
-        $this->httpClient->addListener(new ApiOneCollectionListener());
+//        $this->httpClient->addListener(new NormalizeArrayListener());
+//        $this->httpClient->addListener(new ApiOneCollectionListener());
     }
 
     /**
@@ -80,19 +76,13 @@ class Api
      * Set API login credentials
      *
      * @access public
-     * @param  Authentication\AuthenticationInterface $auth
+     * @param  Authentication $authentication
      * @return void
      */
-    public function setCredentials(Authentication\AuthenticationInterface $auth)
+    public function setCredentials(Authentication $authentication)
     {
-        // keep BC
-        if ($auth instanceof Authentication\Basic) {
-            $this->getClient()->addListener(
-                new Http\Listener\BasicAuthListener($auth->getUsername(), $auth->getPassword())
-            );
-        }
-
-        $this->auth = $auth;
+        $this->httpClient->getClientBuilder()->removePlugin("Http\Client\Common\Plugin\AuthenticationPlugin");
+        $this->httpClient->getClientBuilder()->addPlugin(new AuthenticationPlugin($authentication));
     }
 
     /**
@@ -102,7 +92,7 @@ class Api
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   GET parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function requestGet($endpoint, $params = array(), $headers = array())
     {
@@ -116,7 +106,7 @@ class Api
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   POST parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function requestPost($endpoint, $params = array(), $headers = array())
     {
@@ -130,7 +120,7 @@ class Api
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   POST parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function requestPut($endpoint, $params = array(), $headers = array())
     {
@@ -144,7 +134,7 @@ class Api
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   DELETE parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function requestDelete($endpoint, $params = array(), $headers = array())
     {
@@ -159,7 +149,7 @@ class Api
      * @param  string           $endpoint Api endpoint
      * @param  string|array     $params   Request parameter(s)
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \RuntimeException
      */
@@ -220,10 +210,6 @@ class Api
 
         $child = new $class();
         $child->setClient($this->getClient());
-
-        if ($this->getClient()->hasListeners()) {
-            $child->getClient()->setListeners($this->getClient()->getListeners());
-        }
 
         return $child;
     }

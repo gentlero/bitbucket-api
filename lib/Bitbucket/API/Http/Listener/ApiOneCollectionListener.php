@@ -9,9 +9,8 @@
  */
 namespace Bitbucket\API\Http\Listener;
 
-use Buzz\Message\MessageInterface;
-use Buzz\Message\Request;
-use Buzz\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Helper for `Pager`
@@ -49,7 +48,7 @@ class ApiOneCollectionListener implements ListenerInterface
     /**
      * {@inheritDoc}
      */
-    public function postSend(RequestInterface $request, MessageInterface $response)
+    public function postSend(RequestInterface $request, ResponseInterface $response)
     {
         if ($this->isLegacyApiVersion($request)) {
             $this->parseRequest($request);
@@ -67,12 +66,12 @@ class ApiOneCollectionListener implements ListenerInterface
 
     /**
      * @access public
-     * @param  MessageInterface $request
+     * @param  RequestInterface $request
      * @return bool
      */
-    private function isLegacyApiVersion(MessageInterface $request)
+    private function isLegacyApiVersion(RequestInterface $request)
     {
-        /** @var Request $request */
+        /** @var RequestInterface $request */
         return strpos($request->getResource(), '/1.0/') !== false;
     }
 
@@ -83,10 +82,7 @@ class ApiOneCollectionListener implements ListenerInterface
      */
     private function parseRequest(RequestInterface $request)
     {
-        /** @var Request $request */
-        $this->urlComponents = parse_url($request->getUrl());
-
-        if (array_key_exists('query', $this->urlComponents)) {
+        if ($request->getUri()->getQuery()) {
             parse_str($this->urlComponents['query'], $this->urlComponents['query']);
         } else {
             $this->urlComponents['query'] = [];
@@ -107,10 +103,10 @@ class ApiOneCollectionListener implements ListenerInterface
 
     /**
      * @access public
-     * @param  MessageInterface $response
+     * @param  ResponseInterface $response
      * @return bool
      */
-    private function canPaginate(MessageInterface $response)
+    private function canPaginate(ResponseInterface $response)
     {
         $content = $this->getContent($response);
         return array_key_exists('count', $content) && array_key_exists($this->resource, $content);
@@ -118,12 +114,12 @@ class ApiOneCollectionListener implements ListenerInterface
 
     /**
      * @access private
-     * @param  MessageInterface $response
+     * @param  ResponseInterface $response
      * @return array
      */
-    private function getContent(MessageInterface $response)
+    private function getContent(ResponseInterface $response)
     {
-        $content = json_decode($response->getContent(), true);
+        $content = json_decode($response->getBody()->getContents(), true);
 
         if (is_array($content) && JSON_ERROR_NONE === json_last_error()) {
             return $content;
@@ -179,10 +175,10 @@ class ApiOneCollectionListener implements ListenerInterface
 
     /**
      * @access private
-     * @param  MessageInterface $response
+     * @param  ResponseInterface $response
      * @return array
      */
-    private function getPaginationMeta(MessageInterface $response)
+    private function getPaginationMeta(ResponseInterface $response)
     {
         $meta = [];
 

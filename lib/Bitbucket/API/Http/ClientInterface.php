@@ -11,12 +11,12 @@
 
 namespace Bitbucket\API\Http;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
  */
-interface ClientInterface extends ClientListenerInterface
+interface ClientInterface
 {
     /**
      * Make an HTTP GET request to API
@@ -25,7 +25,7 @@ interface ClientInterface extends ClientListenerInterface
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   GET parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($endpoint, $params = array(), $headers = array());
 
@@ -36,7 +36,7 @@ interface ClientInterface extends ClientListenerInterface
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   POST parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function post($endpoint, $params = array(), $headers = array());
 
@@ -47,7 +47,7 @@ interface ClientInterface extends ClientListenerInterface
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   Put parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function put($endpoint, $params = array(), $headers = array());
 
@@ -58,7 +58,7 @@ interface ClientInterface extends ClientListenerInterface
      * @param  string           $endpoint API endpoint
      * @param  string|array     $params   DELETE parameters
      * @param  array            $headers  HTTP headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($endpoint, $params = array(), $headers = array());
 
@@ -70,7 +70,7 @@ interface ClientInterface extends ClientListenerInterface
      * @param  string|array     $params
      * @param  string           $method
      * @param  array            $headers
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function request($endpoint, $params = array(), $method = 'GET', array $headers = array());
 

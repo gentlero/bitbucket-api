@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\PullRequests;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage the comments on pull requests.
@@ -28,7 +28,7 @@ class Comments extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $id      ID of the pull request
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $id)
     {
@@ -45,7 +45,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  int              $requestID An integer representing an id for the request.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $requestID, $commentID)
     {
@@ -62,7 +62,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  int              $requestID An integer representing an id for the request.
      * @param  string           $content   The comment.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $requestID, $content)
     {
@@ -81,7 +81,7 @@ class Comments extends API\Api
      * @param  int              $requestID An integer representing an id for the request.
      * @param  string           $content   The comment.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $requestID, $commentID, $content)
     {
@@ -99,7 +99,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  int              $requestID An integer representing an id for the request.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $repo, $requestID, $commentID)
     {

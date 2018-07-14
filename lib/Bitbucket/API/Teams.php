@@ -10,7 +10,7 @@
  */
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -22,7 +22,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $role Will only return teams on which the user has the specified role.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -44,7 +44,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $name The team's name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function profile($name)
     {
@@ -58,7 +58,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $name The team's name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function members($name)
     {
@@ -72,7 +72,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $name The team's name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function followers($name)
     {
@@ -86,7 +86,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $name The team's name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function following($name)
     {
@@ -100,7 +100,7 @@ class Teams extends Api
      *
      * @access public
      * @param  string           $name The team's name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function repositories($name)
     {

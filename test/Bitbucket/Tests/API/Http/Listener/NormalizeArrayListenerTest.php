@@ -43,7 +43,7 @@ class NormalizeArrayListenerTest extends Tests\TestCase
      */
     public function testShouldNotRunOnFormData()
     {
-        $api = new Api(array(), $this->getHttpClient());
+        $api            = $this->getApiMock("Bitbucket\API\Api");
         $this->assertInstanceOf('\Bitbucket\API\Api', $api);
 
         $api->getClient()

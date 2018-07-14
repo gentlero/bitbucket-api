@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Pipelines;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage the steps of a pipeline.
@@ -28,7 +28,7 @@ class Steps extends API\Api
      * @param  string           $account         The team or individual account owning the repository.
      * @param  string           $repo            The repository identifier.
      * @param  string           $pipelineUuid    UUID of the pipeline.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $pipelineUuid)
     {
@@ -45,7 +45,7 @@ class Steps extends API\Api
      * @param  string           $repo           The repository identifier.
      * @param  string           $pipelineUuid   UUID of the pipeline.
      * @param  string           $stepUuid       UUID of the step.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $pipelineUuid, $stepUuid)
     {
@@ -62,7 +62,7 @@ class Steps extends API\Api
      * @param  string           $repo           The repository identifier.
      * @param  string           $pipelineUuid   UUID of the pipeline.
      * @param  string           $stepUuid       UUID of the step.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function log($account, $repo, $pipelineUuid, $stepUuid)
     {

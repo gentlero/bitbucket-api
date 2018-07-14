@@ -10,75 +10,83 @@ class MilestonesTest extends Tests\TestCase
     public function testGetAllMilestonesSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones';
-        $expectedResult = json_encode('dummy');
-
-        $milestones = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
-        $milestones->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $milestones \Bitbucket\API\Repositories\Issues\Milestones */
+        $milestones = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
+
         $actual = $milestones->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetSingleMilestoneSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones/2';
-        $expectedResult = json_encode('dummy');
-
-        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
-        $milestone->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
+
         $actual = $milestone->get('gentle', 'eof', 2);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreateMilestoneSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones';
-        $params         = array('name' => 'dummy');
-
-        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
-        $milestone->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
 
         /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
+
         $milestone->create('gentle', 'eof', 'dummy');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('name=dummy', $request->getBody()->getContents());
     }
 
     public function testUpdateMilestoneSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones/3';
-        $params         = array('name' => 'dummy');
-
-        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
-        $milestone->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
 
         /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
+
         $milestone->update('gentle', 'eof', 3, 'dummy');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('name=dummy', $request->getBody()->getContents());
     }
 
     public function testDeleteMilestoneSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/issues/milestones/3';
 
-        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
-        $milestone->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
-
         /** @var $milestone \Bitbucket\API\Repositories\Issues\Milestones */
+        $milestone = $this->getApiMock('Bitbucket\API\Repositories\Issues\Milestones');
+
         $milestone->delete('gentle', 'eof', 3);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

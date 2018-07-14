@@ -5,7 +5,6 @@ namespace Bitbucket\Tests\API\Http\Response;
 use Bitbucket\Tests\API as Tests;
 use Bitbucket\API\Repositories;
 use Bitbucket\API\Http\Response\Pager;
-use Buzz\Message\Response;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
@@ -14,34 +13,24 @@ class PagerTest extends Tests\TestCase
 {
     public function testFetchNextSuccess()
     {
-        $repo = $this->getRepositoriesMock(
-            [
-                'values' => array(),
-                'next' => 'https://example.com/something?page=2'
-            ],
-            [
-                'HTTP/1.1 200 OK'
-            ]
-        );
+        $response = $this->addFakeResponse(json_encode([
+            'values' => array(),
+            'next' => 'https://example.com/something?page=2'
+        ]));
 
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
 
         $this->assertTrue($page->hasNext());
-        $this->assertInstanceOf('\Buzz\Message\Response', $page->fetchNext());
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $page->fetchNext());
     }
 
     public function testFetchNextFail()
     {
-        $repo = $this->getRepositoriesMock(
-            [
-                'values' => array()
-            ],
-            [
-                'HTTP/1.1 200 OK'
-            ]
-        );
+        $response = $this->addFakeResponse(json_encode([
+            'values' => array(),
+        ]));
 
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
 
         $this->assertFalse($page->hasNext());
         $this->assertNull($page->fetchNext());
@@ -49,34 +38,24 @@ class PagerTest extends Tests\TestCase
 
     public function testFetchPreviousSuccess()
     {
-        $repo = $this->getRepositoriesMock(
-            [
-                'values' => array(),
-                'previous' => 'https://example.com/something?page=2'
-            ],
-            [
-                'HTTP/1.1 200 OK'
-            ]
-        );
+        $response = $this->addFakeResponse(json_encode([
+            'values' => array(),
+            'previous' => 'https://example.com/something?page=2'
+        ]));
 
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
 
         $this->assertTrue($page->hasPrevious());
-        $this->assertInstanceOf('\Buzz\Message\Response', $page->fetchPrevious());
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $page->fetchPrevious());
     }
 
     public function testFetchPreviousFail()
     {
-        $repo = $this->getRepositoriesMock(
-            [
-                'values' => array()
-            ],
-            [
-                'HTTP/1.1 200 OK'
-            ]
-        );
+        $response = $this->addFakeResponse(json_encode([
+            'values' => array(),
+        ]));
 
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
 
         $this->assertFalse($page->hasPrevious());
         $this->assertNull($page->fetchPrevious());
@@ -84,6 +63,14 @@ class PagerTest extends Tests\TestCase
 
     public function testFetchAllSuccess()
     {
+        $response = $this->addFakeResponse(json_encode(
+            ['values' => ['dummy_1' => 'value_1'], 'next' => 'https://example.com/something?page=2']
+        ));
+        $this->addFakeResponse(json_encode(
+            ['values' => ['dummy_2' => 'value_2'], 'next' => 'https://example.com/something?page=3']
+        ));
+        $this->addFakeResponse(json_encode(['values' => ['dummy_3' => 'value_3']]));
+
         $expected = [
             'values' => [
                 'dummy_1' => 'value_1',
@@ -92,70 +79,36 @@ class PagerTest extends Tests\TestCase
             ]
         ];
 
-        $headers = ['HTTP/1.1 200 OK'];
-        $client = $this->getHttpClientMock();
-        $client
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->onConsecutiveCalls(
-                $this->getFakeResponse(['values' => ['dummy_1' => 'value_1'], 'next' => 'https://example.com/something?page=2'], $headers),
-                $this->getFakeResponse(['values' => ['dummy_2' => 'value_2'], 'next' => 'https://example.com/something?page=3'], $headers),
-                $this->getFakeResponse(['values' => ['dummy_3' => 'value_3']], $headers)
-            ))
-        ;
-
-        $repo = new Repositories(array(), $client);
-        $page = new Pager($client, $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
         $response = $page->fetchAll();
 
-        $this->assertInstanceOf('\Buzz\Message\Response', $response);
-        $this->assertEquals($expected, json_decode($response->getContent(), true));
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $response);
+        $this->assertEquals($expected, json_decode($response->getBody()->getContents(), true));
     }
 
     public function testFetchAllWithEmptyResponseShouldReturnEmptyValuesArray()
     {
-        $expected = ['values' => []];
-        $headers = ['HTTP/1.1 200 OK'];
-        $client = $this->getHttpClientMock();
-        $client
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->onConsecutiveCalls(
-                $this->getFakeResponse([], $headers),
-                $this->getFakeResponse([], $headers),
-                $this->getFakeResponse([], $headers)
-            ))
-        ;
+        $response = $this->addFakeResponse(json_encode(['values' => []]));
+        $this->addFakeResponse(json_encode(['values' => []]));
+        $this->addFakeResponse(json_encode(['values' => []]));
 
-        $repo = new Repositories(array(), $client);
-        $page = new Pager($client, $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
         $response = $page->fetchAll();
 
-        $this->assertInstanceOf('\Buzz\Message\Response', $response);
-        $this->assertEquals($expected, json_decode($response->getContent(), true));
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $response);
+        $this->assertEquals(['values' => []], json_decode($response->getBody()->getContents(), true));
     }
 
     public function testFetchAllWithInvalidJsonShouldReturnEmptyValuesArray()
     {
         $expected = ['values' => []];
-        $headers = ['HTTP/1.1 200 OK'];
-        $response = new Response();
-        $response->setContent('{"something": "yes"');
-        $response->addHeaders($headers);
+        $response = $this->addFakeResponse('{"something": "yes"');
 
-        $client = $this->getHttpClientMock();
-        $client
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($response))
-        ;
-
-        $repo = new Repositories(array(), $client);
-        $page = new Pager($client, $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
         $response = $page->fetchAll();
 
-        $this->assertInstanceOf('\Buzz\Message\Response', $response);
-        $this->assertEquals($expected, json_decode($response->getContent(), true));
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $response);
+        $this->assertEquals($expected, json_decode($response->getBody()->getContents(), true));
     }
 
     /**
@@ -163,74 +116,21 @@ class PagerTest extends Tests\TestCase
      */
     public function testFetchAllWithUnauthorizedHeaderShouldFail()
     {
-        $headers = ['HTTP/1.1 401 Unauthorized'];
-        $client = $this->getHttpClientMock();
-        $client
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->onConsecutiveCalls(
-                $this->getFakeResponse([], $headers),
-                $this->getFakeResponse([], $headers),
-                $this->getFakeResponse([], $headers)
-            ))
-        ;
+        $response = $this->addFakeResponse([], 401);
 
-        $repo = new Repositories(array(), $client);
-        $page = new Pager($client, $repo->all('gentle'));
-        $page->fetchAll();
+        new Pager($this->getHttpPluginClientBuilder(), $response);
     }
 
     public function testGetCurrentResponseSuccess()
     {
-        $repo = $this->getRepositoriesMock(
-            [
-                'values' => array(),
-                'previous' => 'https://example.com/something?page=2'
-            ],
-            [
-                'HTTP/1.1 200 OK'
-            ]
-        );
+        $response = $this->addFakeResponse(json_encode([
+            'values' => array(),
+            'previous' => 'https://example.com/something?page=2'
+        ]));
 
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
+        $page = new Pager($this->getHttpPluginClientBuilder(), $response);
         $response = $page->getCurrent();
 
-        $this->assertInstanceOf('\Buzz\Message\Response', $response);
-    }
-
-    /**
-     * @expectedException \UnexpectedValueException
-     */
-    public function testGetCurrentResponseWithUnauthorizedHeaderShouldFail()
-    {
-        $repo = $this->getRepositoriesMock(
-            [],
-            [
-                'HTTP/1.1 401 Unauthorized'
-            ]
-        );
-
-        $page = new Pager($this->getHttpClient(), $repo->all('gentle'));
-        $page->getCurrent();
-    }
-
-    private function getRepositoriesMock(array $results = array(), array $headers = array())
-    {
-        $expectedResult = $this->getFakeResponse($results, $headers);
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($expectedResult));
-
-        return new Repositories(array(), $client);
-    }
-
-    private function getFakeResponse(array $body, array $headers)
-    {
-        $expectedResult = $this->fakeResponse($body);
-        $expectedResult->addHeaders($headers);
-
-        return $expectedResult;
+        $this->assertInstanceOf('\Psr\Http\Message\ResponseInterface', $response);
     }
 }

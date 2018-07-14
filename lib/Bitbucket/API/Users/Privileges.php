@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Users;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage privilege settings for a team account.
@@ -26,7 +26,7 @@ class Privileges extends Api
      *
      * @access public
      * @param  string           $account The team or individual account name.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function team($account)
     {
@@ -42,7 +42,7 @@ class Privileges extends Api
      * @param  string           $account    The team or individual account name.
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function group($account, $groupOwner, $groupSlug)
     {
@@ -59,7 +59,7 @@ class Privileges extends Api
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group identifier.
      * @param  string           $privilege  Either admin or collaborator.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -83,7 +83,7 @@ class Privileges extends Api
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group identifier.
      * @param  string           $privilege  Either admin or collaborator.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -106,7 +106,7 @@ class Privileges extends Api
      * @param  string           $account    The team or individual account name.
      * @param  string           $groupOwner The account that owns the group.
      * @param  string           $groupSlug  The group identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function delete($account, $groupOwner, $groupSlug)
     {

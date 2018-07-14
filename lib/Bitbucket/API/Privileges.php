@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Manage the user privileges (permissions) of your repositories. It allows you
@@ -28,7 +28,7 @@ class Privileges extends Api
      * @param  string           $account   Owner of the repository.
      * @param  string           $repo      Repository identifier.
      * @param  string           $privilege Filters for a particular privilege.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -47,7 +47,7 @@ class Privileges extends Api
      * @param  string           $owner   Owner of the repository.
      * @param  string           $repo    Repository identifier.
      * @param  string           $account The account to list privileges for.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function account($owner, $repo, $account)
     {
@@ -64,7 +64,7 @@ class Privileges extends Api
      * @access public
      * @param  string           $account   Owner of the repository.
      * @param  string           $privilege Filters for a particular privilege.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -84,7 +84,7 @@ class Privileges extends Api
      * @param  string           $repo      Repository identifier.
      * @param  string           $account   The account to list privileges for.
      * @param  string           $privilege The privilege to assign.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -111,7 +111,7 @@ class Privileges extends Api
      * @param  string           $owner   Owner of the repository.
      * @param  string           $repo    Repository identifier.
      * @param  string           $account The account to list privileges for.
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @throws \InvalidArgumentException
      */

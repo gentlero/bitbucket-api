@@ -11,7 +11,7 @@
 
 namespace Bitbucket\API;
 
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Get information related to an individual or team account.
@@ -26,7 +26,7 @@ class Users extends Api
      *
      * @access public
      * @param  string           $username
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($username)
     {
@@ -40,7 +40,7 @@ class Users extends Api
      *
      * @access public
      * @param  string           $username
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function followers($username)
     {
@@ -54,7 +54,7 @@ class Users extends Api
      *
      * @access public
      * @param  string           $username
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function following($username)
     {
@@ -68,7 +68,7 @@ class Users extends Api
      *
      * @access public
      * @param  string           $username
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function repositories($username)
     {

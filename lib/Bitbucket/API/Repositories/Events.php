@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * You can use events to track events that occur on public repositories.
@@ -38,7 +38,7 @@ class Events extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  array            $options The rest of available options
-     * @return MessageInterface
+     * @return ResponseInterface
      *
      * @see https://confluence.atlassian.com/display/BITBUCKET/events+Resources#eventsResources-GETalistofevents
      */

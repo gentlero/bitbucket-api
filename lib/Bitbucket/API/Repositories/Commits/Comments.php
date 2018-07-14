@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Commits;
 
 use Bitbucket\API\Api;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -26,7 +26,7 @@ class Comments extends Api
      * @param  string           $account  The team or individual account owning the repository.
      * @param  string           $repo     The repository identifier.
      * @param  string           $revision A SHA1 value for the commit.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $revision)
     {
@@ -43,7 +43,7 @@ class Comments extends Api
      * @param  string           $repo      The repository identifier.
      * @param  string           $revision  A SHA1 value for the commit.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $revision, $commentID)
     {

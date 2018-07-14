@@ -9,19 +9,18 @@ class PipelinesTest extends Tests\TestCase
     public function testGetAllPipelines()
     {
         $endpoint = 'repositories/gentle/eof/pipelines/';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->any())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Pipelines $pipelines */
-        $pipelines = $this->getClassMock('Bitbucket\API\Repositories\Pipelines', $client);
+        $pipelines = $this->getApiMock('Bitbucket\API\Repositories\Pipelines');
         $actual = $pipelines->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testCreatePipelinesFromArray()
@@ -35,15 +34,17 @@ class PipelinesTest extends Tests\TestCase
             )
         );
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, json_encode($params));
-
         /** @var \Bitbucket\API\Repositories\Pipelines $pipelines */
-        $pipelines = $this->getClassMock('Bitbucket\API\Repositories\Pipelines', $client);
+        $pipelines = $this->getApiMock('Bitbucket\API\Repositories\Pipelines');
 
         $pipelines->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(json_encode($params), $request->getBody()->getContents());
+        $this->assertSame(['application/json'], $request->getHeader('Content-Type'));
     }
 
     public function testCreatePipelinesFromJson()
@@ -57,48 +58,48 @@ class PipelinesTest extends Tests\TestCase
             )
         ));
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint, $params);
-
         /** @var \Bitbucket\API\Repositories\Pipelines $pipelines */
-        $pipelines = $this->getClassMock('Bitbucket\API\Repositories\Pipelines', $client);
+        $pipelines = $this->getApiMock('Bitbucket\API\Repositories\Pipelines');
 
         $pipelines->create('gentle', 'eof', $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame($params, $request->getBody()->getContents());
     }
 
     public function testGetSpecificPipeline()
     {
         $endpoint = 'repositories/gentle/eof/pipelines/uuid';
-        $expectedResult = $this->fakeResponse(array('dummy'));
-
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('get')
-            ->with($endpoint)
-            ->will($this->returnValue($expectedResult));
+        $expectedResult = $this->addFakeResponse(array('dummy'));
 
         /** @var \Bitbucket\API\Repositories\Pipelines $pipelines */
-        $pipelines = $this->getClassMock('Bitbucket\API\Repositories\Pipelines', $client);
+        $pipelines = $this->getApiMock('Bitbucket\API\Repositories\Pipelines');
 
         $actual = $pipelines->get('gentle', 'eof', 'uuid');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testStopSpecificPipeline()
     {
         $endpoint = 'repositories/gentle/eof/pipelines/uuid/stopPipeline';
 
-        $client = $this->getHttpClientMock();
-        $client->expects($this->once())
-            ->method('post')
-            ->with($endpoint);
-
         /** @var \Bitbucket\API\Repositories\Pipelines $pipelines */
-        $pipelines = $this->getClassMock('Bitbucket\API\Repositories\Pipelines', $client);
+        $pipelines = $this->getApiMock('Bitbucket\API\Repositories\Pipelines');
 
         $pipelines->stopPipeline('gentle', 'eof', 'uuid');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/2.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
     }
 }

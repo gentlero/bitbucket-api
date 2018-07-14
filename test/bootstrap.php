@@ -13,5 +13,3 @@ EOM;
 
     exit(1);
 }
-
-$loader->add('Bitbucket\Tests\API', __DIR__);

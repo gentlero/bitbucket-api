@@ -9,36 +9,43 @@
  */
 namespace Bitbucket\API\Http\Response;
 
-use Bitbucket\API\Http\ClientInterface;
-use Buzz\Message\MessageInterface;
-use Buzz\Message\Response;
+use Bitbucket\API\Http\HttpPluginClientBuilder;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\MessageFactory;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Alexandru Guzinschi <alex@gentle.ro>
  */
 class Pager implements PagerInterface
 {
-    /** @var ClientInterface */
-    private $httpClient;
-
-    /** @var MessageInterface */
+    /** @var HttpPluginClientBuilder */
+    private $httpPluginClientBuilder;
+    /** @var MessageFactory */
+    private $messageFactory;
+    /** @var ResponseInterface */
     private $response;
 
     /**
-     * @param ClientInterface  $httpClient
-     * @param MessageInterface $response
+     * @param HttpPluginClientBuilder $httpPluginClientBuilder
+     * @param ResponseInterface $response
+     * @param MessageFactory $messageFactory
      *
      * @throws \UnexpectedValueException
      */
-    public function __construct(ClientInterface $httpClient, MessageInterface $response)
-    {
-        /** @var Response $response */
-        if (!$response->isOk()) {
+    public function __construct(
+        HttpPluginClientBuilder $httpPluginClientBuilder,
+        ResponseInterface $response,
+        MessageFactory $messageFactory = null
+    ) {
+        /** @var ResponseInterface $response */
+        if ($response->getStatusCode() >= 400) {
             throw new \UnexpectedValueException("Can't paginate an unsuccessful response.");
         }
 
-        $this->httpClient = $httpClient;
+        $this->httpPluginClientBuilder = $httpPluginClientBuilder;
         $this->response = $response;
+        $this->messageFactory = $messageFactory ? : MessageFactoryDiscovery::find();
     }
 
     /**
@@ -64,7 +71,7 @@ class Pager implements PagerInterface
     {
         if ($this->hasNext()) {
             $content = $this->getContent();
-            return $this->response = $this->httpClient->get($content['next']);
+            return $this->response = $this->httpPluginClientBuilder->getHttpClient()->get($content['next']);
         }
 
         return null;
@@ -77,7 +84,7 @@ class Pager implements PagerInterface
     {
         if ($this->hasPrevious()) {
             $content = $this->getContent();
-            return $this->response = $this->httpClient->get($content['previous']);
+            return $this->response = $this->httpPluginClientBuilder->getHttpClient()->get($content['previous']);
         }
 
         return null;
@@ -99,7 +106,7 @@ class Pager implements PagerInterface
 
             $values = (0 === count($values)) ? $content['values'] : array_merge($values, $content['values']);
 
-            if (null !== ($next = $this->fetchNext())) {
+            if (null !== $this->fetchNext()) {
                 $content = $this->getContent();
                 continue;
             }
@@ -108,7 +115,13 @@ class Pager implements PagerInterface
         }
 
         $content['values'] = $values;
-        $this->response->setContent(json_encode($content));
+        $this->response = $this->messageFactory->createResponse(
+            $this->response->getStatusCode(),
+            $this->response->getReasonPhrase(),
+            $this->response->getHeaders(),
+            json_encode($content),
+            $this->response->getProtocolVersion()
+        );
 
         return $this->response;
     }
@@ -127,7 +140,7 @@ class Pager implements PagerInterface
      */
     private function getContent()
     {
-        $content = json_decode($this->response->getContent(), true);
+        $content = json_decode($this->response->getBody()->getContents(), true);
 
         if (is_array($content) && JSON_ERROR_NONE === json_last_error()) {
             // replace reference inserted by `LegacyCollectionListener` with actual data.

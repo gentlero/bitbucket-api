@@ -10,52 +10,53 @@ class DeploykeysTest extends Tests\TestCase
     public function testGetAllKeys()
     {
         $endpoint       = 'repositories/gentle/eof/deploy-keys';
-        $expectedResult = json_encode('dummy');
-
-        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
-        $dkey->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
+
         $actual = $dkey->all('gentle', 'eof');
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testGetSingleKey()
     {
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
-        $expectedResult = json_encode('dummy');
-
-        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
-        $dkey->expects($this->once())
-            ->method('requestGet')
-            ->with($endpoint)
-            ->will( $this->returnValue($expectedResult) );
+        $expectedResult = $this->addFakeResponse(json_encode('dummy'));
 
         /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
+
         $actual = $dkey->get('gentle', 'eof', 3);
 
         $this->assertEquals($expectedResult, $actual);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('GET', $request->getMethod());
     }
 
     public function testAddNewKeySuccess()
     {
         $endpoint       = 'repositories/gentle/eof/deploy-keys';
-        $params         = array(
-            'key'   => 'ssh-rsa [...]',
-            'label' => 'dummy key'
-        );
-
-        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
-        $dkey->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
 
         /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
+
         $dkey->create('gentle', 'eof', 'ssh-rsa [...]', 'dummy key');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('key=ssh-rsa+%5B...%5D&label=dummy+key', $request->getBody()->getContents());
     }
 
     public function testUpdateKeySuccess()
@@ -63,25 +64,30 @@ class DeploykeysTest extends Tests\TestCase
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
         $params         = array('label' => 'test key');
 
-        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
-        $dkey->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
-
         /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
+
         $dkey->update('gentle', 'eof', 3, $params);
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('label=test+key', $request->getBody()->getContents());
     }
 
     public function testDeleteKeySuccess()
     {
         $endpoint       = 'repositories/gentle/eof/deploy-keys/3';
 
-        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
-        $dkey->expects($this->once())
-            ->method('requestDelete')
-            ->with($endpoint);
-
         /** @var $dkey \Bitbucket\API\Repositories\Deploykeys */
+        $dkey = $this->getApiMock('Bitbucket\API\Repositories\Deploykeys');
+
         $dkey->delete('gentle', 'eof', '3');
+
+        $request = $this->mockClient->getLastRequest();
+
+        $this->assertSame('/1.0/' . $endpoint, $request->getUri()->getPath());
+        $this->assertSame('DELETE', $request->getMethod());
     }
 }

@@ -12,7 +12,7 @@
 namespace Bitbucket\API\Repositories\Issues;
 
 use Bitbucket\API;
-use Buzz\Message\MessageInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author  Alexandru G.    <alex@gentle.ro>
@@ -28,7 +28,7 @@ class Comments extends API\Api
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
      * @param  int              $issueID The issue identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function all($account, $repo, $issueID)
     {
@@ -45,7 +45,7 @@ class Comments extends API\Api
      * @param  string           $repo      The repository identifier.
      * @param  int              $issueID   The issue identifier.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function get($account, $repo, $issueID, $commentID)
     {
@@ -62,7 +62,7 @@ class Comments extends API\Api
      * @param  string           $repo    The repository identifier.
      * @param  int              $issueID The issue identifier.
      * @param  string           $content The comment.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function create($account, $repo, $issueID, $content)
     {
@@ -81,7 +81,7 @@ class Comments extends API\Api
      * @param  int              $issueID   The issue identifier.
      * @param  string           $content   The comment.
      * @param  int              $commentID The comment identifier.
-     * @return MessageInterface
+     * @return ResponseInterface
      */
     public function update($account, $repo, $issueID, $commentID, $content)
     {
