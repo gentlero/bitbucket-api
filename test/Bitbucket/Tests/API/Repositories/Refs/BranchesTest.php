@@ -63,4 +63,23 @@ class BranchesTest extends Tests\TestCase
 
         $this->assertEquals($expectedResult, $actual);
     }
+
+    public function testDelete()
+    {
+        $endpoint       = 'repositories/gentle/eof/refs/branches/abranch';
+        $expectedResult = json_encode('dummy');
+
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
+
+        $repository = $this->getClassMock('Bitbucket\API\Repositories\Refs\Branches', $client);
+
+        /** @var $repository \Bitbucket\API\Repositories\Refs\Branches */
+        $actual = $repository->delete('gentle', 'eof', 'abranch');
+
+        $this->assertEquals($expectedResult, $actual);
+    }
 }
