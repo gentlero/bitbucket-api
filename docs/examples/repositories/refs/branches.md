@@ -23,6 +23,12 @@ $branches->all($account_name, $repo_slug);
 $branches->get($account_name, $repo_slug, $branch_name);
 ```
 
+### Delete an individual branch:
+
+```php
+$branches->delete($account_name, $repo_slug, $branch_name);
+```
+
 ----
 
 #### Related:

@@ -53,4 +53,22 @@ class Branches extends API\Api
             sprintf('repositories/%s/%s/refs/branches/%s', $account, $repo, $name)
         );
     }
+
+    /**
+     * Deletes an individual branch
+     *
+     * @access public
+     * @param  string           $account The team or individual account owning the repository.
+     * @param  string           $repo    The repository identifier.
+     * @param  string           $name    The branch identifier.
+     * @return MessageInterface
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function delete($account, $repo, $name)
+    {
+        return $this->getClient()->setApiVersion('2.0')->delete(
+            sprintf('repositories/%s/%s/refs/branches/%s', $account, $repo, $name)
+        );
+    }
 }
