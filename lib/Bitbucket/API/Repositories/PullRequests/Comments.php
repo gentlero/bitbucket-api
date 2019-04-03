@@ -66,9 +66,10 @@ class Comments extends API\Api
      */
     public function create($account, $repo, $requestID, $content)
     {
-        return $this->requestPost(
+        return $this->getClient()->setApiVersion('2.0')->post(
             sprintf('repositories/%s/%s/pullrequests/%d/comments', $account, $repo, $requestID),
-            array('content' => $content)
+            json_encode(array('content' => array('raw' => $content))),
+            array('Content-Type' => 'application/json')
         );
     }
 
@@ -85,9 +86,10 @@ class Comments extends API\Api
      */
     public function update($account, $repo, $requestID, $commentID, $content)
     {
-        return $this->requestPut(
+        return $this->getClient()->setApiVersion('2.0')->put(
             sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID),
-            array('content' => $content)
+            json_encode(array('content' => array('raw' => $content))),
+            array('Content-Type' => 'application/json')
         );
     }
 
@@ -103,7 +105,7 @@ class Comments extends API\Api
      */
     public function delete($account, $repo, $requestID, $commentID)
     {
-        return $this->requestDelete(
+        return $this->getClient()->setApiVersion('2.0')->delete(
             sprintf('repositories/%s/%s/pullrequests/%d/comments/%d', $account, $repo, $requestID, $commentID)
         );
     }

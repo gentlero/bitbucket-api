@@ -46,43 +46,50 @@ class CommentsTest extends Tests\TestCase
     public function testCreateCommentSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments';
-        $params         = array(
-            'content'   => 'dummy comment'
-        );
+        $expectedResult = $this->fakeResponse(array('dummy'));
 
-        $comment = $this->getApiMock('Bitbucket\API\Repositories\PullRequests\Comments');
-        $comment->expects($this->once())
-            ->method('requestPost')
-            ->with($endpoint, $params);
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('post')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
 
-        /** @var $comment \Bitbucket\API\Repositories\PullRequests\Comments */
-        $comment->create('gentle', 'eof', 1, 'dummy comment');
+        /** @var \Bitbucket\API\Repositories\PullRequests\Comments $comments */
+        $comments = $this->getClassMock('Bitbucket\API\Repositories\PullRequests\Comments', $client);
+        $actual   = $comments->create('gentle', 'eof', 1, 'test');
+
+        $this->assertEquals($expectedResult, $actual);
     }
 
     public function testUpdateCommentSuccess()
     {
         $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments/3';
-        $params         = array('content' => 'dummy');
+        $expectedResult = array('content' => 'dummy');
 
-        $comment = $this->getApiMock('Bitbucket\API\Repositories\PullRequests\Comments');
-        $comment->expects($this->once())
-            ->method('requestPut')
-            ->with($endpoint, $params);
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('put')
+            ->with($endpoint)
+            ->will($this->returnValue($expectedResult));
 
-        /** @var $comment \Bitbucket\API\Repositories\PullRequests\Comments */
-        $comment->update('gentle', 'eof', 1, 3, 'dummy');
+        /** @var \Bitbucket\API\Repositories\PullRequests\Comments $comments */
+        $comments = $this->getClassMock('Bitbucket\API\Repositories\PullRequests\Comments', $client);
+        $actual   = $comments->update('gentle', 'eof', 1, 3, 'dummy');
+
+        $this->assertEquals($expectedResult, $actual);
     }
 
     public function testDeleteCommentSuccess()
     {
-        $endpoint       = 'repositories/gentle/eof/pullrequests/1/comments/2';
+        $endpoint = 'repositories/gentle/eof/pullrequests/1/comments/2';
 
-        $comment = $this->getApiMock('Bitbucket\API\Repositories\PullRequests\Comments');
-        $comment->expects($this->once())
-            ->method('requestDelete')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('delete')
             ->with($endpoint);
 
-        /** @var $comment \Bitbucket\API\Repositories\PullRequests\Comments */
-        $comment->delete('gentle', 'eof', 1, 2);
+        /** @var \Bitbucket\API\Repositories\PullRequests\Comments $comments */
+        $comments = $this->getClassMock('Bitbucket\API\Repositories\PullRequests\Comments', $client);
+        $comments->delete('gentle', 'eof', 1, 2);
     }
 }
