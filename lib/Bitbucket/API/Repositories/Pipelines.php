@@ -27,12 +27,19 @@ class Pipelines extends Api
      * @access public
      * @param  string           $account The team or individual account owning the repository.
      * @param  string           $repo    The repository identifier.
+     * @param  bool             $sortBackwards    Sort the result backwards.
      * @return MessageInterface
      */
-    public function all($account, $repo)
+    public function all($account, $repo, $sortBackwards = false)
     {
+        $endpoint = 'repositories/%s/%s/pipelines/';
+
+        if ($sortBackwards === true) {
+            $endpoint = 'repositories/%s/%s/pipelines/?sort=-created_on';
+        }
+
         return $this->getClient()->setApiVersion('2.0')->get(
-            sprintf('repositories/%s/%s/pipelines/', $account, $repo)
+            sprintf($endpoint, $account, $repo)
         );
     }
 
