@@ -291,17 +291,18 @@ class RepositoryTest extends Tests\TestCase
 
     public function testGetTags()
     {
-        $endpoint       = 'repositories/gentle/eof/tags';
+        $endpoint       = 'repositories/gentle/eof/refs/tags/tagname';
         $expectedResult = json_encode('dummy');
 
-        $repository = $this->getApiMock('Bitbucket\API\Repositories\Repository');
-        $repository->expects($this->once())
-            ->method('requestGet')
+        $client = $this->getHttpClientMock();
+        $client->expects($this->once())
+            ->method('get')
             ->with($endpoint)
             ->will($this->returnValue($expectedResult));
 
-        /** @var $repository \Bitbucket\API\Repositories\Repository */
-        $actual = $repository->tags('gentle', 'eof');
+        /** @var \Bitbucket\API\Repositories\Repository $repo */
+        $repo   = $this->getClassMock('Bitbucket\API\Repositories\Repository', $client);
+        $actual = $repo->tags('gentle', 'eof', 'tagname');
 
         $this->assertEquals($expectedResult, $actual);
     }
