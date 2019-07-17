@@ -20,7 +20,7 @@ $src->get($account_name, $repo_slug, '1e10ffe', 'app/models/');
 ### Get raw content of an individual file:
 
 ```php
-$src->raw($account_name, $repo_slug, '1e10ffe', 'app/models/core.php');
+$src->get($account_name, $repo_slug, '1e10ffe', 'app/models/core.php');
 ```
 
 ### Create file in repository
