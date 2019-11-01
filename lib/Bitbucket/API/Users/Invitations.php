@@ -77,15 +77,18 @@ class Invitations extends Api
      *
      * @access public
      * @param  string           $account    The name of an individual or team account.
-     * @param  string           $groupOwner The name of an individual or team account that owns the group.
      * @param  string           $groupSlug  An identifier for the group.
      * @param  string           $email      Name of the email address
      * @return MessageInterface
      */
-    public function create($account, $groupOwner, $groupSlug, $email)
+    public function create($account, $groupSlug, $email)
     {
         return $this->requestPut(
-            sprintf('users/%s/invitations/%s/%s/%s', $account, $email, $groupOwner, $groupSlug)
+            sprintf('users/%s/invitations/', $account),
+            json_encode([
+                'email' => $email,
+                'group_slug' => $groupSlug
+            ])
         );
     }
 
