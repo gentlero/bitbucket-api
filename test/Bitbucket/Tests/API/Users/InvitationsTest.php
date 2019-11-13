@@ -60,7 +60,7 @@ class InvitationsTest extends Tests\TestCase
 
     public function testIssuesNewInvitationSuccess()
     {
-        $endpoint       = 'users/gentle/invitations/dummy@example.com/john/testers';
+        $endpoint       = 'users/gentle/invitations';
         $expectedResult = json_encode('dummy');
 
         $invitations = $this->getApiMock('Bitbucket\API\Users\Invitations');
@@ -70,7 +70,7 @@ class InvitationsTest extends Tests\TestCase
             ->will( $this->returnValue($expectedResult) );
 
         /** @var $invitations \Bitbucket\API\Users\Invitations */
-        $actual = $invitations->create('gentle', 'john', 'testers', 'dummy@example.com');
+        $actual = $invitations->create('gentle', 'testers', 'dummy@example.com');
 
         $this->assertEquals($expectedResult, $actual);
     }

@@ -84,7 +84,7 @@ class Invitations extends Api
     public function create($account, $groupSlug, $email)
     {
         return $this->requestPut(
-            sprintf('users/%s/invitations/', $account),
+            sprintf('users/%s/invitations', $account),
             json_encode([
                 'email' => $email,
                 'group_slug' => $groupSlug
