@@ -217,9 +217,9 @@ class OAuthListener implements ListenerInterface
      */
     protected function initToken($token)
     {
-        return (!is_null($token)) ?
+        return ((!is_null($token)) ?
             $token :
-            empty($this->config['oauth_token']) ?
+            empty($this->config['oauth_token'])) ?
                 new OAuth1\Token\NullToken() :
                 new OAuth1\Token\Token($this->config['oauth_token'], $this->config['oauth_token_secret'])
             ;
